@@ -2,15 +2,27 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
+}
+
+.netflixBtn {
+  border: none;
+  background-color: rgb(224, 14, 14);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 8.5px 21px;
+  cursor: pointer;
+  transition: color 120ms ease-in-out, background-color 130ms ease-in;
+}
+
+.netflixBtn:hover {
+  color: rgb(224, 14, 14);
+  background-color: #fff;
 }
