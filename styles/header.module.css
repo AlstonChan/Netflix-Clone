@@ -1,9 +1,4 @@
-/* .main {
-  position: absolute;
-  width: 100vw;
-  top: 0;
-} */
-
+/* Homepage Header Component */
 .mainContain {
   padding: 30px 46px;
   display: flex;
@@ -17,3 +12,6 @@
 .submitBtn {
   margin: 0 0 0 auto;
 }
+
+/* *********************************** */
+/* *********************************** */

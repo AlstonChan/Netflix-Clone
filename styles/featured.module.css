@@ -1,8 +1,11 @@
+/* Homepage Feature Component */
+/* Index.js section*/
 .headFea {
   background-image: url("/images/netflix banner.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 710px;
+  border-bottom: 8px solid #222;
 }
 
 .shadeFea {
@@ -42,17 +45,18 @@
   font-size: 1.3rem;
 }
 
-.getStartedBtn {
-  margin-top: 20px;
+/* *********************************** */
+/* *********************************** */
+/* form section (still inside index.js) */
+.flexForm {
+  display: flex;
 }
 
-.getStartedBtn::after {
-  content: ">";
-}
-
-.getStartedBtnMouse {
-  color: rgb(173, 10, 10) !important;
-  background-color: rgb(190, 190, 190) !important;
+/* *********************************** */
+/* *********************************** */
+/* input.js section */
+.inputContainAll {
+  flex: 70;
 }
 
 .inputContain {
@@ -61,6 +65,7 @@
 
 .emailInput {
   max-width: 900px;
+  border: none;
   width: 100%;
   height: 60px;
   padding: 19px 5px 5px 10px;
@@ -85,10 +90,6 @@
   font-weight: 600;
 }
 
-.emailWarnHide {
-  display: none;
-}
-
 .emailWarnBorder {
   border-bottom: solid #ffa00a 3px;
 }
@@ -99,3 +100,28 @@
   width: fit-content;
   color: #ffa00a;
 }
+
+/* *********************************** */
+/* *********************************** */
+/* button section (still inside index.js) */
+.buttonContain {
+  flex: 30;
+}
+.getStartedBtn {
+  width: 100%;
+  border-radius: 0;
+  height: 3.75rem;
+  margin-left: 2px;
+}
+
+.getStartedBtn::after {
+  content: ">";
+}
+
+.getStartedBtnMouse {
+  color: rgb(173, 10, 10) !important;
+  background-color: rgb(190, 190, 190) !important;
+}
+
+/* *********************************** */
+/* *********************************** */
