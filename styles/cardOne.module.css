@@ -1,0 +1,50 @@
+.container {
+  background-color: #000000;
+  color: white;
+  display: flex;
+  justify-content: center;
+  border-bottom: 8px solid #222;
+}
+
+.containerCard {
+  margin: 80px;
+  display: flex;
+}
+
+.wordGroup {
+  max-width: 600px;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.wordGroupBig {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.wordGroupSml {
+  font-size: 1.65rem;
+}
+
+.imgPresent {
+  max-width: 530.2px;
+}
+
+.imgPresentContainer {
+  margin: -10% -5%;
+}
+
+.vidPresentContainer {
+  position: relative;
+}
+
+.videoTv {
+  position: absolute;
+  transform: translate(10px);
+  object-fit: contain;
+  width: 79.5%;
+  height: 79.5%;
+  left: 8%;
+  top: 7.9%;
+}
