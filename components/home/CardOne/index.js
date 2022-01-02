@@ -1,4 +1,4 @@
-import styles from "../../../styles/cardOne.module.css";
+import styles from "../../../styles/Home/cardOne.module.css";
 import tvImg from "../../../public/images/tv.png";
 import Image from "next/image";
 

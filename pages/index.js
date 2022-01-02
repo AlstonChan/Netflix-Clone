@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 
 import Featured from "../components/home/featured/index";
 import CardOne from "../components/home/CardOne/index";
+import CardTwo from "../components/home/CardTwo/index";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
       <Featured />
       <CardOne />
+      <CardTwo />
     </div>
   );
 }

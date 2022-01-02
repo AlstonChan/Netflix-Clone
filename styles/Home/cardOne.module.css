@@ -7,15 +7,18 @@
 }
 
 .containerCard {
+  max-width: 1100px;
   margin: 80px;
   display: flex;
 }
 
 .wordGroup {
-  max-width: 600px;
-  padding: 50px;
+  width: 52%;
+  height: fit-content;
   display: flex;
   justify-content: center;
+  align-self: center;
+  margin-right: 20px;
 }
 
 .wordGroupBig {
@@ -28,7 +31,7 @@
 }
 
 .imgPresent {
-  max-width: 530.2px;
+  width: 48%;
 }
 
 .imgPresentContainer {
