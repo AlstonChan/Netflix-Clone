@@ -14,11 +14,10 @@
 
 .wordGroup {
   width: 52%;
-  height: fit-content;
+  padding-right: 25px;
+  align-self: center;
   display: flex;
   justify-content: center;
-  align-self: center;
-  padding-right: 20px;
 }
 
 .wordGroupBig {
@@ -28,14 +27,17 @@
 
 .wordGroupSml {
   font-size: 1.65rem;
+  margin-bottom: 0;
 }
 
-.imgPresent {
+.imgContainer {
   width: 48%;
 }
 
 .imgPresentContainer {
-  margin: -10% -5%;
+  position: relative;
+  margin: -5% -10% 0 0;
+  max-width: 555.44px;
 }
 
 .vidPresentContainer {
@@ -46,8 +48,8 @@
   position: absolute;
   transform: translate(10px);
   object-fit: contain;
-  width: 79.5%;
-  height: 79.5%;
-  left: 8%;
-  top: 7.9%;
+  width: 67.3%;
+  height: 67.3%;
+  left: 18%;
+  top: -0.3%;
 }

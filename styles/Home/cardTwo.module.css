@@ -14,7 +14,7 @@
 
 .wordGroup {
   width: 55%;
-  margin-left: 15px;
+  padding-left: 20px;
   align-self: center;
   display: flex;
   justify-content: center;

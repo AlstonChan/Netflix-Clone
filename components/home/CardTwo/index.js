@@ -4,7 +4,7 @@ import boxshotImg from "../../../public/images/boxshot.png";
 import downloadImg from "../../../public/images/download-icon.gif";
 import Image from "next/image";
 
-export default function Home() {
+export default function CardTwo() {
   return (
     <div className={styles.container}>
       <div className={styles.containerCard}>
@@ -13,7 +13,7 @@ export default function Home() {
             <Image src={PhoneImg} />
             <div className={styles.smallCard}>
               <div className={styles.smallCardImg}>
-                <Image fixed={true} src={boxshotImg} />
+                <Image fixed="true" src={boxshotImg} />
               </div>
               <div className={styles.smallCardTextGrp}>
                 <h3>Stranger Things</h3>

@@ -4,10 +4,13 @@ import styles from "../styles/Home.module.css";
 import Featured from "../components/home/featured/index";
 import CardOne from "../components/home/CardOne/index";
 import CardTwo from "../components/home/CardTwo/index";
+import CardThree from "../components/home/CardThree/index";
+import CardFour from "../components/home/CardFour/index";
+import CardFaq from "../components/home/Faq/index";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Netflix - clone</title>
         <link rel="icon" href="/favicon.ico" />
@@ -15,6 +18,9 @@ export default function Home() {
       <Featured />
       <CardOne />
       <CardTwo />
-    </div>
+      <CardThree />
+      <CardFour />
+      <CardFaq />
+    </>
   );
 }

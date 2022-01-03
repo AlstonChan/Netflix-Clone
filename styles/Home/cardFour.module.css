@@ -18,7 +18,7 @@
   display: flex;
   justify-content: center;
   align-self: center;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .wordGroupBig {
@@ -35,19 +35,5 @@
 }
 
 .imgPresentContainer {
-  margin: -10% -5%;
-}
-
-.vidPresentContainer {
-  position: relative;
-}
-
-.videoTv {
-  position: absolute;
-  transform: translate(10px);
-  object-fit: contain;
-  width: 79.5%;
-  height: 79.5%;
-  left: 8%;
-  top: 7.9%;
+  max-width: 504.95px;
 }
