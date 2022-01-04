@@ -10,17 +10,21 @@ export default function CardTwo() {
       <div className={styles.containerCard}>
         <div className={styles.imgContainer}>
           <div className={styles.imgPresentContainer}>
-            <Image src={PhoneImg} />
+            <Image src={PhoneImg} alt="a phone displaying netflix" />
             <div className={styles.smallCard}>
               <div className={styles.smallCardImg}>
-                <Image fixed="true" src={boxshotImg} />
+                <Image
+                  fixed="true"
+                  alt="a small netflix film poster"
+                  src={boxshotImg}
+                />
               </div>
               <div className={styles.smallCardTextGrp}>
                 <h3>Stranger Things</h3>
                 <p>Downloading...</p>
               </div>
               <div className={styles.smallCardDownloading}>
-                <Image src={downloadImg} />
+                <Image src={downloadImg} alt="a downloading icon" />
               </div>
             </div>
           </div>

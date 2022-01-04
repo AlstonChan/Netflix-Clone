@@ -24,7 +24,7 @@ export default function CardThree() {
               src="/videos/video-devices.m4v"
             ></video>
             <div className={styles.imgPresentContainer}>
-              <Image src={devicePile} />
+              <Image src={devicePile} alt="a pile of device using netflix" />
             </div>
           </div>
         </div>

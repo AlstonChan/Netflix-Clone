@@ -24,7 +24,11 @@ export default function CardOne() {
               src="/videos/netflix-video.m4v"
             ></video>
             <div className={styles.imgPresentContainer}>
-              <Image src={tvImg} className={styles.tvImg} />
+              <Image
+                src={tvImg}
+                alt="a tv displaying netflix user interface"
+                className={styles.tvImg}
+              />
             </div>
           </div>
         </div>

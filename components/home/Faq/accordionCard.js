@@ -46,7 +46,7 @@ export default function AccordianCard({ faq, toggleOne }) {
       >
         <span className={styles.btnText}>{faq.headers} </span>
         <div className={styles.btnCross}>
-          <Image src={svgCross} className={hideAccordion.cross} />
+          <Image src={svgCross} className={hideAccordion.cross} alt="" />
         </div>
       </button>
       <div className={hideAccordion.class}>

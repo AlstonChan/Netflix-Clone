@@ -3,7 +3,7 @@ import AccordionCard from "./accordionCard";
 import EmailInput from "../featured/input";
 import { useState } from "react";
 
-export default function cardFaq() {
+export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
     `netflixBtn ${styles.getStartedBtn}`
   );
