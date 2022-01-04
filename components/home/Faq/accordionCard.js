@@ -7,22 +7,22 @@ export default function AccordianCard({ faq, toggleOne }) {
   const [hideAccordion, setHideAccordion] = useState({
     class: `${styles.accordianContent} ${styles.hide}`,
     cross: `${styles.closeCross}`,
-    isOpen: false,
+    isClose: false,
   });
 
   function toggleAccordian(e) {
     toggleOne(e);
-    if (hideAccordion.isOpen) {
+    if (hideAccordion.isClose) {
       setHideAccordion({
         class: `${styles.accordionContent} ${styles.hide}`,
         cross: `${styles.closeCross}`,
-        isOpen: false,
+        isClose: false,
       });
     } else {
       setHideAccordion({
         class: `${styles.accordionContent}  ${styles.open}`,
         cross: `${styles.openCross}`,
-        isOpen: true,
+        isClose: true,
       });
     }
   }

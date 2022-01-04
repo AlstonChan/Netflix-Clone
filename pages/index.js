@@ -7,6 +7,7 @@ import CardTwo from "../components/home/CardTwo/index";
 import CardThree from "../components/home/CardThree/index";
 import CardFour from "../components/home/CardFour/index";
 import CardFaq from "../components/home/Faq/index";
+import Footer from "../components/footer";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <CardThree />
       <CardFour />
       <CardFaq />
+      <Footer />
     </>
   );
 }

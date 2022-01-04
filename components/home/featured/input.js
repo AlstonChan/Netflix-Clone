@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "../../../styles/featured.module.css";
 
-export default function Input() {
+export default function Input({ inputId }) {
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
     styles.emailInputLabel
   );
@@ -63,15 +63,15 @@ export default function Input() {
         <input
           type="email"
           name="emailInput"
-          id="id_emailInput"
           maxLength="50"
+          id={inputId}
           className={emailInput.class}
           ref={emailInputRef}
           onFocus={(e) => handleInputClick(e)}
           onBlur={(e) => handleInputClick(e)}
           onChange={(e) => handleInputClick(e)}
         />
-        <label htmlFor="id_emailInput" className={emailInputLabelClass}>
+        <label htmlFor={inputId} className={emailInputLabelClass}>
           Email address
         </label>
       </div>

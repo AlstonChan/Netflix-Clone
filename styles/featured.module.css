@@ -112,6 +112,7 @@
   border-radius: 0;
   height: 3.75rem;
   margin-left: 2px;
+  font-size: 1.6rem;
 }
 
 .getStartedBtn::after {

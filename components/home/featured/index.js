@@ -45,7 +45,7 @@ export default function Featured() {
               onSubmit={(e) => handleFormSubmit(e)}
               className={styles.flexForm}
             >
-              <Input />
+              <Input inputId={"_id_featuredInput"} />
               <div className={styles.buttonContain}>
                 <button
                   type="submit"

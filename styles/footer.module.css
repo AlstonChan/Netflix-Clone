@@ -1,0 +1,41 @@
+.footer {
+  background-color: #000000;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding: 30px 100px;
+}
+
+.footerTel {
+  margin: 70px auto 30px 0;
+  color: #757575;
+}
+
+.footerTel > a {
+  color: #757575;
+  text-decoration: none;
+}
+
+.unorderedList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 230px));
+  grid-template-rows: repeat(5, 35px);
+}
+
+.listItem {
+  list-style: none;
+}
+
+.listItem > a {
+  text-decoration: none;
+  color: #757575;
+  font-size: 0.8rem;
+}
+
+.footerTel > a:hover,
+.listItem > a:hover {
+  text-decoration: underline;
+}
