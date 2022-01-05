@@ -39,3 +39,39 @@
 .listItem > a:hover {
   text-decoration: underline;
 }
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 800px) {
+  .container {
+    padding: 30px 70px;
+  }
+  .footerTel {
+    margin: 40px auto 30px 0;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .unorderedList {
+    grid-template-columns: repeat(3, minmax(100px, 230px));
+    grid-template-rows: repeat(6, 35px);
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .container {
+    padding: 30px 40px;
+  }
+  .footerTel {
+    margin: 30px auto 30px 0;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .unorderedList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 230px));
+    grid-template-rows: repeat(9, 35px);
+  }
+}

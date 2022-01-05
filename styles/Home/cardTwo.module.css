@@ -8,7 +8,7 @@
 
 .containerCard {
   max-width: 1100px;
-  margin: 80px;
+  margin: 80px 50px;
   display: flex;
 }
 
@@ -83,4 +83,79 @@
   max-width: 48px;
   align-self: center;
   margin: 0 0 0 auto;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .containerCard {
+    flex-direction: column-reverse;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  .wordGroupSml {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  .imgContainer {
+    width: 100%;
+    align-self: center;
+  }
+  .imgPresentContainer {
+    margin: -8% 0 0 0;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+  }
+  .smallCard {
+    max-width: 430px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .containerCard {
+    margin: 60px 30px;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .wordGroupSml {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+
+  .imgPresent {
+    width: 90%;
+    align-self: center;
+  }
+  .smallCardTextGrp {
+    padding: 0 15px;
+  }
+  .smallCardTextGrp > h3 {
+    font-size: 0.98rem;
+  }
+  .smallCardTextGrp > p {
+    color: #0071eb;
+    padding-top: 1px;
+  }
+  .smallCardImg {
+    max-width: 34.28px;
+  }
 }

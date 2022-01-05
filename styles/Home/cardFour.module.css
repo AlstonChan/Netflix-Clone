@@ -8,7 +8,7 @@
 
 .containerCard {
   max-width: 1100px;
-  margin: 80px;
+  margin: 80px 50px;
   display: flex;
 }
 
@@ -36,4 +36,61 @@
 
 .imgPresentContainer {
   max-width: 504.95px;
+  margin: -2% 0 -3% -4%;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .containerCard {
+    flex-direction: column-reverse;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  .wordGroupSml {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  .imgContainer {
+    width: 75%;
+    align-self: center;
+  }
+  .imgPresentContainer {
+    width: 100%;
+    margin: -2% 0 0 0;
+    max-width: none;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .containerCard {
+    margin: 60px 30px;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .wordGroupSml {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
 }

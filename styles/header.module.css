@@ -1,7 +1,10 @@
 /* Homepage Header Component */
 .mainContain {
+  max-width: 1500px;
   padding: 30px 46px;
   display: flex;
+  justify-content: center;
+  margin: 0 auto;
   align-items: center;
 }
 
@@ -15,3 +18,18 @@
 
 /* *********************************** */
 /* *********************************** */
+/* media queries */
+@media screen and (max-width: 570px) {
+  .mainContain {
+    max-width: 1500px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .netflixLogoContainer {
+    max-width: 100px;
+  }
+}

@@ -1,3 +1,5 @@
+/* Homepage CardOne Component */
+/* Index.js section*/
 .container {
   background-color: #000000;
   color: white;
@@ -8,7 +10,7 @@
 
 .containerCard {
   max-width: 1100px;
-  margin: 80px;
+  margin: 80px 50px;
   display: flex;
 }
 
@@ -50,4 +52,57 @@
   height: 79.5%;
   left: 8%;
   top: 7.9%;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .containerCard {
+    flex-direction: column;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  .wordGroupSml {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  .imgPresent {
+    width: 70%;
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .containerCard {
+    margin: 60px 30px;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .wordGroupSml {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+
+  .imgPresent {
+    width: 90%;
+    align-self: center;
+  }
 }

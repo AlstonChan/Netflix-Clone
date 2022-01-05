@@ -8,7 +8,7 @@
 
 .containerCard {
   max-width: 1100px;
-  margin: 80px;
+  margin: 80px 50px;
   display: flex;
 }
 
@@ -41,6 +41,7 @@
 }
 
 .vidPresentContainer {
+  width: 100%;
   position: relative;
 }
 
@@ -52,4 +53,67 @@
   height: 67.3%;
   left: 18%;
   top: -0.3%;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .containerCard {
+    flex-direction: column;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  .wordGroupSml {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  .imgContainer {
+    width: 75%;
+    align-self: center;
+  }
+  .imgPresentContainer {
+    width: 100%;
+    margin: -5% -10% 0 0;
+    max-width: none;
+  }
+  .videoTv {
+    width: 62%;
+    height: 62%;
+    left: 17%;
+    top: 1%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .containerCard {
+    margin: 60px 30px;
+  }
+  .wordGroup {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+    z-index: 10;
+  }
+  .wordGroupBig {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .wordGroupSml {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+
+  .imgContainer {
+    width: 100%;
+  }
 }

@@ -118,6 +118,7 @@
 .flexForm > p {
   margin: 60px auto 25px auto;
   font-size: 1.2rem;
+  text-align: center;
 }
 
 /* *********************************** */
@@ -191,4 +192,89 @@
 .getStartedBtnMouse {
   color: rgb(173, 10, 10) !important;
   background-color: rgb(190, 190, 190) !important;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .shell {
+    padding: 50px 65px 70px 65px;
+  }
+  .sectionHead {
+    margin: 0 auto 30px auto;
+    font-size: 2.4rem;
+    padding: 0;
+  }
+  .accordionItem {
+    font-size: 1.3rem;
+  }
+  .accordionItemBtn {
+    height: 4.2rem;
+  }
+  .btnCross {
+    margin: 0 0 0 auto;
+    max-width: 24px;
+    align-self: center;
+  }
+
+  .faqForm {
+    display: block;
+    margin: 0 30px;
+  }
+  .emailInput {
+    height: 50px;
+  }
+  .buttonContain {
+    max-width: 150px;
+    margin: 0 auto;
+  }
+  .getStartedBtn {
+    border-radius: 3px;
+    height: 3rem;
+    font-size: 1.1rem;
+    padding: 1px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .shell {
+    padding: 50px 5px 70px 5px;
+  }
+  .sectionHead {
+    width: fit-content;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    font-size: 1.7rem;
+    padding: 0;
+  }
+  .accordionItem {
+    font-size: 1.2rem;
+  }
+  .accordionItemBtn {
+    height: 3.8rem;
+  }
+  .flexForm > p {
+    margin: 20px 10px 25px 10px;
+    font-size: 1.2rem;
+  }
+  .btnCross {
+    margin: 0 0 0 auto;
+    max-width: 20px;
+    align-self: center;
+  }
+
+  .inputContainAll {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .emailInputLabel {
+    font-size: 1rem;
+  }
+  .emailInputLabelMove {
+    font-size: 0.75rem;
+  }
+  .getStartedBtn {
+    height: 2.6rem;
+  }
 }
