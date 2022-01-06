@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/header.module.css";
 
 export default function Header() {
@@ -17,7 +18,9 @@ export default function Header() {
             />
           </div>
           <button type="submit" className={`netflixBtn ${styles.submitBtn}`}>
-            Sign In
+            <Link href="/login">
+              <a className={styles.btnTxt}> Sign In</a>
+            </Link>
           </button>
         </div>
       </header>

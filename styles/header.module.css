@@ -8,12 +8,17 @@
   align-items: center;
 }
 
-.netflixLogo {
-  cursor: pointer;
-}
-
 .submitBtn {
   margin: 0 0 0 auto;
+}
+
+.btnTxt {
+  text-decoration: none;
+  color: #fff;
+}
+
+.submitBtn:hover .btnTxt {
+  color: rgb(224, 14, 14);
 }
 
 /* *********************************** */

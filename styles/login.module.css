@@ -1,0 +1,135 @@
+.container {
+  min-height: 100vh;
+  background-image: url("/images/netflix banner2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 60%;
+  height: 710px;
+  border-bottom: 8px solid #222;
+}
+
+.shade {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 0, 36, 0.8953782196472339) 0%,
+    rgba(0, 0, 0, 0.5872549703475141) 12%,
+    rgba(0, 0, 0, 0.3519608527004552) 49%,
+    rgba(0, 0, 0, 0.6040616930365896) 93%,
+    rgba(0, 0, 0, 0.8981793400954132) 100%
+  );
+  height: 100%;
+}
+
+.head {
+  display: flex;
+  height: 100px;
+  align-items: center;
+}
+
+.netflixLogoContainer {
+  height: fit-content;
+  margin-left: 3%;
+}
+
+.loginContainer {
+  background-color: rgba(0, 0, 0, 0.712);
+  width: fit-content;
+  padding: 60px 70px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.loginHead {
+  color: #fff;
+  margin: 0 0 30px 0;
+}
+
+.formFlex {
+  display: flex;
+  flex-direction: column;
+  width: 370px;
+}
+
+.inputContainAll {
+  flex: 70;
+}
+
+.inputContain {
+  position: relative;
+}
+
+.emailInput {
+  max-width: 900px;
+  border: none;
+  width: 100%;
+  height: 55px;
+  padding: 19px 5px 5px 15px;
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  border-radius: 7px;
+  background-color: rgb(51, 51, 51);
+}
+
+.emailInputFilled {
+  background-color: aliceblue;
+}
+
+.emailInputLabel {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.541);
+  top: 35%;
+  left: 18px;
+  font-size: 1rem;
+  transition: all 100ms ease-in-out;
+}
+
+.emailInputLabelMove {
+  top: 10%;
+  font-size: 0.75rem;
+  left: 15px;
+  font-weight: 600;
+}
+
+.emailWarnBorder {
+  border-bottom: solid #ff950a 3px;
+}
+
+.emailWarn {
+  margin: 0 auto 10px 0;
+  padding: 5px 0 0 5px;
+  width: fit-content;
+  color: #ff950a;
+  font-size: 0.9rem;
+}
+
+.btnContain {
+  margin: 25px auto 15px auto;
+  width: 100%;
+}
+
+.submitBtn {
+  width: 100%;
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.inputFoot {
+  display: flex;
+}
+
+.checkRememberLabel {
+  color: rgba(255, 255, 255, 0.705);
+  font-size: 0.95rem;
+}
+
+.helpLink {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.705);
+  margin-left: auto;
+  font-size: 0.93rem;
+}
+
+.helpLink:hover {
+  text-decoration: underline;
+}

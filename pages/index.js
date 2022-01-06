@@ -7,7 +7,7 @@ import CardTwo from "../components/home/CardTwo/index";
 import CardThree from "../components/home/CardThree/index";
 import CardFour from "../components/home/CardFour/index";
 import CardFaq from "../components/home/Faq/index";
-import Footer from "../components/footer";
+import Footer from "../components/footer/footerStyle1";
 
 export default function Home() {
   return (

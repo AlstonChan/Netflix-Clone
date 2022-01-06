@@ -1,7 +1,6 @@
-import { useState } from "react";
-import styles from "../styles/footer.module.css";
+import styles from "../../styles/footer.module.css";
 
-export default function Featured() {
+export default function Footer1() {
   const footerContArr = [
     "FAQ",
     "Help Center",
