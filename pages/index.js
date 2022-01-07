@@ -1,11 +1,10 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 import Featured from "../components/home/featured/index";
-import CardOne from "../components/home/CardOne/index";
-import CardTwo from "../components/home/CardTwo/index";
-import CardThree from "../components/home/CardThree/index";
-import CardFour from "../components/home/CardFour/index";
+import CardOne from "../components/home/CardOne";
+import CardTwo from "../components/home/CardTwo";
+import CardThree from "../components/home/CardThree";
+import CardFour from "../components/home/CardFour";
 import CardFaq from "../components/home/Faq/index";
 import Footer from "../components/footer/footerStyle1";
 

@@ -1,12 +1,13 @@
-import styles from "../../../styles/Home/cardOne.module.css";
-import tvImg from "../../../public/images/tv.png";
+import styles from "../../styles/Home/cardOne.module.css";
+import cardStyles from "../../styles/Home/card.module.css";
+import tvImg from "../../public/images/tv.png";
 import Image from "next/image";
 
 export default function CardOne() {
   return (
-    <div className={styles.container}>
+    <div className={cardStyles.container}>
       <div className={styles.containerCard}>
-        <div className={styles.wordGroup}>
+        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>Enjoy on your TV.</h1>
             <p className={styles.wordGroupSml}>

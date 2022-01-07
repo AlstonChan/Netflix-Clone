@@ -1,59 +1,80 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/login.module.css";
 
-export default function Input({ inputId }) {
-  const [emailInputLabelClass, setEmailInputLabelClass] = useState(
-    styles.emailInputLabel
-  );
-  const [emailInput, setEmailInput] = useState({
+export default function Input({ setRef, inputId }) {
+  //Placeholder for input, move up when focus or a value is enter
+  //move down when blur, but only if value is ''
+  const [passInputLabelClass, setPassInputLabelClass] = useState({
+    email: styles.emailInputLabel,
+    class: `${styles.togglePassword}`,
+  });
+
+  //Toggle warning if user input password is too short or too long
+  const [passInputWarn, setPassInput] = useState({
     class: styles.emailInput,
     warnings: "",
   });
 
-  const emailInputRef = useRef();
+  //Toggle hide/show password button
+  const [togglePassword, setTogglePassword] = useState({
+    state: "HIDE",
+    type: "password",
+  });
+
+  //Ensure that upon page refresh, password input will be cleared
+  //and reset the state of passInputLabelClass
+  useEffect(() => {
+    setRef.current.value = "";
+    handleInputClick({ type: "blur" });
+  }, []);
+
+  function toggleClick() {
+    if (togglePassword.state === "SHOW") {
+      setTogglePassword({ state: "HIDE", type: "password" });
+    } else {
+      setTogglePassword({ state: "SHOW", type: "text" });
+    }
+  }
 
   function checkEmailInput(val) {
     const valLength = val?.length ?? 0;
-    const regexValidateEmail =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (valLength == 0) return;
-    if (valLength <= 4) {
-      setEmailInput({
+    if (valLength < 6 || valLength > 60) {
+      setPassInput({
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
-        warnings: "Email is required!",
-      });
-    } else if (!val.match(regexValidateEmail)) {
-      setEmailInput({
-        class: `${styles.emailInput} ${styles.emailWarnBorder}`,
-        warnings: "Please enter a valid email address",
+        warnings: "Your password must contain between 6 and 60 characters.",
       });
     } else {
-      setEmailInput({
+      setPassInput({
         class: `${styles.emailInput}`,
         warnings: "",
       });
     }
   }
 
-  useEffect(() => {
-    emailInputRef.current.value = "";
-    handleInputClick({ type: "blur" });
-  }, []);
-
   function handleInputClick(e) {
-    const val = emailInputRef.current._valueTracker.getValue();
+    const val = setRef.current._valueTracker.getValue();
     if (e.type === "change") {
       checkEmailInput(val);
     } else if (e.type === "focus") {
-      setEmailInputLabelClass(
-        `${styles.emailInputLabel} ${styles.emailInputLabelMove}`
-      );
-    } else if (val !== "") {
-      return;
-    } else if (e.type === "blur") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
+      setPassInputLabelClass({
+        email: `${styles.emailInputLabel} ${styles.emailInputLabelMove}`,
+        class: `${styles.show} ${styles.togglePassword}`,
+      });
+    } else if (e.type === "blur" && val === "") {
+      setTogglePassword({ state: "HIDE", type: "password" });
+      setPassInputLabelClass({
+        email: `${styles.emailInputLabel}`,
+        class: `${styles.togglePassword}`,
+      });
+    } else if (e.type === "blur" && val !== "") {
+      setTogglePassword({ state: "HIDE", type: "password" });
     } else if (e.type === "clear") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
+      setPassInputLabelClass({
+        email: `${styles.emailInputLabel}`,
+        class: `${styles.togglePassword}`,
+      });
+      setTogglePassword({ state: "HIDE", type: "password" });
     }
   }
 
@@ -61,21 +82,26 @@ export default function Input({ inputId }) {
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
-          type="password"
+          type={togglePassword.type}
           name="passwordInput"
           maxLength="50"
           id={inputId}
-          className={emailInput.class}
-          ref={emailInputRef}
+          className={passInputWarn.class}
+          ref={setRef}
           onFocus={(e) => handleInputClick(e)}
           onBlur={(e) => handleInputClick(e)}
           onChange={(e) => handleInputClick(e)}
         />
-        <label htmlFor={inputId} className={emailInputLabelClass}>
+        <label htmlFor={inputId} className={passInputLabelClass.email}>
           Password
         </label>
+        <div className={passInputLabelClass.class}>
+          <div onClick={toggleClick} type="none">
+            <span className={styles.hideShowTxt}>{togglePassword.state} </span>
+          </div>
+        </div>
       </div>
-      <p className={styles.emailWarn}>{emailInput.warnings}</p>
+      <p className={styles.emailWarn}>{passInputWarn.warnings}</p>
     </div>
   );
 }

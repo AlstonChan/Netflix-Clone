@@ -103,6 +103,36 @@
   font-size: 0.9rem;
 }
 
+.togglePassword {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+.show {
+  opacity: 1;
+}
+
+.togglePassword > div {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.hideShowTxt {
+  color: rgba(255, 255, 255, 0.541);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .btnContain {
   margin: 25px auto 15px auto;
   width: 100%;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../styles/featured.module.css";
+import styles from "../../../styles/Home/featured.module.css";
 
 import Header from "../../header";
 import Input from "./input";

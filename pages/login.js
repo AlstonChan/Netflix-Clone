@@ -4,6 +4,8 @@ import Image from "next/image";
 import Footer from "../components/footer/footerStyle2";
 import LoginForm from "../components/login/loginForm";
 
+console.log(process.env.API_KEY);
+
 export default function Login() {
   return (
     <>

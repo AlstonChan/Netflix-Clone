@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import styles from "../../../styles/featured.module.css";
+import styles from "../../../styles/Home/featured.module.css";
 
 export default function Input({ inputId }) {
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(

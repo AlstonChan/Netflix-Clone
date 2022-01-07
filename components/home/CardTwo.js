@@ -1,12 +1,13 @@
-import styles from "../../../styles/Home/cardTwo.module.css";
-import PhoneImg from "../../../public/images/netflix-mobile.jpg";
-import boxshotImg from "../../../public/images/boxshot.png";
-import downloadImg from "../../../public/images/download-icon.gif";
+import styles from "../../styles/Home/cardTwo.module.css";
+import cardStyles from "../../styles/Home/card.module.css";
+import PhoneImg from "../../public/images/netflix-mobile.jpg";
+import boxshotImg from "../../public/images/boxshot.png";
+import downloadImg from "../../public/images/download-icon.gif";
 import Image from "next/image";
 
 export default function CardTwo() {
   return (
-    <div className={styles.container}>
+    <div className={cardStyles.container}>
       <div className={styles.containerCard}>
         <div className={styles.imgContainer}>
           <div className={styles.imgPresentContainer}>
@@ -29,7 +30,7 @@ export default function CardTwo() {
             </div>
           </div>
         </div>
-        <div className={styles.wordGroup}>
+        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>
               Download your shows to watch offline.

@@ -1,3 +1,4 @@
+/*footerStyle1 conponent*/
 .footer {
   background-color: #000000;
   color: white;
@@ -42,7 +43,7 @@
 
 /* *********************************** */
 /* *********************************** */
-/* media queries */
+/* media queries for footerStyle1 component*/
 @media screen and (max-width: 800px) {
   .container {
     padding: 30px 70px;
@@ -78,7 +79,7 @@
 
 /* *********************************** */
 /* *********************************** */
-/* footerStyle2 */
+/* footerStyle2 component*/
 .footer2 {
   background-color: #000000b6;
   margin: auto auto 0 auto;

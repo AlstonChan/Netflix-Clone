@@ -1,12 +1,13 @@
 import Image from "next/image";
-import devicePile from "../../../public/images/device-pile.png";
-import styles from "../../../styles/Home/cardThree.module.css";
+import devicePile from "../../public/images/device-pile.png";
+import styles from "../../styles/Home/cardThree.module.css";
+import cardStyles from "../../styles/Home/card.module.css";
 
 export default function CardThree() {
   return (
-    <div className={styles.container}>
+    <div className={cardStyles.container}>
       <div className={styles.containerCard}>
-        <div className={styles.wordGroup}>
+        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>Watch everywhere.</h1>
             <p className={styles.wordGroupSml}>
@@ -15,7 +16,7 @@ export default function CardThree() {
             </p>
           </div>
         </div>
-        <div className={styles.imgContainer}>
+        <div className={styles.imgPresent}>
           <div className={styles.vidPresentContainer}>
             <video
               className={styles.videoTv}

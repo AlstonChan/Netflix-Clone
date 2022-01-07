@@ -1,30 +1,35 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/login.module.css";
 
-export default function Input({ inputId }) {
+export default function Input({ setRef, inputId }) {
+  //Placeholder for input, move up when focus or a value is enter
+  //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
     styles.emailInputLabel
   );
-  const [inputType, setInputType] = useState("tel");
+
+  //Set warning about user email input and toggle the warning presence
   const [emailInput, setEmailInput] = useState({
     class: styles.emailInput,
     warnings: "",
   });
 
-  const emailInputRef = useRef();
+  //Ensure that upon page refresh, email input will be cleared
+  //and reset the state of emailInputLabelClass
+  useEffect(() => {
+    setRef.current.value = "";
+    handleInputClick({ type: "blur" });
+  }, []);
 
   function checkEmailInput(val) {
     const valLength = val?.length ?? 0;
     const regexValidateEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const regexValidatePhone =
-      /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
-    // if (!val.matchregexValidatePhone){}
     if (valLength == 0) return;
     if (valLength <= 4) {
       setEmailInput({
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
-        warnings: "Please enter a valid email or phone number.",
+        warnings: "Email is required!",
       });
     } else if (!val.match(regexValidateEmail)) {
       setEmailInput({
@@ -39,13 +44,8 @@ export default function Input({ inputId }) {
     }
   }
 
-  useEffect(() => {
-    emailInputRef.current.value = "";
-    handleInputClick({ type: "blur" });
-  }, []);
-
   function handleInputClick(e) {
-    const val = emailInputRef.current._valueTracker.getValue();
+    const val = setRef.current._valueTracker.getValue();
     if (e.type === "change") {
       checkEmailInput(val);
     } else if (e.type === "focus") {
@@ -56,8 +56,6 @@ export default function Input({ inputId }) {
       return;
     } else if (e.type === "blur") {
       setEmailInputLabelClass(`${styles.emailInputLabel}`);
-    } else if (e.type === "clear") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
     }
   }
 
@@ -65,7 +63,7 @@ export default function Input({ inputId }) {
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
-          type={inputType}
+          type="email"
           name="emailInput"
           autoComplete="true"
           dir="lft"
@@ -73,13 +71,13 @@ export default function Input({ inputId }) {
           maxLength="50"
           id={inputId}
           className={emailInput.class}
-          ref={emailInputRef}
+          ref={setRef}
           onFocus={(e) => handleInputClick(e)}
           onBlur={(e) => handleInputClick(e)}
           onChange={(e) => handleInputClick(e)}
         />
         <label htmlFor={inputId} className={emailInputLabelClass}>
-          Email or phone number
+          Email
         </label>
       </div>
       <p className={styles.emailWarn}>{emailInput.warnings}</p>
