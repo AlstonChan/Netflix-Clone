@@ -18,4 +18,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![netflix sitemap upper part](/assets/netflix-sitemap-preview1.jpg)
 ![netflix sitemap lower part](/assets/netflix-sitemap-preview2.jpg)
-**NOTE** that it does not include pages from *www.help.netflix.com*, so the link within footer has no function.
+**NOTE** that it does not include pages from _help.netflix.com_, so the link within footer has no function.

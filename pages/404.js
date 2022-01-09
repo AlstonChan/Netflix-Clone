@@ -6,7 +6,7 @@ import styles from "../styles/404.module.css";
 
 export default function NotFound() {
   return (
-    <>
+    <div className="container">
       <Head>
         <title>Netflix - clone</title>
         <link rel="icon" href="/favicon.ico" />
@@ -49,6 +49,6 @@ export default function NotFound() {
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 }

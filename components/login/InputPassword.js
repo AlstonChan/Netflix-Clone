@@ -10,7 +10,7 @@ export default function Input({ setRef, inputId }) {
   });
 
   //Toggle warning if user input password is too short or too long
-  const [passInputWarn, setPassInput] = useState({
+  const [passInputWarn, setPassInputWarn] = useState({
     class: styles.emailInput,
     warnings: "",
   });
@@ -40,12 +40,12 @@ export default function Input({ setRef, inputId }) {
     const valLength = val?.length ?? 0;
     if (valLength == 0) return;
     if (valLength < 6 || valLength > 60) {
-      setPassInput({
+      setPassInputWarn({
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
         warnings: "Your password must contain between 6 and 60 characters.",
       });
     } else {
-      setPassInput({
+      setPassInputWarn({
         class: `${styles.emailInput}`,
         warnings: "",
       });
@@ -96,7 +96,7 @@ export default function Input({ setRef, inputId }) {
           Password
         </label>
         <div className={passInputLabelClass.class}>
-          <div onClick={toggleClick} type="none">
+          <div onClick={toggleClick}>
             <span className={styles.hideShowTxt}>{togglePassword.state} </span>
           </div>
         </div>

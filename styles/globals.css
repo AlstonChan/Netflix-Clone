@@ -3,7 +3,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  min-width: 340px;
 }
 
 *,
@@ -26,4 +25,8 @@ body {
 .netflixBtn:hover {
   color: rgb(224, 14, 14);
   background-color: #fff;
+}
+
+.container {
+  min-width: 340px;
 }

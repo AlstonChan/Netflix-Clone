@@ -1,0 +1,139 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+  min-width: 340px;
+}
+
+/*Header section*/
+.header {
+  background-color: #000;
+  display: flex;
+  align-content: center;
+  padding: 25px 0 0 40px;
+  height: 6%;
+  min-height: 77px;
+}
+
+.imgLogo {
+  height: fit-content;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.divContainer {
+  max-width: 80%;
+}
+
+.headingMain {
+  color: #fff;
+  text-align: center;
+  font-size: min(4vw, 5rem);
+  font-weight: 100;
+  margin: 0 0 20px 0;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.listItemProfile {
+  list-style: none;
+  width: 10vw;
+  max-width: 200px;
+  min-width: 84px;
+  margin-right: 2vw;
+}
+
+.listItemProfile:hover .name,
+.listItemProfile:focus .name {
+  color: #fff;
+}
+
+.listItemProfile:hover .avatarContainer,
+.listItemProfile:focus .avatarContainer {
+  outline: #fff 2px solid;
+}
+
+.listItemProfile:hover .profileAdd,
+.listItemProfile:focus .profileAdd {
+  background-color: #fff;
+}
+
+.profilePic {
+  border-radius: 7px;
+}
+
+.avatarContainer {
+  height: 10vw;
+  width: 10vw;
+  max-height: 200px;
+  max-width: 200px;
+  min-height: 84px;
+  min-width: 84px;
+  border-radius: 8px;
+}
+
+.nameContain {
+  text-decoration: underline #000;
+}
+
+.name {
+  color: #808080;
+  text-align: center;
+  margin: 8px 0;
+  font-size: min(1.3vw, 2rem);
+  font-weight: 600;
+}
+
+.manageContainer {
+  margin-top: 40px;
+}
+
+.manageProfilesBtn {
+  background-color: #000;
+  border: solid 1.5px #ffffff9a;
+  padding: 6px 27px;
+  color: #ffffff9a;
+  font-size: 1.1rem;
+  font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+}
+
+.manageProfilesBtn:hover {
+  color: #fff;
+  border: solid 1.5px #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .name {
+    font-size: 0.77rem;
+  }
+  .headingMain {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 15px 0 0 30px;
+    height: 6%;
+    min-height: 77px;
+  }
+}
