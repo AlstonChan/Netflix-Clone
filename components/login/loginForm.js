@@ -42,6 +42,7 @@ export default function LoginForm() {
           ) {
             setLogInErrorClass(`${styles.warnShow} ${styles.logInErrorBox}`);
           }
+          console.log(message);
         });
     }
   }

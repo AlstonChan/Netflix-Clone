@@ -18,8 +18,12 @@ export default function Login() {
   useEffect(() => {
     if (user) {
       router.replace("./browse");
+      router.push("./browse");
     }
   }, []);
+  if (user) {
+    router.replace("./browse");
+  }
 
   function loginGoogleEvent(e) {
     e.preventDefault();

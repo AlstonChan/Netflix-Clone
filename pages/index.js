@@ -1,5 +1,4 @@
 import Head from "next/head";
-import style from "../styles/404.module.css";
 
 import Featured from "../components/home/featured/index";
 import CardOne from "../components/home/CardOne";

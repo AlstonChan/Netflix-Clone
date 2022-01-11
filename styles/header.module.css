@@ -12,6 +12,10 @@
   margin: 0 0 0 auto;
 }
 
+.logoPointer {
+  cursor: pointer;
+}
+
 .btnTxt {
   text-decoration: none;
   color: #fff;

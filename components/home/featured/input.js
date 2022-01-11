@@ -2,15 +2,26 @@ import { useState, useRef, useEffect } from "react";
 import styles from "../../../styles/Home/featured.module.css";
 
 export default function Input({ inputId }) {
+  //Placeholder for input, move up when focus or a value is enter
+  //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
     styles.emailInputLabel
   );
+
+  //Set warning about user email input and toggle the warning presence
   const [emailInput, setEmailInput] = useState({
     class: styles.emailInput,
     warnings: "",
   });
 
   const emailInputRef = useRef();
+
+  //Ensure that upon page refresh, email input will be cleared
+  //and reset the state of emailInputLabelClass
+  useEffect(() => {
+    emailInputRef.current.value = "";
+    handleInputClick({ type: "blur" });
+  }, []);
 
   function checkEmailInput(val) {
     const valLength = val?.length ?? 0;
@@ -35,11 +46,6 @@ export default function Input({ inputId }) {
     }
   }
 
-  useEffect(() => {
-    emailInputRef.current.value = "";
-    handleInputClick({ type: "blur" });
-  }, []);
-
   function handleInputClick(e) {
     const val = emailInputRef.current._valueTracker.getValue();
     if (e.type === "change") {
@@ -51,8 +57,6 @@ export default function Input({ inputId }) {
     } else if (val !== "") {
       return;
     } else if (e.type === "blur") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
-    } else if (e.type === "clear") {
       setEmailInputLabelClass(`${styles.emailInputLabel}`);
     }
   }
