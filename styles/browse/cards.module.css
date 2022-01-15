@@ -1,0 +1,90 @@
+/* main component of rows of cards */
+.rowOfCards {
+  margin: 3vw 0;
+}
+
+/* headings part */
+.cardsHeadings {
+  margin: 0 0 10px 50px;
+}
+.cardH1 {
+  position: relative;
+  margin: 0;
+  color: #fff;
+}
+
+/* main part */
+.cardsRow {
+  display: flex;
+}
+.cardsRow:hover .navArrowContainer {
+  visibility: visible;
+}
+
+.cards {
+  width: 100%;
+  padding: 0 4%;
+  position: relative;
+}
+
+/* left and right slider handler */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4%;
+  text-align: center;
+  transition: transform 180ms ease-in-out;
+  cursor: pointer;
+}
+
+.handlelft {
+  left: -4px;
+}
+.handleRgt {
+  transform: scaleX(-1);
+  right: 0;
+}
+
+.handle:hover {
+  transform: scale(1.4);
+}
+.handleRgt:hover {
+  transform: scale(-1.4, 1.4);
+}
+
+.handle:hover .navArrowContainer {
+  visibility: visible;
+}
+
+.navArrowContainer {
+  width: 100%;
+  visibility: hidden;
+}
+
+/* Collection of cards start here*/
+.slider {
+  display: flex;
+}
+
+.sliderItem {
+  width: 25%;
+  padding-right: 0.2vw;
+}
+
+.imgContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.pictureCard {
+  border-radius: 5px;
+}
+
+.imgContainerCornerLft {
+  transform-origin: left;
+}
+
+.imgContainerCornerRgt {
+  transform-origin: right;
+}

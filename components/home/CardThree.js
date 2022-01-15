@@ -1,5 +1,5 @@
 import Image from "next/image";
-import devicePile from "../../public/images/device-pile.png";
+import devicePile from "../../public/images/home/device-pile.png";
 import styles from "../../styles/Home/cardThree.module.css";
 import cardStyles from "../../styles/Home/card.module.css";
 

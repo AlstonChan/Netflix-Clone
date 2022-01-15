@@ -1,0 +1,28 @@
+.main {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mainContain {
+  position: absolute;
+  padding: 20px 50px;
+  display: flex;
+}
+
+.selection {
+  padding: 0 30px;
+  display: flex;
+}
+
+.selectionOpt {
+  font-size: 0.95rem;
+  color: #fff;
+  margin: 0 10px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.selectedOpt {
+  font-weight: 600;
+}

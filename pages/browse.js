@@ -1,59 +1,74 @@
-import styles from "../styles/browse.module.css";
+import styles from "../styles/browse/browse.module.css";
 import Image from "next/image";
-import Link from "next/link";
-import ProfilePic from "../public/images/netflix-profile-placeholder.png";
-import ProfileAdd from "../public/images/netflix-profile-add.png";
+import { useState } from "react";
+
+import Header from "../components/browse/header";
+import Profile from "../components/browse/profile";
+import Cards from "../components/browse/cards";
+
+import FeaturedWitcher from "../public/images/browse/featured/featured-pic.jpg";
+import FeaturedWitcherTxt from "../public/images/browse/featured/featured txt.png";
+import playBtn from "../public/images/browse/featured/play-button.png";
+import info from "../public/images/browse/featured/info.png";
 
 export default function Browse() {
-  return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.imgLogo}>
-          <Image
-            src="/images/NetflixLogo.png"
-            width="150px"
-            height="40.875px"
-            alt="netflix logo"
-          />
-        </div>
-      </header>
-      <main className={styles.main}>
-        <div className={styles.divContainer}>
-          <h1 className={styles.headingMain}>Who's watching?</h1>
-          <div className={styles.profile}>
-            <li tabIndex="0" className={styles.listItemProfile}>
-              <Link href="">
-                <a>
-                  <div className={styles.avatarContainer}>
-                    <Image src={ProfilePic} className={styles.profilePic} />
+  const [profile, setProfile] = useState(false);
+
+  function switchPage() {
+    setProfile(true);
+  }
+
+  return profile ? (
+    <>
+      <div className={styles.container}>
+        <Header />
+        <main className={styles.main}>
+          <span className={styles.featuredMain}>
+            <div className={styles.featuredSpace}>
+              <div className={styles.featuredAbsolute}>
+                {/* <div className={styles.feaContainerVid}>
+                  <video src="/videos/Featured_Vid.mov"></video>
+                </div> */}
+                <div className={styles.feaContainerStatic}>
+                  <div className={styles.featuredImg}>
+                    <Image src={FeaturedWitcher} layout="responsive" />
                   </div>
-                  <span className={styles.nameContain}>
-                    <p className={styles.name}>Chan</p>
-                  </span>
-                </a>
-              </Link>
-            </li>
-            <li tabIndex="0" className={styles.listItemProfile}>
-              <Link href="">
-                <a>
-                  <div className={styles.avatarContainer}>
-                    <Image
-                      src={ProfileAdd}
-                      className={`${styles.profilePic} ${styles.profileAdd}`}
-                    />
+                  <div className={styles.wordGroup}>
+                    <div className={styles.featuredTxt}>
+                      <Image src={FeaturedWitcherTxt} />
+                      <p className={styles.feaDescription}>
+                        Geralt of Rivia, a mutated monster-hunter for hire,
+                        journeys toward his destiny in a turbulent world where
+                        people often prove more wicked than beasts
+                      </p>
+                      <div className={styles.btnGroup}>
+                        <button type="button" className={styles.playBtn}>
+                          <div className={styles.btnImage}>
+                            <Image src={playBtn} />
+                          </div>
+                          <span className={styles.playBtnTxt}>Play</span>
+                        </button>
+                        <button type="button" className={styles.moreInfoBtn}>
+                          <div className={styles.btnImage}>
+                            <Image src={info} />
+                          </div>
+                          <span className={styles.moreInfoBtnTxt}>
+                            More Info
+                          </span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <span className={styles.nameContain}>
-                    <p className={styles.name}>Add Profile</p>
-                  </span>
-                </a>
-              </Link>
-            </li>
-          </div>
-        </div>
-        <div className={styles.manageContainer}>
-          <button className={styles.manageProfilesBtn}>Manage Profiles</button>
-        </div>
-      </main>
-    </div>
+                  <div className={styles.blend}></div>
+                </div>
+              </div>
+            </div>
+          </span>
+          <Cards />
+        </main>
+      </div>
+    </>
+  ) : (
+    <Profile switchPage={switchPage} />
   );
 }

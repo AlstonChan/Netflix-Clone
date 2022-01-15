@@ -59,6 +59,7 @@
   max-width: 200px;
   min-width: 84px;
   margin-right: 2vw;
+  cursor: pointer;
 }
 
 .listItemProfile:hover .name,

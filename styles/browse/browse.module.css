@@ -1,0 +1,118 @@
+.container {
+  background-color: #000;
+}
+
+.featuredMain {
+  position: relative;
+}
+
+.featuredSpace {
+  padding-bottom: 50%;
+}
+
+.featuredAbsolute {
+  position: absolute;
+  top: 0;
+}
+
+.feaContainerStatic {
+  position: relative;
+}
+
+.blend {
+  position: absolute;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(20, 20, 20, 0) 0,
+    rgba(20, 20, 20, 0.15) 15%,
+    rgba(20, 20, 20, 0.35) 21%,
+    rgba(20, 20, 20, 0.58) 30%,
+    #141414 68%,
+    #000000 100%
+  );
+  background-size: 100% 100%;
+  background-position: 0 top;
+  background-repeat: repeat-x;
+  background-color: transparent;
+  width: 100%;
+  height: 12vw;
+  top: auto;
+  bottom: -1px;
+  opacity: 1;
+}
+
+.featuredImg {
+  width: 100vw;
+}
+
+.wordGroup {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 50px;
+}
+
+.featuredTxt {
+  margin: 1% 0 0 0;
+  max-width: 45vw;
+}
+
+.feaDescription {
+  color: #fff;
+  font-size: min(1.85vw, 2rem);
+}
+
+.btnGroup {
+  display: flex;
+}
+
+.playBtn {
+  border: none;
+  background-color: #fff;
+  font-size: 1.2rem;
+  padding: 9px 21px 5px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btnImage {
+  display: inline;
+  width: min(2vw, 1.8rem);
+}
+
+.playBtnTxt {
+  font-size: min(1.4vw, 1.4rem);
+  font-weight: 600;
+  padding: 0 10px 4px 15px;
+}
+
+.playBtn:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.moreInfoBtn {
+  border: none;
+  background-color: rgba(109, 109, 109, 0.658);
+  font-size: 1.2rem;
+  padding: 9px 14px 5px 15px;
+  border-radius: 3px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.moreInfoBtnTxt {
+  font-size: min(1.4vw, 1.4rem);
+  color: #fff;
+  padding: 0 10px 4px 15px;
+}
+
+.moreInfoBtn:hover {
+  background-color: rgba(105, 105, 105, 0.459);
+}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import netflixKid from "../../public/images/netflix-kids.png";
+import netflixKid from "../../public/images/home/netflix-kids.png";
 import styles from "../../styles/Home/cardFour.module.css";
 import cardStyles from "../../styles/Home/card.module.css";
 
