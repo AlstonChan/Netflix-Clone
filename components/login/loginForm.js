@@ -50,8 +50,8 @@ export default function LoginForm() {
     <>
       <div className={logInErrorClass}>
         <p className={styles.logInErrorClassContent}>
-          Sorry, we can't find an account with this email address. Please try
-          again or{" "}
+          Sorry, we can&apos;t find an account with this email address. Please
+          try again or{" "}
           <Link href="/">
             <a className={styles.createAccLink}>create a new account</a>
           </Link>

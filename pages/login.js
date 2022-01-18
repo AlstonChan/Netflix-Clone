@@ -115,7 +115,8 @@ export function GoogleCaptcha() {
     <>
       <div className={styles.googleCaptcha}>
         <span className={styles.googleCaptchaTxt}>
-          This page is protected by Google reCAPTCHA to ensure you're not a bot.
+          This page is protected by Google reCAPTCHA to ensure you&apos;re not a
+          bot.
         </span>
         <button
           onClick={(e) => showCaptchaContent(e)}
