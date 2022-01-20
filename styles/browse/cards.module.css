@@ -25,6 +25,7 @@
   width: 100%;
   padding: 0 4%;
   position: relative;
+  overflow: hidden;
 }
 
 /* left and right slider handler */
@@ -36,10 +37,12 @@
   text-align: center;
   transition: transform 180ms ease-in-out;
   cursor: pointer;
+  background-color: rgba(51, 51, 51, 0.733);
+  z-index: 2;
 }
 
 .handlelft {
-  left: -4px;
+  left: -2px;
 }
 .handleRgt {
   transform: scaleX(-1);
@@ -47,10 +50,10 @@
 }
 
 .handle:hover {
-  transform: scale(1.4);
+  transform: scale(1.25);
 }
 .handleRgt:hover {
-  transform: scale(-1.4, 1.4);
+  transform: scale(-1.25, 1.25);
 }
 
 .handle:hover .navArrowContainer {
@@ -58,18 +61,24 @@
 }
 
 .navArrowContainer {
+  position: relative;
+  height: 100%;
   width: 100%;
   visibility: hidden;
 }
 
 /* Collection of cards start here*/
+.sliderContainer {
+  overflow-x: visible;
+}
+
 .slider {
-  display: flex;
+  white-space: nowrap;
 }
 
 .sliderItem {
-  width: 25%;
-  padding-right: 0.2vw;
+  display: inline-block;
+  padding: 0 0.2vw;
 }
 
 .imgContainer {

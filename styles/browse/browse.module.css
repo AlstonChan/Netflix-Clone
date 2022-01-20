@@ -4,6 +4,8 @@
 
 .featuredMain {
   position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
 .featuredSpace {
@@ -13,6 +15,7 @@
 .featuredAbsolute {
   position: absolute;
   top: 0;
+  width: 100%;
 }
 
 .feaContainerStatic {
@@ -42,7 +45,7 @@
 }
 
 .featuredImg {
-  width: 100vw;
+  width: 100%;
 }
 
 .wordGroup {
@@ -52,7 +55,7 @@
   height: 100%;
   display: flex;
   align-items: center;
-  margin: 0 0 0 50px;
+  padding: 0 0 0 50px;
 }
 
 .featuredTxt {
