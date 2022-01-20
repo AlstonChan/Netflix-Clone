@@ -1,16 +1,9 @@
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../pages/_app";
-
-import { signOut } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { useState } from "react";
 
 import Image from "next/image";
 import styles from "../../styles/browse/header.module.css";
-import router from "next/router";
 
 export default function Header({}) {
-  const { user, loading, error } = useContext(UserContext);
-
   const navItemTxt = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,

@@ -1,6 +1,13 @@
 {
   "name": "netflix-clone",
+  "description": "a netflix clone using next.js and firebase",
   "private": true,
+  "version": "1.0.0",
+  "author": {
+    "name": "Chan Alston",
+    "email": "devalston390@gmail.com",
+    "url": "https://www.chanalston.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,6 +15,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "firebase": "^9.6.1",
     "firebase-admin": "^10.0.1",
     "firebaseui": "^6.0.0",
@@ -19,5 +27,9 @@
   "devDependencies": {
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlstonChan/Netflix-clone"
   }
 }

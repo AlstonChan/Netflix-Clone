@@ -31,7 +31,7 @@ const movieName = [
 // credits goes to andrewthamcc.
 // Repo: github.com/andrewthamcc/netflix-slider
 
-export default function Cards() {
+export default function Cards({ movieSet, movieGenre }) {
   const [sliderHasMoved, setSliderHasMoved] = useState(false); // boolean to display prev arrow
   const [sliderMoving, setSliderMoving] = useState(false); // boolean for slider animation
   const [movePercentage, setMovePercentage] = useState(0); // move percentage to shift slider during animation
@@ -56,8 +56,12 @@ export default function Cards() {
       setItemsInRow(6);
     } else if (window.innerWidth >= 1000) {
       setItemsInRow(5);
-    } else if (window.innerWidth < 1000) {
+    } else if (window.innerWidth > 700) {
       setItemsInRow(4);
+    } else if (window.innerWidth > 500) {
+      setItemsInRow(3);
+    } else if (window.innerWidth < 500) {
+      setItemsInRow(2);
     }
   };
 
@@ -111,14 +115,26 @@ export default function Cards() {
     }
 
     const sliderContents = [];
-    for (let index of indexToDisplay) {
-      sliderContents.push(
-        <SliderItem
-          movie={movieName[index]}
-          key={Math.random()}
-          width={100 / itemsInRow}
-        />
-      );
+    if (movieSet) {
+      for (let index of indexToDisplay) {
+        sliderContents.push(
+          <SliderItem
+            movieSet={movieSet[index]}
+            key={`${movieSet[index].id}${Math.random()}`}
+            width={100 / itemsInRow}
+          />
+        );
+      }
+    } else {
+      for (let index of indexToDisplay) {
+        sliderContents.push(
+          <SliderItem
+            movie={movieName[index]}
+            key={Math.random()}
+            width={100 / itemsInRow}
+          />
+        );
+      }
     }
 
     // adds empty divs to take up appropriate spacing when slider at initial position
@@ -227,7 +243,9 @@ export default function Cards() {
   return (
     <section className={styles.rowOfCards}>
       <div className={styles.cardsHeadings}>
-        <h1 className={styles.cardH1}>Relentless Crime Thrillers</h1>
+        <h1 className={styles.cardH1}>
+          {movieGenre ? movieGenre : "Relentless Crime Thrillers"}
+        </h1>
       </div>
       <div className={styles.cardsRow}>
         <div className={styles.cards}>

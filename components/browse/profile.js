@@ -3,6 +3,8 @@ import Image from "next/image";
 import ProfilePic from "../../public/images/profile pic/1.png";
 import ProfileAdd from "../../public/images/netflix-profile-add.png";
 
+import Link from "next/link";
+
 export default function Profile({ switchPage }) {
   return (
     <div className={styles.container}>
@@ -20,22 +22,26 @@ export default function Profile({ switchPage }) {
         <div className={styles.divContainer}>
           <h1 className={styles.headingMain}>Who&apos;s watching?</h1>
           <div className={styles.profile}>
-            <li
-              tabIndex="0"
-              onClick={switchPage}
-              className={styles.listItemProfile}
-            >
-              <div className={styles.avatarContainer}>
-                <Image
-                  src={ProfilePic}
-                  className={styles.profilePic}
-                  alt="User profile Picture"
-                />
-              </div>
-              <span className={styles.nameContain}>
-                <p className={styles.name}>Chan</p>
-              </span>
-            </li>
+            <Link href="/browse?fetchmovie=true">
+              <a>
+                <li
+                  tabIndex="0"
+                  onClick={switchPage}
+                  className={styles.listItemProfile}
+                >
+                  <div className={styles.avatarContainer}>
+                    <Image
+                      src={ProfilePic}
+                      className={styles.profilePic}
+                      alt="User profile Picture"
+                    />
+                  </div>
+                  <span className={styles.nameContain}>
+                    <p className={styles.name}>Chan</p>
+                  </span>
+                </li>
+              </a>
+            </Link>
             <li tabIndex="0" className={styles.listItemProfile}>
               <div className={styles.avatarContainer}>
                 <Image

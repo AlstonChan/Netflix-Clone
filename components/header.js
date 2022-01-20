@@ -20,15 +20,18 @@ export default function Header({ logoClickHome }) {
   );
 
   useEffect(() => {
-    if (user) {
-      setIsSignIn(true);
-    }
     if (logoClickHome) {
       setLogoPointerActive(
         `${styles.logoPointer} ${styles.netflixLogoContainer}`
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsSignIn(true);
+    }
+  }, [user]);
 
   function backToHome(e) {
     e.preventDefault();

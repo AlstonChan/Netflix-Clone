@@ -76,21 +76,6 @@
   white-space: nowrap;
 }
 
-.sliderItemOf:first-child {
-  padding-left: 0;
-}
-.sliderItemOf:last-child {
-  padding-right: 0;
-}
-
-.slideLft {
-  transform: translate3d(0, 0, 0);
-}
-
-.slideRgt {
-  transform: translate3d(-200%, 0, 0);
-}
-
 .sliderItem {
   display: inline-block;
   padding: 0 0.2vw;

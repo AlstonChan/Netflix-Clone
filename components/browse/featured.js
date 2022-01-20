@@ -10,9 +10,6 @@ export default function Featured() {
   return (
     <div className={styles.featuredSpace}>
       <div className={styles.featuredAbsolute}>
-        {/* <div className={styles.feaContainerVid}>
-                  <video src="/videos/Featured_Vid.mov"></video>
-                </div> */}
         <div className={styles.feaContainerStatic}>
           <div className={styles.featuredImg}>
             <Image
