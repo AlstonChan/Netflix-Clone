@@ -26,7 +26,6 @@ export default function Browse({ movies }) {
             <Featured />
           </span>
           <Cards />
-          {console.log(movies)}
           {movies.map((movie, index) => {
             return (
               <Cards

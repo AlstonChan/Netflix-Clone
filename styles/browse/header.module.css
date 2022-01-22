@@ -8,6 +8,12 @@
   position: absolute;
   padding: 20px 50px;
   display: flex;
+  width: 100%;
+  transition: background-color 300ms cubic-bezier(1, -0.03, 1, 1);
+}
+
+.netflixLogoContainer {
+  width: fit-content;
 }
 
 .selection {
@@ -25,4 +31,69 @@
 
 .selectedOpt {
   font-weight: 600;
+}
+
+.navItemMenu {
+  color: rgb(255, 255, 255);
+  display: flex;
+  cursor: pointer;
+  position: relative;
+}
+
+.navItemMenuTxt {
+  padding: 2px 0 0 0;
+  font-size: 0.85rem;
+}
+
+.navItemMenuImg {
+  transform: rotate(-90deg);
+}
+
+.dropDownMenuNav {
+  color: #fff;
+  position: absolute;
+  bottom: -250px;
+  left: 80px;
+  background-color: rgba(20, 20, 20, 0.89);
+  border-top: #fff solid 2px;
+  display: none;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.dropDownMenuitem {
+  display: flex;
+  list-style: none;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 150ms ease, opacity 150ms ease;
+}
+
+.dropDownMenuitem:hover {
+  background-color: rgba(92, 92, 92, 0.514);
+}
+
+@media screen and (max-width: 1100px) {
+  .selectionOpt {
+    font-size: 0.8rem;
+  }
+  .netflixLogoContainer {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .selectionOpt {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .mainContain {
+    padding: 20px 20px;
+  }
 }

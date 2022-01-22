@@ -34,7 +34,7 @@ export default function Featured() {
                   <span className={styles.playBtnTxt}>Play</span>
                 </button>
                 <button type="button" className={styles.moreInfoBtn}>
-                  <div className={styles.btnImage}>
+                  <div className={styles.btnImageInfo}>
                     <Image src={info} alt="" />
                   </div>
                   <span className={styles.moreInfoBtnTxt}>More Info</span>
