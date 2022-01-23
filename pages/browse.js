@@ -5,7 +5,7 @@ const instances = axios.create({
   baseURL: "https://api.themoviedb.org/3/discover",
 });
 
-import Header from "../components/browse/header";
+import Header from "../components/browse/header/header.js";
 import Profile from "../components/browse/profile";
 import Cards from "../components/browse/cards";
 import Featured from "../components/browse/featured";
