@@ -126,7 +126,7 @@
 
 /* *********************************** */
 /* *********************************** */
-/* media queries for footerStyle1 component*/
+/* media queries for footerStyle2 component*/
 @media screen and (max-width: 750px) {
   .container2 {
     padding: 30px 60px;
@@ -150,5 +150,86 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(100px, 230px));
     grid-template-rows: repeat(3, 35px);
+  }
+}
+
+/*footerBrowse conponent*/
+.footerBrowse {
+  background-color: #000000;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.containerBrowse {
+  padding: 30px 100px;
+}
+
+.socialMediaContainer {
+  display: flex;
+  margin: 20px auto 5px 0;
+  color: #757575;
+  width: 180px;
+  justify-content: space-between;
+}
+
+.socialMedia {
+  width: 32px;
+}
+
+.unorderedListBrowse {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 230px));
+  grid-template-rows: repeat(5, 32px);
+}
+
+.listItemBrowse {
+  list-style: none;
+}
+
+.listItemBrowse > a {
+  text-decoration: none;
+  color: #757575;
+  font-size: 0.8rem;
+}
+
+.footerTelBrowse > a:hover,
+.listItemBrowse > a:hover {
+  text-decoration: underline;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries for footerBrowse component*/
+@media screen and (max-width: 800px) {
+  .containerBrowse {
+    padding: 30px 70px;
+  }
+  .footerTel {
+    margin: 40px auto 30px 0;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .unorderedListBrowse {
+    grid-template-columns: repeat(3, minmax(100px, 230px));
+    grid-template-rows: repeat(6, 35px);
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .containerBrowse {
+    padding: 30px 40px;
+  }
+  .footerTel {
+    margin: 30px auto 30px 0;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .unorderedListBrowse {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 230px));
+    grid-template-rows: repeat(9, 35px);
   }
 }

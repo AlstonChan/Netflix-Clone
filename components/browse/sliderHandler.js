@@ -1,5 +1,5 @@
 import styles from "../../styles/browse/cards.module.css";
-import navArrow from "../../public/images/nav_arrow.svg";
+import navArrow from "../../public/images/icons/misc/nav_arrow.svg";
 import Image from "next/image";
 
 export default function SliderHandler({ onClick, direction }) {

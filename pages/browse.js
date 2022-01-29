@@ -1,6 +1,7 @@
 import styles from "../styles/browse/browse.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import router from "next/router";
 const instances = axios.create({
   baseURL: "https://api.themoviedb.org/3/discover",
 });
@@ -9,6 +10,7 @@ import Header from "../components/browse/header/header.js";
 import Profile from "../components/browse/profile";
 import Cards from "../components/browse/cards";
 import Featured from "../components/browse/featured";
+import Footer from "../components/footer/footerBrowse";
 
 export default function Browse({ movies }) {
   const [profile, setProfile] = useState(false);
@@ -35,8 +37,8 @@ export default function Browse({ movies }) {
               />
             );
           })}
-          <div>yes</div>
         </main>
+        <Footer />
       </div>
     </>
   ) : (
@@ -67,6 +69,8 @@ export async function getServerSideProps(context) {
     { id: 10752, name: "War" },
     { id: 37, name: "Western Movies" },
   ];
+  console.log("fetched");
+
   if (context.query.fetchmovie) {
     let pageIndex = 1;
     for (let x = 0; x < genres.length; x++) {

@@ -31,7 +31,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       >
         <span className={styles.navItemMenuTxt}>Browse</span>
         <Image
-          src="/images/nav_arrow_bold.svg"
+          src="/images/icons/misc/nav_arrow_bold.svg"
           width="20px"
           height="20px"
           className={styles.navItemMenuImg}
@@ -46,7 +46,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
         <div>
           <div className={styles.dropDownMenuNavListArrContain}>
             <Image
-              src="/images/nav_arrow_bold.svg"
+              src="/images/icons/misc/nav_arrow_bold.svg"
               width="20px"
               height="20px"
               className={styles.dropDownMenuNavListArr}
