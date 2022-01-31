@@ -13,7 +13,7 @@ import Cards from "../components/browse/cards";
 import Featured from "../components/browse/featured";
 import Footer from "../components/footer/footerBrowse";
 
-export default function Browse({ movies }) {
+export default function Browse(movies) {
   const [profile, setProfile] = useState(false);
 
   function switchPage() {
@@ -44,7 +44,7 @@ export default function Browse({ movies }) {
                 <Featured />
               </span>
               {/* <Cards /> */}
-              {movies.map((movie, index) => {
+              {movies.movies.map((movie, index) => {
                 return (
                   <Cards
                     movieSet={movie.data.results}
@@ -87,7 +87,12 @@ export async function getServerSideProps(context) {
     { id: 10752, name: "War" },
     { id: 37, name: "Western Movies" },
   ];
-  console.log("fetched");
+  console.log(context.res);
+
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=300, stale-while-revalidate=420"
+  );
 
   if (context.query.fetchhom) {
     let pageIndex = 1;

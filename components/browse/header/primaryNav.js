@@ -23,7 +23,6 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       );
     }
   }
-  console.log(text.replace(/\s/g, "").slice(0, 3).toLowerCase());
   return menu ? (
     <>
       <div
