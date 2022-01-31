@@ -15,8 +15,11 @@ export default function SearchComponent() {
   function inputChanged(e) {
     let val = searchRef.current.value;
     if (val) {
+      router.push({ pathname: "/browse", query: `search=${val}` }, null, {
+        shallow: true,
+      });
       searchRef.current.doNotCollapse = true;
-      history.pushState(null, "", `search?q=${val}`);
+      // history.pushState(null, "", `search?q=${val}`);
     } else {
       searchRef.current.doNotCollapse = false;
       router.push({ pathname: "/browse" }, null, { shallow: true });

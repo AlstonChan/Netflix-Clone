@@ -50,6 +50,7 @@ export default function Header({}) {
       active: true,
       index: e.target.dataset.num,
     });
+    console.log(e);
   }
 
   let lastKnownScrollPosition = 0;

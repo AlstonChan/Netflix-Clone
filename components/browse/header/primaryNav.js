@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import Link from "next/link";
 import Image from "next/image";
 import styles from "../../../styles/browse/header.module.css";
 
@@ -22,6 +23,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       );
     }
   }
+  console.log(text.replace(/\s/g, "").slice(0, 3).toLowerCase());
   return menu ? (
     <>
       <div
@@ -68,17 +70,26 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
     </>
   ) : (
     <>
-      <span
-        onClick={(e) => handler(e)}
-        className={
-          classNm.active && classNm.index == data
-            ? `${styles.selectionOpt} ${styles.selectedOpt}`
-            : styles.selectionOpt
-        }
-        data-num={data}
+      <Link
+        href={`/browse?fetch${text
+          .replace(/\s/g, "")
+          .slice(0, 3)
+          .toLowerCase()}=true`}
       >
-        {text}
-      </span>
+        <a>
+          <span
+            onClick={(e) => handler(e)}
+            className={
+              classNm.active && classNm.index == data
+                ? `${styles.selectionOpt} ${styles.selectedOpt}`
+                : styles.selectionOpt
+            }
+            data-num={data}
+          >
+            {text}
+          </span>
+        </a>
+      </Link>
     </>
   );
 }

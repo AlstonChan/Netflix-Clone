@@ -23,12 +23,20 @@
   display: flex;
 }
 
+.selection > * {
+  text-decoration: none;
+  align-self: center;
+}
+
 .selectionOpt {
   font-size: 0.95rem;
   color: #fff;
   margin: 0 10px;
-  align-self: center;
   cursor: pointer;
+}
+
+.selectionOpt:hover {
+  color: rgb(216, 216, 216);
 }
 
 .selectedOpt {

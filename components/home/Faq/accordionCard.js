@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "../../../styles/Home/cardFaq.module.css";
-import svgCross from "../../../public/images/cross.svg";
+import svgCross from "../../../public/images/icons/misc/cross.svg";
 import { useState } from "react";
 
 export default function AccordianCard({ faq, toggleOne }) {

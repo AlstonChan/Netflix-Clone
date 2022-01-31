@@ -6,6 +6,7 @@ const instances = axios.create({
   baseURL: "https://api.themoviedb.org/3/discover",
 });
 
+import Loading from "../components/browse/loading";
 import Header from "../components/browse/header/header.js";
 import Profile from "../components/browse/profile";
 import Cards from "../components/browse/cards";
@@ -19,24 +20,41 @@ export default function Browse({ movies }) {
     setProfile(true);
   }
 
+  let loc;
+
+  router.events.on("routeChangeStart", (e) => {
+    console.log(e);
+    loc = e;
+  });
+
+  if (loc === "/browse?fetchhom=true" && profile && movies.length == 0) {
+    return <Loading />;
+  }
+
   return profile ? (
     <>
       <div className={styles.container}>
         <Header />
         <main className={styles.main}>
-          <span className={styles.featuredMain}>
-            <Featured />
-          </span>
-          <Cards />
-          {movies.map((movie, index) => {
-            return (
-              <Cards
-                movieSet={movie.data.results}
-                movieGenre={movie.genre}
-                key={index}
-              />
-            );
-          })}
+          {window.location.pathname === "/search" ? (
+            <h1>hisadads</h1>
+          ) : (
+            <div>
+              <span className={styles.featuredMain}>
+                <Featured />
+              </span>
+              {/* <Cards /> */}
+              {movies.map((movie, index) => {
+                return (
+                  <Cards
+                    movieSet={movie.data.results}
+                    movieGenre={movie.genre}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
+          )}
         </main>
         <Footer />
       </div>
@@ -71,7 +89,7 @@ export async function getServerSideProps(context) {
   ];
   console.log("fetched");
 
-  if (context.query.fetchmovie) {
+  if (context.query.fetchhom) {
     let pageIndex = 1;
     for (let x = 0; x < genres.length; x++) {
       if (pageIndex > 4) pageIndex = pageIndex - 1;

@@ -48,7 +48,50 @@
   opacity: 1;
 }
 
-/*featured.js component */
+/* loadingBrowse.js component */
+.loadingBg {
+  width: 100vw;
+  height: 100vh;
+  background-color: #111;
+}
+
+.header {
+  height: 5%;
+}
+
+.netflixLogoContainer {
+  padding: 20px 0 0 40px;
+  max-width: 160px;
+}
+
+.mainLoading {
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePicCenter {
+  width: 50px;
+  position: relative;
+}
+
+.spinnerContain {
+  position: absolute;
+  top: 0;
+  animation: rotate 1s infinite cubic-bezier(0, 0, 0.72, 0.74) running;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(2.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(2.5);
+  }
+}
+
+/* featured.js component */
 .featuredImg {
   width: 100%;
 }
