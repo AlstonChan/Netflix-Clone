@@ -22,7 +22,7 @@ export default function Profile({ switchPage }) {
         <div className={styles.divContainer}>
           <h1 className={styles.headingMain}>Who&apos;s watching?</h1>
           <div className={styles.profile}>
-            <Link href="/browse?fetchhom=true">
+            <Link href="/browse?fetchmoviedata=hom">
               <a>
                 <li
                   tabIndex="0"

@@ -23,7 +23,6 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       );
     }
   }
-  console.log(text.replace(/\s/g, "").slice(0, 3).toLowerCase());
   return menu ? (
     <>
       <div
@@ -71,10 +70,10 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
   ) : (
     <>
       <Link
-        href={`/browse?fetch${text
+        href={`/browse?fetchmoviedata=${text
           .replace(/\s/g, "")
           .slice(0, 3)
-          .toLowerCase()}=true`}
+          .toLowerCase()}`}
       >
         <a>
           <span
