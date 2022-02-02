@@ -7,7 +7,7 @@ import PrimaryNav from "./primaryNav";
 import SecondaryNav from "./secondaryNav";
 
 export default function Header({}) {
-  const navItemTxt = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
+  const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
     active: true,
@@ -50,7 +50,6 @@ export default function Header({}) {
       active: true,
       index: e.target.dataset.num,
     });
-    console.log(e);
   }
 
   let lastKnownScrollPosition = 0;
