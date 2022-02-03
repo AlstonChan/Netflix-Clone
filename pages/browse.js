@@ -12,9 +12,12 @@ import Cards from "../components/browse/cards";
 import Featured from "../components/browse/featured";
 import Footer from "../components/footer/footerBrowse";
 
+import PlaceholderCard from "../components/browse/placeholderCard";
+
 export default function Browse() {
   const router = useRouter();
   const [profile, setProfile] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
   const [requestedDataRoute, setRequestedDataRoute] = useState(
     () => router.query.fetchmoviedata
   );
@@ -24,6 +27,7 @@ export default function Browse() {
     {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      refetchOnReconnect: false,
       cacheTime: 1000 * 60 * 20,
       staleTime: 1000 * 60 * 15,
     }
@@ -47,11 +51,17 @@ export default function Browse() {
     };
   });
 
+  useEffect(() => {
+    if (!isLoading) {
+      setFirstLoad(false);
+    }
+  }, [isLoading]);
+
   function switchPage() {
     setProfile(true);
   }
 
-  if (profile && isLoading) {
+  if (firstLoad && profile && isLoading) {
     return <Loading />;
   }
 
@@ -65,21 +75,25 @@ export default function Browse() {
               {requestedDataRoute == "hom" || requestedDataRoute == "tvs" ? (
                 <Featured url={requestedDataRoute} />
               ) : (
-                ""
+                <div className={styles.emptyFea}></div>
               )}
             </span>
-            {/* <Cards /> */}
-            {data
-              ? data.map((movie, index) => {
-                  return (
-                    <Cards
-                      movieSet={movie.data.results}
-                      movieGenre={movie.genre}
-                      key={index}
-                    />
-                  );
-                })
-              : ""}
+            {data ? (
+              data.map((movie, index) => {
+                return (
+                  <Cards
+                    movieSet={movie.data.results}
+                    movieGenre={movie.genre}
+                    key={index}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <PlaceholderCard />
+                <PlaceholderCard />
+              </>
+            )}
           </div>
         </main>
         <Footer />

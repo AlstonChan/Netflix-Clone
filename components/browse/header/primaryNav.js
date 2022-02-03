@@ -55,13 +55,27 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
           </div>
           {text.map((txt, index) => {
             return (
-              <li
-                key={index}
-                className={styles.dropDownMenuitem}
-                data-num={data}
+              <Link
+                href={`/browse?fetchmoviedata=${txt
+                  .replace(/\s/g, "")
+                  .slice(0, 3)
+                  .toLowerCase()}`}
               >
-                {txt}
-              </li>
+                <a className={styles.dropDownMenuitem}>
+                  <li
+                    key={index}
+                    data-num={data}
+                    onClick={(e) => handler(e)}
+                    className={
+                      classNm.active && classNm.index == data
+                        ? `${styles.selectionOpt} ${styles.selectedOpt}`
+                        : styles.selectionOpt
+                    }
+                  >
+                    {txt}
+                  </li>
+                </a>
+              </Link>
             );
           })}
         </div>
@@ -70,21 +84,22 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
   ) : (
     <>
       <Link
+        shallow
         href={`/browse?fetchmoviedata=${text
           .replace(/\s/g, "")
           .slice(0, 3)
           .toLowerCase()}`}
       >
-        <a>
-          <span
-            onClick={(e) => handler(e)}
-            className={
-              classNm.active && classNm.index == data
-                ? `${styles.selectionOpt} ${styles.selectedOpt}`
-                : styles.selectionOpt
-            }
-            data-num={data}
-          >
+        <a
+          onClick={(e) => handler(e)}
+          className={
+            classNm.active && classNm.index == data
+              ? `${styles.selectionOpt} ${styles.selectedOpt}`
+              : styles.selectionOpt
+          }
+          data-num={data}
+        >
+          <span data-num={data} style={{ margin: "0 10px" }}>
             {text}
           </span>
         </a>

@@ -1,5 +1,5 @@
 .main {
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 .container {
@@ -94,6 +94,10 @@
 /* featured.js component */
 .featuredImg {
   width: 100%;
+}
+
+.emptyFea {
+  padding: 30px;
 }
 
 /* featured text section */

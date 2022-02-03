@@ -5,27 +5,6 @@ import { useState, useEffect } from "react";
 import SliderHandler from "./sliderHandler";
 import SliderItem from "./sliderItem";
 
-const movieName = [
-  "army dead",
-  "clickbait",
-  "collateral",
-  "mindhunter",
-  "money heist",
-  "ozark",
-  "punisher",
-  "shadow",
-  "spenser",
-  "the guilty",
-  "true story",
-  "uncut gems",
-  "designated",
-  "undercover",
-  "outsider",
-  "july",
-  "wallander",
-  "ganglands",
-];
-
 // Disclamer, I didn't write the code below, just
 // make a few changes so it can fit my app, all
 // credits goes to andrewthamcc.
@@ -39,7 +18,7 @@ export default function Cards({ movieSet, movieGenre }) {
   const [lowestVisibleIndex, setLowestVisibleIndex] = useState(0); // lowest visible index of slider content
   const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
 
-  const totalItems = movieName.length;
+  const totalItems = movieSet.length;
 
   useEffect(() => {
     handleWindowResize(window);
@@ -65,7 +44,7 @@ export default function Cards({ movieSet, movieGenre }) {
     }
   };
 
-  if (!movieName.length) return null;
+  if (!movieSet.length) return null;
 
   const renderSliderContent = () => {
     // gets the indexes to be displayed
@@ -121,16 +100,6 @@ export default function Cards({ movieSet, movieGenre }) {
           <SliderItem
             movieSet={movieSet[index]}
             key={`${movieSet[index].id}${Math.random()}`}
-            width={100 / itemsInRow}
-          />
-        );
-      }
-    } else {
-      for (let index of indexToDisplay) {
-        sliderContents.push(
-          <SliderItem
-            movie={movieName[index]}
-            key={Math.random()}
             width={100 / itemsInRow}
           />
         );
@@ -243,9 +212,7 @@ export default function Cards({ movieSet, movieGenre }) {
   return (
     <section className={styles.rowOfCards}>
       <div className={styles.cardsHeadings}>
-        <h1 className={styles.cardH1}>
-          {movieGenre ? movieGenre : "Relentless Crime Thrillers"}
-        </h1>
+        <h1 className={styles.cardH1}>{movieGenre}</h1>
       </div>
       <div className={styles.cardsRow}>
         <div className={styles.cards}>

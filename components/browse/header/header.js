@@ -93,7 +93,12 @@ export default function Header({}) {
           </div>
           <nav className={styles.selection}>
             {toggleNavItem ? (
-              <PrimaryNav text={navItemTxt} menu={true} />
+              <PrimaryNav
+                text={navItemTxt}
+                handler={handleNavSelection}
+                menu={true}
+                classNm={selectedOptionNav}
+              />
             ) : (
               navItemTxt.map((txt, index) => {
                 return (

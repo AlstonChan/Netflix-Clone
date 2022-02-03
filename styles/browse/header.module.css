@@ -31,7 +31,6 @@
 .selectionOpt {
   font-size: 0.95rem;
   color: #fff;
-  margin: 0 10px;
   cursor: pointer;
 }
 
@@ -63,7 +62,7 @@
 .dropDownMenuNav {
   color: #fff;
   position: absolute;
-  bottom: -250px;
+  bottom: -190px;
   left: 80px;
   background-color: rgba(20, 20, 20, 0.89);
   border-top: #fff solid 2px;
