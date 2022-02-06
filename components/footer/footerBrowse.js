@@ -28,24 +28,24 @@ export default function Footer1() {
         <div className={styles.socialMediaContainer}>
           <div className={styles.socialMedia}>
             <a href="">
-              <Image src={facebook} />
+              <Image src={facebook} alt="facebook icon" />
             </a>
           </div>
           <div className={styles.socialMedia}>
             <a href="">
-              <Image src={instagram} />
-            </a>
-          </div>
-          <div className={styles.socialMedia}>
-            {" "}
-            <a href="">
-              <Image src={twitter} />
+              <Image src={instagram} alt="instagram icon" />
             </a>
           </div>
           <div className={styles.socialMedia}>
             {" "}
             <a href="">
-              <Image src={youtube} />
+              <Image src={twitter} alt="twitter icon" />
+            </a>
+          </div>
+          <div className={styles.socialMedia}>
+            {" "}
+            <a href="">
+              <Image src={youtube} alt="youtube icon" />
             </a>
           </div>
         </div>

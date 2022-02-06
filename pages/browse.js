@@ -138,6 +138,7 @@ export const Main = React.memo(
     } else return false;
   }
 );
+Main.displayName = "Main";
 
 export async function fetchMoviesDB(requestedData) {
   const result = await axios.post("http://localhost:3000/api/fetchmovie", {

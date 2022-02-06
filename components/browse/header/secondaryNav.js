@@ -16,6 +16,7 @@ export default function SecondaryNav() {
             width="35px"
             height="35px"
             className={styles.profilePic}
+            alt="profile icon"
           />
         </div>
         <Image
@@ -23,6 +24,7 @@ export default function SecondaryNav() {
           width="20px"
           height="20px"
           className={styles.profilePicIcon}
+          alt=""
         />
       </div>
     </>

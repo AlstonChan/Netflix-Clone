@@ -107,6 +107,7 @@ export default function BrowseModals({ modalStyle }) {
               width="1364px"
               height="768px"
               className={styles.backdrop_pathStyle}
+              alt="movie thumbnails"
             />
           </div>
         </div>
@@ -129,7 +130,7 @@ export const MovieDetails = ({ modalStyle }) => {
       <div className={styles.adultMovies}>
         {mov.adult ? (
           <div className={styles.isAdultIcon}>
-            <Image src={adult} />{" "}
+            <Image src={adult} alt="18+ sign" />{" "}
           </div>
         ) : (
           ""

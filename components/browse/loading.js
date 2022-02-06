@@ -9,14 +9,14 @@ export default function LoadingBrowse() {
     <div className={styles.loadingBg}>
       <header className={styles.header}>
         <div className={styles.netflixLogoContainer}>
-          <Image src={NetflixLogo} />
+          <Image src={NetflixLogo} alt="Netflix logo" />
         </div>
       </header>
       <main className={styles.mainLoading}>
         <div className={styles.profilePicCenter}>
-          <Image src={ProfilePic} />
+          <Image src={ProfilePic} alt="profile icon" />
           <div className={styles.spinnerContain}>
-            <Image src={Spinner} />
+            <Image src={Spinner} alt="loading spinner" />
           </div>
         </div>
       </main>

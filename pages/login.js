@@ -21,6 +21,7 @@ export default function Login() {
       router.push("./browse");
     }
   }, []);
+
   if (user) {
     router.replace("./browse");
   }

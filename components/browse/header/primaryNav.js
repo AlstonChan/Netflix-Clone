@@ -36,6 +36,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
           width="20px"
           height="20px"
           className={styles.navItemMenuImg}
+          alt=""
         />
       </div>
       <div
@@ -51,6 +52,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
               width="20px"
               height="20px"
               className={styles.dropDownMenuNavListArr}
+              alt=""
             />
           </div>
           {text.map((txt, index) => {
@@ -60,10 +62,10 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
                   .replace(/\s/g, "")
                   .slice(0, 3)
                   .toLowerCase()}`}
+                key={index}
               >
                 <a className={styles.dropDownMenuitem}>
                   <li
-                    key={index}
                     data-num={data}
                     onClick={(e) => handler(e)}
                     className={

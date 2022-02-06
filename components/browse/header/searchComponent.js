@@ -40,14 +40,18 @@ export default function SearchComponent() {
 
   return (
     <div className={styles.navIcon}>
-      {showInput ? "" : <Image src={search} onClick={toggleSearchInput} />}
+      {showInput ? (
+        ""
+      ) : (
+        <Image src={search} onClick={toggleSearchInput} alt="search icon" />
+      )}
       <div
         className={styles.inputContainer}
         style={showInput ? { display: "block" } : { display: "none" }}
       >
         <div className={styles.inputContain}>
           <label className={styles.searchIconInput} htmlFor="q">
-            <Image src={search} />
+            <Image src={search} alt="search icon" />
           </label>
           <input
             type="search"
@@ -60,7 +64,7 @@ export default function SearchComponent() {
             placeholder="Titles, people, genres"
           />
           <label className={styles.searchCross} htmlFor="q">
-            <Image src={cross} />
+            <Image src={cross} alt="cancel icon" />
           </label>
         </div>
       </div>
