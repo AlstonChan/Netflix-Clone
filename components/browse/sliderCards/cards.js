@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/cards.module.css";
+import styles from "../../../styles/browse/cards.module.css";
 
 import { useState, useEffect } from "react";
 
@@ -10,7 +10,7 @@ import SliderItem from "./sliderItem";
 // credits goes to andrewthamcc.
 // Repo: github.com/andrewthamcc/netflix-slider
 
-export default function Cards({ movieSet, movieGenre }) {
+export default function Cards({ movieSet, movieGenre, modal }) {
   const [sliderHasMoved, setSliderHasMoved] = useState(false); // boolean to display prev arrow
   const [sliderMoving, setSliderMoving] = useState(false); // boolean for slider animation
   const [movePercentage, setMovePercentage] = useState(0); // move percentage to shift slider during animation
@@ -98,9 +98,14 @@ export default function Cards({ movieSet, movieGenre }) {
       for (let index of indexToDisplay) {
         sliderContents.push(
           <SliderItem
+            dataNum={index}
+            firstNum={lowestVisibleIndex}
+            lastNum={lowestVisibleIndex + itemsInRow - 1}
             movieSet={movieSet[index]}
-            key={`${movieSet[index].id}${Math.random()}`}
+            key={`${movieSet[index].id}${index}`}
             width={100 / itemsInRow}
+            modal={modal}
+            slideOnMoving={sliderMoving}
           />
         );
       }

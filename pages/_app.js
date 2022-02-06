@@ -15,7 +15,6 @@ export const UserContext = createContext({
 function MyApp({ Component, pageProps }) {
   const [user, loading, error] = useAuthState(auth);
   const [queryClient] = useState(() => new QueryClient());
-  // const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>

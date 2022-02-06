@@ -1,0 +1,70 @@
+.mainModals {
+  position: absolute;
+  z-index: 10;
+  max-width: 1360px;
+  display: none;
+}
+
+.modalsContainer {
+  transition: width 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.modalShow {
+  display: block;
+}
+
+.backdrop_pathStyle {
+  border-radius: 10px 10px 0 0;
+}
+
+.mainImageContainer {
+  margin-bottom: -1%;
+}
+
+.lowerPanel {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+}
+
+.iconGroup {
+  display: flex;
+}
+
+.circleContainer {
+  border: 2px solid rgb(255, 255, 255, 0.5);
+  border-radius: 50%;
+  padding: 6px 4px 2.5px 5.5px;
+  cursor: pointer;
+  width: 38px;
+  margin-right: 8px;
+}
+
+.circleContainer:hover {
+  border: 2px solid rgb(255, 255, 255, 1);
+}
+
+.releaseDate {
+  color: #fff;
+  margin: 2px 0;
+}
+
+.title {
+  padding: 7px 0 0 0;
+}
+.titleName {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.isAdultIcon {
+  margin: -0.5% 0 -2.5% 0;
+  width: 10%;
+}
+
+.genreDetails {
+  margin: 2px 0 6px 0;
+}
+.genre {
+  color: #fff;
+}

@@ -1,5 +1,5 @@
 import styles from "../styles/browse/browse.module.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
@@ -8,16 +8,17 @@ import axios from "axios";
 import Loading from "../components/browse/loading";
 import Header from "../components/browse/header/header.js";
 import Profile from "../components/browse/profile";
-import Cards from "../components/browse/cards";
+import Cards from "../components/browse/sliderCards/cards";
 import Featured from "../components/browse/featured";
 import Footer from "../components/footer/footerBrowse";
-
-import PlaceholderCard from "../components/browse/placeholderCard";
+import PlaceholderCard from "../components/browse/sliderCards/placeholderCard";
+import Modals from "../components/browse/modals/modals";
 
 export default function Browse() {
   const router = useRouter();
   const [profile, setProfile] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
+  const [modal, setModal] = useState({});
   const [requestedDataRoute, setRequestedDataRoute] = useState(
     () => router.query.fetchmoviedata
   );
@@ -51,11 +52,30 @@ export default function Browse() {
     };
   });
 
+  // make sure loading page only show up when moving
+  // from profile page to movies page on initial load
   useEffect(() => {
     if (!isLoading) {
       setFirstLoad(false);
     }
   }, [isLoading]);
+
+  // function that collects the data for modals,
+  // determine the width and position of modal
+  function toggleModal(state, e, movieSet, position) {
+    if (state.state === "mouseenter") {
+      const { width, top, bottom, left, right } =
+        e.target.getBoundingClientRect();
+      const adjustedY = top + window.scrollY;
+      // console.table({ top, bottom, left, right, adjustedY });
+      setModal({
+        mainClass: { top: adjustedY, left, right, bottom },
+        width,
+        movieSet,
+        position,
+      });
+    }
+  }
 
   function switchPage() {
     setProfile(true);
@@ -70,7 +90,8 @@ export default function Browse() {
       <div className={styles.container}>
         <Header />
         <main className={styles.main}>
-          <div>
+          <Modals modalStyle={modal} />
+          <Main data={data}>
             <span className={styles.featuredMain}>
               {requestedDataRoute == "hom" || requestedDataRoute == "tvs" ? (
                 <Featured url={requestedDataRoute} />
@@ -85,6 +106,7 @@ export default function Browse() {
                     movieSet={movie.data.results}
                     movieGenre={movie.genre}
                     key={index}
+                    modal={toggleModal}
                   />
                 );
               })
@@ -94,7 +116,7 @@ export default function Browse() {
                 <PlaceholderCard />
               </>
             )}
-          </div>
+          </Main>
         </main>
         <Footer />
       </div>
@@ -103,6 +125,19 @@ export default function Browse() {
     <Profile switchPage={switchPage} />
   );
 }
+
+// to prevent rerender when update modal state
+export const Main = React.memo(
+  ({ children }) => {
+    return children;
+  },
+  // I actually don't know why and how it works, it just works
+  (prevProps, nextProps) => {
+    if (prevProps.data === nextProps.data) {
+      return true;
+    } else return false;
+  }
+);
 
 export async function fetchMoviesDB(requestedData) {
   const result = await axios.post("http://localhost:3000/api/fetchmovie", {
