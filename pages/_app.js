@@ -1,10 +1,13 @@
 import "../styles/globals.css";
 import { createContext, useState } from "react";
 import { auth } from "../lib/firebase";
+import initAuth from "../lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 // import { ReactQueryDevtools } from "react-query-devtools";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+
+initAuth();
 
 export const UserContext = createContext({
   user: null,

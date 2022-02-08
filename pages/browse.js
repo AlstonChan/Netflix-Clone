@@ -1,5 +1,5 @@
 import styles from "../styles/browse/browse.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
@@ -14,7 +14,18 @@ import Footer from "../components/footer/footerBrowse";
 import PlaceholderCard from "../components/browse/sliderCards/placeholderCard";
 import Modals from "../components/browse/modals/modals";
 
-export default function Browse() {
+import Loader from "../components/Loader";
+
+import getAbsoluteURL from "../lib/getAbsoluteURL";
+
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
+
+function Browse() {
+  let baseUrl = "";
   const router = useRouter();
   const [profile, setProfile] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
@@ -24,7 +35,7 @@ export default function Browse() {
   );
   const { data, isLoading } = useQuery(
     ["moviesDB", requestedDataRoute],
-    () => fetchMoviesDB(requestedDataRoute),
+    () => fetchMoviesDB(requestedDataRoute, getAbsoluteURL("/api/fetchmovie")),
     {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
@@ -86,45 +97,49 @@ export default function Browse() {
   }
 
   return profile ? (
-    <>
-      <div className={styles.container}>
-        <Header />
-        <main className={styles.main}>
-          <Modals modalStyle={modal} />
-          <Main data={data}>
-            <span className={styles.featuredMain}>
-              {requestedDataRoute == "hom" || requestedDataRoute == "tvs" ? (
-                <Featured url={requestedDataRoute} />
-              ) : (
-                <div className={styles.emptyFea}></div>
-              )}
-            </span>
-            {data ? (
-              data.map((movie, index) => {
-                return (
-                  <Cards
-                    movieSet={movie.data.results}
-                    movieGenre={movie.genre}
-                    key={index}
-                    modal={toggleModal}
-                  />
-                );
-              })
+    <div className={styles.container}>
+      <Header />
+      <main className={styles.main}>
+        <Modals modalStyle={modal} />
+        <Main data={data}>
+          <span className={styles.featuredMain}>
+            {requestedDataRoute == "hom" || requestedDataRoute == "tvs" ? (
+              <Featured url={requestedDataRoute} />
             ) : (
-              <>
-                <PlaceholderCard />
-                <PlaceholderCard />
-              </>
+              <div className={styles.emptyFea}></div>
             )}
-          </Main>
-        </main>
-        <Footer />
-      </div>
-    </>
+          </span>
+          {data ? (
+            data.map((movie, index) => {
+              return (
+                <Cards
+                  movieSet={movie.data.results}
+                  movieGenre={movie.genre}
+                  key={index}
+                  modal={toggleModal}
+                />
+              );
+            })
+          ) : (
+            <>
+              <PlaceholderCard />
+              <PlaceholderCard />
+            </>
+          )}
+        </Main>
+      </main>
+      <Footer />
+    </div>
   ) : (
     <Profile switchPage={switchPage} />
   );
 }
+
+export default withAuthUser({
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  LoaderComponent: Loader,
+})(Browse);
 
 // to prevent rerender when update modal state
 export const Main = React.memo(
@@ -140,34 +155,39 @@ export const Main = React.memo(
 );
 Main.displayName = "Main";
 
-export async function fetchMoviesDB(requestedData) {
-  const result = await axios.post("http://localhost:3000/api/fetchmovie", {
+export async function fetchMoviesDB(requestedData, endpoint) {
+  const result = await axios.post(endpoint, {
     requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
     requestedData: requestedData,
   });
   return result.data.movies;
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenAuthed: AuthAction.RENDER,
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async (context) => {
+  const host = { ...context.req.headers }.host;
+  const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
   let requestedData = "";
   if (context.query.fetchmoviedata == "hom") {
     requestedData = "hom";
     await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
-      fetchMoviesDB(requestedData)
+      fetchMoviesDB(requestedData, endpoint)
     );
   } else if (context.query.fetchmoviedata == "tvs") {
     requestedData = "tvs";
     await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
-      fetchMoviesDB(requestedData)
+      fetchMoviesDB(requestedData, endpoint)
     );
   } else if (context.query.fetchmoviedata == "new") {
     requestedData = "new";
     await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
-      fetchMoviesDB(requestedData)
+      fetchMoviesDB(requestedData, endpoint)
     );
   }
   return {
     props: { dehydratedState: dehydrate(queryClient) },
   };
-}
+});

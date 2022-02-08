@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from "./_app";
+import { useState } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -9,23 +8,13 @@ import Footer from "../components/footer/footerStyle2";
 import LoginForm from "../components/login/loginForm";
 import router from "next/router";
 
+import Loader from "../components/Loader";
+
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from "../lib/firebase";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-export default function Login() {
-  const { user, loading, error } = useContext(UserContext);
-
-  useEffect(() => {
-    if (user) {
-      router.replace("./browse");
-      router.push("./browse");
-    }
-  }, []);
-
-  if (user) {
-    router.replace("./browse");
-  }
-
+function Login() {
   function loginGoogleEvent(e) {
     e.preventDefault();
     signInWithPopup(auth, provider)
@@ -98,6 +87,13 @@ export default function Login() {
     </>
   );
 }
+
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  LoaderComponent: Loader,
+})(Login);
 
 export function GoogleCaptcha() {
   const [showCaptchaClass, setShowCaptchaClass] = useState({

@@ -8,7 +8,11 @@ import CardFour from "../components/home/CardFour";
 import CardFaq from "../components/home/Faq/index";
 import Footer from "../components/footer/footerStyle1";
 
-export default function Home() {
+import Loader from "../components/Loader";
+
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+
+function Home() {
   return (
     <div className="container">
       <Head>
@@ -25,3 +29,10 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  LoaderComponent: Loader,
+})(Home);

@@ -8,7 +8,11 @@ import router from "next/router";
 
 export default function LogOut() {
   useEffect(() => {
-    setTimeout(() => router.push("/"), 30000);
+    let timerForceHome = setTimeout(() => router.push("/"), 30000);
+    return () => {
+      // to clear timeout when user leave this page
+      clearTimeout(timerForceHome);
+    };
   }, []);
 
   function leaveNow(e) {
