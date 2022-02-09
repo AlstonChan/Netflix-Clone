@@ -142,11 +142,13 @@
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 200ms ease-in;
+  visibility: hidden;
+  transition: opacity 200ms ease-in, visibility 200ms ease-in;
 }
 .show {
   /* works with togglePassword above*/
   opacity: 1;
+  visibility: visible;
 }
 
 .togglePassword > div {

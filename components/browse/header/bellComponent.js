@@ -2,11 +2,11 @@ import bell from "../../../public/images/icons/misc/bell.svg";
 import { useState } from "react";
 
 import Image from "next/image";
-import styles from "../../../styles/browse/header.module.css";
+import styles from "../../../styles/browse/secondaryHeader.module.css";
 
 export default function BellComponent() {
   const [navNotification, setNavNotification] = useState({
-    display: "none",
+    visibility: "hidden",
   });
 
   const [notificationCount, setNotificationCount] = useState(0);
@@ -15,13 +15,13 @@ export default function BellComponent() {
 
   function toggleNavMenu(e) {
     if (e.type === "mouseenter") {
-      setNavNotification({ display: "block", opacity: "1" });
+      setNavNotification({ visibility: "visible", opacity: "1" });
       clearTimeout(delayNotifi);
     } else if (e.type === "mouseleave") {
       setDelayNotifi(
         setTimeout(() => {
-          setNavNotification({ display: "none", opacity: "0" });
-        }, 500)
+          setNavNotification({ visibility: "hidden", opacity: "0" });
+        }, 400)
       );
     }
   }

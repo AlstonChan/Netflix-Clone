@@ -1,5 +1,5 @@
 import styles from "../styles/browse/browse.module.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
@@ -25,7 +25,6 @@ import {
 } from "next-firebase-auth";
 
 function Browse() {
-  let baseUrl = "";
   const router = useRouter();
   const [profile, setProfile] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);

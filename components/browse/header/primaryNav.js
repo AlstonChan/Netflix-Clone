@@ -6,20 +6,20 @@ import styles from "../../../styles/browse/header.module.css";
 
 export default function PrimaryNav({ text, handler, classNm, data, menu }) {
   const [navMenuStyle, setNavMenuStyle] = useState({
-    display: "none",
+    visibility: "hidden",
   });
 
   const [delay, setDelay] = useState(null);
 
   function toggleNavMenu(e) {
     if (e.type === "mouseenter") {
-      setNavMenuStyle({ display: "block", opacity: "1" });
+      setNavMenuStyle({ visibility: "visible", opacity: "1" });
       clearTimeout(delay);
     } else if (e.type === "mouseleave") {
       setDelay(
         setTimeout(() => {
-          setNavMenuStyle({ display: "none", opacity: "0" });
-        }, 700)
+          setNavMenuStyle({ visibility: "hidden", opacity: "0" });
+        }, 400)
       );
     }
   }

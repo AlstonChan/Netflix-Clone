@@ -4,7 +4,10 @@ import Image from "next/image";
 import styles from "../../../styles/browse/header.module.css";
 
 import PrimaryNav from "./primaryNav";
-import SecondaryNav from "./secondaryNav";
+
+import SearchComponent from "./searchComponent";
+import BellComponent from "./bellComponent";
+import UserComponent from "./userComponent";
 
 export default function Header({}) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
@@ -115,7 +118,9 @@ export default function Header({}) {
             )}
           </nav>
           <div className={styles.secondaryNav}>
-            <SecondaryNav />
+            <SearchComponent />
+            <BellComponent />
+            <UserComponent />
           </div>
         </div>
       </header>
