@@ -20,7 +20,7 @@ git clone https://github.com/AlstonChan/Netflix-clone.git
 
 ### Step Two. Install all required dependencies using `npm install`
 
-You may also install `firebase-tools` so you may use Firebase auth emulators later
+You may also install `firebase-tools` so you can use Firebase auth emulators later
 
 ```
 npm install -g firebase-tools
@@ -63,7 +63,11 @@ npm install -g firebase-tools
 
     ```
 
-5.  This step is optional but is recommended, which is setup a Firebase auth emulator. The emulators is built to accurately mimic the behavios of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
+5.  Go to **`.firebaserc`** file, and change the project defaults to your **`project_id`**.
+
+6.  Go to your **[Firebase console](https://console.firebase.google.com/u/0/)**, select the project and navigate to `Authentication` section. Click get started and enable **`Email/Password`** & **`Google`** auth, this app will use these two providers to authenticate user.
+
+7.  This step is **optional** but is recommended, which is setting up a Firebase auth emulator. The emulators is built to accurately mimic the behavios of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
 
     ```
     # set to true when using Firebase auth emulator
@@ -113,7 +117,7 @@ You need movies data to populate your page, so go to [The Movie Database (TMDB)]
 
 ### Complete `.env.local` file
 
-8.  Your `.env.local` file should look like this if you follow the previous step correctly, and it should have value filled in.
+8.  Your `.env.local` file should look like this if you follow the previous step correctly, and it should have value filled in. Except if you have planned not to use Firebase auth emulators, you are safe to ignore **`NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false`** and **`FIREBASE_AUTH_EMULATOR_HOST=localhost:9099`**.
 
     ```
     NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY=
@@ -172,7 +176,8 @@ firebase emulators:start --only auth
 
 Open [http://localhost:4060/auth](http://localhost:4060/auth) to view the emulator UI
 
-## Netflix Clone Sitemap
+# Netflix Clone Sitemap
 
+This sitemap roughly shows how the app should work, and all the route of the app.
 ![netflix clone sitemap ](./assets/netflix-clone-sitemap.png)
 **NOTE** that the link in the footer have no functions, because all link links to _help.netflix.com_, which isn't part of this project.
