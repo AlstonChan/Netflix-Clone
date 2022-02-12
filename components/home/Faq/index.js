@@ -1,9 +1,7 @@
 import styles from "../../../styles/Home/cardFaq.module.css";
-import AccordionCard from "./accordionCard";
+import Accordion from "./accordion";
 import EmailInput from "../featured/input";
 import { useState } from "react";
-
-import { faq } from "./accordianContent";
 
 export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
@@ -20,23 +18,11 @@ export default function CardFaq() {
     }
   }
 
-  function toggleOne(e) {
-    console.log(e.currentTarget);
-  }
-
   return (
     <section className={styles.container}>
       <div className={styles.shell}>
         <h1 className={styles.sectionHead}>Frequently Asked Questions</h1>
-        <div className={styles.accordion}>
-          {faq.map((item, index) => {
-            return (
-              <li key={index} className={styles.accordionItem}>
-                <AccordionCard faq={item} toggleOne={toggleOne} />
-              </li>
-            );
-          })}
-        </div>
+        <Accordion />
         <form
           action=""
           autoComplete="on"

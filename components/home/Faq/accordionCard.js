@@ -1,32 +1,9 @@
 import Image from "next/image";
 import styles from "../../../styles/Home/cardFaq.module.css";
 import svgCross from "../../../public/images/icons/misc/cross.svg";
-import { useState } from "react";
 
-export default function AccordianCard({ faq, toggleOne }) {
-  const [hideAccordion, setHideAccordion] = useState({
-    class: `${styles.accordianContent} ${styles.hide}`,
-    cross: `${styles.closeCross}`,
-    isClose: false,
-  });
-
-  function toggleAccordian(e) {
-    toggleOne(e);
-    if (hideAccordion.isClose) {
-      setHideAccordion({
-        class: `${styles.accordionContent} ${styles.hide}`,
-        cross: `${styles.closeCross}`,
-        isClose: false,
-      });
-    } else {
-      setHideAccordion({
-        class: `${styles.accordionContent}  ${styles.open}`,
-        cross: `${styles.openCross}`,
-        isClose: true,
-      });
-    }
-  }
-
+export default function AccordianCard({ faq, toggleOne, classNm, data }) {
+  // Warn: not yet seralize
   function createMarkup() {
     let txt;
     if (typeof faq.content !== "object") {
@@ -42,14 +19,32 @@ export default function AccordianCard({ faq, toggleOne }) {
     <>
       <button
         className={styles.accordionItemBtn}
-        onClick={(e) => toggleAccordian(e)}
+        onClick={(e) => toggleOne(e)}
+        data-num={data}
       >
-        <span className={styles.btnText}>{faq.headers} </span>
+        <span data-num={data} className={styles.btnText}>
+          {faq.headers}{" "}
+        </span>
         <div className={styles.btnCross}>
-          <Image src={svgCross} className={hideAccordion.cross} alt="" />
+          <Image
+            data-num={data}
+            src={svgCross}
+            className={
+              classNm.active && classNm.index == data
+                ? styles.openCross
+                : styles.closeCross
+            }
+            alt=""
+          />
         </div>
       </button>
-      <div className={hideAccordion.class}>
+      <div
+        className={
+          classNm.active && classNm.index == data
+            ? `${styles.accordionContent} ${styles.open}`
+            : `${styles.accordionContent} ${styles.hide}`
+        }
+      >
         <span dangerouslySetInnerHTML={createMarkup()} />
       </div>
     </>

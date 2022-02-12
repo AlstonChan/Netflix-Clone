@@ -4,7 +4,6 @@ import { auth } from "../lib/firebase";
 import initAuth from "../lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-// import { ReactQueryDevtools } from "react-query-devtools";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
 initAuth();
@@ -25,7 +24,6 @@ function MyApp({ Component, pageProps }) {
         <UserContext.Provider value={{ user, loading, error }}>
           <Component {...pageProps} />
         </UserContext.Provider>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </Hydrate>
     </QueryClientProvider>
   );

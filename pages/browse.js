@@ -137,6 +137,7 @@ function Browse() {
 export default withAuthUser({
   whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
   LoaderComponent: Loader,
 })(Browse);
 
