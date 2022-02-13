@@ -165,3 +165,9 @@
   font-weight: bold;
   text-decoration: none;
 }
+
+@media screen and (max-width: 670px) {
+  .searchIcon {
+    visibility: hidden;
+  }
+}

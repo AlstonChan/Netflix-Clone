@@ -104,6 +104,7 @@ export default function BrowseModals({ modalStyle }) {
                   ? `http://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
                   : imageNotFound
               }
+              loading="eager"
               width="1364px"
               height="768px"
               className={styles.backdrop_pathStyle}

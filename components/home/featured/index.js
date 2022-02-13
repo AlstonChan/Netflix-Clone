@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../../../styles/Home/featured.module.css";
 
 import Header from "../../header";
@@ -8,6 +8,8 @@ export default function Featured() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
     `netflixBtn ${styles.getStartedBtn}`
   );
+
+  const emailInputRef = useRef();
 
   function handleMouse(e) {
     if (e.type === "mousedown") {
@@ -21,7 +23,7 @@ export default function Featured() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(e.target.children[0].firstChild.value);
+    console.log(emailInputRef.current.value);
   }
 
   return (
@@ -40,13 +42,15 @@ export default function Featured() {
                 membership.
               </p>
               <form
-                action=""
                 autoComplete="on"
                 name="emailInput"
                 onSubmit={(e) => handleFormSubmit(e)}
                 className={styles.flexForm}
               >
-                <Input inputId={"_id_featuredInput"} />
+                <Input
+                  inputId={"_id_featuredInput"}
+                  emailInputRef={emailInputRef}
+                />
                 <div className={styles.buttonContain}>
                   <button
                     type="submit"

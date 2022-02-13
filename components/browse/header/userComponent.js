@@ -21,7 +21,6 @@ const UserComponent = () => {
   const [delay, setDelay] = useState(null);
 
   function toggleNavUser(e) {
-    console.log(e.type);
     if (e.type === "mouseenter") {
       clearTimeout(delay);
       setNavUserStyle({ visibility: "visible", opacity: "1" });

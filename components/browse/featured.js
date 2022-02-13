@@ -18,6 +18,7 @@ export default function Featured({ url }) {
               height="720px"
               alt="The Witcher Series Wallpaper"
               layout="responsive"
+              priority
             />
           </div>
           <div className={styles.wordGroup}>
@@ -29,6 +30,7 @@ export default function Featured({ url }) {
                 width="625px"
                 height="250px"
                 alt="The Witcher Series Text"
+                priority
               />
               <p className={styles.feaDescription}>
                 Geralt of Rivia, a mutated monster-hunter for hire, journeys

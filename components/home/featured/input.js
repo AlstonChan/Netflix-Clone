@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "../../../styles/Home/featured.module.css";
 
-export default function Input({ inputId }) {
+export default function Input({ inputId, emailInputRef }) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
@@ -14,14 +14,7 @@ export default function Input({ inputId }) {
     warnings: "",
   });
 
-  const emailInputRef = useRef();
-
-  //Ensure that upon page refresh, email input will be cleared
-  //and reset the state of emailInputLabelClass
-  useEffect(() => {
-    emailInputRef.current.value = "";
-    handleInputClick({ type: "blur" });
-  }, []);
+  // const emailInputRef = useRef();
 
   function checkEmailInput(val) {
     const valLength = val?.length ?? 0;

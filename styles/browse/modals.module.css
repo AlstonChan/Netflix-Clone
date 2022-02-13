@@ -3,6 +3,7 @@
   z-index: 10;
   max-width: 1360px;
   display: none;
+  cursor: pointer;
 }
 
 .modalsContainer {
@@ -18,7 +19,7 @@
 }
 
 .mainImageContainer {
-  margin-bottom: -5%;
+  margin-bottom: -1%;
 }
 
 .lowerPanel {

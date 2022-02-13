@@ -39,7 +39,7 @@ export default function SearchComponent() {
   }
 
   return (
-    <div className={styles.navIcon}>
+    <div className={`${styles.navIcon} ${styles.searchIcon}`}>
       {showInput ? (
         ""
       ) : (

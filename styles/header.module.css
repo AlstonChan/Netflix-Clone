@@ -8,6 +8,11 @@
   align-items: center;
 }
 
+.netflixLogoContainer {
+  max-width: 180px;
+  margin-bottom: -0.4%;
+}
+
 .submitBtn {
   margin: 0 0 0 auto;
 }
@@ -23,6 +28,35 @@
 
 .submitBtn:hover .btnTxt {
   color: rgb(224, 14, 14);
+}
+
+/* Signup Header Component */
+.mainContainSignUp {
+  padding: 23px 46px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.mainContainBroder {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.submitBtnSignUp {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+
+.btnTxtSignUp {
+  color: #333;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.btnTxtSignUp:hover {
+  text-decoration: underline;
 }
 
 /* *********************************** */

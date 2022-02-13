@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
 import styles from "../../../styles/browse/header.module.css";
@@ -9,7 +9,7 @@ import SearchComponent from "./searchComponent";
 import BellComponent from "./bellComponent";
 import UserComponent from "./userComponent";
 
-export default function Header({}) {
+export function Header({}) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -127,3 +127,6 @@ export default function Header({}) {
     </>
   );
 }
+
+const MemoizedHeader = React.memo(Header);
+export default MemoizedHeader;
