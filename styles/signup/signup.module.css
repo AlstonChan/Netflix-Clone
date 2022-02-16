@@ -1,13 +1,16 @@
+/* global for signup page */
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 340px;
 }
 
 .main {
   display: flex;
 }
 
+/* signup root page */
 .centerDiv {
   margin: 130px auto 0 auto;
   display: flex;
@@ -34,7 +37,7 @@
 .stepsHeadings {
   text-align: center;
   margin: 5px 0 26px 0;
-  font-size: 2.2rem;
+  font-size: 2.1rem;
 }
 
 .benefitListItem {
@@ -44,14 +47,17 @@
 
 .benefitListItemTxt {
   vertical-align: top;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
   padding-left: 5px;
 }
 
 .nextButton {
+  display: flex;
+  justify-content: center;
   border: none;
   background-color: rgb(224, 14, 14);
+  text-decoration: none;
   color: #fff;
   font-size: 1.7rem;
   border-radius: 5px;
@@ -59,4 +65,102 @@
   padding: 18px 0;
   font-family: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
   cursor: pointer;
+  max-width: 440px;
+}
+
+/* signup planform page */
+.centerPlanform {
+  padding: 10px 30px;
+  width: 100%;
+  max-width: 946px;
+  margin: 0 auto;
+}
+
+.planBoxContainer {
+  display: flex;
+}
+
+.planBox {
+  display: flex;
+  margin-left: auto;
+  justify-content: space-around;
+  width: 60%;
+}
+
+.box {
+  width: 7.5rem;
+  height: 7.5rem;
+  background-color: #e50914;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.boxTxt {
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.boxActive {
+  opacity: 1;
+}
+
+/* Pricing Table */
+.pricingTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.rowGroupStyle {
+  height: 60px;
+}
+
+.rowGroupBor {
+  border-bottom: 1px solid #ccc;
+}
+
+.columnHeader {
+  width: 40%;
+}
+
+.columnContent {
+  width: calc(60% / 3);
+}
+
+.rowHeadDataStyle {
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.rowDataStyle {
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  color: #737373;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rowDataStyleActive {
+  color: #e50914;
+}
+
+.termsCondition {
+  margin: 12px 16px;
+  color: #737373;
+}
+
+.termsOfUse {
+  color: #0071eb;
+  text-decoration: none;
+}
+.termsOfUse:hover {
+  text-decoration: underline;
+}
+
+.btnContainerNext {
+  width: 50%;
+  margin: 0 auto;
 }

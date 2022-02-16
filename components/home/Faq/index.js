@@ -1,12 +1,14 @@
 import styles from "../../../styles/Home/cardFaq.module.css";
 import Accordion from "./accordion";
 import EmailInput from "../featured/input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
     `netflixBtn ${styles.getStartedBtn}`
   );
+
+  const emailInputRef = useRef();
 
   function handleMouse(e) {
     if (e.type === "mousedown") {
@@ -35,7 +37,10 @@ export default function CardFaq() {
             membership.
           </p>
           <div className={styles.faqForm}>
-            <EmailInput inputId={"_id_faqInput"} />
+            <EmailInput
+              inputId={"_id_faqInput"}
+              emailInputRef={emailInputRef}
+            />
             <div className={styles.buttonContain}>
               <button
                 type="submit"
