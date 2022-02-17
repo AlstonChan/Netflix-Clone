@@ -28,23 +28,25 @@ export default function LoginForm() {
     const passwordLength = password.length > 5 && password.length < 60;
     const regexValidateEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (email.match(regexValidateEmail) && passwordLength) {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Logged in");
-          router.replace("./browse");
-        })
-        .catch((error) => {
-          const { code, message } = error;
-          if (
-            code === "auth/user-not-found" ||
-            code === "auth/wrong-password"
-          ) {
-            setLogInErrorClass(`${styles.warnShow} ${styles.logInErrorBox}`);
-          }
-          console.log(message);
-        });
-    }
+    if (email.match(regexValidateEmail)) {
+      if (passwordLength) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            console.log("Logged in");
+            router.replace("./browse");
+          })
+          .catch((error) => {
+            const { code, message } = error;
+            if (
+              code === "auth/user-not-found" ||
+              code === "auth/wrong-password"
+            ) {
+              setLogInErrorClass(`${styles.warnShow} ${styles.logInErrorBox}`);
+            }
+            console.log(message);
+          });
+      } else passInputRef.current.focus();
+    } else emailInputRef.current.focus();
   }
   return (
     <>
@@ -63,8 +65,16 @@ export default function LoginForm() {
         className={styles.formFlex}
         onSubmit={(e) => formSubmit(e)}
       >
-        <InputEmail setRef={emailInputRef} inputId={"signInFormInputEml"} />
-        <InputPassword setRef={passInputRef} inputId={"signInFormInputPas"} />
+        <InputEmail
+          setRef={emailInputRef}
+          inputId={"signInFormInputEml"}
+          page={"LoginForm"}
+        />
+        <InputPassword
+          setRef={passInputRef}
+          inputId={"signInFormInputPas"}
+          page={"LoginForm"}
+        />
         <div className={styles.btnContain}>
           <button className={`netflixBtn ${styles.submitBtn}`} type="submit">
             Sign In

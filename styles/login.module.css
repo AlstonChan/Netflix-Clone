@@ -89,6 +89,7 @@
 }
 
 /* InputEmail Componenet */
+/* InputPassword input also used this css */
 .emailInput {
   max-width: 900px;
   border: none;
@@ -100,12 +101,12 @@
   border-radius: 7px;
   background-color: rgb(51, 51, 51);
 }
-.emailInputFilled {
-  background-color: aliceblue;
+.emailInput:focus {
+  outline: none;
 }
 .emailInputLabel {
   position: absolute;
-  color: rgba(255, 255, 255, 0.541);
+  color: rgb(136, 136, 136);
   top: 35%;
   left: 18px;
   font-size: 1rem;

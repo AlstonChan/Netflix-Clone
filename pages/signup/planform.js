@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 
+import PricingTable from "../../components/signup/PricingTable";
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
-import { useState } from "react";
 
 const benefitTxt = [
   "Watch all you want. Advert-free.",
@@ -74,7 +74,7 @@ export default function Registration() {
               </small>
             </div>
             <div className={styles.btnContainerNext}>
-              <Link href="/signup">
+              <Link href="/signup/registration">
                 <a className={styles.nextButton}>Next</a>
               </Link>
             </div>
@@ -83,122 +83,6 @@ export default function Registration() {
       </motion.main>
       <Footer />
     </div>
-  );
-}
-
-export function PricingTable() {
-  const packagePlan = ["Basic", "Standard", "Premium"];
-  const monthlyPrices = ["RM35", "RM45", "RM55"];
-  const videoQuality = ["Good", "Better", "Best"];
-  const resolutions = ["480p", "1080p", "4K+HDR"];
-
-  const [selectedCol, setSelectedCol] = useState({
-    stylesBox: `${styles.box} ${styles.boxActive}`,
-    stylesCol: `${styles.rowDataStyle} ${styles.rowDataStyleActive}`,
-    plan: "Standard",
-    plannum: "1",
-  });
-
-  function selectPlan(e) {
-    setSelectedCol({
-      stylesBox: `${styles.box} ${styles.boxActive}`,
-      stylesCol: `${styles.rowDataStyle} ${styles.rowDataStyleActive}`,
-      plan: e.target.dataset.plan,
-      plannum: e.target.dataset.plannum,
-    });
-  }
-
-  return (
-    <>
-      <div className={styles.planBoxContainer}>
-        <div className={styles.planBox}>
-          {packagePlan.map((txt, index) => {
-            return (
-              <div
-                key={index}
-                data-plannum={index}
-                data-plan={txt}
-                className={
-                  selectedCol.plan == txt ? selectedCol.stylesBox : styles.box
-                }
-                onClick={(e) => selectPlan(e)}
-              >
-                <p className={styles.boxTxt}>{txt} </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <table className={styles.pricingTable}>
-        <colgroup span="1" className={styles.columnHeader} />
-        <colgroup span="2" className={styles.columnContent} />
-        <tbody>
-          <tr className={`${styles.rowGroupStyle} ${styles.rowGroupBor}`}>
-            <td className={styles.rowHeadDataStyle}>Monthly prices</td>
-            {monthlyPrices.map((txt, index) => {
-              return (
-                <td
-                  key={index}
-                  className={
-                    selectedCol.plannum == index
-                      ? selectedCol.stylesCol
-                      : styles.rowDataStyle
-                  }
-                >
-                  {txt}{" "}
-                </td>
-              );
-            })}
-          </tr>
-          <tr className={`${styles.rowGroupStyle} ${styles.rowGroupBor}`}>
-            <td className={styles.rowHeadDataStyle}>Video quality</td>
-            {videoQuality.map((txt, index) => {
-              return (
-                <td
-                  key={index}
-                  className={
-                    selectedCol.plannum == index
-                      ? selectedCol.stylesCol
-                      : styles.rowDataStyle
-                  }
-                >
-                  {txt}{" "}
-                </td>
-              );
-            })}
-          </tr>
-          <tr className={`${styles.rowGroupStyle} ${styles.rowGroupBor}`}>
-            <td className={styles.rowHeadDataStyle}>Resolutions</td>
-            {resolutions.map((txt, index) => {
-              return (
-                <td
-                  key={index}
-                  className={
-                    selectedCol.plannum == index
-                      ? selectedCol.stylesCol
-                      : styles.rowDataStyle
-                  }
-                >
-                  {txt}{" "}
-                </td>
-              );
-            })}
-          </tr>
-          <tr className={`${styles.rowGroupStyle}`}>
-            <td className={styles.rowHeadDataStyle}>
-              Watch on your TV, computer, mobile phone and tablet
-            </td>
-            {packagePlan.map((txt, index) => {
-              return (
-                <td key={index} className={styles.rowDataStyle}>
-                  <Image src={CheckRed} />
-                </td>
-              );
-            })}
-          </tr>
-        </tbody>
-      </table>
-    </>
   );
 }
 
