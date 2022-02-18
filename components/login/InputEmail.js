@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/login.module.css";
-import signUpStyles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/emailPass.module.css";
 
 export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
-    styles.emailInputLabel
+    styles.inputBoxLabel
   );
 
   //Set warning about user email input and toggle the warning presence
   const [emailInput, setEmailInput] = useState({
-    class: page == "LoginForm" ? styles.emailInput : signUpStyles.emailInput,
+    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
     warnings: "",
   });
 
@@ -20,6 +19,11 @@ export default function Input({ setRef, inputId, page }) {
   useEffect(() => {
     setRef.current.value = "";
     handleInputClick({ type: "blur" });
+    if (page == "regForm" && typeof setRef != undefined) {
+      setRef.current.value = sessionStorage.getItem("user");
+      const e = { type: "focus" };
+      handleInputClick(e);
+    }
   }, []);
 
   function checkEmailInput(val) {
@@ -31,8 +35,8 @@ export default function Input({ setRef, inputId, page }) {
       setEmailInput({
         class:
           page == "LoginForm"
-            ? `${styles.emailInput} ${styles.emailWarnBorder}`
-            : `${signUpStyles.emailInput} ${signUpStyles.emailWarnBorder}`,
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
         warnings:
           page == "LoginForm"
             ? "Email is required!"
@@ -42,14 +46,13 @@ export default function Input({ setRef, inputId, page }) {
       setEmailInput({
         class:
           page == "LoginForm"
-            ? `${styles.emailInput} ${styles.emailWarnBorder}`
-            : `${signUpStyles.emailInput} ${signUpStyles.emailWarnBorder}`,
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
         warnings: "Please enter a valid email address",
       });
     } else {
       setEmailInput({
-        class:
-          page == "LoginForm" ? styles.emailInput : signUpStyles.emailInput,
+        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
         warnings: "",
       });
     }
@@ -61,12 +64,12 @@ export default function Input({ setRef, inputId, page }) {
       checkEmailInput(val);
     } else if (e.type === "focus") {
       setEmailInputLabelClass(
-        `${styles.emailInputLabel} ${styles.emailInputLabelMove}`
+        `${styles.inputBoxLabel} ${styles.inputBoxLabelMove}`
       );
     } else if (val !== "") {
       return;
     } else if (e.type === "blur") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
+      setEmailInputLabelClass(`${styles.inputBoxLabel}`);
     }
   }
 
@@ -91,7 +94,7 @@ export default function Input({ setRef, inputId, page }) {
           Email
         </label>
       </div>
-      <p className={styles.emailWarn}>{emailInput.warnings}</p>
+      <p className={styles.inputBoxWarn}>{emailInput.warnings}</p>
     </div>
   ) : (
     <div className={styles.inputContainAll}>
@@ -114,7 +117,7 @@ export default function Input({ setRef, inputId, page }) {
           Email
         </label>
       </div>
-      <p className={signUpStyles.emailWarn}>{emailInput.warnings}</p>
+      <p className={styles.inputBoxWarnSign}>{emailInput.warnings}</p>
     </div>
   );
 }

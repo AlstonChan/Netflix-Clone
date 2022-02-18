@@ -1,4 +1,4 @@
-import styles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/signup.module.css";
 import Layout from "../layout";
 
 import Link from "next/link";
@@ -11,6 +11,10 @@ import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
 
+import Loader from "../../components/Loader";
+
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+
 const benefitTxt = [
   "No commitments, cancel at any time.",
   "Everything on Netflix for one low price.",
@@ -22,7 +26,7 @@ const variants = {
   enter: { opacity: 1, x: 0, y: 0 },
   exit: { opacity: 0, x: 0, y: -100 },
 };
-export default function SignUp() {
+export function SignUp() {
   return (
     <div className={styles.container}>
       <Header logoClickHome={true} />
@@ -69,3 +73,10 @@ SignUp.getLayout = function getLayout(page) {
     </Layout>
   );
 };
+
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
+  LoaderComponent: Loader,
+})(SignUp);

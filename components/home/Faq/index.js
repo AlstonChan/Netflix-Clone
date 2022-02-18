@@ -2,6 +2,7 @@ import styles from "../../../styles/Home/cardFaq.module.css";
 import Accordion from "./accordion";
 import EmailInput from "../featured/input";
 import { useRef, useState } from "react";
+import router from "next/router";
 
 export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
@@ -20,13 +21,20 @@ export default function CardFaq() {
     }
   }
 
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    if (emailInputRef.current.isValid) {
+      sessionStorage.setItem("user", emailInputRef.current.value);
+      router.push("/signup");
+    }
+  }
+
   return (
     <section className={styles.container}>
       <div className={styles.shell}>
         <h1 className={styles.sectionHead}>Frequently Asked Questions</h1>
         <Accordion />
         <form
-          action=""
           autoComplete="on"
           name="emailInput"
           onSubmit={(e) => handleFormSubmit(e)}

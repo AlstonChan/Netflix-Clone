@@ -1,4 +1,4 @@
-import styles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/signup.module.css";
 import Layout from "../layout";
 
 import Link from "next/link";
@@ -7,9 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 
-import PricingTable from "../../components/signup/PricingTable";
+import PricingTable from "../../components/signup/pricingTable";
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
+
+import Loader from "../../components/Loader";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 const benefitTxt = [
   "Watch all you want. Advert-free.",
@@ -23,7 +26,7 @@ const variants = {
   exit: { opacity: 0, x: 0, y: -100 },
 };
 
-export default function Registration() {
+export function PlanForm() {
   return (
     <div className={styles.container}>
       <Header logoClickHome={true} />
@@ -40,7 +43,7 @@ export default function Registration() {
             <p className={styles.stepsCount}>STEP 1 OF 3</p>
           </div>
           <div style={{ width: "fit-content" }}>
-            <h1 className={styles.stepsHeadings}>
+            <h1 className={styles.stepsHeadings} style={{ textAlign: "left" }}>
               Choose the plan that's right for you.
             </h1>
           </div>
@@ -56,7 +59,7 @@ export default function Registration() {
             <br />
             <PricingTable />
             <div className={styles.termsCondition}>
-              <small style={{ padding: "0 150px 0 0" }}>
+              <small className={styles.termsConditionSmall}>
                 HD (720p), Full HD (1080p), Ultra HD (4K) and HDR availability
                 subject to your internet service and device capabilities. Not
                 all content is available in all resolutions. See our{" "}
@@ -67,7 +70,7 @@ export default function Registration() {
               </small>
             </div>
             <div className={styles.termsCondition}>
-              <small style={{ padding: "0 150px 0 0" }}>
+              <small className={styles.termsConditionSmall}>
                 Only people who live with you may use your account. Watch on 4
                 different devices at the same time with Premium, 2 with Standard
                 and 1 with Basic.
@@ -86,10 +89,17 @@ export default function Registration() {
   );
 }
 
-Registration.getLayout = function getLayout(page) {
+PlanForm.getLayout = function getLayout(page) {
   return (
     <Layout>
       <AnimatePresence exitBeforeEnter>{page}</AnimatePresence>
     </Layout>
   );
 };
+
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
+  LoaderComponent: Loader,
+})(PlanForm);

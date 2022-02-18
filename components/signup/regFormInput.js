@@ -1,8 +1,7 @@
 import { useRef } from "react";
 import router from "next/router";
 
-import styles from "../../styles/login.module.css";
-import signUpStyles from "../../styles/signup/signup.module.css";
+import signUpStyles from "../../styles/signup.module.css";
 import InputEmail from "../login/InputEmail";
 import InputPassword from "../login/InputPassword";
 
@@ -30,7 +29,7 @@ export default function RegForm() {
             console.log("Sign up");
             setTimeout(() => {
               router.replace("/", undefined, { locale: "/browse" });
-            }, 300);
+            }, 50);
           })
           .catch((error) => {
             const { code, message } = error;

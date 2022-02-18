@@ -1,4 +1,4 @@
-import styles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/signup.module.css";
 import Layout from "../layout";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,12 +7,15 @@ import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
 import RegFormInput from "../../components/signup/regFormInput";
 
+import Loader from "../../components/Loader";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
   enter: { opacity: 1, x: 0, y: 0 },
   exit: { opacity: 0, x: 0, y: -100 },
 };
-export default function RegForm() {
+export function RegForm() {
   return (
     <div className={styles.container}>
       <Header logoClickHome={true} />
@@ -26,6 +29,7 @@ export default function RegForm() {
       >
         <div className={styles.centerDivRegForm}>
           <section className={styles.mainContentRegForm}>
+            <br />
             <div style={{ width: "fit-content" }}>
               <p className={styles.stepsCount}>STEP 2 OF 3</p>
             </div>
@@ -57,3 +61,10 @@ RegForm.getLayout = function getLayout(page) {
     </Layout>
   );
 };
+
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
+  LoaderComponent: Loader,
+})(RegForm);

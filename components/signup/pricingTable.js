@@ -1,4 +1,4 @@
-import styles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/signup.module.css";
 import { useState } from "react";
 
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";

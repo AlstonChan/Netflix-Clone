@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/login.module.css";
-import signUpStyles from "../../styles/signup/signup.module.css";
+import styles from "../../styles/emailPass.module.css";
 
 export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [passInputLabelClass, setPassInputLabelClass] = useState({
-    email: styles.emailInputLabel,
+    email: styles.inputBoxLabel,
     class: styles.togglePassword,
   });
 
   //Toggle warning if user input password is too short or too long
   const [passInputWarn, setPassInputWarn] = useState({
-    class: page == "LoginForm" ? styles.emailInput : signUpStyles.emailInput,
+    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
     warnings: "",
   });
 
@@ -44,8 +43,8 @@ export default function Input({ setRef, inputId, page }) {
       setPassInputWarn({
         class:
           page == "LoginForm"
-            ? `${styles.emailInput} ${styles.emailWarnBorder}`
-            : `${signUpStyles.emailInput} ${signUpStyles.emailWarnBorder}`,
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
         warnings:
           page == "LoginForm"
             ? "Your password must contain between 6 and 60 characters."
@@ -53,8 +52,7 @@ export default function Input({ setRef, inputId, page }) {
       });
     } else {
       setPassInputWarn({
-        class:
-          page == "LoginForm" ? styles.emailInput : signUpStyles.emailInput,
+        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
         warnings: "",
       });
     }
@@ -66,14 +64,14 @@ export default function Input({ setRef, inputId, page }) {
       checkEmailInput(val);
     } else if (e.type === "focus") {
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel} ${styles.emailInputLabelMove}`,
+        email: `${styles.inputBoxLabel} ${styles.inputBoxLabelMove}`,
         class: `${styles.show} ${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val === "") {
       if (page == "LoginForm")
         setTogglePassword({ state: "HIDE", type: "password" });
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel}`,
+        email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val !== "") {
@@ -81,7 +79,7 @@ export default function Input({ setRef, inputId, page }) {
         setTogglePassword({ state: "HIDE", type: "password" });
     } else if (e.type === "clear") {
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel}`,
+        email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
       if (page == "LoginForm")
@@ -112,7 +110,7 @@ export default function Input({ setRef, inputId, page }) {
           </div>
         </div>
       </div>
-      <p className={styles.emailWarn}>{passInputWarn.warnings}</p>
+      <p className={styles.inputBoxWarn}>{passInputWarn.warnings}</p>
     </div>
   ) : (
     <div className={styles.inputContainAll}>
@@ -132,7 +130,7 @@ export default function Input({ setRef, inputId, page }) {
           Add a password
         </label>
       </div>
-      <p className={signUpStyles.emailWarn}>{passInputWarn.warnings}</p>
+      <p className={styles.inputBoxWarnSign}>{passInputWarn.warnings}</p>
     </div>
   );
 }

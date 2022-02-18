@@ -23,6 +23,7 @@
   flex-direction: column;
 }
 
+/* ################################################## */
 /* Login Header Component */
 .head {
   display: flex;
@@ -36,6 +37,7 @@
   margin-left: 3%;
 }
 
+/* ################################################## */
 /* Login main Component */
 .loginContainer {
   background-color: rgba(0, 0, 0, 0.712);
@@ -51,6 +53,7 @@
   margin: 0 0 30px 0;
 }
 
+/* ################################################## */
 /* LoginForm Component */
 /* Login topmost error(when user enter invalid info) */
 .logInErrorBox {
@@ -73,94 +76,12 @@
   color: inherit;
 }
 
+/* ################################################## */
 /* LoginForm main part <form></form> */
 .formFlex {
   display: flex;
   flex-direction: column;
   max-width: 370px;
-}
-
-/* InputEmail & InputPassword Componenet */
-.inputContainAll {
-  flex: 70;
-}
-.inputContain {
-  position: relative;
-}
-
-/* InputEmail Componenet */
-/* InputPassword input also used this css */
-.emailInput {
-  max-width: 900px;
-  border: none;
-  width: 100%;
-  height: 55px;
-  padding: 19px 5px 5px 15px;
-  color: rgb(255, 255, 255);
-  font-size: 1.2rem;
-  border-radius: 7px;
-  background-color: rgb(51, 51, 51);
-}
-.emailInput:focus {
-  outline: none;
-}
-.emailInputLabel {
-  position: absolute;
-  color: rgb(136, 136, 136);
-  top: 35%;
-  left: 18px;
-  font-size: 1rem;
-  transition: all 100ms ease-in-out;
-}
-.emailInputLabelMove {
-  top: 10%;
-  font-size: 0.75rem;
-  left: 15px;
-  font-weight: 600;
-}
-
-/* InputEmail Componenet Error*/
-.emailWarnBorder {
-  border-bottom: solid #ff950a 3px;
-}
-.emailWarn {
-  margin: 0 auto 10px 0;
-  padding: 5px 0 0 5px;
-  width: fit-content;
-  color: #ff950a;
-  font-size: 0.9rem;
-}
-
-/* InputPassword Componenet */
-.togglePassword {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 200ms ease-in, visibility 200ms ease-in;
-}
-.show {
-  /* works with togglePassword above*/
-  opacity: 1;
-  visibility: visible;
-}
-
-.togglePassword > div {
-  border: none;
-  background-color: inherit;
-  cursor: pointer;
-}
-.hideShowTxt {
-  color: rgba(255, 255, 255, 0.541);
-  font-size: 1rem;
-  cursor: pointer;
 }
 
 /* Back to LoginForm main component */
@@ -194,6 +115,7 @@
   text-decoration: underline;
 }
 
+/* ################################################## */
 /* Back to Login.js */
 /* Login Google part */
 .loginGoogle {
@@ -228,6 +150,7 @@
   color: rgba(180, 180, 180, 0.705);
 }
 
+/* ################################################## */
 /* googleCaptcha Componenet (still in login.js) */
 .googleCaptcha {
   max-width: 370px;
@@ -255,6 +178,7 @@
   opacity: 0;
 }
 
+/* ################################################## */
 /* captcha term section, hide in default */
 .captchaContent {
   max-width: 370px;
