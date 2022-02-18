@@ -26,16 +26,19 @@ export default function Input({ inputId, emailInputRef }) {
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
         warnings: "Email is required!",
       });
+      emailInputRef.current.isValid = false;
     } else if (!val.match(regexValidateEmail)) {
       setEmailInput({
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
         warnings: "Please enter a valid email address",
       });
+      emailInputRef.current.isValid = false;
     } else {
       setEmailInput({
         class: `${styles.emailInput}`,
         warnings: "",
       });
+      emailInputRef.current.isValid = true;
     }
   }
 

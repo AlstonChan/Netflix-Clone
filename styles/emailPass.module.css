@@ -1,0 +1,113 @@
+/* InputEmail & InputPassword Componenet */
+.inputContainAll {
+  flex: 70;
+}
+.inputContain {
+  position: relative;
+}
+
+/* ################################################## */
+/* InputEmail Componenet */
+/* InputPassword input also used this css */
+.inputBoxSign,
+.inputBox {
+  max-width: 900px;
+  width: 100%;
+  padding: 19px 5px 5px 15px;
+  font-size: 1.2rem;
+  border-radius: 7px;
+}
+
+.inputBox {
+  border: none;
+  height: 55px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(51, 51, 51);
+}
+
+.inputBoxSign:focus,
+.inputBox:focus {
+  outline: none;
+}
+
+.inputBoxLabel {
+  position: absolute;
+  color: rgb(136, 136, 136);
+  top: 35%;
+  left: 18px;
+  font-size: 1rem;
+  transition: all 100ms ease-in-out;
+}
+.inputBoxLabelMove {
+  top: 10%;
+  font-size: 0.75rem;
+  left: 15px;
+  font-weight: 600;
+}
+/* SignUp - regform page*/
+.inputBoxSign {
+  border: solid 1px #8c8c8c;
+  height: 60px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+
+/* ################################################## */
+/* InputEmail Componenet Error*/
+.inputBoxWarnBorder {
+  border-bottom: solid #ff950a 3px;
+}
+
+.inputBoxWarnSign,
+.inputBoxWarn {
+  margin: 0 auto 10px 0;
+  width: fit-content;
+  font-size: 0.9rem;
+}
+
+.inputBoxWarn {
+  padding: 5px 0 0 5px;
+  color: #ff950a;
+}
+
+/* SignUp - regform page*/
+.inputBoxWarnBorderSign {
+  border: solid #b92d2b 1.5px;
+}
+.inputBoxWarnSign {
+  padding: 3px 0 0 0;
+  color: #b92d2b;
+}
+
+/* ################################################## */
+/* InputPassword Componenet */
+.togglePassword {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-in, visibility 200ms ease-in;
+}
+.show {
+  /* works with togglePassword above*/
+  opacity: 1;
+  visibility: visible;
+}
+
+.togglePassword > div {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+.hideShowTxt {
+  color: rgba(255, 255, 255, 0.541);
+  font-size: 1rem;
+  cursor: pointer;
+}

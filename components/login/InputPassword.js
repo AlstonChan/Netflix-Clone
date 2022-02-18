@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/login.module.css";
+import styles from "../../styles/emailPass.module.css";
 
-export default function Input({ setRef, inputId }) {
+export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [passInputLabelClass, setPassInputLabelClass] = useState({
-    email: styles.emailInputLabel,
-    class: `${styles.togglePassword}`,
+    email: styles.inputBoxLabel,
+    class: styles.togglePassword,
   });
 
   //Toggle warning if user input password is too short or too long
   const [passInputWarn, setPassInputWarn] = useState({
-    class: styles.emailInput,
+    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
     warnings: "",
   });
 
@@ -41,12 +41,18 @@ export default function Input({ setRef, inputId }) {
     if (valLength == 0) return;
     if (valLength < 6 || valLength > 60) {
       setPassInputWarn({
-        class: `${styles.emailInput} ${styles.emailWarnBorder}`,
-        warnings: "Your password must contain between 6 and 60 characters.",
+        class:
+          page == "LoginForm"
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
+        warnings:
+          page == "LoginForm"
+            ? "Your password must contain between 6 and 60 characters."
+            : "Password should be between 6 and 60 characters long.",
       });
     } else {
       setPassInputWarn({
-        class: `${styles.emailInput}`,
+        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
         warnings: "",
       });
     }
@@ -58,27 +64,30 @@ export default function Input({ setRef, inputId }) {
       checkEmailInput(val);
     } else if (e.type === "focus") {
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel} ${styles.emailInputLabelMove}`,
+        email: `${styles.inputBoxLabel} ${styles.inputBoxLabelMove}`,
         class: `${styles.show} ${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val === "") {
-      setTogglePassword({ state: "HIDE", type: "password" });
+      if (page == "LoginForm")
+        setTogglePassword({ state: "HIDE", type: "password" });
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel}`,
+        email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val !== "") {
-      setTogglePassword({ state: "HIDE", type: "password" });
+      if (page == "LoginForm")
+        setTogglePassword({ state: "HIDE", type: "password" });
     } else if (e.type === "clear") {
       setPassInputLabelClass({
-        email: `${styles.emailInputLabel}`,
+        email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
-      setTogglePassword({ state: "HIDE", type: "password" });
+      if (page == "LoginForm")
+        setTogglePassword({ state: "HIDE", type: "password" });
     }
   }
 
-  return (
+  return page == "LoginForm" ? (
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
@@ -101,7 +110,27 @@ export default function Input({ setRef, inputId }) {
           </div>
         </div>
       </div>
-      <p className={styles.emailWarn}>{passInputWarn.warnings}</p>
+      <p className={styles.inputBoxWarn}>{passInputWarn.warnings}</p>
+    </div>
+  ) : (
+    <div className={styles.inputContainAll}>
+      <div className={styles.inputContain}>
+        <input
+          type={togglePassword.type}
+          name="passwordInput"
+          maxLength="50"
+          id={inputId}
+          className={passInputWarn.class}
+          ref={setRef}
+          onFocus={(e) => handleInputClick(e)}
+          onBlur={(e) => handleInputClick(e)}
+          onChange={(e) => handleInputClick(e)}
+        />
+        <label htmlFor={inputId} className={passInputLabelClass.email}>
+          Add a password
+        </label>
+      </div>
+      <p className={styles.inputBoxWarnSign}>{passInputWarn.warnings}</p>
     </div>
   );
 }

@@ -58,8 +58,8 @@ npm install -g firebase-tools
     FIREBASE_CLIENT_EMAIL=
 
     # Your private key should something like this
-    # The single and double quote should not be neglected as it will caused error to be shown
-    # FIREBASE_PRIVAVTE_KEY='"-----BEGIN PRIVATE KEY-----\nMIIEvasdads{more value bla bla}daaOThJrQ=\n-----END PRIVATE KEY-----\n"'
+    # The double quote should not be neglected as it will caused error to be shown
+    # FIREBASE_PRIVAVTE_KEY="-----BEGIN PRIVATE KEY-----\PPPPPPPP\n-----END PRIVATE KEY-----\n"
 
     ```
 
@@ -133,8 +133,8 @@ You need movies data to populate your page, so go to [The Movie Database (TMDB)]
     FIREBASE_CLIENT_EMAIL=
 
     # Your private key should something like this
-    # The single and double quote should not be neglected as it will caused error to be shown
-    # FIREBASE_PRIVAVTE_KEY='"-----BEGIN PRIVATE KEY-----\nMIIEvasdads{more value bla bla}daaOThJrQ=\n-----END PRIVATE KEY-----\n"'
+    # The double quote should not be neglected as it will caused error to be shown
+    # FIREBASE_PRIVAVTE_KEY="-----BEGIN PRIVATE KEY-----\PPPPPPPP\n-----END PRIVATE KEY-----\n"
 
     # set to true when using Firebase auth emulator
     NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
@@ -181,3 +181,5 @@ Open [http://localhost:4060/auth](http://localhost:4060/auth) to view the emulat
 This sitemap roughly shows how the app should work, and all the route of the app.
 ![netflix clone sitemap ](./assets/netflix-clone-sitemap.png)
 **NOTE** that the link in the footer have no functions, because all link links to _help.netflix.com_, which isn't part of this project.
+
+# Deployment ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/login.module.css";
+import styles from "../../styles/emailPass.module.css";
 
-export default function Input({ setRef, inputId }) {
+export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
-    styles.emailInputLabel
+    styles.inputBoxLabel
   );
 
   //Set warning about user email input and toggle the warning presence
   const [emailInput, setEmailInput] = useState({
-    class: styles.emailInput,
+    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
     warnings: "",
   });
 
@@ -19,6 +19,11 @@ export default function Input({ setRef, inputId }) {
   useEffect(() => {
     setRef.current.value = "";
     handleInputClick({ type: "blur" });
+    if (page == "regForm" && typeof setRef != undefined) {
+      setRef.current.value = sessionStorage.getItem("user");
+      const e = { type: "focus" };
+      handleInputClick(e);
+    }
   }, []);
 
   function checkEmailInput(val) {
@@ -28,17 +33,26 @@ export default function Input({ setRef, inputId }) {
     if (valLength == 0) return;
     if (valLength <= 4) {
       setEmailInput({
-        class: `${styles.emailInput} ${styles.emailWarnBorder}`,
-        warnings: "Email is required!",
+        class:
+          page == "LoginForm"
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
+        warnings:
+          page == "LoginForm"
+            ? "Email is required!"
+            : "Email should be between 5 and 50 characters.",
       });
     } else if (!val.match(regexValidateEmail)) {
       setEmailInput({
-        class: `${styles.emailInput} ${styles.emailWarnBorder}`,
+        class:
+          page == "LoginForm"
+            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
         warnings: "Please enter a valid email address",
       });
     } else {
       setEmailInput({
-        class: `${styles.emailInput}`,
+        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
         warnings: "",
       });
     }
@@ -50,16 +64,16 @@ export default function Input({ setRef, inputId }) {
       checkEmailInput(val);
     } else if (e.type === "focus") {
       setEmailInputLabelClass(
-        `${styles.emailInputLabel} ${styles.emailInputLabelMove}`
+        `${styles.inputBoxLabel} ${styles.inputBoxLabelMove}`
       );
     } else if (val !== "") {
       return;
     } else if (e.type === "blur") {
-      setEmailInputLabelClass(`${styles.emailInputLabel}`);
+      setEmailInputLabelClass(`${styles.inputBoxLabel}`);
     }
   }
 
-  return (
+  return page == "LoginForm" ? (
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
@@ -80,7 +94,30 @@ export default function Input({ setRef, inputId }) {
           Email
         </label>
       </div>
-      <p className={styles.emailWarn}>{emailInput.warnings}</p>
+      <p className={styles.inputBoxWarn}>{emailInput.warnings}</p>
+    </div>
+  ) : (
+    <div className={styles.inputContainAll}>
+      <div className={styles.inputContain}>
+        <input
+          type="email"
+          name="emailInput"
+          autoComplete="true"
+          dir="lft"
+          tabIndex={0}
+          maxLength="50"
+          id={inputId}
+          className={emailInput.class}
+          ref={setRef}
+          onFocus={(e) => handleInputClick(e)}
+          onBlur={(e) => handleInputClick(e)}
+          onChange={(e) => handleInputClick(e)}
+        />
+        <label htmlFor={inputId} className={emailInputLabelClass}>
+          Email
+        </label>
+      </div>
+      <p className={styles.inputBoxWarnSign}>{emailInput.warnings}</p>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useRef, useState } from "react";
 import styles from "../../../styles/Home/featured.module.css";
 
@@ -23,7 +24,10 @@ export default function Featured() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(emailInputRef.current.value);
+    if (emailInputRef.current.isValid) {
+      sessionStorage.setItem("user", emailInputRef.current.value);
+      router.push("/signup");
+    }
   }
 
   return (

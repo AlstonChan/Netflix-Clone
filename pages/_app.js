@@ -18,7 +18,9 @@ function MyApp({ Component, pageProps }) {
   const [user, loading, error] = useAuthState(auth);
   const [queryClient] = useState(() => new QueryClient());
 
-  return (
+  const getLayout = Component.getLayout || ((page) => page);
+
+  return getLayout(
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <UserContext.Provider value={{ user, loading, error }}>
