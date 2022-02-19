@@ -117,6 +117,8 @@ export function UserDropDownList() {
                   : placeholder
                 : placeholder
             }
+            width="320px"
+            height="320px"
             className={styles.userProfileImg}
           />
         </div>
