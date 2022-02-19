@@ -5,7 +5,12 @@ import ProfileAdd from "../../public/images/netflix-profile-add.png";
 
 import Link from "next/link";
 
+import { UserContext } from "../../pages/_app";
+import { useContext } from "react";
+
 export default function Profile({ switchPage }) {
+  const { user, loading } = useContext(UserContext);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -31,13 +36,27 @@ export default function Profile({ switchPage }) {
                 >
                   <div className={styles.avatarContainer}>
                     <Image
-                      src={ProfilePic}
+                      src={
+                        !loading && user?.photoURL
+                          ? user.photoURL
+                            ? user.photoURL
+                            : ProfilePic
+                          : ProfilePic
+                      }
+                      width="320px"
+                      height="320px"
                       className={styles.profilePic}
                       alt="User profile Picture"
                     />
                   </div>
                   <span className={styles.nameContain}>
-                    <p className={styles.name}>Chan</p>
+                    <p className={styles.name}>
+                      {!loading && user?.displayName
+                        ? user.displayName
+                          ? user.displayName
+                          : "user"
+                        : "user"}
+                    </p>
                   </span>
                 </li>
               </a>

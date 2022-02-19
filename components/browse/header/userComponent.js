@@ -5,7 +5,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../lib/firebase";
 
 import styles from "../../../styles/browse/secondaryHeader.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../../pages/_app";
 
 import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
@@ -14,6 +15,8 @@ import UserProfile from "../../../public/images/icons/misc/user.svg";
 import placeholder from "../../../public/images/profile pic/1.png";
 
 const UserComponent = () => {
+  const { user, loading } = useContext(UserContext);
+
   const [navUserStyle, setNavUserStyle] = useState({
     visibility: "hidden",
   });
@@ -42,7 +45,13 @@ const UserComponent = () => {
       >
         <div className={styles.profilePicContainer}>
           <Image
-            src="/images/profile pic/1.png"
+            src={
+              !loading && user?.photoURL
+                ? user.photoURL
+                  ? user.photoURL
+                  : "/images/profile pic/1.png"
+                : "/images/profile pic/1.png"
+            }
             width="35px"
             height="35px"
             className={styles.profilePic}
@@ -83,6 +92,7 @@ const UserComponent = () => {
 export default UserComponent;
 
 export function UserDropDownList() {
+  const { user, loading } = useContext(UserContext);
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))
@@ -97,17 +107,30 @@ export function UserDropDownList() {
 
   return (
     <>
-      {/* <div className={styles.listItemContainer}>
+      <div className={styles.listItemContainer}>
         <div className={styles.listItemImg}>
-          <Image src={placeholder} className={styles.userProfileImg} />
+          <Image
+            src={
+              !loading && user?.photoURL
+                ? user.photoURL
+                  ? user.photoURL
+                  : placeholder
+                : placeholder
+            }
+            className={styles.userProfileImg}
+          />
         </div>
         <p
           style={{ margin: "0", alignSelf: "center" }}
           className={styles.listItemParagraph}
         >
-          A User
+          {!loading && user?.displayName
+            ? user.displayName
+              ? user.displayName
+              : "User"
+            : "User"}
         </p>
-      </div> */}
+      </div>
       {dropDownPanel.map((listItem, index) => {
         return (
           <span key={index}>

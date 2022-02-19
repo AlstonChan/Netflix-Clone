@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import router from "next/router";
 
 import signUpStyles from "../../styles/signup.module.css";
 import InputEmail from "../login/InputEmail";
@@ -25,11 +24,8 @@ export default function RegForm() {
     if (email.match(regexValidateEmail)) {
       if (passwordLength) {
         createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+          .then(async (userCredential) => {
             console.log("Sign up");
-            setTimeout(() => {
-              router.replace("/", undefined, { locale: "/browse" });
-            }, 50);
           })
           .catch((error) => {
             const { code, message } = error;

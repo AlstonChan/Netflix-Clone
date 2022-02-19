@@ -51,7 +51,7 @@ npm install -g firebase-tools
 
     Next, click the **setting icon** besides _Project Overview_ located at top left corner of your screen and choose _Project settings_. Go to _Service accounts_ and on _Firebase Admin SDK_ option, click **Generate new private key** and download the JSON file.
 
-    Copy the `"private_key"` value and `"client_email"` value. Paste it to `.env.local` file.
+    Copy the `"private_key"` value and `client_email` value. Paste it to `.env.local` file.
 
     ```
     FIREBASE_PRIVATE_KEY=

@@ -60,6 +60,7 @@ export default async function handler(req, res) {
         movies.push({ genre: movieGenres[x].name, data });
       }
       res.status(200).json({ movies });
+      res.end();
     } else if (requestedData === "tvs") {
       const movies = [];
       let pageIndex = 1;
@@ -73,6 +74,7 @@ export default async function handler(req, res) {
         movies.push({ genre: tvGenres[x].name, data });
       }
       res.status(200).json({ movies });
+      res.end();
     } else if (requestedData === "new") {
       const movies = [];
       let pageIndex = 1;
@@ -92,6 +94,7 @@ export default async function handler(req, res) {
         });
       }
       res.status(200).json({ movies });
+      res.end();
     }
   } else {
     res.status(403);
