@@ -48,8 +48,6 @@ const UserComponent = () => {
             src={
               !loading && user?.photoURL
                 ? user.photoURL
-                  ? user.photoURL
-                  : "/images/profile pic/1.png"
                 : "/images/profile pic/1.png"
             }
             width="35px"
@@ -110,13 +108,7 @@ export function UserDropDownList() {
       <div className={styles.listItemContainer}>
         <div className={styles.listItemImg}>
           <Image
-            src={
-              !loading && user?.photoURL
-                ? user.photoURL
-                  ? user.photoURL
-                  : placeholder
-                : placeholder
-            }
+            src={!loading && user?.photoURL ? user.photoURL : placeholder}
             width="320px"
             height="320px"
             className={styles.userProfileImg}
@@ -126,11 +118,7 @@ export function UserDropDownList() {
           style={{ margin: "0", alignSelf: "center" }}
           className={styles.listItemParagraph}
         >
-          {!loading && user?.displayName
-            ? user.displayName
-              ? user.displayName
-              : "User"
-            : "User"}
+          {!loading && user?.displayName ? user.displayName : "User"}
         </p>
       </div>
       {dropDownPanel.map((listItem, index) => {

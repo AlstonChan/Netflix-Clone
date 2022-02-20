@@ -37,11 +37,7 @@ export default function Profile({ switchPage }) {
                   <div className={styles.avatarContainer}>
                     <Image
                       src={
-                        !loading && user?.photoURL
-                          ? user.photoURL
-                            ? user.photoURL
-                            : ProfilePic
-                          : ProfilePic
+                        !loading && user?.photoURL ? user.photoURL : ProfilePic
                       }
                       width="320px"
                       height="320px"
@@ -53,9 +49,7 @@ export default function Profile({ switchPage }) {
                     <p className={styles.name}>
                       {!loading && user?.displayName
                         ? user.displayName
-                          ? user.displayName
-                          : "user"
-                        : "user"}
+                        : "User"}
                     </p>
                   </span>
                 </li>

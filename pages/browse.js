@@ -134,6 +134,7 @@ function Browse() {
   );
 }
 
+// auth
 export default withAuthUser({
   whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
@@ -155,6 +156,8 @@ export const Main = React.memo(
 );
 Main.displayName = "Main";
 
+// function that run on both server and client side
+// to connect to the server to fetch movie data
 export async function fetchMoviesDB(requestedData, endpoint) {
   const result = await axios.post(endpoint, {
     requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
@@ -163,6 +166,7 @@ export async function fetchMoviesDB(requestedData, endpoint) {
   return result.data.movies;
 }
 
+// getServerSideProps and auth
 export const getServerSideProps = withAuthUserTokenSSR({
   whenAuthed: AuthAction.RENDER,
   whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,

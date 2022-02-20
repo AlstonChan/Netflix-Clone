@@ -24,12 +24,12 @@ export default function RegForm() {
     if (email.match(regexValidateEmail)) {
       if (passwordLength) {
         createUserWithEmailAndPassword(auth, email, password)
-          .then(async (userCredential) => {
+          .then((userCredential) => {
             console.log("Sign up");
           })
           .catch((error) => {
             const { code, message } = error;
-            console.log(message);
+            console.error(message);
           });
       } else passInputRef.current.focus();
     } else emailInputRef.current.focus();

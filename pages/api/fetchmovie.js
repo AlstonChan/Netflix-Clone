@@ -98,6 +98,9 @@ export default async function handler(req, res) {
 
         res.status(200).json({ movies });
         res.end();
+      } else {
+        res.status(500);
+        res.end(`Error 500`);
       }
     } else {
       res.status(403);
