@@ -8,79 +8,42 @@ import imageNotFound from "../../../public/images/image-not-found.png";
 import adult from "../../../public/images/icons/misc/adultOnly.png";
 import { useEffect, useState } from "react";
 
-const genres = [
-  { id: 28, name: "Action Heroes" },
-  { id: 12, name: "Adventure" },
-  { id: 16, name: "Animation" },
-  { id: 80, name: "Crime" },
-  { id: 99, name: "Documentary" },
-  { id: 10751, name: "Family Movies" },
-  { id: 14, name: "Fantasy" },
-  { id: 36, name: "History" },
-  { id: 27, name: "Horror Movies" },
-  { id: 10402, name: "Music" },
-  { id: 9648, name: "Mystery" },
-  { id: 10749, name: "Romantic Movies" },
-  { id: 878, name: "Science Fiction" },
-  { id: 53, name: "Thriller" },
-  { id: 10752, name: "War" },
-  { id: 10759, name: "Action & Adventure" },
-  { id: 16, name: "Animation" },
-  { id: 35, name: "Comedy" },
-  { id: 18, name: "Drama" },
-  { id: 10751, name: "Family" },
-  { id: 10762, name: "Kids" },
-  { id: 9648, name: "Mystery" },
-  { id: 10763, name: "News" },
-  { id: 10764, name: "Reality" },
-  { id: 10765, name: "Sci-Fi & Fantasy" },
-  { id: 10766, name: "Soap" },
-  { id: 10767, name: "Talk" },
-  { id: 10768, name: "War & Politics" },
-  { id: 37, name: "Western" },
-];
+import { genres } from "../../../lib/movieGenres";
 
 export default function BrowseModals({ modalStyle }) {
   const [modalTranslate, setModalTranslate] = useState({});
   const [modalVisibility, setModalVisiblity] = useState(null);
   const [modalWidth, setModalWidth] = useState(null);
-  const [delay, setDelay] = useState(null);
 
   useEffect(() => {
+    setModalWidth(modalStyle.width);
+    setModalVisiblity(styles.modalShow);
     setTimeout(() => {
-      setModalWidth(modalStyle.width);
-      setModalVisiblity(styles.modalShow);
-      setTimeout(() => {
-        setModalVisiblity(styles.modalShow);
-        setModalWidth(parseInt(modalStyle.width, 10) * 1.4);
-        setModalTranslate(
-          modalStyle.position == "leftEdge"
-            ? "translate(0, -25%)"
-            : modalStyle.position == "rightEdge"
-            ? "translate(-28.5%, -25%)"
-            : "translate(-13%, -25%)"
-        );
-      }, 100);
-    }, 20);
+      setModalWidth(parseInt(modalStyle.width, 10) * 1.4);
+      setModalTranslate(
+        modalStyle.position == "leftEdge"
+          ? "translate(0, -25%)"
+          : modalStyle.position == "rightEdge"
+          ? "translate(-28.5%, -25%)"
+          : "translate(-13%, -25%)"
+      );
+    }, 150);
   }, [modalStyle]);
 
   function toggleModalFunc(e) {
-    if (e.type === "mouseenter") {
-      clearTimeout(delay);
-    } else if (e.type === "mouseleave") {
-      setDelay(
+    if (e.type === "mouseleave") {
+      setTimeout(() => {
+        setModalWidth(modalStyle.width);
+        setModalTranslate("translate(0)");
         setTimeout(() => {
-          setModalWidth(modalStyle.width);
-          setModalTranslate("translate(0)");
-          setTimeout(() => {
-            setModalVisiblity("");
-          }, 190);
-        }, 100)
-      );
+          setModalVisiblity("");
+        }, 190);
+      }, 100);
     }
+    return;
   }
 
-  return (
+  return modalVisibility ? (
     <div
       className={`${styles.mainModals} ${modalVisibility}`}
       style={modalStyle.mainClass ? modalStyle.mainClass : { display: "none" }}
@@ -89,9 +52,9 @@ export default function BrowseModals({ modalStyle }) {
     >
       <div
         style={{
+          width: modalWidth || "300px",
           transform: modalTranslate,
           opacity: 1,
-          width: modalWidth || "300px",
           maxWidth: "1360px",
         }}
         className={styles.modalsContainer}
@@ -118,6 +81,8 @@ export default function BrowseModals({ modalStyle }) {
         </div>
       </div>
     </div>
+  ) : (
+    ""
   );
 }
 

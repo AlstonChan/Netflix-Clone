@@ -7,7 +7,7 @@
 }
 
 .modalsContainer {
-  transition: width 200ms ease-in-out, transform 200ms ease-in-out;
+  transition: width 150ms ease-in-out, transform 150ms ease-in-out;
 }
 
 .modalShow {
@@ -19,7 +19,7 @@
 }
 
 .mainImageContainer {
-  margin-bottom: -1%;
+  margin-bottom: -2%;
 }
 
 .lowerPanel {
@@ -28,17 +28,41 @@
   border-radius: 0 0 10px 10px;
 }
 
+/* iconGroup Component */
+.container {
+  display: flex;
+}
+
 .iconGroup {
   display: flex;
 }
 
+.circleContainerPlay,
+.circleContainerDrop,
 .circleContainer {
   border: 2px solid rgb(255, 255, 255, 0.5);
-  border-radius: 50%;
-  padding: 6px 4px 2.5px 5.5px;
+  border-radius: 60%;
   cursor: pointer;
-  width: 38px;
-  margin-right: 8px;
+  max-width: 38px;
+}
+
+.circleContainer {
+  line-height: 0;
+  display: flex;
+  margin-right: 5px;
+  padding: 2px 3px;
+}
+
+.circleContainerPlay {
+  margin-right: 5px;
+  line-height: 0;
+  display: flex;
+  padding: 2px 2px 2px 4px;
+}
+
+.circleContainerDrop {
+  margin: 0 0 0 auto;
+  padding: 4px 2px 1px 6.5px;
 }
 
 .circleContainer:hover {

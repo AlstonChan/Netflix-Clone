@@ -64,25 +64,29 @@ const UserComponent = () => {
           alt=""
         />
       </div>
-      <div
-        className={styles.userDropDown}
-        onMouseEnter={(e) => toggleNavUser(e)}
-        onMouseLeave={(e) => toggleNavUser(e)}
-        style={navUserStyle}
-      >
-        <div>
-          <div className={styles.dropDownUserNavListArrContain}>
-            <Image
-              src="/images/icons/misc/nav_arrow_bold.svg"
-              width="20px"
-              height="20px"
-              className={styles.dropDownUseruNavListArr}
-              alt=""
-            />
+      {navUserStyle.visibility == "visible" ? (
+        <div
+          className={styles.userDropDown}
+          onMouseEnter={(e) => toggleNavUser(e)}
+          onMouseLeave={(e) => toggleNavUser(e)}
+          style={navUserStyle}
+        >
+          <div>
+            <div className={styles.dropDownUserNavListArrContain}>
+              <Image
+                src="/images/icons/misc/nav_arrow_bold.svg"
+                width="20px"
+                height="20px"
+                className={styles.dropDownUseruNavListArr}
+                alt=""
+              />
+            </div>
+            <UserDropDownList />
           </div>
-          <UserDropDownList />
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

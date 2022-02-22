@@ -42,12 +42,15 @@ export default function Browse() {
 //and using process.env.NEXT_PUBLIC_MOVIE_DB_API_KEY means exposing api to client
 ```
 
-**Solution**
+**Solution:**
 Create a api route at pages/api and request movieDB data there. Then, use getServerSideProps to fetch data from the api, viola, done. This solve the problem because **next. js** api routes have _same-origin only_ by default, no other website/app/user can connect to the api. This solution have some drawbacks though, it might decrease the performance of application, stated by **[next. js documentation](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props "next. js documentation")**
 
 > It can be tempting to reach for an API Route when you want to fetch data from the server, then call that API route from getServerSideProps. This is an unnecessary and inefficient approach, as it will cause an extra request to be made due to both getServerSideProps and API Routes running on the server.
 
 > Take the following example. An API route is used to fetch some data from a CMS. That API route is then called directly from getServerSideProps. This produces an additional call, reducing performance. Instead, directly import the logic used inside your API Route into getServerSideProps. This could mean calling a CMS, database, or other API directly from inside getServerSideProps.
+
+**Note:**
+There's some issues with serverless function deployed on _Vercel_ before **`commit f0379b51e5a09b26b982cdc0fdaf294e8f38df91`**, due to one missing `else statement` when user is in `browse` profile page (profile page did not send any `requestedData`). That one missing `else statement` will cause approximately **_`60% - 80%`_** of serverless execution time to be spent on nothing and timeout after 10s.
 
 ### 2. Another way to cache fetched data is using the HTTP headers in _getServerSideProps_,
 
