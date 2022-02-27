@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
+import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
+
 import axios from "axios";
 
 import Loading from "../components/browse/loading";
@@ -26,7 +28,7 @@ import {
 
 function Browse() {
   const router = useRouter();
-  const [profile, setProfile] = useState(false);
+  const [profile, setProfile] = useState(0);
   const [firstLoad, setFirstLoad] = useState(true);
   const [modal, setModal] = useState({});
   const [requestedDataRoute, setRequestedDataRoute] = useState(
@@ -62,10 +64,22 @@ function Browse() {
     };
   });
 
+  useIsomorphicLayoutEffect(() => {
+    if (
+      requestedDataRoute === "hom" ||
+      requestedDataRoute === "tvs" ||
+      requestedDataRoute === "new" ||
+      requestedDataRoute === "myl"
+    ) {
+      setProfile(2);
+      setFirstLoad(false);
+    }
+  }, []);
+
   // make sure loading page only show up when moving
   // from profile page to movies page on initial load
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && profile === 1) {
       setFirstLoad(false);
     }
   }, [isLoading]);
@@ -88,16 +102,16 @@ function Browse() {
   }
 
   function switchPage() {
-    setProfile(true);
+    setProfile(1);
   }
 
-  if (firstLoad && profile && isLoading) {
+  if (firstLoad && profile && (!data || isLoading)) {
     return <Loading />;
   }
 
   return profile ? (
     <div className={styles.container}>
-      <Header />
+      <Header route={requestedDataRoute} />
       <main className={styles.main}>
         <Modals modalStyle={modal} />
         <Main data={data}>
@@ -159,6 +173,7 @@ Main.displayName = "Main";
 // function that run on both server and client side
 // to connect to the server to fetch movie data
 export async function fetchMoviesDB(requestedData, endpoint) {
+  if (!requestedData) return;
   const result = await axios.post(endpoint, {
     requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
     requestedData: requestedData,
@@ -187,6 +202,11 @@ export const getServerSideProps = withAuthUserTokenSSR({
     );
   } else if (context.query.fetchmoviedata == "new") {
     requestedData = "new";
+    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
+      fetchMoviesDB(requestedData, endpoint)
+    );
+  } else if (context.query.fetchmoviedata == "myl") {
+    requestedData = "myl";
     await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
       fetchMoviesDB(requestedData, endpoint)
     );

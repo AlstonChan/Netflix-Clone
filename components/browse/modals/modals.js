@@ -12,7 +12,7 @@ import { genres } from "../../../lib/movieGenres";
 
 export default function BrowseModals({ modalStyle }) {
   const [modalTranslate, setModalTranslate] = useState({});
-  const [modalVisibility, setModalVisiblity] = useState(null);
+  const [modalVisibility, setModalVisiblity] = useState();
   const [modalWidth, setModalWidth] = useState(null);
 
   useEffect(() => {
@@ -30,6 +30,10 @@ export default function BrowseModals({ modalStyle }) {
     }, 150);
   }, [modalStyle]);
 
+  useEffect(() => {
+    setModalVisiblity("");
+  }, []);
+
   function toggleModalFunc(e) {
     if (e.type === "mouseleave") {
       setTimeout(() => {
@@ -40,13 +44,13 @@ export default function BrowseModals({ modalStyle }) {
         }, 190);
       }, 100);
     }
-    return;
+    // return;
   }
 
   return modalVisibility ? (
     <div
       className={`${styles.mainModals} ${modalVisibility}`}
-      style={modalStyle.mainClass ? modalStyle.mainClass : { display: "none" }}
+      style={modalStyle.mainClass}
       onMouseEnter={(e) => toggleModalFunc(e)}
       onMouseLeave={(e) => toggleModalFunc(e)}
     >
@@ -73,6 +77,7 @@ export default function BrowseModals({ modalStyle }) {
               className={styles.backdrop_pathStyle}
               alt="movie thumbnails"
             />
+            <span className={styles.backdrop_placeholder}></span>
           </div>
         </div>
         <div className={styles.lowerPanel}>

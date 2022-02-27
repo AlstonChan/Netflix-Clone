@@ -9,7 +9,7 @@ import SearchComponent from "./searchComponent";
 import BellComponent from "./bellComponent";
 import UserComponent from "./userComponent";
 
-export function Header({}) {
+export function Header({ route }) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -37,6 +37,25 @@ export function Header({}) {
 
   useEffect(() => {
     eventResize();
+    if (route == "tvs") {
+      setSelectedOptionNav({
+        styles: `${styles.selectionOpt} ${styles.selectedOpt}`,
+        active: true,
+        index: 1,
+      });
+    } else if (route == "new") {
+      setSelectedOptionNav({
+        styles: `${styles.selectionOpt} ${styles.selectedOpt}`,
+        active: true,
+        index: 2,
+      });
+    } else if (route == "myl") {
+      setSelectedOptionNav({
+        styles: `${styles.selectionOpt} ${styles.selectedOpt}`,
+        active: true,
+        index: 3,
+      });
+    }
   }, []);
 
   function eventResize() {
