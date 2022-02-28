@@ -73,6 +73,7 @@
   line-height: 0;
   display: flex;
   padding: 2px 2px 2px 4px;
+  background-color: #ffffff;
 }
 
 .circleContainerDrop {
@@ -80,6 +81,12 @@
   padding: 4px 2px 1px 6.5px;
 }
 
+.circleContainerPlay:hover {
+  background-color: rgb(226, 226, 226);
+  border: 2px solid rgb(226, 226, 226);
+}
+
+.circleContainerDrop:hover,
 .circleContainer:hover {
   border: 2px solid rgb(255, 255, 255, 1);
 }

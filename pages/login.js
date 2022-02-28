@@ -6,35 +6,35 @@ import Image from "next/image";
 import styles from "../styles/login.module.css";
 import Footer from "../components/footer/footerStyle2";
 import LoginForm from "../components/login/loginForm";
-import router from "next/router";
 
 import Loader from "../components/Loader";
 
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth, provider } from "../lib/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from "../lib/firebase";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-function Login() {
-  function loginGoogleEvent(e) {
+export function Login() {
+  async function loginGoogleEvent(e) {
     e.preventDefault();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        router.replace("./browse");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+    const credentials = await signInWithPopup(auth, provider);
+    const { uid, displayName, email, photoURL } = credentials.user;
+
+    const docSnap = await getDocs(
+      query(collection(db, "Acc"), where("uid", "==", uid))
+    );
+
+    if (docSnap.size === 0) {
+      addDoc(collection(db, "Acc"), {
+        uid,
+        "user-main": {
+          name: displayName ? displayName : email.split("@").shift(),
+          pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),
+        },
       });
+    }
   }
+
   return (
     <>
       <div className={styles.container}>

@@ -55,19 +55,18 @@ export default async function handler(req, res) {
             data,
           });
         }
-
         res.status(200).json({ movies });
         res.end();
       } else {
-        res.status(404);
-        res.end();
+        res.status(400);
+        res.end(`Error 400 | Bad Request`);
       }
     } else {
       res.status(403);
-      res.end(`Error 403`);
+      res.end(`Error 403 | Unauthorized`);
     }
   } catch {
     res.status(500);
-    res.end(`Error 500`);
+    res.end(`Error 500 | Internal Server Error`);
   }
 }

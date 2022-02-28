@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
 import { UserContext } from "../pages/_app";
 
 import { signOut } from "firebase/auth";
@@ -27,7 +28,7 @@ export default function Header({ logoClickHome }) {
     }
   }, []);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (user) {
       setIsSignIn(true);
     }

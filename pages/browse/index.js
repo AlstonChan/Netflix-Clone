@@ -1,24 +1,24 @@
-import styles from "../styles/browse/browse.module.css";
+import styles from "../../styles/browse/browse.module.css";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
-import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import axios from "axios";
 
-import Loading from "../components/browse/loading";
-import Header from "../components/browse/header/header.js";
-import Profile from "../components/browse/profile";
-import Cards from "../components/browse/sliderCards/cards";
-import Featured from "../components/browse/featured";
-import Footer from "../components/footer/footerBrowse";
-import PlaceholderCard from "../components/browse/sliderCards/placeholderCard";
-import Modals from "../components/browse/modals/modals";
+import Loading from "../../components/browse/loading";
+import Header from "../../components/browse/header/header.js";
+import Profile from "../../components/browse/profile";
+import Cards from "../../components/browse/sliderCards/cards";
+import Featured from "../../components/browse/featured";
+import Footer from "../../components/footer/footerBrowse";
+import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
+import Modals from "../../components/browse/modals/modals";
 
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 
-import getAbsoluteURL from "../lib/getAbsoluteURL";
+import getAbsoluteURL from "../../lib/getAbsoluteURL";
 
 import {
   withAuthUser,
@@ -45,6 +45,23 @@ function Browse() {
       staleTime: 1000 * 60 * 15,
     }
   );
+  const movieList = useQuery(
+    ["movieList", requestedDataRoute],
+    () =>
+      axios.post(getAbsoluteURL("/api/fetchmymovie"), {
+        requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
+        requestedData: "myl",
+      }),
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      staleTime: 1000 * 60 * 2,
+    }
+  );
+
+  // =========================DEVELOPMENT==========================
+  console.log(movieList);
 
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {
@@ -205,12 +222,8 @@ export const getServerSideProps = withAuthUserTokenSSR({
     await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
       fetchMoviesDB(requestedData, endpoint)
     );
-  } else if (context.query.fetchmoviedata == "myl") {
-    requestedData = "myl";
-    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
-      fetchMoviesDB(requestedData, endpoint)
-    );
   }
+
   return {
     props: { dehydratedState: dehydrate(queryClient) },
   };

@@ -13,10 +13,7 @@ export default function IconGroup() {
   return (
     <div className={styles.container}>
       <div className={styles.iconGroup}>
-        <div
-          className={styles.circleContainerPlay}
-          style={{ backgroundColor: "white" }}
-        >
+        <div className={styles.circleContainerPlay}>
           <Image src={play} alt="play the movie" />
         </div>
         <div className={styles.circleContainer}>
