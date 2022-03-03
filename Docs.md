@@ -1,4 +1,4 @@
-# Notes (About my findings)
+# Documentation (About my findings)
 
 ## **Data caching**
 
@@ -52,6 +52,8 @@ Create a api route at pages/api and request movieDB data there. Then, use getSer
 **Note:**
 There's some issues with serverless function deployed on _Vercel_ before **`commit f0379b51e5a09b26b982cdc0fdaf294e8f38df91`**, due to one missing `else statement` when user is in `browse` profile page (profile page did not send any `requestedData`). That one missing `else statement` will cause approximately **_`60% - 80%`_** of serverless execution time to be spent on nothing and timeout after 10s.
 
+[***UPDATE***] This can also be fixed simply by adding a `if (!requestedData) return;` inside fetchMovieDB function.
+
 ### 2. Another way to cache fetched data is using the HTTP headers in _getServerSideProps_,
 
 ```javascript
@@ -71,3 +73,78 @@ export async function getServerSideProps({ res }) {
 this caching somehow does not work in development mode, so I deployed it to **Vercel**.Although **Vercel** automatically did the caching for me (I cannot find any cache control headers I have defined), the transition using navbar is still very very slow, taking over 500ms to 3 seconds!
 
 ### 3. **Redis**, not yet tested.
+
+## **Firebase Emulators**
+
+To run both emulator, open a new terminal and run `firebase emulators:start` or `npm run emulators`. If you encountered error using these commands, please continue reading :)
+
+### 1. Authentication emulator
+
+In order to run firebase auth emulators, follow these 3 steps:
+
+1. uncomment _line 15_ in `initAuth.js`
+   ```
+   firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
+   ```
+2. uncomment the following code in `.env.local`
+   ```
+   FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
+   ```
+   and set use firebase auth emulator from false to true
+   ```
+   NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=true
+   ```
+3. open a new terminal and run `firebase emulators:start --only auth` or `npm run fire-auth` to spin up the emulator.
+
+**_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote respository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occured:
+
+```
+code: 'auth/argument-error',
+message: '`uid` argument must be a non-empty string uid.'
+```
+
+This error comes from a dependency named `next-firebase-auth`, as of this writing, I am using version `1.0.0-canary.7` and since this version is considered unstable, this kind of error is normal.
+
+**_[GitHub Issues](https://github.com/gladly-team/next-firebase-auth/issues/184)_**
+
+## 2. Firestore emulator
+
+In order to run firebase auth emulators, follow these 3 steps:
+
+1. Set use firebase firestore emulator from false to true
+   ```
+   NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=true
+   ```
+2. Check your `node.js` version using `node -v`, if your `node.js` version is 17, your firestore emulator will get **Timeout** and stop. To fix this issue, you have to either downgrade your `node.js` version to 16 **_OR_** edit the `firebase.json` file as below:
+
+   ```
+   {
+     "firestore": {
+       "rules": "firestore.rules",
+       "indexes": "firestore.indexes.json"
+     },
+     "emulators": {
+       "auth": {
+         "port": 9099,
+         "host": "127.0.0.1"
+       },
+       "firestore": {
+         "port": 8080,
+         "host": "127.0.0.1"
+       },
+       "ui": {
+         "enabled": true,
+         "port": 4060
+       }
+     },
+     "remoteconfig": {
+       "template": "firebase.js"
+     }
+   }
+   ```
+
+   Adding `"host": "127.0.0.1"` instead of `localhost` fixed the issues if you do not want to downgrade your `node.js` to version 16.
+
+3. open a new terminal and run `firebase emulators:start --only firestore` or `npm run firestore` to spin up the emulator.
+
+**_[GitHub Issues](https://github.com/firebase/firebase-tools/issues/2379)_**

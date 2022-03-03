@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../pages/_app";
 
 export default function LoadingBrowse() {
-  const { user, loading, userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   return (
     <div className={styles.loadingBg}>

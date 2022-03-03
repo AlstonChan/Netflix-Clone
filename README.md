@@ -67,11 +67,12 @@ npm install -g firebase-tools
 
 6.  Go to your **[Firebase console](https://console.firebase.google.com/u/0/)**, select the project and navigate to `Authentication` section. Click get started and enable **`Email/Password`** & **`Google`** auth, this app will use these two providers to authenticate user.
 
-7.  This step is **optional** but is recommended, which is setting up a Firebase auth emulator. The emulators is built to accurately mimic the behavios of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
+7.  This step is **optional** but is recommended, which is setting up a Firebase emulator. The emulators is built to accurately mimic the behavios of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
 
     ```
     # set to true when using Firebase auth emulator
     NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
+    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
 
     # https://github.com/gladly-team/next-firebase-auth/issues/184
     # FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,
@@ -84,7 +85,7 @@ npm install -g firebase-tools
 
     The error below will be `console log` in your text editor if you forgot to comment it while using Firebase cloud auth, a 500 response error will also be logged in your browser.
 
-    In case you wonder, these error happens because of one dependency named `next-firebase-hook`.
+    In case you wonder, these error happens because of one dependency named `next-firebase-auth`.
 
     ```
     code: 'auth/argument-error',
@@ -138,6 +139,7 @@ You need movies data to populate your page, so go to [The Movie Database (TMDB)]
 
     # set to true when using Firebase auth emulator
     NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
+    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
 
     # https://github.com/gladly-team/next-firebase-auth/issues/184
     # FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,

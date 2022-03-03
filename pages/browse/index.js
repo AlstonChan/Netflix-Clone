@@ -60,8 +60,11 @@ function Browse() {
     }
   );
 
+  useEffect(() => {
+    console.log(movieList);
+  }, [movieList]);
+
   // =========================DEVELOPMENT==========================
-  console.log(movieList);
 
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {

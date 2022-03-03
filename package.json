@@ -12,7 +12,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "emulators": "firebase emulators:start",
+    "fire-auth": "firebase emulators:start --only auth",
+    "firestore": "firebase emulators:start --only firestore"
   },
   "dependencies": {
     "axios": "^0.26.0",

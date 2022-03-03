@@ -10,7 +10,7 @@ import styles from "../styles/header.module.css";
 import router from "next/router";
 
 export default function Header({ logoClickHome }) {
-  const { user, loading, error } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   //Set button text according to the auth state (Sign in/Sign out)
   const [isSignIn, setIsSignIn] = useState(false);
 

@@ -12,7 +12,7 @@ import Loader from "../components/Loader";
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from "../lib/firebase";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 
 export function Login() {
   async function loginGoogleEvent(e) {
@@ -20,12 +20,10 @@ export function Login() {
     const credentials = await signInWithPopup(auth, provider);
     const { uid, displayName, email, photoURL } = credentials.user;
 
-    const docSnap = await getDocs(
-      query(collection(db, "Acc"), where("uid", "==", uid))
-    );
+    const docRef = await getDoc(doc(db, "Acc", uid));
 
-    if (docSnap.size === 0) {
-      addDoc(collection(db, "Acc"), {
+    if (docRef.exists() === false) {
+      setDoc(doc(db, "Acc", uid), {
         uid,
         "user-main": {
           name: displayName ? displayName : email.split("@").shift(),

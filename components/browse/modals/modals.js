@@ -81,7 +81,7 @@ export default function BrowseModals({ modalStyle }) {
           </div>
         </div>
         <div className={styles.lowerPanel}>
-          <IconGroup />
+          <IconGroup mov={modalStyle.movieSet} />
           {modalStyle.movieSet ? <MovieDetails modalStyle={modalStyle} /> : ""}
         </div>
       </div>

@@ -4,7 +4,7 @@ import { auth, db } from "../lib/firebase";
 import initAuth from "../lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
@@ -25,11 +25,13 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(async () => {
     if (user) {
-      const querySnapshot = await getDocs(
-        query(collection(db, "Acc"), where("uid", "==", user.uid))
-      );
+      try {
+        const querySnapshot = await getDoc(doc(db, "Acc", user.uid));
 
-      querySnapshot.forEach((doc) => setUserData(doc.data()));
+        setUserData(querySnapshot.data());
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, [user]);
 

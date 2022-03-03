@@ -12,10 +12,8 @@ import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
 import UserProfile from "../../../public/images/icons/misc/user.svg";
 
-import placeholder from "../../../public/images/profile pic/1.png";
-
 const UserComponent = () => {
-  const { user, loading, userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   const [navUserStyle, setNavUserStyle] = useState({
     visibility: "hidden",
@@ -94,7 +92,7 @@ const UserComponent = () => {
 export default UserComponent;
 
 export function UserDropDownList() {
-  const { user, loading, userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))
