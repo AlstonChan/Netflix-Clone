@@ -14,17 +14,17 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "../../../pages/_app";
 
 export default function IconGroup({ mov }) {
-  const { user, loading, userData } = useContext(UserContext);
-  const [movieData, setMovieData] = useFetchMyMovie();
+  const { user, loading } = useContext(UserContext);
+  const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(mov.id);
 
-  const { id } = mov;
   const actionToggle = async (e) => {
     if (user && !loading) {
       const action = e.currentTarget.dataset.action;
-      setMovieData(id, action);
-      console.log(movieData);
+      setMovieData(mov.id, action);
     }
   };
+
+  console.log(currentMovieData, latestData);
 
   return (
     <div className={styles.container}>
@@ -32,13 +32,23 @@ export default function IconGroup({ mov }) {
         <div className={styles.circleContainerPlay}>
           <Image src={play} alt="play the movie" />
         </div>
-        <div
-          onClick={(e) => actionToggle(e)}
-          className={styles.circleContainer}
-          data-action="plus"
-        >
-          <Image src={plus} alt="add the movies to your list" />
-        </div>
+        {currentMovieData.addList ? (
+          <div
+            onClick={(e) => actionToggle(e)}
+            className={styles.circleContainer}
+            data-action="cancel"
+          >
+            <Image src={cancel} alt="remove the movies from your list" />
+          </div>
+        ) : (
+          <div
+            onClick={(e) => actionToggle(e)}
+            className={styles.circleContainer}
+            data-action="plus"
+          >
+            <Image src={plus} alt="add the movies to your list" />
+          </div>
+        )}
         <div
           onClick={(e) => actionToggle(e)}
           className={styles.circleContainer}
@@ -52,13 +62,6 @@ export default function IconGroup({ mov }) {
           data-action="thumbsDown"
         >
           <Image src={thumbsDown} alt="likes the movies" />
-        </div>
-        <div
-          onClick={(e) => actionToggle(e)}
-          className={styles.circleContainer}
-          data-action="cancel"
-        >
-          <Image src={cancel} alt="remove the movies from your list" />
         </div>
       </div>
       <div className={styles.circleContainerDrop}>

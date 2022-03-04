@@ -45,26 +45,20 @@ function Browse() {
       staleTime: 1000 * 60 * 15,
     }
   );
-  const movieList = useQuery(
-    ["movieList", requestedDataRoute],
-    () =>
-      axios.post(getAbsoluteURL("/api/fetchmymovie"), {
-        requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
-        requestedData: "myl",
-      }),
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: true,
-      refetchOnReconnect: true,
-      staleTime: 1000 * 60 * 2,
-    }
-  );
-
-  useEffect(() => {
-    console.log(movieList);
-  }, [movieList]);
-
-  // =========================DEVELOPMENT==========================
+  // const movieList = useQuery(
+  //   ["movieList", requestedDataRoute],
+  //   () =>
+  //     axios.post(getAbsoluteURL("/api/fetchmymovie"), {
+  //       requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
+  //       requestedData: "myl",
+  //     }),
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     refetchOnMount: true,
+  //     refetchOnReconnect: true,
+  //     staleTime: 1000 * 60 * 2,
+  //   }
+  // );
 
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {

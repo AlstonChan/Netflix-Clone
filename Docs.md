@@ -82,19 +82,25 @@ To run both emulator, open a new terminal and run `firebase emulators:start` or 
 
 In order to run firebase auth emulators, follow these 3 steps:
 
-1. uncomment _line 15_ in `initAuth.js`
+1. Uncomment _line 15_ in `initAuth.js`
+
    ```
    firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
    ```
-2. uncomment the following code in `.env.local`
+
+2. Uncomment the following code in `.env.local`
+
    ```
    FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
    ```
+
    and set use firebase auth emulator from false to true
+
    ```
    NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=true
    ```
-3. open a new terminal and run `firebase emulators:start --only auth` or `npm run fire-auth` to spin up the emulator.
+
+3. Open a new terminal and run `firebase emulators:start --only auth` or `npm run fire-auth` to spin up the emulator.
 
 **_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote respository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occured:
 
@@ -145,6 +151,6 @@ In order to run firebase auth emulators, follow these 3 steps:
 
    Adding `"host": "127.0.0.1"` instead of `localhost` fixed the issues if you do not want to downgrade your `node.js` to version 16.
 
-3. open a new terminal and run `firebase emulators:start --only firestore` or `npm run firestore` to spin up the emulator.
+3. Open a new terminal and run `firebase emulators:start --only firestore` or `npm run firestore` to spin up the emulator.
 
 **_[GitHub Issues](https://github.com/firebase/firebase-tools/issues/2379)_**

@@ -28,6 +28,8 @@ npm install -g firebase-tools
 
 ### Step Three. Create a Firebase project, register a web app and initialize firebase
 
+**_NOTE:_** This step is incomplete, missing `firebase init`, will patch up in the future :)
+
 1.  Firstly, go to [firebase](https://firebase.google.com/), you should see this page. Click the top right **Sign in** button if you haven't sign in yet and click _Get started_ button.
     ![firebase homepage](./assets/firebase-home.jpg)
 
