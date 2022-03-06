@@ -53,6 +53,11 @@ export default function IconGroup({ mov }) {
           onClick={(e) => actionToggle(e)}
           className={styles.circleContainer}
           data-action="thumbsUp"
+          style={
+            currentMovieData.like === "Liked"
+              ? { border: "2px solid rgb(255, 255, 255, 1)" }
+              : { display: "block" }
+          }
         >
           <Image src={thumbsUp} alt="dislikes the movies" />
         </div>
@@ -60,6 +65,11 @@ export default function IconGroup({ mov }) {
           onClick={(e) => actionToggle(e)}
           className={styles.circleContainer}
           data-action="thumbsDown"
+          style={
+            currentMovieData.like === "Disliked"
+              ? { border: "2px solid rgb(255, 255, 255, 1)" }
+              : { display: "block" }
+          }
         >
           <Image src={thumbsDown} alt="likes the movies" />
         </div>

@@ -33,7 +33,7 @@ export function Registration() {
         <div className={styles.centerDiv}>
           <section className={styles.mainContentReg}>
             <div className={styles.imgDevicesContainer}>
-              <Image src={Devices} />
+              <Image src={Devices} alt="" />
             </div>
             <p className={styles.stepsCount}>STEP 2 OF 3</p>
             <h1 className={styles.stepsHeadings}>

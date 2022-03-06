@@ -25,11 +25,11 @@ export default function Profile({ switchPage }) {
         <div className={styles.divContainer}>
           <h1 className={styles.headingMain}>Who&apos;s watching?</h1>
           <div className={styles.profile}>
-            <Link href="/browse?fetchmoviedata=hom">
+            <Link href="/browse">
               <a>
                 <li
                   tabIndex="0"
-                  onClick={switchPage}
+                  onClick={() => switchPage(userData["user-main"].name)}
                   className={styles.listItemProfile}
                 >
                   <div className={styles.avatarContainer}>

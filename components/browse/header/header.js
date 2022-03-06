@@ -49,14 +49,14 @@ export function Header({ route }) {
         active: true,
         index: 2,
       });
-    } else if (route == "myl") {
+    } else if (route == "my-list") {
       setSelectedOptionNav({
         styles: `${styles.selectionOpt} ${styles.selectedOpt}`,
         active: true,
         index: 3,
       });
     }
-  }, []);
+  }, [route]);
 
   function eventResize() {
     if (window.innerWidth < 980) {

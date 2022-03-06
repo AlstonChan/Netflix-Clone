@@ -26,7 +26,7 @@ export default function Header({ logoClickHome }) {
         `${styles.logoPointer} ${styles.netflixLogoContainer}`
       );
     }
-  }, []);
+  }, [logoClickHome]);
 
   useEffect(() => {
     if (user) {

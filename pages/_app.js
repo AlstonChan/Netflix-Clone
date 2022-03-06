@@ -24,25 +24,27 @@ function MyApp({ Component, pageProps }) {
 
   const getLayout = Component.getLayout || ((page) => page);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (user) {
       try {
-        const querySnapshot = await getDoc(doc(db, "Acc", user.uid));
-        const eventSnapshot = onSnapshot(
-          doc(db, "mymovie", user.uid),
-          async (documents) => {
-            // For user that just sign up
-            if (documents.exists() === false) {
-              console.info("no doc found");
-              await setDoc(doc(db, "mymovie", user.uid), {
-                myMovies: [{ movieID: null, addList: false, like: "none" }],
-              });
+        (async () => {
+          const querySnapshot = await getDoc(doc(db, "Acc", user.uid));
+          const eventSnapshot = onSnapshot(
+            doc(db, "mymovie", user.uid),
+            async (documents) => {
+              // For user that just sign up
+              if (documents.exists() === false) {
+                console.info("no doc found");
+                setDoc(doc(db, "mymovie", user.uid), {
+                  myMovies: [{ movieID: null, addList: false, like: "none" }],
+                }).then(() => (myMovieData.current = documents));
+              } else {
+                myMovieData.current = documents;
+              }
             }
-            myMovieData.current = documents;
-          }
-        );
-
-        setUserData(querySnapshot.data());
+          );
+          setUserData(querySnapshot.data());
+        })();
       } catch (error) {
         console.error(error);
       }

@@ -41,7 +41,7 @@ export function SignUp() {
         <div className={styles.centerDiv}>
           <section className={styles.mainContent}>
             <div className={styles.imgContainer}>
-              <Image src={CheckMark} />
+              <Image src={CheckMark} alt="a check Mark" />
             </div>
             <p className={styles.stepsCount}>STEP 1 OF 3</p>
             <h1 className={styles.stepsHeadings}>Choose your plan.</h1>
@@ -49,7 +49,7 @@ export function SignUp() {
               {benefitTxt.map((txt, index) => {
                 return (
                   <li key={index} className={styles.benefitListItem}>
-                    <Image src={CheckRed} />
+                    <Image src={CheckRed} alt="a red check Mark" />
                     <span className={styles.benefitListItemTxt}>{txt}</span>
                   </li>
                 );

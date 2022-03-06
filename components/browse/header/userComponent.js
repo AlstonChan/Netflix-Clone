@@ -48,7 +48,7 @@ const UserComponent = () => {
               width="35px"
               height="35px"
               className={styles.profilePic}
-              alt="profile icon"
+              alt="user profile picture"
             />
           ) : (
             ""
@@ -133,7 +133,7 @@ export function UserDropDownList() {
           <span key={index}>
             <div className={styles.listItemContainer}>
               <div className={styles.listItemImg}>
-                <Image src={listItem.src} />
+                <Image src={listItem.src} alt="user profile picture" />
               </div>
               <span style={{ padding: "4px 0" }}>
                 <Link href={listItem.link}>
