@@ -10,7 +10,7 @@ import arrow from "../../../public/images/icons/misc/nav_arrow.svg";
 import play from "../../../public/images/icons/misc/play-btn.svg";
 
 import useFetchMyMovie from "../../../lib/useFetchMyMovie";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../pages/_app";
 
 export default function IconGroup({ mov }) {

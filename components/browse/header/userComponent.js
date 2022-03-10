@@ -44,7 +44,11 @@ const UserComponent = () => {
         <div className={styles.profilePicContainer}>
           {userData ? (
             <Image
-              src={userData["user-main"].pic}
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
               width="35px"
               height="35px"
               className={styles.profilePic}
@@ -96,6 +100,7 @@ export function UserDropDownList() {
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))
+      .then(() => window.sessionStorage.removeItem("profile"))
       .catch((error) => console.error(error));
   };
 
@@ -111,7 +116,11 @@ export function UserDropDownList() {
         <div className={styles.listItemImg}>
           {userData ? (
             <Image
-              src={userData["user-main"].pic}
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
               width="35px"
               height="35px"
               className={styles.profilePic}

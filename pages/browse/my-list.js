@@ -1,19 +1,24 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Header from "../../components/browse/header/header.js";
-import Cards from "../../components/browse/sliderCards/cards";
+import ConstantList from "../../components/browse/sliderCards/constantList";
 import Footer from "../../components/footer/footerBrowse";
-import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
+import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
 
 import Loader from "../../components/Loader";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
+import { useQuery } from "react-query";
+import { UserContext } from "../_app";
+import getAbsoluteURL from "../../lib/getAbsoluteURL";
+import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
 export function MyList() {
   const [modal, setModal] = useState({});
+  const { myMovieData } = useContext(UserContext);
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -31,7 +36,23 @@ export function MyList() {
       });
     }
   }
-  const data = {};
+
+  const { data } = useQuery(
+    ["moviesDBList", "my-list"],
+    () =>
+      fetchMoviesDB(
+        "my-list",
+        getAbsoluteURL("/api/fetchmovie"),
+        myMovieData.current.data().myMovies
+      ),
+    {
+      keepPreviousData: true,
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      refetchOnReconnect: false,
+      cacheTime: 1000 * 60 * 10,
+    }
+  );
 
   return (
     <div className={styles.container}>
@@ -42,8 +63,15 @@ export function MyList() {
           <span className={styles.featuredMain}>
             <div className={styles.emptyFea}></div>
           </span>
-          <PlaceholderCard />
-          <PlaceholderCard />
+          <h1 className={styles.listHeader}>My List</h1>
+          {data ? (
+            <ConstantList modal={toggleModal} movieList={data} />
+          ) : (
+            <>
+              <PlaceholderCard />
+              <PlaceholderCard />
+            </>
+          )}
         </Main>
       </main>
       <Footer />

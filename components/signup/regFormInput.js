@@ -34,6 +34,7 @@ export default function RegForm() {
               },
             });
           })
+          .then(() => window.sessionStorage.removeItem("user"))
           .catch((error) => {
             const { code, message } = error;
             console.error(message);

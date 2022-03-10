@@ -21,7 +21,11 @@ export default function LoadingBrowse() {
         <div className={styles.profilePicCenter}>
           {userData ? (
             <Image
-              src={userData["user-main"].pic}
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
               width="320px"
               height="320px"
               className={styles.profilePic}

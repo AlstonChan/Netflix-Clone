@@ -32,6 +32,7 @@ export const Trending = () => {
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
       // console.table({ top, bottom, left, right, adjustedY });
+      console.log(movieSet);
       setModal({
         mainClass: { top: adjustedY, left, right, bottom },
         width,
@@ -40,6 +41,7 @@ export const Trending = () => {
       });
     }
   }
+
   const { data } = useQuery(
     ["moviesDBTv", "new"],
     () => fetchMoviesDB("new", getAbsoluteURL("/api/fetchmovie")),
@@ -102,7 +104,7 @@ export const getServerSideProps = withAuthUserTokenSSR({
   const host = { ...context.req.headers }.host;
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["moviesDB", "new"], () =>
+  await queryClient.prefetchQuery(["moviesDBTv", "new"], () =>
     fetchMoviesDB("new", endpoint)
   );
 

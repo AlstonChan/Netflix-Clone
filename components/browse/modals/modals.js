@@ -111,25 +111,41 @@ export const MovieDetails = ({ modalStyle }) => {
         <span>{mov.release_date || mov.first_air_date} </span>
       </div>
       <div className={styles.genreDetails}>
-        {mov.genre_ids.map((ids, index) => {
-          let genreName;
-          genres.forEach((obj) => {
-            if (obj.id == ids) genreName = obj.name;
-          });
-          if (index != 0) {
-            return (
-              <span className={styles.genre} key={index}>
-                | {genreName}{" "}
-              </span>
-            );
-          } else {
-            return (
-              <span className={styles.genre} key={index}>
-                {genreName}{" "}
-              </span>
-            );
-          }
-        })}
+        {mov.genre_ids
+          ? mov.genre_ids.map((ids, index) => {
+              let genreName;
+              genres.forEach((obj) => {
+                if (obj.id == ids) genreName = obj.name;
+              });
+              if (index != 0) {
+                return (
+                  <span className={styles.genre} key={index}>
+                    | {genreName}{" "}
+                  </span>
+                );
+              } else {
+                return (
+                  <span className={styles.genre} key={index}>
+                    {genreName}{" "}
+                  </span>
+                );
+              }
+            })
+          : mov.genres.map((genre, index) => {
+              if (index != 0) {
+                return (
+                  <span className={styles.genre} key={index}>
+                    | {genre.name}{" "}
+                  </span>
+                );
+              } else {
+                return (
+                  <span className={styles.genre} key={index}>
+                    {genre.name}{" "}
+                  </span>
+                );
+              }
+            })}
       </div>
     </div>
   );

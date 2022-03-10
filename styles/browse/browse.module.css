@@ -178,6 +178,11 @@
   background-color: rgba(105, 105, 105, 0.459);
 }
 
+.listHeader {
+  margin-left: 5%;
+  color: #fff;
+}
+
 @media screen and (max-width: 2000px) {
   .featuredTxt {
     margin: 5% 0 0 0;

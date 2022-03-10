@@ -38,8 +38,8 @@ export default function SliderItem({
   return (
     <>
       <div
-        className={`${styles.sliderItem}`}
-        style={{ width: `${width}%` }}
+        className={styles.sliderItem}
+        style={width === "constant" ? "" : { width: `${width}%` }}
         onMouseLeave={(e) => toggleModal(e)}
         onMouseEnter={(e) => toggleModal(e)}
         data-num={dataNum}

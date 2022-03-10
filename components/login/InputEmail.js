@@ -24,6 +24,7 @@ export default function Input({ setRef, inputId, page }) {
       const e = { type: "focus" };
       handleInputClick(e);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function checkEmailInput(val) {
