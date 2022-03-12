@@ -15,7 +15,10 @@ import { UserContext } from "../../../pages/_app";
 
 export default function IconGroup({ mov }) {
   const { user, loading } = useContext(UserContext);
-  const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(mov.id);
+  const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
+    mov.id,
+    mov
+  );
 
   const actionToggle = async (e) => {
     if (user && !loading) {

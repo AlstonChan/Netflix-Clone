@@ -1,10 +1,12 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
+import Loading from "../../components/browse/loading";
 import Header from "../../components/browse/header/header.js";
+import Profile from "../../components/browse/profile";
 import Cards from "../../components/browse/sliderCards/cards";
 import Featured from "../../components/browse/featured";
 import Footer from "../../components/footer/footerBrowse";
@@ -16,6 +18,7 @@ import Loader from "../../components/Loader";
 
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
 
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 import {
   withAuthUser,
   withAuthUserTokenSSR,
@@ -24,6 +27,16 @@ import {
 
 export const TvShows = () => {
   const [modal, setModal] = useState({});
+  const [profile, setProfile] = useState(null);
+  const [firstLoad, setFirstLoad] = useState(true);
+
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === "object") {
+      const data = window.sessionStorage.getItem("profile");
+      if (data === null) setProfile(null);
+      setProfile(data);
+    }
+  }, [profile]);
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -41,7 +54,7 @@ export const TvShows = () => {
       });
     }
   }
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["moviesDBTv", "tvs"],
     () => fetchMoviesDB("tvs", getAbsoluteURL("/api/fetchmovie")),
     {
@@ -54,37 +67,57 @@ export const TvShows = () => {
     }
   );
 
-  return (
-    <div className={styles.container}>
-      <Header route={"tvs"} />
-      <main className={styles.main}>
-        <Modals modalStyle={modal} />
-        <Main data={data}>
-          <span className={styles.featuredMain}>
-            <Featured url={"tvs"} />
-          </span>
-          {data ? (
-            data.map((movie, index) => {
-              return (
-                <Cards
-                  movieSet={movie.data.results}
-                  movieGenre={movie.genre}
-                  key={index}
-                  modal={toggleModal}
-                />
-              );
-            })
-          ) : (
-            <>
-              <PlaceholderCard />
-              <PlaceholderCard />
-            </>
-          )}
-        </Main>
-      </main>
-      <Footer />
-    </div>
-  );
+  // make sure loading page only show up when moving
+  // from profile page to movies page on initial load
+  useEffect(() => {
+    if (!isLoading && profile === 1 && data) {
+      setFirstLoad(false);
+    }
+  }, [isLoading, profile, data]);
+
+  function switchPage(name) {
+    setProfile(sessionStorage.setItem("profile", name));
+  }
+
+  if (firstLoad && profile && (!data || isLoading)) {
+    return <Loading />;
+  }
+
+  if (!profile) {
+    return <Profile switchPage={switchPage} />;
+  } else {
+    return (
+      <div className={styles.container}>
+        <Header route={"tvs"} />
+        <main className={styles.main}>
+          <Modals modalStyle={modal} />
+          <Main data={data}>
+            <span className={styles.featuredMain}>
+              <Featured url={"tvs"} />
+            </span>
+            {data ? (
+              data.map((movie, index) => {
+                return (
+                  <Cards
+                    movieSet={movie.data.results}
+                    movieGenre={movie.genre}
+                    key={index}
+                    modal={toggleModal}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <PlaceholderCard />
+                <PlaceholderCard />
+              </>
+            )}
+          </Main>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 };
 
 // auth

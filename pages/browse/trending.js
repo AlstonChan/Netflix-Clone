@@ -1,10 +1,12 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
+import Loading from "../../components/browse/loading";
 import Header from "../../components/browse/header/header.js";
+import Profile from "../../components/browse/profile";
 import Cards from "../../components/browse/sliderCards/cards";
 import Footer from "../../components/footer/footerBrowse";
 import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
@@ -15,6 +17,7 @@ import Loader from "../../components/Loader";
 
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
 
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 import {
   withAuthUser,
   withAuthUserTokenSSR,
@@ -23,6 +26,16 @@ import {
 
 export const Trending = () => {
   const [modal, setModal] = useState({});
+  const [profile, setProfile] = useState(null);
+  const [firstLoad, setFirstLoad] = useState(true);
+
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === "object") {
+      const data = window.sessionStorage.getItem("profile");
+      if (data === null) setProfile(null);
+      setProfile(data);
+    }
+  }, [profile]);
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -32,7 +45,6 @@ export const Trending = () => {
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
       // console.table({ top, bottom, left, right, adjustedY });
-      console.log(movieSet);
       setModal({
         mainClass: { top: adjustedY, left, right, bottom },
         width,
@@ -42,7 +54,7 @@ export const Trending = () => {
     }
   }
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["moviesDBTv", "new"],
     () => fetchMoviesDB("new", getAbsoluteURL("/api/fetchmovie")),
     {
@@ -55,37 +67,57 @@ export const Trending = () => {
     }
   );
 
-  return (
-    <div className={styles.container}>
-      <Header route={"new"} />
-      <main className={styles.main}>
-        <Modals modalStyle={modal} />
-        <Main data={data}>
-          <span className={styles.featuredMain}>
-            <div className={styles.emptyFea}></div>
-          </span>
-          {data ? (
-            data.map((movie, index) => {
-              return (
-                <Cards
-                  movieSet={movie.data.results}
-                  movieGenre={movie.genre}
-                  key={index}
-                  modal={toggleModal}
-                />
-              );
-            })
-          ) : (
-            <>
-              <PlaceholderCard />
-              <PlaceholderCard />
-            </>
-          )}
-        </Main>
-      </main>
-      <Footer />
-    </div>
-  );
+  // make sure loading page only show up when moving
+  // from profile page to movies page on initial load
+  useEffect(() => {
+    if (!isLoading && profile === 1 && data) {
+      setFirstLoad(false);
+    }
+  }, [isLoading, profile, data]);
+
+  function switchPage(name) {
+    setProfile(sessionStorage.setItem("profile", name));
+  }
+
+  if (firstLoad && profile && (!data || isLoading)) {
+    return <Loading />;
+  }
+
+  if (!profile) {
+    return <Profile switchPage={switchPage} />;
+  } else {
+    return (
+      <div className={styles.container}>
+        <Header route={"new"} />
+        <main className={styles.main}>
+          <Modals modalStyle={modal} />
+          <Main data={data}>
+            <span className={styles.featuredMain}>
+              <div className={styles.emptyFea}></div>
+            </span>
+            {data ? (
+              data.map((movie, index) => {
+                return (
+                  <Cards
+                    movieSet={movie.data.results}
+                    movieGenre={movie.genre}
+                    key={index}
+                    modal={toggleModal}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <PlaceholderCard />
+                <PlaceholderCard />
+              </>
+            )}
+          </Main>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 };
 
 // auth

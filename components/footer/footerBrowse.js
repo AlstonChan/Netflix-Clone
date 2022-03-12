@@ -5,6 +5,7 @@ import facebook from "../../public/images/icons/social media/facebook.svg";
 import instagram from "../../public/images/icons/social media/instagram.svg";
 import twitter from "../../public/images/icons/social media/twitter.svg";
 import youtube from "../../public/images/icons/social media/youtube.svg";
+import movieDB from "../../public/images/movieDB.svg";
 
 export default function Footer1() {
   const footerContArr = [
@@ -57,6 +58,10 @@ export default function Footer1() {
               </li>
             );
           })}
+        </div>
+        <div>
+          <h3 className={styles.attribution}>Special Thanks to:</h3>
+          <Image src={movieDB} />
         </div>
       </div>
     </footer>

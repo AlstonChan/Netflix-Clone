@@ -2,7 +2,6 @@ import styles from "../../styles/browse/browse.module.css";
 import React, { useState, useEffect } from "react";
 
 import { dehydrate, QueryClient, useQuery } from "react-query";
-
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
 import Loading from "../../components/browse/loading";
@@ -29,6 +28,7 @@ import {
 export const Browse = () => {
   const [modal, setModal] = useState({});
   const [profile, setProfile] = useState(null);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
@@ -54,7 +54,7 @@ export const Browse = () => {
       });
     }
   }
-  const [firstLoad, setFirstLoad] = useState(true);
+
   const { data, isLoading } = useQuery(
     ["moviesDB", "hom"],
     () => fetchMoviesDB("hom", getAbsoluteURL("/api/fetchmovie")),

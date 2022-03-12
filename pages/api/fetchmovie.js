@@ -62,15 +62,28 @@ export default async function handler(req, res) {
 
         for (let x = 0; x < myListData.length; x++) {
           if (myListData[x].addList) {
-            const url = `/movie/${myListData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
-            const res = await instances.get(url, {
-              validateStatus: false,
-            });
-            const data = res.data;
-            if (data.success !== false || typeof data.success === undefined) {
-              movies.push({
-                data,
+            if (myListData[x].movType === "movie") {
+              const url = `/movie/${myListData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+              const res = await instances.get(url, {
+                validateStatus: false,
               });
+              const data = res.data;
+              if (data.success !== false || typeof data.success === undefined) {
+                movies.push({
+                  data,
+                });
+              }
+            } else if (myListData[x].movType === "tv") {
+              const url = `/tv/${myListData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+              const res = await instances.get(url, {
+                validateStatus: false,
+              });
+              const data = res.data;
+              if (data.success !== false || typeof data.success === undefined) {
+                movies.push({
+                  data,
+                });
+              }
             }
           }
         }
