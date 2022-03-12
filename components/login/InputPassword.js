@@ -26,6 +26,7 @@ export default function Input({ setRef, inputId, page }) {
   useEffect(() => {
     setRef.current.value = "";
     handleInputClick({ type: "blur" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function toggleClick() {

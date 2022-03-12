@@ -227,7 +227,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
             ""
           )}
           <div className={styles.sliderContainer}>
-            <div className={`${styles.slider}`} style={style}>
+            <div className={styles.slider} style={style}>
               {renderSliderContent()}
             </div>
           </div>

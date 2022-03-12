@@ -12,10 +12,8 @@ import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
 import UserProfile from "../../../public/images/icons/misc/user.svg";
 
-import placeholder from "../../../public/images/profile pic/1.png";
-
 const UserComponent = () => {
-  const { user, loading } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   const [navUserStyle, setNavUserStyle] = useState({
     visibility: "hidden",
@@ -44,17 +42,21 @@ const UserComponent = () => {
         style={{ display: "flex" }}
       >
         <div className={styles.profilePicContainer}>
-          <Image
-            src={
-              !loading && user?.photoURL
-                ? user.photoURL
-                : "/images/profile pic/1.png"
-            }
-            width="35px"
-            height="35px"
-            className={styles.profilePic}
-            alt="profile icon"
-          />
+          {userData ? (
+            <Image
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
+              width="35px"
+              height="35px"
+              className={styles.profilePic}
+              alt="user profile picture"
+            />
+          ) : (
+            ""
+          )}
         </div>
         <Image
           src="/images/icons/misc/nav_arrow_bold.svg"
@@ -94,10 +96,11 @@ const UserComponent = () => {
 export default UserComponent;
 
 export function UserDropDownList() {
-  const { user, loading } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))
+      .then(() => window.sessionStorage.removeItem("profile"))
       .catch((error) => console.error(error));
   };
 
@@ -111,18 +114,27 @@ export function UserDropDownList() {
     <>
       <div className={styles.listItemContainer}>
         <div className={styles.listItemImg}>
-          <Image
-            src={!loading && user?.photoURL ? user.photoURL : placeholder}
-            width="320px"
-            height="320px"
-            className={styles.userProfileImg}
-          />
+          {userData ? (
+            <Image
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
+              width="35px"
+              height="35px"
+              className={styles.profilePic}
+              alt="profile icon"
+            />
+          ) : (
+            ""
+          )}
         </div>
         <p
           style={{ margin: "0", alignSelf: "center" }}
           className={styles.listItemParagraph}
         >
-          {!loading && user?.displayName ? user.displayName : "User"}
+          {userData ? userData["user-main"].name : ""}
         </p>
       </div>
       {dropDownPanel.map((listItem, index) => {
@@ -130,7 +142,7 @@ export function UserDropDownList() {
           <span key={index}>
             <div className={styles.listItemContainer}>
               <div className={styles.listItemImg}>
-                <Image src={listItem.src} />
+                <Image src={listItem.src} alt="user profile picture" />
               </div>
               <span style={{ padding: "4px 0" }}>
                 <Link href={listItem.link}>

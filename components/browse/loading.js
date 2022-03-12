@@ -1,6 +1,6 @@
 import Image from "next/image";
 import NetflixLogo from "../../public/images/NetflixLogo.png";
-import ProfilePic from "../../public/images/profile pic/1.png";
+
 import Spinner from "../../public/images/browse/spinner.png";
 import styles from "../../styles/browse/browse.module.css";
 
@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../pages/_app";
 
 export default function LoadingBrowse() {
-  const { user, loading } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   return (
     <div className={styles.loadingBg}>
@@ -19,18 +19,21 @@ export default function LoadingBrowse() {
       </header>
       <main className={styles.mainLoading}>
         <div className={styles.profilePicCenter}>
-          <Image
-            src={
-              !loading && user?.photoURL
-                ? user.photoURL
-                  ? user.photoURL
-                  : ProfilePic
-                : ProfilePic
-            }
-            width="320px"
-            height="320px"
-            alt="profile icon"
-          />
+          {userData ? (
+            <Image
+              src={
+                userData["user-main"].pic.length > 3
+                  ? userData["user-main"].pic
+                  : `/images/profile pic/${userData["user-main"].pic}.png`
+              }
+              width="320px"
+              height="320px"
+              className={styles.profilePic}
+              alt="User profile Picture"
+            />
+          ) : (
+            ""
+          )}
           <div className={styles.spinnerContain}>
             <Image src={Spinner} alt="loading spinner" />
           </div>

@@ -5,7 +5,8 @@ import InputEmail from "../login/InputEmail";
 import InputPassword from "../login/InputPassword";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { db, auth } from "../../lib/firebase";
 
 export default function RegForm() {
   const emailInputRef = useRef();
@@ -25,8 +26,15 @@ export default function RegForm() {
       if (passwordLength) {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            console.log("Sign up");
+            setDoc(doc(db, "Acc", userCredential.user.uid), {
+              uid: userCredential.user.uid,
+              "user-main": {
+                name: userCredential.user.email.split("@").shift(),
+                pic: Math.ceil(Math.random() * 4),
+              },
+            });
           })
+          .then(() => window.sessionStorage.removeItem("user"))
           .catch((error) => {
             const { code, message } = error;
             console.error(message);

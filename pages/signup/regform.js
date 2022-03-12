@@ -41,7 +41,7 @@ export function RegForm() {
                 Create a password to start your membership
               </h1>
               <p className={styles.descriptionRegForm}>
-                Just a few more steps and you're finished! <br />
+                Just a few more steps and you&apos;re finished! <br />
                 We hate paperwork, too.
               </p>
             </div>

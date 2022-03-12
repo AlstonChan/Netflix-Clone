@@ -1,15 +1,13 @@
 import styles from "../../styles/browse/profile.module.css";
 import Image from "next/image";
-import ProfilePic from "../../public/images/profile pic/1.png";
 import ProfileAdd from "../../public/images/netflix-profile-add.png";
 
 import Link from "next/link";
-
-import { UserContext } from "../../pages/_app";
 import { useContext } from "react";
+import { UserContext } from "../../pages/_app";
 
 export default function Profile({ switchPage }) {
-  const { user, loading } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   return (
     <div className={styles.container}>
@@ -27,35 +25,43 @@ export default function Profile({ switchPage }) {
         <div className={styles.divContainer}>
           <h1 className={styles.headingMain}>Who&apos;s watching?</h1>
           <div className={styles.profile}>
-            <Link href="/browse?fetchmoviedata=hom">
+            <Link href="/browse">
               <a>
                 <li
                   tabIndex="0"
-                  onClick={switchPage}
+                  onClick={() => switchPage(userData["user-main"].name)}
                   className={styles.listItemProfile}
                 >
                   <div className={styles.avatarContainer}>
-                    <Image
-                      src={
-                        !loading && user?.photoURL ? user.photoURL : ProfilePic
-                      }
-                      width="320px"
-                      height="320px"
-                      className={styles.profilePic}
-                      alt="User profile Picture"
-                    />
+                    {userData ? (
+                      <Image
+                        src={
+                          userData["user-main"].pic.length > 3
+                            ? userData["user-main"].pic
+                            : `/images/profile pic/${userData["user-main"].pic}.png`
+                        }
+                        width="320px"
+                        height="320px"
+                        className={styles.profilePic}
+                        alt="User profile Picture"
+                      />
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <span className={styles.nameContain}>
                     <p className={styles.name}>
-                      {!loading && user?.displayName
-                        ? user.displayName
-                        : "User"}
+                      {userData ? userData["user-main"].name : ""}
                     </p>
                   </span>
                 </li>
               </a>
             </Link>
-            <li tabIndex="0" className={styles.listItemProfile}>
+            <li
+              tabIndex="0"
+              className={styles.listItemProfile}
+              style={{ marginRight: "0" }}
+            >
               <div className={styles.avatarContainer}>
                 <Image
                   src={ProfileAdd}

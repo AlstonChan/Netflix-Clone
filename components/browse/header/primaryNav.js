@@ -23,6 +23,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       );
     }
   }
+
   return menu ? (
     <>
       <div
@@ -58,10 +59,17 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
           {text.map((txt, index) => {
             return (
               <Link
-                href={`/browse?fetchmoviedata=${txt
-                  .replace(/\s/g, "")
-                  .slice(0, 3)
-                  .toLowerCase()}`}
+                href={
+                  text === "Home"
+                    ? "/browse"
+                    : txt === "TV Shows"
+                    ? "/browse/tv-shows"
+                    : txt === "New & Popular"
+                    ? "/browse/trending"
+                    : txt === "My List"
+                    ? "/browse/my-list"
+                    : ""
+                }
                 key={index}
               >
                 <a className={styles.dropDownMenuitem}>
@@ -87,10 +95,17 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
     <>
       <Link
         shallow
-        href={`/browse?fetchmoviedata=${text
-          .replace(/\s/g, "")
-          .slice(0, 3)
-          .toLowerCase()}`}
+        href={
+          text === "Home"
+            ? "/browse"
+            : text === "TV Shows"
+            ? "/browse/tv-shows"
+            : text === "New & Popular"
+            ? "/browse/trending"
+            : text === "My List"
+            ? "/browse/my-list"
+            : ""
+        }
       >
         <a
           onClick={(e) => handler(e)}

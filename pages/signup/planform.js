@@ -44,14 +44,14 @@ export function PlanForm() {
           </div>
           <div style={{ width: "fit-content" }}>
             <h1 className={styles.stepsHeadings} style={{ textAlign: "left" }}>
-              Choose the plan that's right for you.
+              Choose the plan that&apos;s right for you.
             </h1>
           </div>
           <div>
             {benefitTxt.map((txt, index) => {
               return (
                 <li key={index} className={styles.benefitListItem}>
-                  <Image src={CheckRed} />
+                  <Image src={CheckRed} alt="a red check mark" />
                   <span className={styles.benefitListItemTxt}>{txt}</span>
                 </li>
               );
