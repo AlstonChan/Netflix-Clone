@@ -9,7 +9,7 @@ import SearchComponent from "./searchComponent";
 import BellComponent from "./bellComponent";
 import UserComponent from "./userComponent";
 
-export function Header({ route }) {
+export function Header({ route, searchRef }) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -137,7 +137,7 @@ export function Header({ route }) {
             )}
           </nav>
           <div className={styles.secondaryNav}>
-            <SearchComponent />
+            <SearchComponent searchRef={searchRef} />
             <BellComponent />
             <UserComponent />
           </div>

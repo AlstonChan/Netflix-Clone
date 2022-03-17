@@ -1,13 +1,13 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
-import Loading from "../../components/browse/loading";
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile";
 import Cards from "../../components/browse/sliderCards/cards";
+import ConstantList from "../../components/browse/sliderCards/constantList";
 import Featured from "../../components/browse/featured";
 import Footer from "../../components/footer/footerBrowse";
 import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
@@ -28,7 +28,8 @@ import {
 export const TvShows = () => {
   const [modal, setModal] = useState({});
   const [profile, setProfile] = useState(null);
-  const [firstLoad, setFirstLoad] = useState(true);
+  const searchRef = useRef();
+  const [delay, setDelay] = useState();
 
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
@@ -37,6 +38,21 @@ export const TvShows = () => {
       setProfile(data);
     }
   }, [profile]);
+
+  const searchMutation = useMutation((searc) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
+  );
+
+  useEffect(() => {
+    if (searchRef.current?.value) {
+      clearTimeout(delay);
+      setDelay(
+        setTimeout(() => {
+          searchMutation.mutate(searchRef.current.value);
+        }, 400)
+      );
+    }
+  }, [searchRef.current?.value]);
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -54,7 +70,7 @@ export const TvShows = () => {
       });
     }
   }
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["moviesDBTv", "tvs"],
     () => fetchMoviesDB("tvs", getAbsoluteURL("/api/fetchmovie")),
     {
@@ -67,20 +83,8 @@ export const TvShows = () => {
     }
   );
 
-  // make sure loading page only show up when moving
-  // from profile page to movies page on initial load
-  useEffect(() => {
-    if (!isLoading && profile === 1 && data) {
-      setFirstLoad(false);
-    }
-  }, [isLoading, profile, data]);
-
   function switchPage(name) {
     setProfile(sessionStorage.setItem("profile", name));
-  }
-
-  if (firstLoad && profile && (!data || isLoading)) {
-    return <Loading />;
   }
 
   if (!profile) {
@@ -88,31 +92,50 @@ export const TvShows = () => {
   } else {
     return (
       <div className={styles.container}>
-        <Header route={"tvs"} />
+        <Header route={"tvs"} searchRef={searchRef} />
         <main className={styles.main}>
           <Modals modalStyle={modal} />
-          <Main data={data}>
-            <span className={styles.featuredMain}>
-              <Featured url={"tvs"} />
-            </span>
-            {data ? (
-              data.map((movie, index) => {
-                return (
-                  <Cards
-                    movieSet={movie.data.results}
-                    movieGenre={movie.genre}
-                    key={index}
-                    modal={toggleModal}
-                  />
-                );
-              })
-            ) : (
-              <>
-                <PlaceholderCard />
-                <PlaceholderCard />
-              </>
-            )}
-          </Main>
+          {searchRef.current?.value ? (
+            <Main data={searchMutation.data}>
+              <span className={styles.featuredMain}>
+                <div className={styles.emptyFea}></div>
+              </span>
+              {data ? (
+                <ConstantList
+                  modal={toggleModal}
+                  movieList={searchMutation.data}
+                />
+              ) : (
+                <>
+                  <PlaceholderCard />
+                  <PlaceholderCard />
+                </>
+              )}
+            </Main>
+          ) : (
+            <Main data={data}>
+              <span className={styles.featuredMain}>
+                <Featured url={"tvs"} />
+              </span>
+              {data ? (
+                data.map((movie, index) => {
+                  return (
+                    <Cards
+                      movieSet={movie.data.results}
+                      movieGenre={movie.genre}
+                      key={index}
+                      modal={toggleModal}
+                    />
+                  );
+                })
+              ) : (
+                <>
+                  <PlaceholderCard />
+                  <PlaceholderCard />
+                </>
+              )}
+            </Main>
+          )}
         </main>
         <Footer />
       </div>

@@ -6,7 +6,10 @@ import styles from "../../../styles/browse/secondaryHeader.module.css";
 
 export default function BellComponent() {
   const [navNotification, setNavNotification] = useState({
-    visibility: "hidden",
+    styling: {
+      visibility: "hidden",
+    },
+    mode: 0,
   });
 
   const [notificationCount, setNotificationCount] = useState(0);
@@ -15,12 +18,18 @@ export default function BellComponent() {
 
   function toggleNavMenu(e) {
     if (e.type === "mouseenter") {
-      setNavNotification({ visibility: "visible", opacity: "1" });
+      setNavNotification({
+        styling: { visibility: "visible", opacity: "1" },
+        mode: 1,
+      });
       clearTimeout(delayNotifi);
     } else if (e.type === "mouseleave") {
       setDelayNotifi(
         setTimeout(() => {
-          setNavNotification({ visibility: "hidden", opacity: "0" });
+          setNavNotification({
+            styling: { visibility: "hidden", opacity: "0" },
+            mode: 0,
+          });
         }, 400)
       );
     }
@@ -44,25 +53,29 @@ export default function BellComponent() {
           <span className={styles.notificationCount}>{notificationCount}</span>
         </div>
       </div>
-      <div
-        className={styles.dropDownMenuNavSec}
-        onMouseEnter={(e) => toggleNavMenu(e)}
-        onMouseLeave={(e) => toggleNavMenu(e)}
-        style={navNotification}
-      >
-        <div className={styles.notificationArrContain}>
-          <Image
-            src="/images/icons/misc/nav_arrow_bold.svg"
-            width="20px"
-            height="20px"
-            className={styles.notificationArr}
-            alt=""
-          />
+      {navNotification.mode === 1 ? (
+        <div
+          className={styles.dropDownMenuNavSec}
+          onMouseEnter={(e) => toggleNavMenu(e)}
+          onMouseLeave={(e) => toggleNavMenu(e)}
+          style={navNotification.styling}
+        >
+          <div className={styles.notificationArrContain}>
+            <Image
+              src="/images/icons/misc/nav_arrow_bold.svg"
+              width="20px"
+              height="20px"
+              className={styles.notificationArr}
+              alt=""
+            />
+          </div>
+          <div className={styles.dropDownMenuListSec}>
+            <p className={styles.notificationEmpty}>No Recent Notification</p>
+          </div>
         </div>
-        <div className={styles.dropDownMenuListSec}>
-          <p className={styles.notificationEmpty}>No Recent Notification</p>
-        </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

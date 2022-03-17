@@ -8,10 +8,6 @@
 }
 
 /* Search Component */
-.inputContainer {
-  display: none;
-}
-
 .inputContain {
   position: relative;
   display: flex;
@@ -47,6 +43,7 @@
   background-color: black;
   z-index: 10;
   align-self: center;
+  cursor: pointer;
 }
 
 /* Bell Component */
@@ -83,7 +80,7 @@
 .notificationArrContain {
   position: absolute;
   bottom: 99px;
-  right: 2px;
+  right: 20px;
 }
 
 .notificationArr {
@@ -164,10 +161,4 @@
   font-size: 0.9rem;
   font-weight: bold;
   text-decoration: none;
-}
-
-@media screen and (max-width: 670px) {
-  .searchIcon {
-    visibility: hidden;
-  }
 }

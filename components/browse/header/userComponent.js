@@ -107,7 +107,12 @@ export function UserDropDownList() {
   const dropDownPanel = [
     { src: EditPencil, text: "Manage Profiles", link: "/profile/manage" },
     { src: UserProfile, text: "Account", link: "/YourAccont" },
-    { src: Help, text: "Help Centre", link: "/" },
+    {
+      src: Help,
+      text: "Help Centre",
+      loc: "external",
+      link: "https://github.com/AlstonChan/Netflix-clone/issues",
+    },
   ];
 
   return (
@@ -145,9 +150,15 @@ export function UserDropDownList() {
                 <Image src={listItem.src} alt="user profile picture" />
               </div>
               <span style={{ padding: "4px 0" }}>
-                <Link href={listItem.link}>
-                  <a className={styles.listItemParagraph}>{listItem.text}</a>
-                </Link>
+                {listItem.loc === "external" ? (
+                  <a href={listItem.link} className={styles.listItemParagraph}>
+                    {listItem.text}
+                  </a>
+                ) : (
+                  <Link href={listItem.link}>
+                    <a className={styles.listItemParagraph}>{listItem.text}</a>
+                  </Link>
+                )}
               </span>
             </div>
             {listItem.text == "Manage Profiles" ||

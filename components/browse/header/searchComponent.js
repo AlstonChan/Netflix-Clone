@@ -1,36 +1,102 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import search from "../../../public/images/icons/misc/search.svg";
 import cross from "../../../public/images/icons/misc/cross.svg";
 
 import styles from "../../../styles/browse/secondaryHeader.module.css";
-import router from "next/router";
+import { useRouter } from "next/router";
 
-export default function SearchComponent() {
-  // const { inputChanged, searchRef } = useContext(SearchContext);
+export default function SearchComponent({ searchRef }) {
+  const router = useRouter();
   const [showInput, setShowInput] = useState(false);
-  const searchRef = useRef();
+  const [showSearch, setShowSearch] = useState(true);
+  const [currentPage, setCurrentPage] = useState("");
+
+  useEffect(() => {
+    handleWindowResize(window);
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      console.log(
+        `App is changing to ${url} ${
+          shallow ? "with" : "without"
+        } shallow routing`
+      );
+      if (url.includes("?search=")) {
+        setCurrentPage(url.split("?").shift());
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  });
+
+  useEffect(
+    () =>
+      (async () => {
+        if (!!window.location.search.split("?search=").pop()) {
+          setShowInput(true);
+        } else return;
+        if (typeof window !== undefined) {
+          await searchRef.current;
+          searchRef.current.focus();
+          searchRef.current.value = window.location.search
+            .split("?search=")
+            .pop();
+          router.push(
+            {
+              pathname: currentPage,
+              query: `search=${searchRef.current.value}`,
+            },
+            null,
+            {
+              shallow: false,
+            }
+          );
+          setTimeout(() => {
+            searchRef.current.doNotCollapse = true;
+          }, 50);
+        }
+      })(),
+    []
+  );
+
+  const handleWindowResize = () => {
+    if (window.innerWidth < 670) {
+      setShowSearch(false);
+    } else setShowSearch(true);
+  };
 
   function inputChanged(e) {
     let val = searchRef.current.value;
     if (val) {
-      router.push({ pathname: "/browse", query: `search=${val}` }, null, {
-        shallow: true,
+      router.push({ pathname: currentPage, query: `search=${val}` }, null, {
+        shallow: false,
       });
       searchRef.current.doNotCollapse = true;
       // history.pushState(null, "", `search?q=${val}`);
     } else {
       searchRef.current.doNotCollapse = false;
-      router.push({ pathname: "/browse" }, null, { shallow: true });
+      router.push({ pathname: currentPage }, null, { shallow: false });
     }
   }
 
-  function toggleSearchInput(e) {
-    setShowInput(true);
-    setTimeout(() => {
-      searchRef.current.focus();
-    }, 50);
+  function toggleSearchInput(e, type) {
+    if (type === "show") {
+      setShowInput(true);
+      setTimeout(() => {
+        searchRef.current.focus();
+      }, 50);
+    }
     if (searchRef.current?.doNotCollapse) {
       return;
     } else if ((e.type = "blur" && e.type != "click")) {
@@ -38,36 +104,52 @@ export default function SearchComponent() {
     }
   }
 
-  return (
+  function clearQuery() {
+    searchRef.current.value = "";
+    router.push({ pathname: currentPage }, null, { shallow: false });
+  }
+
+  return showSearch ? (
     <div className={`${styles.navIcon} ${styles.searchIcon}`}>
       {showInput ? (
         ""
       ) : (
-        <Image src={search} onClick={toggleSearchInput} alt="search icon" />
+        <Image
+          src={search}
+          onClick={(e) => toggleSearchInput(e, "show")}
+          alt="search icon"
+        />
       )}
-      <div
-        className={styles.inputContainer}
-        style={showInput ? { display: "block" } : { display: "none" }}
-      >
-        <div className={styles.inputContain}>
-          <label className={styles.searchIconInput} htmlFor="q">
-            <Image src={search} alt="search icon" />
-          </label>
-          <input
-            type="search"
-            id="q"
-            name="q"
-            className={styles.inputSearchQ}
-            ref={searchRef}
-            onBlur={(e) => toggleSearchInput(e)}
-            onChange={(e) => inputChanged(e)}
-            placeholder="Titles, people, genres"
-          />
-          <label className={styles.searchCross} htmlFor="q">
-            <Image src={cross} alt="cancel icon" />
-          </label>
+      {showInput ? (
+        <div className={styles.inputContainer}>
+          <div className={styles.inputContain}>
+            <label className={styles.searchIconInput} htmlFor="q">
+              <Image src={search} alt="search icon" />
+            </label>
+            <input
+              type="search"
+              id="q"
+              name="q"
+              className={styles.inputSearchQ}
+              ref={searchRef}
+              onBlur={(e) => toggleSearchInput(e)}
+              onChange={(e) => inputChanged(e)}
+              placeholder="Titles, people, genres"
+            />
+            <label
+              className={styles.searchCross}
+              htmlFor="q"
+              onClick={clearQuery}
+            >
+              <Image src={cross} alt="cancel icon" />
+            </label>
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
+  ) : (
+    ""
   );
 }

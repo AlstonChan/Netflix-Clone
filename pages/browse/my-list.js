@@ -1,7 +1,6 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 
-import Loading from "../../components/browse/loading";
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile";
 import ConstantList from "../../components/browse/sliderCards/constantList";
@@ -13,7 +12,7 @@ import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard
 import Loader from "../../components/Loader";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { UserContext } from "../_app";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
@@ -23,8 +22,9 @@ import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 export function MyList() {
   const [modal, setModal] = useState({});
   const [profile, setProfile] = useState(null);
-  const [firstLoad, setFirstLoad] = useState(true);
   const { myMovieData } = useContext(UserContext);
+  const searchRef = useRef();
+  const [delay, setDelay] = useState();
 
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
@@ -33,6 +33,21 @@ export function MyList() {
       setProfile(data);
     }
   }, [profile]);
+
+  const searchMutation = useMutation((searc) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
+  );
+
+  useEffect(() => {
+    if (searchRef.current?.value) {
+      clearTimeout(delay);
+      setDelay(
+        setTimeout(() => {
+          searchMutation.mutate(searchRef.current.value);
+        }, 400)
+      );
+    }
+  }, [searchRef.current?.value]);
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -51,7 +66,7 @@ export function MyList() {
     }
   }
 
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["moviesDBList", "my-list"],
     () =>
       fetchMoviesDB(
@@ -68,20 +83,8 @@ export function MyList() {
     }
   );
 
-  // make sure loading page only show up when moving
-  // from profile page to movies page on initial load
-  useEffect(() => {
-    if (!isLoading && profile === 1 && data) {
-      setFirstLoad(false);
-    }
-  }, [isLoading, profile, data]);
-
   function switchPage(name) {
     setProfile(sessionStorage.setItem("profile", name));
-  }
-
-  if (firstLoad && profile && (!data || isLoading)) {
-    return <Loading />;
   }
 
   if (!profile) {
@@ -89,23 +92,42 @@ export function MyList() {
   } else {
     return (
       <div className={styles.container}>
-        <Header route={"my-list"} />
+        <Header route={"my-list"} searchRef={searchRef} />
         <main className={styles.main}>
           <Modals modalStyle={modal} />
-          <Main data={data}>
-            <span className={styles.featuredMain}>
-              <div className={styles.emptyFea}></div>
-            </span>
-            <h1 className={styles.listHeader}>My List</h1>
-            {data ? (
-              <ConstantList modal={toggleModal} movieList={data} />
-            ) : (
-              <>
-                <PlaceholderCard />
-                <PlaceholderCard />
-              </>
-            )}
-          </Main>
+          {searchRef.current?.value ? (
+            <Main data={searchMutation.data}>
+              <span className={styles.featuredMain}>
+                <div className={styles.emptyFea}></div>
+              </span>
+              {data ? (
+                <ConstantList
+                  modal={toggleModal}
+                  movieList={searchMutation.data}
+                />
+              ) : (
+                <>
+                  <PlaceholderCard />
+                  <PlaceholderCard />
+                </>
+              )}
+            </Main>
+          ) : (
+            <Main data={data}>
+              <span className={styles.featuredMain}>
+                <div className={styles.emptyFea}></div>
+              </span>
+              <h1 className={styles.listHeader}>My List</h1>
+              {data ? (
+                <ConstantList modal={toggleModal} movieList={data} />
+              ) : (
+                <>
+                  <PlaceholderCard />
+                  <PlaceholderCard />
+                </>
+              )}
+            </Main>
+          )}
         </main>
         <Footer />
       </div>
