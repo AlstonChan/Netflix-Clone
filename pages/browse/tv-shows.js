@@ -5,7 +5,7 @@ import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 
 import Header from "../../components/browse/header/header.js";
-import Profile from "../../components/browse/profile";
+import Profile from "../../components/browse/profile/profile.js";
 import Cards from "../../components/browse/sliderCards/cards";
 import ConstantList from "../../components/browse/sliderCards/constantList";
 import Featured from "../../components/browse/featured";

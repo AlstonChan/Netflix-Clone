@@ -5,21 +5,29 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../lib/firebase";
 
 import styles from "../../../styles/browse/secondaryHeader.module.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../../pages/_app";
 
 import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
 import UserProfile from "../../../public/images/icons/misc/user.svg";
+import useIsomorphicLayoutEffect from "../../../lib/isomorphic-layout";
 
 const UserComponent = () => {
   const { userData } = useContext(UserContext);
-
+  const [currentUser, setCurrentUser] = useState(false);
   const [navUserStyle, setNavUserStyle] = useState({
-    visibility: "hidden",
+    visibility: "visible", // temparary set to visible for development
   });
-
   const [delay, setDelay] = useState(null);
+
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === "object") {
+      const data = window.sessionStorage.getItem("profile");
+      if (data === null) setCurrentUser(null);
+      setCurrentUser(data);
+    }
+  }, [userData]);
 
   function toggleNavUser(e) {
     if (e.type === "mouseenter") {
@@ -42,12 +50,12 @@ const UserComponent = () => {
         style={{ display: "flex" }}
       >
         <div className={styles.profilePicContainer}>
-          {userData ? (
+          {userData && currentUser ? (
             <Image
               src={
-                userData["user-main"].pic.length > 3
-                  ? userData["user-main"].pic
-                  : `/images/profile pic/${userData["user-main"].pic}.png`
+                userData[currentUser].pic.length > 3
+                  ? userData[currentUser].pic
+                  : `/images/profile pic/${userData[currentUser].pic}.png`
               }
               width="35px"
               height="35px"
@@ -83,7 +91,7 @@ const UserComponent = () => {
                 alt=""
               />
             </div>
-            <UserDropDownList />
+            <UserDropDownList currentUser={currentUser} />
           </div>
         </div>
       ) : (
@@ -95,8 +103,24 @@ const UserComponent = () => {
 
 export default UserComponent;
 
-export function UserDropDownList() {
+export function UserDropDownList({ currentUser }) {
   const { userData } = useContext(UserContext);
+  const [showProfile, setShowProfile] = useState(false);
+  const secProfile = ["user-sec0", "user-sec1", "user-sec2", "user-sec3"];
+
+  useEffect(() => {
+    if (userData) {
+      if (userData[secProfile[3]]) {
+        setShowProfile([0, 1, 2, 3]);
+      } else if (userData[secProfile[2]]) {
+        setShowProfile([0, 1, 2]);
+      } else if (userData[secProfile[1]]) {
+        setShowProfile([0, 1]);
+      } else if (userData[secProfile[0]]) {
+        setShowProfile([0]);
+      }
+    }
+  }, [userData]);
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))
@@ -119,7 +143,7 @@ export function UserDropDownList() {
     <>
       <div className={styles.listItemContainer}>
         <div className={styles.listItemImg}>
-          {userData ? (
+          {userData && currentUser !== "user-main" ? (
             <Image
               src={
                 userData["user-main"].pic.length > 3
@@ -142,6 +166,40 @@ export function UserDropDownList() {
           {userData ? userData["user-main"].name : ""}
         </p>
       </div>
+      {userData && showProfile
+        ? showProfile.map((prof, index) => {
+            if (secProfile[prof] === currentUser) return;
+            return (
+              <div className={styles.listItemContainer} key={index}>
+                <div className={styles.listItemImg}>
+                  {userData ? (
+                    <Image
+                      src={
+                        userData[secProfile[prof]].pic.length > 3
+                          ? userData[secProfile[prof]].pic
+                          : `/images/profile pic/${
+                              userData[secProfile[prof]].pic
+                            }.png`
+                      }
+                      width="35px"
+                      height="35px"
+                      className={styles.profilePic}
+                      alt="profile icon"
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <p
+                  style={{ margin: "0", alignSelf: "center" }}
+                  className={styles.listItemParagraph}
+                >
+                  {userData ? userData[secProfile[prof]].name : ""}
+                </p>
+              </div>
+            );
+          })
+        : ""}
       {dropDownPanel.map((listItem, index) => {
         return (
           <span key={index}>

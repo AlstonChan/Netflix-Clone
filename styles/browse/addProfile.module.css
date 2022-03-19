@@ -1,0 +1,85 @@
+.mainHeading {
+  color: #fff;
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.desc {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.borderLine {
+  height: 2px;
+  background-color: #333;
+  border: none;
+}
+
+.AddProfileMain {
+  display: flex;
+  margin: 20px 0;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  margin: 0 14px;
+  width: clamp(18rem, 8vw + 2rem, 30rem);
+  background-color: #666;
+  border: none;
+  height: 1.9rem;
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+}
+.inputWarn {
+  border: solid 1px rgb(184, 5, 5);
+}
+.warn {
+  color: rgb(184, 5, 5);
+  margin: 8px 14px 0 14px;
+}
+
+.continueBtn {
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  padding: 6px 25px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: background-color 110ms ease, border 110ms ease, color 110ms ease;
+}
+.continueBtn:hover {
+  background-color: rgb(184, 5, 5);
+  border: 2px solid rgb(184, 5, 5);
+  color: #fff;
+}
+.validBatn {
+  background-color: rgb(184, 5, 5);
+  border: 2px solid rgb(184, 5, 5);
+  color: #fff;
+}
+
+.cancelBtn {
+  background-color: #000;
+  border: 2px solid grey;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  padding: 6px 25px;
+  font-weight: 100;
+  color: grey;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: border 110ms ease, color 110ms ease;
+}
+.cancelBtn:hover {
+  color: #fff;
+  border: 2px solid #fff;
+}

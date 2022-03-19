@@ -106,6 +106,7 @@ export default function SearchComponent({ searchRef }) {
 
   function clearQuery() {
     searchRef.current.value = "";
+    searchRef.current.doNotCollapse = false;
     router.push({ pathname: currentPage }, null, { shallow: false });
   }
 

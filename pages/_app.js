@@ -4,7 +4,7 @@ import { auth, db } from "../lib/firebase";
 import initAuth from "../lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { getDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
@@ -26,10 +26,16 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (user) {
+      console.log("yes");
       try {
         (async () => {
           if (user) {
-            const querySnapshot = await getDoc(doc(db, "Acc", user.uid));
+            const querySnapshot = onSnapshot(
+              doc(db, "Acc", user.uid),
+              (documents) => {
+                setUserData(documents.data());
+              }
+            );
             const eventSnapshot = onSnapshot(
               doc(db, "mymovie", user.uid),
               async (documents) => {
@@ -44,7 +50,6 @@ function MyApp({ Component, pageProps }) {
                 }
               }
             );
-            setUserData(querySnapshot.data());
           }
         })();
       } catch (error) {

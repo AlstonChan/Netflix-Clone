@@ -2,7 +2,7 @@ import styles from "../../styles/browse/browse.module.css";
 import React, { useContext, useState, useRef, useEffect } from "react";
 
 import Header from "../../components/browse/header/header.js";
-import Profile from "../../components/browse/profile";
+import Profile from "../../components/browse/profile/profile.js";
 import ConstantList from "../../components/browse/sliderCards/constantList";
 import Footer from "../../components/footer/footerBrowse";
 import Modals from "../../components/browse/modals/modals";
