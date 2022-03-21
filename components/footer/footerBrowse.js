@@ -1,11 +1,11 @@
 import styles from "../../styles/footer.module.css";
-import Image from "next/image";
-
 import facebook from "../../public/images/icons/social media/facebook.svg";
 import instagram from "../../public/images/icons/social media/instagram.svg";
 import twitter from "../../public/images/icons/social media/twitter.svg";
 import youtube from "../../public/images/icons/social media/youtube.svg";
 import movieDB from "../../public/images/movieDB.svg";
+
+import Image from "next/image";
 
 export default function Footer1() {
   const footerContArr = [

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
 import styles from "../../styles/emailPass.module.css";
+
+import { useState, useEffect } from "react";
 
 export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter

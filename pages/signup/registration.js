@@ -1,17 +1,16 @@
 import styles from "../../styles/signup.module.css";
-import Layout from "../layout";
+import Devices from "../../public/images/Devices.png";
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
-import Devices from "../../public/images/Devices.png";
+import { motion, AnimatePresence } from "framer-motion";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
-
 import Loader from "../../components/Loader";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
+import Layout from "../layout";
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },

@@ -1,6 +1,7 @@
-import Image from "next/image";
 import styles from "../../../styles/Home/cardFaq.module.css";
 import svgCross from "../../../public/images/icons/misc/cross.svg";
+
+import Image from "next/image";
 
 export default function AccordianCard({ faq, toggleOne, classNm, data }) {
   // Warn: not yet seralize

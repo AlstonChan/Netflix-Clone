@@ -1,7 +1,4 @@
-import Image from "next/image";
-
 import styles from "../../../styles/browse/modals.module.css";
-
 import thumbsDown from "../../../public/images/icons/misc/thumbs-down.svg";
 import thumbsUp from "../../../public/images/icons/misc/thumbs-up.svg";
 import plus from "../../../public/images/icons/misc/plus.svg";
@@ -9,8 +6,10 @@ import cancel from "../../../public/images/icons/misc/cancel.svg";
 import arrow from "../../../public/images/icons/misc/nav_arrow.svg";
 import play from "../../../public/images/icons/misc/play-btn.svg";
 
-import useFetchMyMovie from "../../../lib/useFetchMyMovie";
+import Image from "next/image";
+
 import { useContext } from "react";
+import useFetchMyMovie from "../../../lib/useFetchMyMovie";
 import { UserContext } from "../../../pages/_app";
 
 export default function IconGroup({ mov }) {

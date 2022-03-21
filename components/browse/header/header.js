@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-
-import Image from "next/image";
 import styles from "../../../styles/browse/header.module.css";
 
-import PrimaryNav from "./primaryNav";
+import Image from "next/image";
 
+import React, { useEffect, useState } from "react";
+
+import PrimaryNav from "./primaryNav";
 import SearchComponent from "./searchComponent";
 import BellComponent from "./bellComponent";
 import UserComponent from "./userComponent";

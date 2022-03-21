@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+
 import Featured from "../components/home/featured/index";
 import CardOne from "../components/home/CardOne";
 import CardTwo from "../components/home/CardTwo";
@@ -7,10 +9,7 @@ import CardThree from "../components/home/CardThree";
 import CardFour from "../components/home/CardFour";
 import CardFaq from "../components/home/Faq/index";
 import Footer from "../components/footer/footerStyle1";
-
 import Loader from "../components/Loader";
-
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 function Home() {
   return (

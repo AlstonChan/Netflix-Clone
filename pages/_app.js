@@ -1,11 +1,10 @@
 import "../styles/globals.css";
+
 import { createContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "../lib/firebase";
 import initAuth from "../lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
-
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
 initAuth();

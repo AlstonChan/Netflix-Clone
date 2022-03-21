@@ -1,5 +1,12 @@
 import styles from "../../styles/browse/browse.module.css";
+
 import React, { useContext, useState, useRef, useEffect } from "react";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+import { useQuery, useMutation } from "react-query";
+import { UserContext } from "../_app";
+import getAbsoluteURL from "../../lib/getAbsoluteURL";
+import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile/profile.js";
@@ -8,16 +15,7 @@ import Footer from "../../components/footer/footerBrowse";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
 import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
-
 import Loader from "../../components/Loader";
-
-import { withAuthUser, AuthAction } from "next-firebase-auth";
-import { useQuery, useMutation } from "react-query";
-import { UserContext } from "../_app";
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
-
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 export function MyList() {
   const [modal, setModal] = useState({});

@@ -1,6 +1,8 @@
-import router from "next/router";
-import { useRef, useState } from "react";
 import styles from "../../../styles/Home/featured.module.css";
+
+import router from "next/router";
+
+import { useRef, useState } from "react";
 
 import Header from "../../header";
 import Input from "./input";

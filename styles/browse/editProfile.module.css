@@ -1,0 +1,34 @@
+.borderLine {
+  height: 2px;
+  background-color: #333;
+  border: none;
+}
+
+.container {
+  display: flex;
+}
+
+.editContainer {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+}
+
+.editPosition {
+  display: flex;
+  width: 20%;
+  aspect-ratio: 1;
+  background-color: #333;
+  border-radius: 50% 50%;
+  justify-content: center;
+  margin: 8%;
+  box-shadow: 0px 12px 14px -1px rgba(0, 0, 0, 0.8);
+}
+
+.detailsPanel {
+  display: flex;
+}

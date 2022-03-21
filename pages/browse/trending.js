@@ -1,8 +1,15 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState, useRef, useEffect } from "react";
 
+import React, { useState, useRef, useEffect } from "react";
 import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
+import getAbsoluteURL from "../../lib/getAbsoluteURL";
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile/profile.js";
@@ -12,17 +19,7 @@ import Footer from "../../components/footer/footerBrowse";
 import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
-
 import Loader from "../../components/Loader";
-
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
-import {
-  withAuthUser,
-  withAuthUserTokenSSR,
-  AuthAction,
-} from "next-firebase-auth";
 
 export const Trending = () => {
   const [modal, setModal] = useState({});

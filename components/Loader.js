@@ -1,7 +1,7 @@
-import Image from "next/image";
-
-import Spinner from "../public/images/browse/spinner.png";
 import styles from "../styles/loader.module.css";
+import Spinner from "../public/images/browse/spinner.png";
+
+import Image from "next/image";
 
 const Loader = () => {
   return (

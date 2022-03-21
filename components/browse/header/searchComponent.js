@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-
+import styles from "../../../styles/browse/secondaryHeader.module.css";
 import search from "../../../public/images/icons/misc/search.svg";
 import cross from "../../../public/images/icons/misc/cross.svg";
 
-import styles from "../../../styles/browse/secondaryHeader.module.css";
+import Image from "next/image";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default function SearchComponent({ searchRef }) {

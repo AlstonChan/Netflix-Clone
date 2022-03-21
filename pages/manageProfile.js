@@ -1,16 +1,23 @@
-import styles from "../../../styles/browse/profile.module.css";
+import styles from "../styles/browse/profile.module.css";
 
 import Image from "next/image";
 
 import { useState } from "react";
 
-import MainProfile from "./mainProfile";
-import AddProfile from "./addProfile";
+import AddProfile from "../components/browse/profile/addProfile";
+import MainProfile from "../components/browse/profile/mainProfile";
+import EditProfile from "../components/browse/profile/editProfile";
 
-export default function Profile({ switchPage }) {
+export default function ManageProfile({ addProfile }) {
+  const [currentUserId, setCurrentUserId] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
+
   function addProfile() {
     setProfileModal(true);
+  }
+
+  function changeEdit(currentUser) {
+    setCurrentUserId(currentUser);
   }
 
   return (
@@ -27,14 +34,20 @@ export default function Profile({ switchPage }) {
       </header>
       <main className={styles.main}>
         <div className={styles.divContainer}>
-          {profileModal ? (
+          {currentUserId ? (
+            <EditProfile
+              currentUserId={currentUserId}
+              back={setCurrentUserId}
+            />
+          ) : profileModal ? (
             <AddProfile back={setProfileModal} />
           ) : (
             <MainProfile
-              title={"Who's watching?"}
-              switchPage={switchPage}
+              title="Manage Profiles:"
+              extBtn="Done"
+              currentUserId
+              changeEdit={changeEdit}
               addProfile={addProfile}
-              currentUserId={false}
             />
           )}
         </div>

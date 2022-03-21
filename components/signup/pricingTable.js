@@ -1,11 +1,11 @@
 import styles from "../../styles/signup.module.css";
-import { useState } from "react";
-
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 import CheckGray from "../../public/images/icons/misc/icons_check gray.svg";
 import ArrRed from "../../public/images/icons/misc/nav_arrow_bold red.svg";
 
 import Image from "next/image";
+
+import { useState } from "react";
 
 export default function PricingTable() {
   const packagePlan = ["Basic", "Standard", "Premium"];

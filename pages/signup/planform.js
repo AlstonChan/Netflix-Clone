@@ -1,18 +1,17 @@
 import styles from "../../styles/signup.module.css";
-import Layout from "../layout";
+import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
-import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
+import { motion, AnimatePresence } from "framer-motion";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 import PricingTable from "../../components/signup/pricingTable";
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
-
 import Loader from "../../components/Loader";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
+import Layout from "../layout";
 
 const benefitTxt = [
   "Watch all you want. Advert-free.",

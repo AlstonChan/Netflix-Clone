@@ -1,26 +1,48 @@
-import Image from "next/image";
 import styles from "../../../styles/browse/profile.module.css";
+import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 
-export default function ProfileAvatar({ user, switchPage, currentUser }) {
+import Image from "next/image";
+
+export default function ProfileAvatar({
+  user,
+  switchPage,
+  currentUser,
+  currentUserId,
+  changeEdit,
+}) {
   return (
     <li
       tabIndex="1"
-      onClick={() => switchPage(currentUser)}
+      onClick={
+        currentUserId
+          ? () => changeEdit(currentUser)
+          : () => switchPage(currentUser)
+      }
       className={styles.listItemProfile}
+      data-id={currentUser}
     >
       <div className={styles.avatarContainer}>
         {user ? (
-          <Image
-            src={
-              user.pic.length > 3
-                ? user.pic
-                : `/images/profile pic/${user.pic}.png`
-            }
-            width="320px"
-            height="320px"
-            className={styles.profilePic}
-            alt="User profile Picture"
-          />
+          <>
+            <Image
+              src={
+                user.pic.length > 3
+                  ? user.pic
+                  : `/images/profile pic/${user.pic}.png`
+              }
+              width="320px"
+              height="320px"
+              className={styles.profilePic}
+              alt="User profile Picture"
+            />
+            {currentUserId ? (
+              <div className={styles.editCover}>
+                <Image src={editPencil} />
+              </div>
+            ) : (
+              ""
+            )}
+          </>
         ) : (
           ""
         )}

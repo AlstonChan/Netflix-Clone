@@ -1,18 +1,17 @@
 import styles from "../../../styles/browse/addProfile.module.css";
 import profileStyles from "../../../styles/browse/profile.module.css";
+
 import Image from "next/image";
 
-import { useContext, useRef, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../lib/firebase";
-import { UserContext } from "../../../pages/_app";
+import { useEffect, useRef, useState } from "react";
+import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
 
 export default function AddProfile({ back }) {
-  const { user, userData } = useContext(UserContext);
   const picNumRef = useRef(Math.ceil(Math.random() * 4));
   const inputRef = useRef();
   const [inputIsValid, setInputIsValid] = useState(false);
   const [showWarn, setShowWarn] = useState(false);
+  const createUser = useUpdateUserAcc();
 
   function checkInputValidity() {
     if (inputRef.current.value) {
@@ -22,56 +21,14 @@ export default function AddProfile({ back }) {
     }
   }
 
-  async function submitNewUser() {
+  function submitNewUser(type) {
     if (!inputRef.current.value) {
       setShowWarn(true);
-    } else if (userData["user-sec2"]) {
-      await setDoc(
-        doc(db, "Acc", user.uid),
-        {
-          "user-sec3": {
-            name: inputRef.current.value,
-            pic: picNumRef.current,
-          },
-        },
-        { merge: true }
-      );
-      back(false);
-    } else if (userData["user-sec1"]) {
-      await setDoc(
-        doc(db, "Acc", user.uid),
-        {
-          "user-sec2": {
-            name: inputRef.current.value,
-            pic: picNumRef.current,
-          },
-        },
-        { merge: true }
-      );
-      back(false);
-    } else if (userData["user-sec0"]) {
-      await setDoc(
-        doc(db, "Acc", user.uid),
-        {
-          "user-sec1": {
-            name: inputRef.current.value,
-            pic: picNumRef.current,
-          },
-        },
-        { merge: true }
-      );
-      back(false);
     } else {
-      await setDoc(
-        doc(db, "Acc", user.uid),
-        {
-          "user-sec0": {
-            name: inputRef.current.value,
-            pic: picNumRef.current,
-          },
-        },
-        { merge: true }
-      );
+      createUser(type, {
+        name: inputRef.current.value,
+        pic: picNumRef.current,
+      });
       back(false);
     }
   }
@@ -116,7 +73,7 @@ export default function AddProfile({ back }) {
             ? `${styles.validBatn} ${styles.continueBtn}`
             : styles.continueBtn
         }
-        onClick={submitNewUser}
+        onClick={() => submitNewUser("create")}
       >
         Continue
       </button>

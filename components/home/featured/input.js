@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
 import styles from "../../../styles/Home/featured.module.css";
+
+import { useState } from "react";
 
 export default function Input({ inputId, emailInputRef }) {
   //Placeholder for input, move up when focus or a value is enter

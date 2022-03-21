@@ -1,8 +1,8 @@
-import Image from "next/image";
-import NetflixLogo from "../../public/images/NetflixLogo.png";
-
-import Spinner from "../../public/images/browse/spinner.png";
 import styles from "../../styles/browse/browse.module.css";
+import NetflixLogo from "../../public/images/NetflixLogo.png";
+import Spinner from "../../public/images/browse/spinner.png";
+
+import Image from "next/image";
 
 import { useContext } from "react";
 import { UserContext } from "../../pages/_app";

@@ -3,6 +3,7 @@ import cardStyles from "../../styles/Home/card.module.css";
 import PhoneImg from "../../public/images/home/netflix-mobile.jpg";
 import boxshotImg from "../../public/images/home/boxshot.png";
 import downloadImg from "../../public/images/home/download-icon.gif";
+
 import Image from "next/image";
 
 export default function CardTwo() {

@@ -1,14 +1,13 @@
 import styles from "../../styles/signup.module.css";
-import Layout from "../layout";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
 import RegFormInput from "../../components/signup/regFormInput";
-
 import Loader from "../../components/Loader";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
+import Layout from "../layout";
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },

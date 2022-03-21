@@ -1,19 +1,17 @@
 import styles from "../../styles/signup.module.css";
-import Layout from "../layout";
-
-import Link from "next/link";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-
 import CheckMark from "../../public/images/icons/misc/Checkmark.png";
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 
+import Link from "next/link";
+import Image from "next/image";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
+
 import Footer from "../../components/footer/footerStyle2";
 import Header from "../../components/signup/header";
-
 import Loader from "../../components/Loader";
-
-import { withAuthUser, AuthAction } from "next-firebase-auth";
+import Layout from "../layout";
 
 const benefitTxt = [
   "No commitments, cancel at any time.",

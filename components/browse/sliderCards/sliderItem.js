@@ -1,7 +1,8 @@
-import { useState } from "react";
-
 import styles from "../../../styles/browse/cards.module.css";
+
 import Image from "next/image";
+
+import { useState } from "react";
 
 export default function SliderItem({
   width,

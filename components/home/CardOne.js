@@ -1,6 +1,7 @@
 import styles from "../../styles/Home/cardOne.module.css";
 import cardStyles from "../../styles/Home/card.module.css";
 import tvImg from "../../public/images/home/tv.png";
+
 import Image from "next/image";
 
 export default function CardOne() {

@@ -1,9 +1,9 @@
 import styles from "../../../styles/browse/cards.module.css";
+import placeholder from "../../../public/images/browse/placeholderCard.png";
+
 import Image from "next/image";
 
 import { useState, useEffect } from "react";
-
-import placeholder from "../../../public/images/browse/placeholderCard.png";
 
 export default function Cards() {
   const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size

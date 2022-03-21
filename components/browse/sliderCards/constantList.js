@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import styles from "../../../styles/browse/cards.module.css";
+
 import Image from "next/image";
 
+import { useState, useEffect } from "react";
+
 import PlaceholderCard from "./placeholderCard";
-import styles from "../../../styles/browse/cards.module.css";
 
 export default function ConstantList({ modal, movieList }) {
   const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size

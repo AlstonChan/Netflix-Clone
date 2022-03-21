@@ -1,10 +1,11 @@
+import styles from "../styles/logout.module.css";
+
+import router from "next/router";
+
 import { useEffect } from "react";
 
 import Header from "../components/header";
 import Footer from "../components/footer/footerStyle2";
-
-import styles from "../styles/logout.module.css";
-import router from "next/router";
 
 export default function LogOut() {
   useEffect(() => {

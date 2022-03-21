@@ -1,18 +1,17 @@
-import { useState } from "react";
+import styles from "../styles/login.module.css";
 
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "../styles/login.module.css";
-import Footer from "../components/footer/footerStyle2";
-import LoginForm from "../components/login/loginForm";
-
-import Loader from "../components/Loader";
-
+import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { auth, db, provider } from "../lib/firebase";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
+import { auth, db, provider } from "../lib/firebase";
+
+import Footer from "../components/footer/footerStyle2";
+import LoginForm from "../components/login/loginForm";
+import Loader from "../components/Loader";
 
 export function Login() {
   async function loginGoogleEvent(e) {

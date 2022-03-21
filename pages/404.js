@@ -1,7 +1,8 @@
+import styles from "../styles/404.module.css";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/404.module.css";
 
 export default function NotFound() {
   return (

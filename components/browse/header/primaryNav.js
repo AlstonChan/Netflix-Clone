@@ -1,8 +1,9 @@
-import { useState } from "react";
+import styles from "../../../styles/browse/header.module.css";
 
 import Link from "next/link";
 import Image from "next/image";
-import styles from "../../../styles/browse/header.module.css";
+
+import { useState } from "react";
 
 export default function PrimaryNav({ text, handler, classNm, data, menu }) {
   const [navMenuStyle, setNavMenuStyle] = useState({

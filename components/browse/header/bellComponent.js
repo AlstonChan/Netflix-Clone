@@ -1,8 +1,9 @@
+import styles from "../../../styles/browse/secondaryHeader.module.css";
 import bell from "../../../public/images/icons/misc/bell.svg";
-import { useState } from "react";
 
 import Image from "next/image";
-import styles from "../../../styles/browse/secondaryHeader.module.css";
+
+import { useState } from "react";
 
 export default function BellComponent() {
   const [navNotification, setNavNotification] = useState({

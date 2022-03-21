@@ -1,14 +1,13 @@
-import Image from "next/image";
-
 import styles from "../../../styles/browse/modals.module.css";
-
-import IconGroup from "./iconGroup";
-
 import imageNotFound from "../../../public/images/image-not-found.png";
 import adult from "../../../public/images/icons/misc/adultOnly.png";
-import { useEffect, useState } from "react";
 
+import Image from "next/image";
+
+import { useEffect, useState } from "react";
 import { genres } from "../../../lib/movieGenres";
+
+import IconGroup from "./iconGroup";
 
 export default function BrowseModals({ modalStyle }) {
   const [modalTranslate, setModalTranslate] = useState({});

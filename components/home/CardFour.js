@@ -1,7 +1,8 @@
-import Image from "next/image";
-import netflixKid from "../../public/images/home/netflix-kids.png";
 import styles from "../../styles/Home/cardFour.module.css";
 import cardStyles from "../../styles/Home/card.module.css";
+import netflixKid from "../../public/images/home/netflix-kids.png";
+
+import Image from "next/image";
 
 export default function CardFour() {
   return (

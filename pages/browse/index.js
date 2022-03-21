@@ -1,8 +1,15 @@
 import styles from "../../styles/browse/browse.module.css";
-import React, { useState, useEffect, useRef } from "react";
 
+import React, { useState, useEffect, useRef } from "react";
 import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
+import getAbsoluteURL from "../../lib/getAbsoluteURL";
+import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import Loading from "../../components/browse/loading";
 import Header from "../../components/browse/header/header.js";
@@ -14,17 +21,7 @@ import Footer from "../../components/footer/footerBrowse";
 import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
-
 import Loader from "../../components/Loader";
-
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
-import {
-  withAuthUser,
-  withAuthUserTokenSSR,
-  AuthAction,
-} from "next-firebase-auth";
 
 export const Browse = () => {
   const [modal, setModal] = useState({});

@@ -1,8 +1,8 @@
 import styles from "../../styles/browse/browse.module.css";
-import Image from "next/image";
-
 import playBtn from "../../public/images/browse/featured/play-button.png";
 import info from "../../public/images/browse/featured/info.png";
+
+import Image from "next/image";
 
 export default function Featured({ url }) {
   return (

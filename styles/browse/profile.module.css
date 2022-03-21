@@ -82,6 +82,7 @@
 }
 
 .avatarContainer {
+  position: relative;
   height: 10vw;
   width: 10vw;
   max-height: 200px;
@@ -89,6 +90,37 @@
   min-height: 84px;
   min-width: 84px;
   border-radius: 8px;
+}
+
+.editCover {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editCover:hover {
+  outline: rgb(0, 0, 0, 0.5) 2px solid;
+}
+
+.manageProfileDone {
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  padding: 6px 25px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: background-color 110ms ease, border 110ms ease, color 110ms ease;
+}
+.manageProfileDone:hover {
+  background-color: rgb(184, 5, 5);
+  border: 2px solid rgb(184, 5, 5);
+  color: #fff;
 }
 
 .nameContain {
@@ -104,7 +136,8 @@
 }
 
 .manageContainer {
-  margin-top: 40px;
+  margin: 40px;
+  text-align: center;
 }
 
 .manageProfilesBtn {

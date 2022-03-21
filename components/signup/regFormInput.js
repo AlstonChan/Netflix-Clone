@@ -1,12 +1,12 @@
-import { useRef } from "react";
-
 import signUpStyles from "../../styles/signup.module.css";
-import InputEmail from "../login/InputEmail";
-import InputPassword from "../login/InputPassword";
 
+import { useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../lib/firebase";
+
+import InputEmail from "../login/InputEmail";
+import InputPassword from "../login/InputPassword";
 
 export default function RegForm() {
   const emailInputRef = useRef();

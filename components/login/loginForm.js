@@ -1,13 +1,14 @@
-import { useRef, useState } from "react";
-import router from "next/router";
-
 import styles from "../../styles/login.module.css";
-import Link from "next/link";
-import InputEmail from "./InputEmail";
-import InputPassword from "./InputPassword";
 
+import router from "next/router";
+import Link from "next/link";
+
+import { useRef, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase";
+
+import InputEmail from "./InputEmail";
+import InputPassword from "./InputPassword";
 
 export default function LoginForm() {
   const emailInputRef = useRef();

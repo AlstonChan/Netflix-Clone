@@ -1,8 +1,9 @@
 import styles from "../../../styles/Home/cardFaq.module.css";
-import AccordionCard from "./accordionCard";
+
 import { useState } from "react";
 
 import { faq } from "./accordianContent";
+import AccordionCard from "./accordionCard";
 
 export default function Accordian() {
   const [selectedOptionAcc, setSelectedOptionAcc] = useState({

@@ -1,8 +1,11 @@
 import styles from "../../../styles/Home/cardFaq.module.css";
-import Accordion from "./accordion";
-import EmailInput from "../featured/input";
-import { useRef, useState } from "react";
+
 import router from "next/router";
+
+import { useRef, useState } from "react";
+
+import EmailInput from "../featured/input";
+import Accordion from "./accordion";
 
 export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(

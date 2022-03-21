@@ -1,13 +1,13 @@
-import { useState, useContext, useEffect } from "react";
-import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
-import { UserContext } from "../pages/_app";
-
-import { signOut } from "firebase/auth";
-import { auth } from "../lib/firebase";
+import styles from "../styles/header.module.css";
 
 import Image from "next/image";
-import styles from "../styles/header.module.css";
 import router from "next/router";
+
+import { useState, useContext, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
+import { UserContext } from "../pages/_app";
+import { auth } from "../lib/firebase";
 
 export default function Header({ logoClickHome }) {
   const { user, loading } = useContext(UserContext);

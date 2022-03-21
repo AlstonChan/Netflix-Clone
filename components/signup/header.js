@@ -1,16 +1,16 @@
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../pages/_app";
 import styles from "../../styles/header.module.css";
 import NetflixLogo from "../../public/images/NetflixLogo.png";
-
-import { signOut } from "firebase/auth";
-import { auth } from "../../lib/firebase";
 
 import Image from "next/image";
 import router from "next/router";
 
+import { useState, useContext, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { UserContext } from "../../pages/_app";
+import { auth } from "../../lib/firebase";
+
 export default function Header({ logoClickHome }) {
-  const { user, loading, error } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   //Set button text according to the auth state (Sign in/Sign out)
   const [isSignIn, setIsSignIn] = useState(false);
 

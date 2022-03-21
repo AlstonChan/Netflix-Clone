@@ -1,16 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import router from "next/router";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../lib/firebase";
-
 import styles from "../../../styles/browse/secondaryHeader.module.css";
-import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../../pages/_app";
-
 import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
 import UserProfile from "../../../public/images/icons/misc/user.svg";
+
+import Image from "next/image";
+import Link from "next/link";
+import router from "next/router";
+
+import { signOut } from "firebase/auth";
+import { useContext, useState, useEffect } from "react";
+import { auth } from "../../../lib/firebase";
+import { UserContext } from "../../../pages/_app";
 import useIsomorphicLayoutEffect from "../../../lib/isomorphic-layout";
 
 const UserComponent = () => {
@@ -129,7 +129,7 @@ export function UserDropDownList({ currentUser }) {
   };
 
   const dropDownPanel = [
-    { src: EditPencil, text: "Manage Profiles", link: "/profile/manage" },
+    { src: EditPencil, text: "Manage Profiles", link: "/manageProfile" },
     { src: UserProfile, text: "Account", link: "/YourAccont" },
     {
       src: Help,
