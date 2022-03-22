@@ -3,7 +3,7 @@ import profileStyles from "../../../styles/browse/profile.module.css";
 
 import Image from "next/image";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
 
 export default function AddProfile({ back }) {
@@ -46,6 +46,8 @@ export default function AddProfile({ back }) {
             src={`/images/profile pic/${picNumRef.current}.png`}
             width="320px"
             height="320px"
+            objectFit="cover"
+            alt="User profile Picture"
             className={profileStyles.profilePic}
           />
         </div>

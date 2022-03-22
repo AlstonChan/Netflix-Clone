@@ -42,6 +42,14 @@ const UserComponent = () => {
     }
   }
 
+  function switchProfile(user) {
+    if (typeof window === "object") {
+      const data = window.sessionStorage.setItem("profile", user);
+      router.reload();
+      setCurrentUser(data);
+    }
+  }
+
   return (
     <div className={styles.profilePicContainAll}>
       <div
@@ -59,6 +67,7 @@ const UserComponent = () => {
               }
               width="35px"
               height="35px"
+              objectFit="cover"
               className={styles.profilePic}
               alt="user profile picture"
             />
@@ -91,7 +100,10 @@ const UserComponent = () => {
                 alt=""
               />
             </div>
-            <UserDropDownList currentUser={currentUser} />
+            <UserDropDownList
+              switchProfile={switchProfile}
+              currentUser={currentUser}
+            />
           </div>
         </div>
       ) : (
@@ -103,7 +115,7 @@ const UserComponent = () => {
 
 export default UserComponent;
 
-export function UserDropDownList({ currentUser }) {
+export function UserDropDownList({ currentUser, switchProfile }) {
   const { userData } = useContext(UserContext);
   const [showProfile, setShowProfile] = useState(false);
   const secProfile = ["user-sec0", "user-sec1", "user-sec2", "user-sec3"];
@@ -120,6 +132,7 @@ export function UserDropDownList({ currentUser }) {
         setShowProfile([0]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
   const logout = () => {
     signOut(auth)
@@ -141,9 +154,12 @@ export function UserDropDownList({ currentUser }) {
 
   return (
     <>
-      <div className={styles.listItemContainer}>
-        <div className={styles.listItemImg}>
-          {userData && currentUser !== "user-main" ? (
+      {userData && currentUser !== "user-main" ? (
+        <div
+          className={styles.listItemContainer}
+          onClick={() => switchProfile("user-main")}
+        >
+          <div className={styles.listItemImg}>
             <Image
               src={
                 userData["user-main"].pic.length > 3
@@ -152,25 +168,30 @@ export function UserDropDownList({ currentUser }) {
               }
               width="35px"
               height="35px"
+              objectFit="cover"
               className={styles.profilePic}
               alt="profile icon"
             />
-          ) : (
-            ""
-          )}
+          </div>
+          <p
+            style={{ margin: "0", alignSelf: "center" }}
+            className={styles.listItemParagraph}
+          >
+            {userData["user-main"].name}
+          </p>
         </div>
-        <p
-          style={{ margin: "0", alignSelf: "center" }}
-          className={styles.listItemParagraph}
-        >
-          {userData ? userData["user-main"].name : ""}
-        </p>
-      </div>
+      ) : (
+        ""
+      )}
       {userData && showProfile
         ? showProfile.map((prof, index) => {
             if (secProfile[prof] === currentUser) return;
             return (
-              <div className={styles.listItemContainer} key={index}>
+              <div
+                className={styles.listItemContainer}
+                key={index}
+                onClick={() => switchProfile(secProfile[prof])}
+              >
                 <div className={styles.listItemImg}>
                   {userData ? (
                     <Image
@@ -183,6 +204,7 @@ export function UserDropDownList({ currentUser }) {
                       }
                       width="35px"
                       height="35px"
+                      objectFit="cover"
                       className={styles.profilePic}
                       alt="profile icon"
                     />

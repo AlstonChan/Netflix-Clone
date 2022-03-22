@@ -14,6 +14,7 @@ export default function EditProfile({ currentUserId, back }) {
   const inputRef = useRef();
   const [inputIsValid, setInputIsValid] = useState(false);
   const [showWarn, setShowWarn] = useState(false);
+  const [uploadedProfilePic, setUploadedProfilePic] = useState(null);
   const createUser = useUpdateUserAcc();
 
   function checkInputValidity() {
@@ -26,6 +27,7 @@ export default function EditProfile({ currentUserId, back }) {
 
   useEffect(() => {
     if (inputRef.current) inputRef.current.value = userData[currentUserId].name;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function submitNewUser(type) {
@@ -35,12 +37,25 @@ export default function EditProfile({ currentUserId, back }) {
       createUser(type, {
         id: currentUserId,
         name: inputRef.current.value,
-        pic: userData[currentUserId].pic,
+        pic: uploadedProfilePic
+          ? uploadedProfilePic
+          : userData[currentUserId].pic,
       });
       back(false);
     } else {
       createUser(type, currentUserId);
       back(false);
+    }
+  }
+
+  function uploadFile(e) {
+    if (e.target.files[0]) {
+      setUploadedProfilePic({
+        src: URL.createObjectURL(e.target.files[0]),
+        fire: e.target.files[0],
+        alt: e.target.files[0].name,
+        type: e.target.files[0].type,
+      });
     }
   }
 
@@ -57,20 +72,36 @@ export default function EditProfile({ currentUserId, back }) {
         <div className={baseStyles.avatarContainer}>
           <Image
             src={
-              userData[currentUserId].pic.length > 3
+              uploadedProfilePic
+                ? uploadedProfilePic.src
+                : userData[currentUserId].pic.length > 3
                 ? userData[currentUserId].pic
                 : `/images/profile pic/${userData[currentUserId].pic}.png`
             }
             width="320px"
             height="320px"
+            objectFit="cover"
             className={baseStyles.profilePic}
-            alt="User profile Picture"
+            alt={
+              uploadedProfilePic
+                ? uploadedProfilePic.alt
+                : "User profile Picture"
+            }
           />
-          <div className={styles.editContainer}>
-            <div className={styles.editPosition}>
-              <Image src={editPencil} />
-            </div>
-          </div>
+          <form className={styles.editContainer}>
+            <label htmlFor="profileAvatar" className={styles.editPosition}>
+              <input
+                type="file"
+                id="profileAvatar"
+                multiple={false}
+                accept=".png,.jpeg,.jpg"
+                name="profileAvatar"
+                onChange={(e) => uploadFile(e)}
+                className={styles.inputFile}
+              />
+              <Image src={editPencil} alt="edit button" />
+            </label>
+          </form>
         </div>
         <div className={styles.detailsPanel}>
           <div className={addProfileStyles.inputContainer}>

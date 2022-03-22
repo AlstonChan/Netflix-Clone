@@ -61,7 +61,7 @@ export default function Footer1() {
         </div>
         <div>
           <h3 className={styles.attribution}>Special Thanks to:</h3>
-          <Image src={movieDB} />
+          <Image src={movieDB} alt="movieDB logo" />
           <p className={styles.attribution}>
             This product uses the TMDB API but is not endorsed or certified by
             TMDB.

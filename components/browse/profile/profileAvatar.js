@@ -30,6 +30,7 @@ export default function ProfileAvatar({
                   ? user.pic
                   : `/images/profile pic/${user.pic}.png`
               }
+              objectFit="cover"
               width="320px"
               height="320px"
               className={styles.profilePic}
@@ -37,7 +38,7 @@ export default function ProfileAvatar({
             />
             {currentUserId ? (
               <div className={styles.editCover}>
-                <Image src={editPencil} />
+                <Image src={editPencil} alt="edit icon" />
               </div>
             ) : (
               ""

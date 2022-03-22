@@ -49,6 +49,7 @@ export const TvShows = () => {
         }, 400)
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
 
   // function that collects the data for modals,
