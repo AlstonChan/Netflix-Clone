@@ -39,7 +39,7 @@ export function PlanForm() {
       >
         <div className={styles.centerPlanform}>
           <div style={{ width: "fit-content" }}>
-            <p className={styles.stepsCount}>STEP 1 OF 3</p>
+            <p className={styles.stepsCount}>STEP 1 OF 2</p>
           </div>
           <div style={{ width: "fit-content" }}>
             <h1 className={styles.stepsHeadings} style={{ textAlign: "left" }}>

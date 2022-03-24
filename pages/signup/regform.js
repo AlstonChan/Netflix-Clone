@@ -30,7 +30,7 @@ export function RegForm() {
           <section className={styles.mainContentRegForm}>
             <br />
             <div style={{ width: "fit-content" }}>
-              <p className={styles.stepsCount}>STEP 2 OF 3</p>
+              <p className={styles.stepsCount}>STEP 2 OF 2</p>
             </div>
             <div style={{ width: "fit-content" }}>
               <h1

@@ -34,7 +34,7 @@ export function Registration() {
             <div className={styles.imgDevicesContainer}>
               <Image src={Devices} alt="" />
             </div>
-            <p className={styles.stepsCount}>STEP 2 OF 3</p>
+            <p className={styles.stepsCount}>STEP 2 OF 2</p>
             <h1 className={styles.stepsHeadings}>
               Finish setting up your account
             </h1>

@@ -41,7 +41,7 @@ export function SignUp() {
             <div className={styles.imgContainer}>
               <Image src={CheckMark} alt="a check Mark" />
             </div>
-            <p className={styles.stepsCount}>STEP 1 OF 3</p>
+            <p className={styles.stepsCount}>STEP 1 OF 2</p>
             <h1 className={styles.stepsHeadings}>Choose your plan.</h1>
             <div>
               {benefitTxt.map((txt, index) => {
