@@ -1,4 +1,4 @@
-import styles from "../../styles/emailPass.module.css";
+import styles from "../../styles/emailPassInput.module.css";
 
 import { useState, useEffect } from "react";
 

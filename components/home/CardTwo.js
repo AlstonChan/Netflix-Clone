@@ -1,5 +1,5 @@
 import styles from "../../styles/Home/cardTwo.module.css";
-import cardStyles from "../../styles/Home/card.module.css";
+import baseStyles from "../../styles/Home/card.module.css";
 import PhoneImg from "../../public/images/home/netflix-mobile.jpg";
 import boxshotImg from "../../public/images/home/boxshot.png";
 import downloadImg from "../../public/images/home/download-icon.gif";
@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function CardTwo() {
   return (
-    <div className={cardStyles.container}>
+    <div className={baseStyles.container}>
       <div className={styles.containerCard}>
         <div className={styles.imgContainer}>
           <div className={styles.imgPresentContainer}>
@@ -31,7 +31,7 @@ export default function CardTwo() {
             </div>
           </div>
         </div>
-        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
+        <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>
               Download your shows to watch offline.

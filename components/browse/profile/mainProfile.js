@@ -1,4 +1,5 @@
-import styles from "../../../styles/browse/profile.module.css";
+import baseStyles from "../../../styles/browse/profile/profile.module.css";
+import styles from "../../../styles/browse/profile/mainProfile.module.css";
 import ProfileAdd from "../../../public/images/netflix-profile-add.png";
 
 import Router from "next/router";
@@ -38,7 +39,7 @@ export default function MainProfile({
 
   return (
     <>
-      <h1 className={styles.headingMain}>{title}</h1>
+      <h1 className={baseStyles.headingMain}>{title}</h1>
       <div className={styles.profile}>
         {userData ? (
           <ProfileAvatar
@@ -65,22 +66,22 @@ export default function MainProfile({
               );
             })
           : ""}
-        {addNewProfile ? (
+        {addNewProfile && userData ? (
           <li
             tabIndex="0"
             onClick={addProfile}
-            className={styles.listItemProfile}
+            className={baseStyles.listItemProfile}
             style={{ marginRight: "0" }}
           >
-            <div className={styles.avatarContainer}>
+            <div className={baseStyles.avatarContainer}>
               <Image
                 src={ProfileAdd}
-                className={`${styles.profilePic} ${styles.profileAdd}`}
+                className={`${baseStyles.profilePic}`}
                 alt="User profile Picture"
               />
             </div>
-            <span className={styles.nameContain}>
-              <p className={styles.name}>Add Profile</p>
+            <span className={baseStyles.nameContain}>
+              <p className={baseStyles.name}>Add Profile</p>
             </span>
           </li>
         ) : (

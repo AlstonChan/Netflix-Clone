@@ -1,3 +1,11 @@
+/* file using this stylesheet */
+/* 
+component/home/CardOne.js;
+component/home/CardTwo.js;
+component/home/CardThree.js;
+component/home/CardFour.js;
+*/
+
 /*all card module can share this*/
 .container {
   background-color: #000000;

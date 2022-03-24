@@ -13,11 +13,11 @@ import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile/profile.js";
-import Cards from "../../components/browse/sliderCards/cards";
-import ConstantList from "../../components/browse/sliderCards/constantList";
+import Cards from "../../components/browse/cards/cards";
+import ConstantList from "../../components/browse/cards/constantList";
 import Featured from "../../components/browse/featured";
 import Footer from "../../components/footer/footerBrowse";
-import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
+import PlaceholderCard from "../../components/browse/cards/placeholderCard";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
 import Loader from "../../components/Loader";

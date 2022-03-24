@@ -1,4 +1,4 @@
-import styles from "../../../styles/browse/profile.module.css";
+import baseStyles from "../../../styles/browse/profile/profile.module.css";
 import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
@@ -18,10 +18,10 @@ export default function ProfileAvatar({
           ? () => changeEdit(currentUser)
           : () => switchPage(currentUser)
       }
-      className={styles.listItemProfile}
+      className={baseStyles.listItemProfile}
       data-id={currentUser}
     >
-      <div className={styles.avatarContainer}>
+      <div className={baseStyles.avatarContainer}>
         {user ? (
           <>
             <Image
@@ -33,11 +33,11 @@ export default function ProfileAvatar({
               objectFit="cover"
               width="320px"
               height="320px"
-              className={styles.profilePic}
+              className={baseStyles.profilePic}
               alt="User profile Picture"
             />
             {currentUserId ? (
-              <div className={styles.editCover}>
+              <div className={baseStyles.editCover}>
                 <Image src={editPencil} alt="edit icon" />
               </div>
             ) : (
@@ -48,8 +48,8 @@ export default function ProfileAvatar({
           ""
         )}
       </div>
-      <span className={styles.nameContain}>
-        <p className={styles.name}>{user ? user.name : ""}</p>
+      <span className={baseStyles.nameContain}>
+        <p className={baseStyles.name}>{user ? user.name : ""}</p>
       </span>
     </li>
   );

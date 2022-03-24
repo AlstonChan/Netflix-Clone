@@ -1,3 +1,12 @@
+/* file using this stylesheet */
+/* 
+component/browse/cards/cards.js;
+component/browse/cards/constantList.js;
+component/browse/cards/placeholderCard.js;
+component/browse/cards/sliderItem.js;
+component/browse/cards/sliderHandler.js;
+*/
+
 /* main component of rows of cards */
 .rowOfCards {
   margin: 3vw 0;

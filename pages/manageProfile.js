@@ -1,4 +1,4 @@
-import styles from "../styles/browse/profile.module.css";
+import baseStyles from "../styles/browse/profile/profile.module.css";
 
 import Image from "next/image";
 
@@ -21,9 +21,9 @@ export default function ManageProfile({ addProfile }) {
   }
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.imgLogo}>
+    <div className={baseStyles.container}>
+      <header className={baseStyles.header}>
+        <div className={baseStyles.imgLogo}>
           <Image
             src="/images/NetflixLogo.png"
             width="150px"
@@ -32,8 +32,8 @@ export default function ManageProfile({ addProfile }) {
           />
         </div>
       </header>
-      <main className={styles.main}>
-        <div className={styles.divContainer}>
+      <main className={baseStyles.main}>
+        <div className={baseStyles.divContainer}>
           {currentUserId ? (
             <EditProfile
               currentUserId={currentUserId}

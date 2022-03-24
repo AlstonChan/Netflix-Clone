@@ -1,4 +1,8 @@
-/*The error page, 404 css*/
+/* file using this stylesheet */
+/* 
+pages/404.js;
+*/
+
 /*This imports roboto font from google font*/
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap");
 .container {

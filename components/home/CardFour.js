@@ -1,17 +1,17 @@
 import styles from "../../styles/Home/cardFour.module.css";
-import cardStyles from "../../styles/Home/card.module.css";
+import baseStyles from "../../styles/Home/card.module.css";
 import netflixKid from "../../public/images/home/netflix-kids.png";
 
 import Image from "next/image";
 
 export default function CardFour() {
   return (
-    <div className={cardStyles.container}>
+    <div className={baseStyles.container}>
       <div className={styles.containerCard}>
         <div className={styles.imgPresentContainer}>
           <Image src={netflixKid} alt="netflix kid display image" />
         </div>
-        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
+        <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>Create profiles for kids.</h1>
             <p className={styles.wordGroupSml}>

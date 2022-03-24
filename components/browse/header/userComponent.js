@@ -17,7 +17,7 @@ const UserComponent = () => {
   const { userData } = useContext(UserContext);
   const [currentUser, setCurrentUser] = useState(false);
   const [navUserStyle, setNavUserStyle] = useState({
-    visibility: "visible", // temparary set to visible for development
+    visibility: "hidden",
   });
   const [delay, setDelay] = useState(null);
 

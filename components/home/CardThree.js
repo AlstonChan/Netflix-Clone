@@ -1,14 +1,14 @@
 import styles from "../../styles/Home/cardThree.module.css";
-import cardStyles from "../../styles/Home/card.module.css";
+import baseStyles from "../../styles/Home/card.module.css";
 import devicePile from "../../public/images/home/device-pile.png";
 
 import Image from "next/image";
 
 export default function CardThree() {
   return (
-    <div className={cardStyles.container}>
+    <div className={baseStyles.container}>
       <div className={styles.containerCard}>
-        <div className={`${cardStyles.wordGroup} ${styles.wordGroup}`}>
+        <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>
             <h1 className={styles.wordGroupBig}>Watch everywhere.</h1>
             <p className={styles.wordGroupSml}>

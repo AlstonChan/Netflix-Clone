@@ -1,6 +1,5 @@
-import baseStyles from "../../../styles/browse/profile.module.css";
-import addProfileStyles from "../../../styles/browse/addProfile.module.css";
-import styles from "../../../styles/browse/editProfile.module.css";
+import baseStyles from "../../../styles/browse/profile/profile.module.css";
+import styles from "../../../styles/browse/profile/editProfile.module.css";
 import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
@@ -67,7 +66,7 @@ export default function EditProfile({ currentUserId, back }) {
       >
         Edit Profile
       </h1>
-      <hr className={styles.borderLine} />
+      <hr className={baseStyles.borderLine} />
       <div className={styles.container}>
         <div className={baseStyles.avatarContainer}>
           <Image
@@ -104,7 +103,7 @@ export default function EditProfile({ currentUserId, back }) {
           </form>
         </div>
         <div className={styles.detailsPanel}>
-          <div className={addProfileStyles.inputContainer}>
+          <div className={baseStyles.inputContainer}>
             <div>
               <input
                 type="text"
@@ -114,12 +113,12 @@ export default function EditProfile({ currentUserId, back }) {
                 onChange={checkInputValidity}
                 className={
                   showWarn
-                    ? `${addProfileStyles.input} ${addProfileStyles.inputWarn}`
-                    : addProfileStyles.input
+                    ? `${baseStyles.input} ${baseStyles.inputWarn}`
+                    : baseStyles.input
                 }
               />
               {showWarn ? (
-                <p className={addProfileStyles.warn}>Please enter a name</p>
+                <p className={baseStyles.warn}>Please enter a name</p>
               ) : (
                 ""
               )}
@@ -127,26 +126,23 @@ export default function EditProfile({ currentUserId, back }) {
           </div>
         </div>
       </div>
-      <hr className={addProfileStyles.borderLine} />
+      <hr className={baseStyles.borderLine} />
       <br />
       <button
         className={
           inputIsValid
-            ? `${addProfileStyles.validBatn} ${addProfileStyles.continueBtn}`
-            : addProfileStyles.continueBtn
+            ? `${baseStyles.validBatn} ${baseStyles.continueBtn}`
+            : baseStyles.continueBtn
         }
         onClick={() => submitNewUser("upd")}
       >
         Continue
       </button>
-      <button
-        className={addProfileStyles.cancelBtn}
-        onClick={() => back(false)}
-      >
+      <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
         Cancel
       </button>
       <button
-        className={addProfileStyles.cancelBtn}
+        className={baseStyles.cancelBtn}
         onClick={() => submitNewUser("del")}
       >
         Delete Profile

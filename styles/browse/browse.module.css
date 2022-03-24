@@ -1,3 +1,13 @@
+/* file using this stylesheet */
+/* 
+pages/browse/index.js;
+pages/browse/my-list.js;
+pages/browse/trending.js;
+pages/browse/tv-shows.js;
+component/browse/featured.js;
+component/browse/loading.js;
+*/
+
 .main {
   min-height: 80vh;
 }

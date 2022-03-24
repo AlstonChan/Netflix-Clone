@@ -1,3 +1,9 @@
+/* file using this stylesheet */
+/* 
+component/browse/modals/iconGroup.js;
+component/browse/modals/modal.js;
+*/
+
 .mainModals {
   position: absolute;
   z-index: 10;

@@ -1,3 +1,13 @@
+/* file using this stylesheet */
+/* 
+pages/signup/index.js;
+pages/signup/planform.js;
+pages/signup/regform.js;
+pages/signup/registration.js;
+pages/signup/pricingTable.js;
+pages/signup/regFormInput.js;
+*/
+
 /* global for signup page */
 .container {
   display: flex;

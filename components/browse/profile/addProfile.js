@@ -1,5 +1,5 @@
-import styles from "../../../styles/browse/addProfile.module.css";
-import profileStyles from "../../../styles/browse/profile.module.css";
+import baseStyles from "../../../styles/browse/profile/profile.module.css";
+import styles from "../../../styles/browse/profile/addProfile.module.css";
 
 import Image from "next/image";
 
@@ -35,23 +35,28 @@ export default function AddProfile({ back }) {
 
   return (
     <>
-      <h1 className={styles.mainHeading}>Add Profile</h1>
+      <h1
+        className={baseStyles.headingMain}
+        style={{ width: "fit-content", margin: "0" }}
+      >
+        Add Profile
+      </h1>
       <p className={styles.desc}>
         Add a profile for another person watching Netflix.
       </p>
-      <hr className={styles.borderLine} />
+      <hr className={baseStyles.borderLine} />
       <div className={styles.AddProfileMain}>
-        <div className={profileStyles.avatarContainer}>
+        <div className={baseStyles.avatarContainer}>
           <Image
             src={`/images/profile pic/${picNumRef.current}.png`}
             width="320px"
             height="320px"
             objectFit="cover"
             alt="User profile Picture"
-            className={profileStyles.profilePic}
+            className={baseStyles.profilePic}
           />
         </div>
-        <div className={styles.inputContainer}>
+        <div className={baseStyles.inputContainer}>
           <div>
             <input
               type="text"
@@ -60,26 +65,32 @@ export default function AddProfile({ back }) {
               ref={inputRef}
               onChange={checkInputValidity}
               className={
-                showWarn ? `${styles.input} ${styles.inputWarn}` : styles.input
+                showWarn
+                  ? `${baseStyles.input} ${baseStyles.inputWarn}`
+                  : baseStyles.input
               }
             />
-            {showWarn ? <p className={styles.warn}>Please enter a name</p> : ""}
+            {showWarn ? (
+              <p className={baseStyles.warn}>Please enter a name</p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
-      <hr className={styles.borderLine} />
+      <hr className={baseStyles.borderLine} />
       <br />
       <button
         className={
           inputIsValid
-            ? `${styles.validBatn} ${styles.continueBtn}`
-            : styles.continueBtn
+            ? `${baseStyles.validBatn} ${baseStyles.continueBtn}`
+            : baseStyles.continueBtn
         }
         onClick={() => submitNewUser("create")}
       >
         Continue
       </button>
-      <button className={styles.cancelBtn} onClick={() => back(false)}>
+      <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
         Cancel
       </button>
     </>

@@ -1,3 +1,10 @@
+/* file using this stylesheet */
+/* 
+component/browse/header/bellComponent.js;
+component/browse/header/searchComponent.js;
+component/browse/header/userComponent.js;
+*/
+
 /* Secondary Navvbar Component */
 .navIcon {
   display: flex;

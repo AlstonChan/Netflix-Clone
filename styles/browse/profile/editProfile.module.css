@@ -1,8 +1,7 @@
-.borderLine {
-  height: 2px;
-  background-color: #333;
-  border: none;
-}
+/* file using this stylesheet */
+/* 
+components/browse/profile/editProfile.js;
+*/
 
 .container {
   display: flex;

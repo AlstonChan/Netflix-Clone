@@ -10,11 +10,11 @@ import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
 
 import Header from "../../components/browse/header/header.js";
 import Profile from "../../components/browse/profile/profile.js";
-import ConstantList from "../../components/browse/sliderCards/constantList";
+import ConstantList from "../../components/browse/cards/constantList";
 import Footer from "../../components/footer/footerBrowse";
 import Modals from "../../components/browse/modals/modals";
 import Main from "../../components/browse/main";
-import PlaceholderCard from "../../components/browse/sliderCards/placeholderCard";
+import PlaceholderCard from "../../components/browse/cards/placeholderCard";
 import Loader from "../../components/Loader";
 
 export function MyList() {

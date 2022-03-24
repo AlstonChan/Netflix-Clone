@@ -1,3 +1,13 @@
+/* file using this stylesheet */
+/* 
+components/browse/profile/addProfile.js;
+components/browse/profile/editProfile.js;
+components/browse/profile/mainProfile.js;
+components/browse/profile/profile.js;
+components/browse/profile/profileAvatar.js;
+pages/manageProfile.js;
+*/
+
 .container {
   height: 100vh;
   width: 100vw;
@@ -7,7 +17,7 @@
   min-width: 340px;
 }
 
-/*Header section*/
+/* Header section */
 .header {
   background-color: #000;
   display: flex;
@@ -21,6 +31,7 @@
   height: fit-content;
 }
 
+/* main section */
 .main {
   height: 100%;
   width: 100%;
@@ -39,6 +50,7 @@
   max-width: 80%;
 }
 
+/* profile section */
 .headingMain {
   color: #fff;
   text-align: center;
@@ -47,12 +59,7 @@
   margin: 0 0 20px 0;
 }
 
-.profile {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
+/* profileAvatar section */
 .listItemProfile {
   list-style: none;
   width: 10vw;
@@ -92,6 +99,19 @@
   border-radius: 8px;
 }
 
+.nameContain {
+  text-decoration: underline #000;
+}
+
+.name {
+  color: #808080;
+  text-align: center;
+  margin: 8px 0;
+  font-size: min(1.3vw, 2rem);
+  font-weight: 600;
+}
+
+/* for editProfile page */
 .editCover {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -108,7 +128,38 @@
   outline: rgb(0, 0, 0, 0.5) 2px solid;
 }
 
-.manageProfileDone {
+/* addProfile page & editProfile page */
+.borderLine {
+  height: 2px;
+  background-color: #333;
+  border: none;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  margin: 0 14px;
+  width: clamp(18rem, 8vw + 2rem, 30rem);
+  background-color: #666;
+  border: none;
+  height: 1.9rem;
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+}
+.inputWarn {
+  border: solid 1px rgb(184, 5, 5);
+}
+.warn {
+  color: rgb(184, 5, 5);
+  margin: 8px 14px 0 14px;
+}
+
+.continueBtn {
   background-color: #fff;
   border: 2px solid #fff;
   border-radius: 3px;
@@ -118,42 +169,32 @@
   cursor: pointer;
   transition: background-color 110ms ease, border 110ms ease, color 110ms ease;
 }
-.manageProfileDone:hover {
+.continueBtn:hover {
+  background-color: rgb(184, 5, 5);
+  border: 2px solid rgb(184, 5, 5);
+  color: #fff;
+}
+.validBatn {
   background-color: rgb(184, 5, 5);
   border: 2px solid rgb(184, 5, 5);
   color: #fff;
 }
 
-.nameContain {
-  text-decoration: underline #000;
-}
-
-.name {
-  color: #808080;
-  text-align: center;
-  margin: 8px 0;
-  font-size: min(1.3vw, 2rem);
-  font-weight: 600;
-}
-
-.manageContainer {
-  margin: 40px;
-  text-align: center;
-}
-
-.manageProfilesBtn {
+.cancelBtn {
   background-color: #000;
-  border: solid 1.5px #ffffff9a;
-  padding: 6px 27px;
-  color: #ffffff9a;
+  border: 2px solid grey;
+  border-radius: 3px;
   font-size: 1.1rem;
-  font-family: "Courier New", Courier, monospace;
+  padding: 6px 25px;
+  font-weight: 100;
+  color: grey;
   cursor: pointer;
+  margin-left: 20px;
+  transition: border 110ms ease, color 110ms ease;
 }
-
-.manageProfilesBtn:hover {
+.cancelBtn:hover {
   color: #fff;
-  border: solid 1.5px #fff;
+  border: 2px solid #fff;
 }
 
 @media screen and (max-width: 900px) {
