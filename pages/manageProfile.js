@@ -3,12 +3,14 @@ import baseStyles from "../styles/browse/profile/profile.module.css";
 import Image from "next/image";
 
 import { useState } from "react";
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 import AddProfile from "../components/browse/profile/addProfile";
 import MainProfile from "../components/browse/profile/mainProfile";
 import EditProfile from "../components/browse/profile/editProfile";
+import Loader from "../components/Loader";
 
-export default function ManageProfile({ addProfile }) {
+export function ManageProfile({ addProfile }) {
   const [currentUserId, setCurrentUserId] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
 
@@ -55,3 +57,11 @@ export default function ManageProfile({ addProfile }) {
     </div>
   );
 }
+
+export default withAuthUser({
+  whenAuthed: AuthAction.RENDER,
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
+  LoaderComponent: Loader,
+})(ManageProfile);

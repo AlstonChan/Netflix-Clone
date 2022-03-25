@@ -15,7 +15,8 @@
     "lint": "next lint",
     "emulators": "firebase emulators:start",
     "fire-auth": "firebase emulators:start --only auth",
-    "firestore": "firebase emulators:start --only firestore"
+    "firestore": "firebase emulators:start --only firestore",
+    "storage": "firebase emulators:start --only storage"
   },
   "dependencies": {
     "axios": "0.26.0",

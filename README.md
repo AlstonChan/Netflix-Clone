@@ -76,6 +76,7 @@ npm install -g firebase-tools
    # set to true when using Firebase auth emulator
    NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
+   NEXT_PUBLIC_USE_FIREBASE_STORAGE_EMULATOR=false
 
    # https://github.com/gladly-team/next-firebase-auth/issues/184
    # FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,
@@ -165,10 +166,8 @@ npm install -g firebase-tools
 
 You need movies data to populate your page, so go to [The Movie Database (TMDB)](https://www.themoviedb.org/) and copy your api key to `.env.local`. If you did not have an account, create one and fill in the form to request an api key, so you can use the api key to fetch data to your page.
 
-      ```
       MOVIE_DB_API_KEY=
       FETCH_KEY=CabtUaWSst3xez8FjgSbGyqmy
-      ```
 
 ### Step Six. Setup `next-firebase-auth`
 
@@ -209,6 +208,7 @@ FIREBASE_CLIENT_EMAIL=
 # set to true when using Firebase auth emulator
 NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
 NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
+NEXT_PUBLIC_USE_FIREBASE_STORAGE_EMULATOR=false
 
 # https://github.com/gladly-team/next-firebase-auth/issues/184
 # FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,

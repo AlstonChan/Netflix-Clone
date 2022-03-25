@@ -49,6 +49,7 @@ export default function EditProfile({ currentUserId, back }) {
 
   function uploadFile(e) {
     if (e.target.files[0]) {
+      console.log(e.target.files[0]);
       setUploadedProfilePic({
         src: URL.createObjectURL(e.target.files[0]),
         fire: e.target.files[0],

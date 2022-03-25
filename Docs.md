@@ -49,10 +49,45 @@ Create a api route at pages/api and request movieDB data there. Then, use getSer
 
 > Take the following example. An API route is used to fetch some data from a CMS. That API route is then called directly from getServerSideProps. This produces an additional call, reducing performance. Instead, directly import the logic used inside your API Route into getServerSideProps. This could mean calling a CMS, database, or other API directly from inside getServerSideProps.
 
+```javascript
+export async function getStaticProps(context) {
+  const host = { ...context.req.headers }.host;
+  const endpoint = getAbsoluteURL("/api/fetchmovie", host);
+  const queryClient = new QueryClient();
+  let requestedData = "";
+  if (context.query.fetchmoviedata == "hom") {
+    requestedData = "hom";
+    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
+      fetchMoviesDB(requestedData, endpoint)
+    );
+  } else if (context.query.fetchmoviedata == "tvs") {
+    requestedData = "tvs";
+    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
+      fetchMoviesDB(requestedData, endpoint)
+    );
+  } else if (context.query.fetchmoviedata == "new") {
+    requestedData = "new";
+    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
+      fetchMoviesDB(requestedData, endpoint)
+    );
+  } else if (context.query.fetchmoviedata == "myl") {
+    requestedData = "myl";
+    await queryClient.prefetchQuery(["moviesDB", requestedData], () =>
+      fetchMoviesDB(requestedData, endpoint)
+    );
+  }
+  return {
+    props: { dehydratedState: dehydrate(queryClient) },
+  };
+});
+```
+
 **Note:**
 There's some issues with serverless function deployed on _Vercel_ before **`commit f0379b51e5a09b26b982cdc0fdaf294e8f38df91`**, due to one missing `else statement` when user is in `browse` profile page (profile page did not send any `requestedData`). That one missing `else statement` will cause approximately **_`60% - 80%`_** of serverless execution time to be spent on nothing and timeout after 10s.
 
 [***UPDATE***] This can also be fixed simply by adding a `if (!requestedData) return;` inside fetchMovieDB function.
+
+[***UPDATE2***] Since the `/browse` page has been split into 4 page, `getServerSideProps` no longer need conditional fetching. Switching page doesn't affect react query caching as pagnitation is enable with `keepPreviousData`.
 
 ### 2. Another way to cache fetched data is using the HTTP headers in _getServerSideProps_,
 
@@ -104,7 +139,7 @@ In order to run firebase auth emulators, follow these 3 steps:
 
 **_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote respository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occured:
 
-```
+```javascript
 code: 'auth/argument-error',
 message: '`uid` argument must be a non-empty string uid.'
 ```
@@ -113,17 +148,19 @@ This error comes from a dependency named `next-firebase-auth`, as of this writin
 
 **_[GitHub Issues](https://github.com/gladly-team/next-firebase-auth/issues/184)_**
 
-## 2. Firestore emulator
+### 2. Firestore emulator
 
 In order to run firebase auth emulators, follow these 3 steps:
 
 1. Set use firebase firestore emulator from false to true
+
    ```
    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=true
    ```
+
 2. Check your `node.js` version using `node -v`, if your `node.js` version is 17, your firestore emulator will get **Timeout** and stop. To fix this issue, you have to either downgrade your `node.js` version to 16 **_OR_** edit the `firebase.json` file as below:
 
-   ```
+   ```json
    {
      "firestore": {
        "rules": "firestore.rules",
@@ -141,10 +178,16 @@ In order to run firebase auth emulators, follow these 3 steps:
        "ui": {
          "enabled": true,
          "port": 4060
+       },
+       "storage": {
+         "port": 9199
        }
      },
      "remoteconfig": {
        "template": "firebase.js"
+     },
+     "storage": {
+       "rules": "storage.rules"
      }
    }
    ```
