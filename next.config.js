@@ -5,6 +5,7 @@ module.exports = {
       "image.tmdb.org",
       "lh3.googleusercontent.com",
       "firebasestorage.googleapis.com",
+      "localhost",
     ],
   },
 };

@@ -1,7 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  function isSignedIn() {
+    function isSignedIn() {
       return request.auth.uid != null 
     }
 
@@ -11,7 +11,7 @@ service cloud.firestore {
       allow update: if isSignedIn() && 
       request.auth.uid == accID &&
       request.resource.data.uid == resource.data.uid &&
-      request.resource.data['user-main'].keys().hasAll(['name', 'pic']);
+      request.resource.data['user-main'].keys().hasAll(['name', 'pic'])
     }
     
     match /mymovie/{mymovieID} {

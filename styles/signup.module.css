@@ -23,7 +23,7 @@ pages/signup/regFormInput.js;
 /* ################################################## */
 /* signup root page */
 .centerDiv {
-  margin: 130px auto 0 auto;
+  margin: 130px auto 130px auto;
   display: flex;
   flex-direction: column;
   padding: 0 15px;
@@ -94,7 +94,7 @@ pages/signup/regFormInput.js;
   padding: 10px 30px;
   width: 100%;
   max-width: 946px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
 }
 
 .planBoxContainer {
@@ -223,6 +223,7 @@ pages/signup/regFormInput.js;
 .centerDivRegForm {
   margin: 0 auto;
   max-width: 480px;
+  margin: 0 auto 50px auto;
 }
 .mainContentRegForm {
   padding: 20px;

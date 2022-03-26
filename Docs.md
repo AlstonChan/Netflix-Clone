@@ -118,19 +118,19 @@ To run both emulator, open a new terminal and run `firebase emulators:start` or 
 In order to run firebase auth emulators, follow these 3 steps:
 
 1. Uncomment _line 15_ in `initAuth.js`
-
+   
    ```
    firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
    ```
 
 2. Uncomment the following code in `.env.local`
-
+   
    ```
    FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
    ```
-
+   
    and set use firebase auth emulator from false to true
-
+   
    ```
    NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=true
    ```
@@ -153,13 +153,13 @@ This error comes from a dependency named `next-firebase-auth`, as of this writin
 In order to run firebase auth emulators, follow these 3 steps:
 
 1. Set use firebase firestore emulator from false to true
-
+   
    ```
    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=true
    ```
 
 2. Check your `node.js` version using `node -v`, if your `node.js` version is 17, your firestore emulator will get **Timeout** and stop. To fix this issue, you have to either downgrade your `node.js` version to 16 **_OR_** edit the `firebase.json` file as below:
-
+   
    ```json
    {
      "firestore": {
@@ -168,8 +168,7 @@ In order to run firebase auth emulators, follow these 3 steps:
      },
      "emulators": {
        "auth": {
-         "port": 9099,
-         "host": "127.0.0.1"
+         "port": 9099
        },
        "firestore": {
          "port": 8080,
@@ -191,8 +190,10 @@ In order to run firebase auth emulators, follow these 3 steps:
      }
    }
    ```
-
+   
    Adding `"host": "127.0.0.1"` instead of `localhost` fixed the issues if you do not want to downgrade your `node.js` to version 16.
+   
+   **NOTE:** Having `"host": "127.0.0.1"` in auth emulators can cause error....
 
 3. Open a new terminal and run `firebase emulators:start --only firestore` or `npm run firestore` to spin up the emulator.
 

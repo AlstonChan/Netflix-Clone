@@ -23,10 +23,12 @@ export default function AddProfile({ back }) {
 
   function submitNewUser(type) {
     if (!inputRef.current.value) {
-      setShowWarn(true);
+      setShowWarn(1);
+    } else if (inputRef.current.value.trim().length > 26) {
+      setShowWarn(2);
     } else {
       createUser(type, {
-        name: inputRef.current.value,
+        name: inputRef.current.value.trim(),
         pic: picNumRef.current,
       });
       back(false);
@@ -70,8 +72,10 @@ export default function AddProfile({ back }) {
                   : baseStyles.input
               }
             />
-            {showWarn ? (
+            {showWarn === 1 ? (
               <p className={baseStyles.warn}>Please enter a name</p>
+            ) : showWarn === 2 ? (
+              <p className={baseStyles.warn}>Your name is too long</p>
             ) : (
               ""
             )}

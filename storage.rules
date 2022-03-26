@@ -3,12 +3,12 @@ service firebase.storage {
   match /b/netflix-clone-fe6a4.appspot.com/o {
     match /Acc/{imageId} {
       allow read: if 
-      	request.auth.uid == resource.metadata.uid &&
+        request.auth.uid == resource.metadata.uid &&
         imageId == resource.metadata.imageId;
         
       allow write: if 
-        request.auth.uid == resource.metadata.uid &&
-        imageId == resource.metadata.imageId &&
+        request.auth.uid == request.resource.metadata.uid &&
+        imageId == request.resource.metadata.imageId &&
         // Only allow uploads of any image file that's less than 2MB
         request.resource.size < 2 * 1024 * 1024 &&
         request.resource.contentType.matches('image/.*');

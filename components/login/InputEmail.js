@@ -21,9 +21,12 @@ export default function Input({ setRef, inputId, page }) {
     setRef.current.value = "";
     handleInputClick({ type: "blur" });
     if (page == "regForm" && typeof setRef != undefined) {
-      setRef.current.value = sessionStorage.getItem("user");
-      const e = { type: "focus" };
-      handleInputClick(e);
+      const val = sessionStorage.getItem("user");
+      if (val) {
+        setRef.current.value = sessionStorage.getItem("user");
+        const e = { type: "focus" };
+        handleInputClick(e);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

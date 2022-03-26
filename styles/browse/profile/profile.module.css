@@ -86,6 +86,7 @@ pages/manageProfile.js;
 
 .profilePic {
   border-radius: 7px;
+  transition: outline 150ms ease-in-out;
 }
 
 .avatarContainer {
@@ -109,6 +110,7 @@ pages/manageProfile.js;
   margin: 8px 0;
   font-size: min(1.3vw, 2rem);
   font-weight: 600;
+  max-width: 100%;
 }
 
 /* for editProfile page */
@@ -143,7 +145,7 @@ pages/manageProfile.js;
 
 .input {
   margin: 0 14px;
-  width: clamp(18rem, 8vw + 2rem, 30rem);
+  width: clamp(13rem, 20vw + 8rem, 22rem);
   background-color: #666;
   border: none;
   height: 1.9rem;
@@ -159,6 +161,12 @@ pages/manageProfile.js;
   margin: 8px 14px 0 14px;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .continueBtn {
   background-color: #fff;
   border: 2px solid #fff;
@@ -167,6 +175,7 @@ pages/manageProfile.js;
   padding: 6px 25px;
   font-weight: 100;
   cursor: pointer;
+  margin-top: 15px;
   transition: background-color 110ms ease, border 110ms ease, color 110ms ease;
 }
 .continueBtn:hover {
@@ -178,6 +187,8 @@ pages/manageProfile.js;
   background-color: rgb(184, 5, 5);
   border: 2px solid rgb(184, 5, 5);
   color: #fff;
+  margin-top: 15px;
+  margin-top: 15px;
 }
 
 .cancelBtn {
@@ -191,6 +202,7 @@ pages/manageProfile.js;
   cursor: pointer;
   margin-left: 20px;
   transition: border 110ms ease, color 110ms ease;
+  margin-top: 15px;
 }
 .cancelBtn:hover {
   color: #fff;

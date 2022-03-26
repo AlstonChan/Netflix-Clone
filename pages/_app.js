@@ -25,7 +25,6 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (user) {
-      console.log("yes");
       try {
         (async () => {
           if (user) {

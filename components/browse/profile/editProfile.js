@@ -12,7 +12,8 @@ export default function EditProfile({ currentUserId, back }) {
   const { userData } = useContext(UserContext);
   const inputRef = useRef();
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [showWarn, setShowWarn] = useState(false);
+  const [showWarnInput, setShowWarnInput] = useState(false);
+  const [showWarnPic, setShowWarnPic] = useState(false);
   const [uploadedProfilePic, setUploadedProfilePic] = useState(null);
   const createUser = useUpdateUserAcc();
 
@@ -31,16 +32,22 @@ export default function EditProfile({ currentUserId, back }) {
 
   async function submitNewUser(type) {
     if (!inputRef.current.value) {
-      setShowWarn(true);
+      setShowWarnInput(1);
     } else if (type === "upd") {
-      createUser(type, {
-        id: currentUserId,
-        name: inputRef.current.value,
-        pic: uploadedProfilePic
-          ? uploadedProfilePic
-          : userData[currentUserId].pic,
-      });
-      back(false);
+      if (inputRef.current.value.trim().length > 26) {
+        setShowWarnInput(2);
+      } else if (uploadedProfilePic?.size > 2000000) {
+        setShowWarnPic(true);
+      } else {
+        createUser(type, {
+          id: currentUserId,
+          name: inputRef.current.value.trim(),
+          pic: uploadedProfilePic
+            ? uploadedProfilePic
+            : userData[currentUserId].pic,
+        });
+        back(false);
+      }
     } else {
       createUser(type, currentUserId);
       back(false);
@@ -49,12 +56,13 @@ export default function EditProfile({ currentUserId, back }) {
 
   function uploadFile(e) {
     if (e.target.files[0]) {
-      console.log(e.target.files[0]);
+      setShowWarnPic(false);
       setUploadedProfilePic({
         src: URL.createObjectURL(e.target.files[0]),
         fire: e.target.files[0],
         alt: e.target.files[0].name,
         type: e.target.files[0].type,
+        size: e.target.files[0].size,
       });
     }
   }
@@ -81,7 +89,11 @@ export default function EditProfile({ currentUserId, back }) {
             width="320px"
             height="320px"
             objectFit="cover"
-            className={baseStyles.profilePic}
+            className={
+              showWarnPic
+                ? `${baseStyles.profilePic} ${styles.profilePicWarn}`
+                : baseStyles.profilePic
+            }
             alt={
               uploadedProfilePic
                 ? uploadedProfilePic.alt
@@ -113,13 +125,19 @@ export default function EditProfile({ currentUserId, back }) {
                 ref={inputRef}
                 onChange={checkInputValidity}
                 className={
-                  showWarn
+                  showWarnInput
                     ? `${baseStyles.input} ${baseStyles.inputWarn}`
                     : baseStyles.input
                 }
               />
-              {showWarn ? (
+              {showWarnInput === 1 ? (
                 <p className={baseStyles.warn}>Please enter a name</p>
+              ) : showWarnInput === 2 ? (
+                <p className={baseStyles.warn}>Your name is too long</p>
+              ) : showWarnPic ? (
+                <p className={baseStyles.warn}>
+                  Image size need to be smaller than 2MB
+                </p>
               ) : (
                 ""
               )}
@@ -128,26 +146,31 @@ export default function EditProfile({ currentUserId, back }) {
         </div>
       </div>
       <hr className={baseStyles.borderLine} />
-      <br />
-      <button
-        className={
-          inputIsValid
-            ? `${baseStyles.validBatn} ${baseStyles.continueBtn}`
-            : baseStyles.continueBtn
-        }
-        onClick={() => submitNewUser("upd")}
-      >
-        Continue
-      </button>
-      <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
-        Cancel
-      </button>
-      <button
-        className={baseStyles.cancelBtn}
-        onClick={() => submitNewUser("del")}
-      >
-        Delete Profile
-      </button>
+      <div className={baseStyles.buttonContainer}>
+        <button
+          className={
+            inputIsValid
+              ? `${baseStyles.validBatn} ${baseStyles.continueBtn}`
+              : baseStyles.continueBtn
+          }
+          onClick={() => submitNewUser("upd")}
+        >
+          Continue
+        </button>
+        <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
+          Cancel
+        </button>
+        {currentUserId !== "user-main" ? (
+          <button
+            className={baseStyles.cancelBtn}
+            onClick={() => submitNewUser("del")}
+          >
+            Delete Profile
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 }

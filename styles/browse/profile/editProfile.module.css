@@ -36,3 +36,8 @@ components/browse/profile/editProfile.js;
 .inputFile {
   display: none;
 }
+
+.profilePicWarn {
+  outline: rgb(184, 5, 5) 3px solid;
+  outline-offset: -3px;
+}
