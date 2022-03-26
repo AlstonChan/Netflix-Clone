@@ -99,7 +99,7 @@ export default async function handler(req, res) {
         let totalPage = 1;
         let pageIndex = 1;
         for (let x = 0; x < totalPage; x++) {
-          const url = `/search/tv?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${additionData}&page=${pageIndex}&include_adult=true`;
+          const url = `/search/tv?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${additionData}&page=${pageIndex}&include_adult=false`;
           const res = await instances.get(url);
           const rawData = res.data.results;
           const data = rawData.map((mov) => {
@@ -114,7 +114,7 @@ export default async function handler(req, res) {
           movies.push(data);
         }
         for (let x = 0; x < totalPage; x++) {
-          const url = `/search/movie?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${additionData}&page=${pageIndex}&include_adult=true`;
+          const url = `/search/movie?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${additionData}&page=${pageIndex}&include_adult=false`;
           const res = await instances.get(url);
           const rawData = res.data.results;
           const data = rawData.map((mov) => {

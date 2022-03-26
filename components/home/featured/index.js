@@ -3,6 +3,7 @@ import styles from "../../../styles/Home/featured.module.css";
 import router from "next/router";
 
 import { useRef, useState } from "react";
+import aes from "crypto-js/aes";
 
 import Header from "../../header";
 import Input from "./input";
@@ -27,7 +28,13 @@ export default function Featured() {
   function handleFormSubmit(e) {
     e.preventDefault();
     if (emailInputRef.current.isValid) {
-      sessionStorage.setItem("user", emailInputRef.current.value);
+      const encrypted = aes
+        .encrypt(
+          emailInputRef.current.value,
+          process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE
+        )
+        .toString();
+      sessionStorage.setItem("user", encrypted);
       router.push("/signup");
     }
   }

@@ -1,6 +1,8 @@
 import styles from "../../styles/emailPassInput.module.css";
 
 import { useState, useEffect } from "react";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 
 export default function Input({ setRef, inputId, page }) {
   //Placeholder for input, move up when focus or a value is enter
@@ -23,7 +25,10 @@ export default function Input({ setRef, inputId, page }) {
     if (page == "regForm" && typeof setRef != undefined) {
       const val = sessionStorage.getItem("user");
       if (val) {
-        setRef.current.value = sessionStorage.getItem("user");
+        const decrypted = aes
+          .decrypt(val, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+          .toString(CryptoJS.enc.Utf8);
+        setRef.current.value = decrypted;
         const e = { type: "focus" };
         handleInputClick(e);
       }

@@ -6,6 +6,8 @@ import UserProfile from "../../../public/images/icons/misc/user.svg";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 
 import { signOut } from "firebase/auth";
 import { useContext, useState, useEffect } from "react";
@@ -24,8 +26,15 @@ const UserComponent = () => {
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
-      if (data === null) setCurrentUser(null);
-      setCurrentUser(data);
+      if (!data) {
+        setCurrentUser(null);
+      } else {
+        setCurrentUser(
+          aes
+            .decrypt(data, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+            .toString(CryptoJS.enc.Utf8)
+        );
+      }
     }
   }, [userData]);
 
@@ -44,7 +53,10 @@ const UserComponent = () => {
 
   function switchProfile(user) {
     if (typeof window === "object") {
-      const data = window.sessionStorage.setItem("profile", user);
+      const encrypted = aes
+        .encrypt(user, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+        .toString();
+      const data = window.sessionStorage.setItem("profile", encrypted);
       router.reload();
       setCurrentUser(data);
     }

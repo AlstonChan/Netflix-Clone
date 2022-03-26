@@ -7,6 +7,8 @@ import {
   withAuthUserTokenSSR,
   AuthAction,
 } from "next-firebase-auth";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
 import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
@@ -33,8 +35,15 @@ export const Browse = () => {
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
-      if (data === null) setProfile(null);
-      setProfile(data);
+      if (!data) {
+        setProfile(null);
+      } else {
+        setProfile(
+          aes
+            .decrypt(data, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+            .toString(CryptoJS.enc.Utf8)
+        );
+      }
     }
   }, [profile]);
 
@@ -92,7 +101,10 @@ export const Browse = () => {
   }, [isLoading, profile, data]);
 
   function switchPage(name) {
-    setProfile(sessionStorage.setItem("profile", name));
+    const encrypted = aes
+      .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+      .toString();
+    setProfile(sessionStorage.setItem("profile", encrypted));
   }
 
   if (firstLoad && profile && (!data || isLoading)) {

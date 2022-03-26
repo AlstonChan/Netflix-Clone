@@ -3,6 +3,8 @@ import styles from "../../styles/browse/browse.module.css";
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useQuery, useMutation } from "react-query";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 import { UserContext } from "../_app";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
@@ -27,8 +29,15 @@ export function MyList() {
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
-      if (data === null) setProfile(null);
-      setProfile(data);
+      if (!data) {
+        setProfile(null);
+      } else {
+        setProfile(
+          aes
+            .decrypt(data, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+            .toString(CryptoJS.enc.Utf8)
+        );
+      }
     }
   }, [profile]);
 
@@ -83,7 +92,10 @@ export function MyList() {
   );
 
   function switchPage(name) {
-    setProfile(sessionStorage.setItem("profile", name));
+    const encrypted = aes
+      .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+      .toString();
+    setProfile(sessionStorage.setItem("profile", encrypted));
   }
 
   if (!profile) {
