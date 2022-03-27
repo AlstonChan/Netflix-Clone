@@ -8,8 +8,7 @@ export default function NotFound() {
   return (
     <div className="container">
       <Head>
-        <title>Netflix - clone</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Netflix Clone - Not Found</title>
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>

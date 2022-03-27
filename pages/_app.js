@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 
+import Head from "next/head";
+
 import { createContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "../lib/firebase";
 import initAuth from "../lib/initAuth";
@@ -57,15 +59,20 @@ function MyApp({ Component, pageProps }) {
   }, [user]);
 
   return getLayout(
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <UserContext.Provider
-          value={{ user, loading, error, userData, myMovieData }}
-        >
-          <Component {...pageProps} />
-        </UserContext.Provider>
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <UserContext.Provider
+            value={{ user, loading, error, userData, myMovieData }}
+          >
+            <Component {...pageProps} />
+          </UserContext.Provider>
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
 

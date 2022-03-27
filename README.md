@@ -186,7 +186,7 @@ COOKIE_SECRET_CURRENT=qpweouterzmxncgfhshalksd
 
 ### Complete `.env.local` file
 
-Your `.env.local` file should look like this if you follow the previous step correctly, and it should have value filled in. Except if you have planned not to use Firebase auth emulators, you are safe to ignore **`NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false`** and **`FIREBASE_AUTH_EMULATOR_HOST=localhost:9099`**.
+Your `.env.local` file should look like this if you follow the previous step correctly, and it should have value filled in. Except if you have planned not to use Firebase auth emulators, you are safe to ignore **emulator related environment variable**. Lastly, add `NEXT_PUBLIC_CRYPTO_JS_NONCE=z3TWomYY` to the last line of your `.env.local` for **`crypto-js`** to encrypt the session data.
 
 ```
 NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY=
@@ -227,6 +227,9 @@ COOKIE_SECRET_CURRENT=qpweouterzmxncgfhshalksd
 
 # For more info about COOKIE_SECRET, see
 # https://github.com/gladly-team/next-firebase-auth/issues/178
+
+# For crypto-js aes nonce
+NEXT_PUBLIC_CRYPTO_JS_NONCE=z3TWomYY
 ```
 
 ### Finally, run the app

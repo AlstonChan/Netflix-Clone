@@ -1,5 +1,7 @@
 import styles from "../../styles/signup.module.css";
 
+import Head from "next/head";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 
@@ -16,40 +18,45 @@ const variants = {
 };
 export function RegForm() {
   return (
-    <div className={styles.container}>
-      <Header logoClickHome={true} />
-      <motion.main
-        variants={variants} // Pass the variant object into Framer Motion
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: "linear" }} // Set the transition to linear
-        className={styles.main}
-      >
-        <div className={styles.centerDivRegForm}>
-          <section className={styles.mainContentRegForm}>
-            <br />
-            <div style={{ width: "fit-content" }}>
-              <p className={styles.stepsCount}>STEP 2 OF 2</p>
-            </div>
-            <div style={{ width: "fit-content" }}>
-              <h1
-                style={{ textAlign: "left" }}
-                className={styles.stepsHeadings}
-              >
-                Create a password to start your membership
-              </h1>
-              <p className={styles.descriptionRegForm}>
-                Just a few more steps and you&apos;re finished! <br />
-                We hate paperwork, too.
-              </p>
-            </div>
-            <RegFormInput />
-          </section>
-        </div>
-      </motion.main>
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <title>Netflix Clone - Reg Form</title>
+      </Head>
+      <div className={styles.container}>
+        <Header logoClickHome={true} />
+        <motion.main
+          variants={variants} // Pass the variant object into Framer Motion
+          initial="hidden" // Set the initial state to variants.hidden
+          animate="enter" // Animated state to variants.enter
+          exit="exit" // Exit state (used later) to variants.exit
+          transition={{ type: "linear" }} // Set the transition to linear
+          className={styles.main}
+        >
+          <div className={styles.centerDivRegForm}>
+            <section className={styles.mainContentRegForm}>
+              <br />
+              <div style={{ width: "fit-content" }}>
+                <p className={styles.stepsCount}>STEP 2 OF 2</p>
+              </div>
+              <div style={{ width: "fit-content" }}>
+                <h1
+                  style={{ textAlign: "left" }}
+                  className={styles.stepsHeadings}
+                >
+                  Create a password to start your membership
+                </h1>
+                <p className={styles.descriptionRegForm}>
+                  Just a few more steps and you&apos;re finished! <br />
+                  We hate paperwork, too.
+                </p>
+              </div>
+              <RegFormInput />
+            </section>
+          </div>
+        </motion.main>
+        <Footer />
+      </div>
+    </>
   );
 }
 

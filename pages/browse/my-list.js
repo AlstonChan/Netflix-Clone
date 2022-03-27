@@ -1,5 +1,7 @@
 import styles from "../../styles/browse/browse.module.css";
 
+import Head from "next/head";
+
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useQuery, useMutation } from "react-query";
@@ -102,46 +104,51 @@ export function MyList() {
     return <Profile switchPage={switchPage} />;
   } else {
     return (
-      <div className={styles.container}>
-        <Header route={"my-list"} searchRef={searchRef} />
-        <main className={styles.main}>
-          <Modals modalStyle={modal} />
-          {searchRef.current?.value ? (
-            <Main data={searchMutation.data}>
-              <span className={styles.featuredMain}>
-                <div className={styles.emptyFea}></div>
-              </span>
-              {data ? (
-                <ConstantList
-                  modal={toggleModal}
-                  movieList={searchMutation.data}
-                />
-              ) : (
-                <>
-                  <PlaceholderCard />
-                  <PlaceholderCard />
-                </>
-              )}
-            </Main>
-          ) : (
-            <Main data={data}>
-              <span className={styles.featuredMain}>
-                <div className={styles.emptyFea}></div>
-              </span>
-              <h1 className={styles.listHeader}>My List</h1>
-              {data ? (
-                <ConstantList modal={toggleModal} movieList={data} />
-              ) : (
-                <>
-                  <PlaceholderCard />
-                  <PlaceholderCard />
-                </>
-              )}
-            </Main>
-          )}
-        </main>
-        <Footer />
-      </div>
+      <>
+        <Head>
+          <title>Netflix Clone - My List</title>
+        </Head>
+        <div className={styles.container}>
+          <Header route={"my-list"} searchRef={searchRef} />
+          <main className={styles.main}>
+            <Modals modalStyle={modal} />
+            {searchRef.current?.value ? (
+              <Main data={searchMutation.data}>
+                <span className={styles.featuredMain}>
+                  <div className={styles.emptyFea}></div>
+                </span>
+                {data ? (
+                  <ConstantList
+                    modal={toggleModal}
+                    movieList={searchMutation.data}
+                  />
+                ) : (
+                  <>
+                    <PlaceholderCard />
+                    <PlaceholderCard />
+                  </>
+                )}
+              </Main>
+            ) : (
+              <Main data={data}>
+                <span className={styles.featuredMain}>
+                  <div className={styles.emptyFea}></div>
+                </span>
+                <h1 className={styles.listHeader}>My List</h1>
+                {data ? (
+                  <ConstantList modal={toggleModal} movieList={data} />
+                ) : (
+                  <>
+                    <PlaceholderCard />
+                    <PlaceholderCard />
+                  </>
+                )}
+              </Main>
+            )}
+          </main>
+          <Footer />
+        </div>
+      </>
     );
   }
 }

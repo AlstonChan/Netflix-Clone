@@ -28,6 +28,7 @@ export default function LoadingBrowse() {
               }
               width="320px"
               height="320px"
+              objectFit="cover"
               className={styles.profilePic}
               alt="User profile Picture"
             />

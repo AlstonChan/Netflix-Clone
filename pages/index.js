@@ -15,8 +15,7 @@ function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Netflix - clone</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Netflix Clone</title>
       </Head>
       <Featured />
       <CardOne />

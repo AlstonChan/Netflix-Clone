@@ -2,6 +2,7 @@ import styles from "../styles/login.module.css";
 
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
@@ -34,6 +35,9 @@ export function Login() {
 
   return (
     <>
+      <Head>
+        <title>Netflix Clone - Login</title>
+      </Head>
       <div className={styles.container}>
         <div className={styles.shade}>
           <header className={styles.head}>

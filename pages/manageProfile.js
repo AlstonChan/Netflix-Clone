@@ -1,6 +1,7 @@
 import baseStyles from "../styles/browse/profile/profile.module.css";
 
 import Image from "next/image";
+import Head from "next/head";
 
 import { useState } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
@@ -23,38 +24,43 @@ export function ManageProfile({ addProfile }) {
   }
 
   return (
-    <div className={baseStyles.container}>
-      <header className={baseStyles.header}>
-        <div className={baseStyles.imgLogo}>
-          <Image
-            src="/images/NetflixLogo.png"
-            width="150px"
-            height="40.875px"
-            alt="netflix logo"
-          />
-        </div>
-      </header>
-      <main className={baseStyles.main}>
-        <div className={baseStyles.divContainer}>
-          {currentUserId ? (
-            <EditProfile
-              currentUserId={currentUserId}
-              back={setCurrentUserId}
+    <>
+      <Head>
+        <title>Netflix Clone - Manage Profile</title>
+      </Head>
+      <div className={baseStyles.container}>
+        <header className={baseStyles.header}>
+          <div className={baseStyles.imgLogo}>
+            <Image
+              src="/images/NetflixLogo.png"
+              width="150px"
+              height="40.875px"
+              alt="netflix logo"
             />
-          ) : profileModal ? (
-            <AddProfile back={setProfileModal} />
-          ) : (
-            <MainProfile
-              title="Manage Profiles:"
-              extBtn="Done"
-              currentUserId
-              changeEdit={changeEdit}
-              addProfile={addProfile}
-            />
-          )}
-        </div>
-      </main>
-    </div>
+          </div>
+        </header>
+        <main className={baseStyles.main}>
+          <div className={baseStyles.divContainer}>
+            {currentUserId ? (
+              <EditProfile
+                currentUserId={currentUserId}
+                back={setCurrentUserId}
+              />
+            ) : profileModal ? (
+              <AddProfile back={setProfileModal} />
+            ) : (
+              <MainProfile
+                title="Manage Profiles:"
+                extBtn="Done"
+                currentUserId
+                changeEdit={changeEdit}
+                addProfile={addProfile}
+              />
+            )}
+          </div>
+        </main>
+      </div>
+    </>
   );
 }
 

@@ -1,5 +1,7 @@
 import styles from "../../styles/browse/browse.module.css";
 
+import Head from "next/head";
+
 import React, { useState, useRef, useEffect } from "react";
 import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
 import {
@@ -101,54 +103,59 @@ export const Trending = () => {
     return <Profile switchPage={switchPage} />;
   } else {
     return (
-      <div className={styles.container}>
-        <Header route={"new"} searchRef={searchRef} />
-        <main className={styles.main}>
-          <Modals modalStyle={modal} />
-          {searchRef.current?.value ? (
-            <Main data={searchMutation.data}>
-              <span className={styles.featuredMain}>
-                <div className={styles.emptyFea}></div>
-              </span>
-              {data ? (
-                <ConstantList
-                  modal={toggleModal}
-                  movieList={searchMutation.data}
-                />
-              ) : (
-                <>
-                  <PlaceholderCard />
-                  <PlaceholderCard />
-                </>
-              )}
-            </Main>
-          ) : (
-            <Main data={data}>
-              <span className={styles.featuredMain}>
-                <div className={styles.emptyFea}></div>
-              </span>
-              {data ? (
-                data.map((movie, index) => {
-                  return (
-                    <Cards
-                      movieSet={movie.data.results}
-                      movieGenre={movie.genre}
-                      key={index}
-                      modal={toggleModal}
-                    />
-                  );
-                })
-              ) : (
-                <>
-                  <PlaceholderCard />
-                  <PlaceholderCard />
-                </>
-              )}
-            </Main>
-          )}
-        </main>
-        <Footer />
-      </div>
+      <>
+        <Head>
+          <title>Netflix Clone - Trending</title>
+        </Head>
+        <div className={styles.container}>
+          <Header route={"new"} searchRef={searchRef} />
+          <main className={styles.main}>
+            <Modals modalStyle={modal} />
+            {searchRef.current?.value ? (
+              <Main data={searchMutation.data}>
+                <span className={styles.featuredMain}>
+                  <div className={styles.emptyFea}></div>
+                </span>
+                {data ? (
+                  <ConstantList
+                    modal={toggleModal}
+                    movieList={searchMutation.data}
+                  />
+                ) : (
+                  <>
+                    <PlaceholderCard />
+                    <PlaceholderCard />
+                  </>
+                )}
+              </Main>
+            ) : (
+              <Main data={data}>
+                <span className={styles.featuredMain}>
+                  <div className={styles.emptyFea}></div>
+                </span>
+                {data ? (
+                  data.map((movie, index) => {
+                    return (
+                      <Cards
+                        movieSet={movie.data.results}
+                        movieGenre={movie.genre}
+                        key={index}
+                        modal={toggleModal}
+                      />
+                    );
+                  })
+                ) : (
+                  <>
+                    <PlaceholderCard />
+                    <PlaceholderCard />
+                  </>
+                )}
+              </Main>
+            )}
+          </main>
+          <Footer />
+        </div>
+      </>
     );
   }
 };

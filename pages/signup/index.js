@@ -2,6 +2,7 @@ import styles from "../../styles/signup.module.css";
 import CheckMark from "../../public/images/icons/misc/Checkmark.png";
 import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
 
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -26,41 +27,46 @@ const variants = {
 };
 export function SignUp() {
   return (
-    <div className={styles.container}>
-      <Header logoClickHome={true} />
-      <motion.main
-        variants={variants} // Pass the variant object into Framer Motion
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: "linear" }} // Set the transition to linear
-        className={styles.main}
-      >
-        <div className={styles.centerDiv}>
-          <section className={styles.mainContent}>
-            <div className={styles.imgContainer}>
-              <Image src={CheckMark} alt="a check Mark" />
-            </div>
-            <p className={styles.stepsCount}>STEP 1 OF 2</p>
-            <h1 className={styles.stepsHeadings}>Choose your plan.</h1>
-            <div>
-              {benefitTxt.map((txt, index) => {
-                return (
-                  <li key={index} className={styles.benefitListItem}>
-                    <Image src={CheckRed} alt="a red check Mark" />
-                    <span className={styles.benefitListItemTxt}>{txt}</span>
-                  </li>
-                );
-              })}
-            </div>
-          </section>
-          <Link href="/signup/planform">
-            <a className={styles.nextButton}>Next</a>
-          </Link>
-        </div>
-      </motion.main>
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <title>Netflix Clone - SignUp</title>
+      </Head>
+      <div className={styles.container}>
+        <Header logoClickHome={true} />
+        <motion.main
+          variants={variants} // Pass the variant object into Framer Motion
+          initial="hidden" // Set the initial state to variants.hidden
+          animate="enter" // Animated state to variants.enter
+          exit="exit" // Exit state (used later) to variants.exit
+          transition={{ type: "linear" }} // Set the transition to linear
+          className={styles.main}
+        >
+          <div className={styles.centerDiv}>
+            <section className={styles.mainContent}>
+              <div className={styles.imgContainer}>
+                <Image src={CheckMark} alt="a check Mark" />
+              </div>
+              <p className={styles.stepsCount}>STEP 1 OF 2</p>
+              <h1 className={styles.stepsHeadings}>Choose your plan.</h1>
+              <div>
+                {benefitTxt.map((txt, index) => {
+                  return (
+                    <li key={index} className={styles.benefitListItem}>
+                      <Image src={CheckRed} alt="a red check Mark" />
+                      <span className={styles.benefitListItemTxt}>{txt}</span>
+                    </li>
+                  );
+                })}
+              </div>
+            </section>
+            <Link href="/signup/planform">
+              <a className={styles.nextButton}>Next</a>
+            </Link>
+          </div>
+        </motion.main>
+        <Footer />
+      </div>
+    </>
   );
 }
 
