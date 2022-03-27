@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <title>Netflix Clone</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         {/* <!-- Meta Tag --> */}
         <meta name="title" content="Netlix Clone" />
@@ -12,7 +13,7 @@ export default function Document() {
           content="A Netlix Clone made with NextJs and Firebase, mimic the UI/UX and function of Netflix"
         />
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Chan Alston" />
 
         {/* <!-- Open Graph / Facebook --> */}
