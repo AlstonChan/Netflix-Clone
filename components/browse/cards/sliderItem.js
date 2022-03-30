@@ -54,6 +54,7 @@ export default function SliderItem({
               layout="responsive"
               className={styles.pictureCard}
               alt="Movie thumbnails"
+              unoptimized={true}
             />
           ) : (
             <Image
@@ -63,6 +64,7 @@ export default function SliderItem({
               layout="responsive"
               className={styles.pictureCard}
               alt="Movie thumbnails"
+              unoptimized={true}
             />
           )}
         </div>

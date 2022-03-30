@@ -35,10 +35,11 @@ export default function ProfileAvatar({
               height="320px"
               className={baseStyles.profilePic}
               alt="User profile Picture"
+              unoptimized={true}
             />
             {currentUserId ? (
               <div className={baseStyles.editCover}>
-                <Image src={editPencil} alt="edit icon" />
+                <Image src={editPencil} alt="edit icon" unoptimized={true} />
               </div>
             ) : (
               ""

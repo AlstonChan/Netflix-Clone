@@ -19,6 +19,7 @@ export default function Featured({ url }) {
               alt="The Witcher Series Wallpaper"
               layout="responsive"
               priority
+              unoptimized={true}
             />
           </div>
           <div className={styles.wordGroup}>
@@ -31,6 +32,7 @@ export default function Featured({ url }) {
                 height="250px"
                 alt="The Witcher Series Text"
                 priority
+                unoptimized={true}
               />
               <p className={styles.feaDescription}>
                 Geralt of Rivia, a mutated monster-hunter for hire, journeys
@@ -40,13 +42,13 @@ export default function Featured({ url }) {
               <div className={styles.btnGroup}>
                 <button type="button" className={styles.playBtn}>
                   <div className={styles.btnImage}>
-                    <Image src={playBtn} alt="" />
+                    <Image src={playBtn} alt="" unoptimized={true} />
                   </div>
                   <span className={styles.playBtnTxt}>Play</span>
                 </button>
                 <button type="button" className={styles.moreInfoBtn}>
                   <div className={styles.btnImageInfo}>
-                    <Image src={info} alt="" />
+                    <Image src={info} alt="" unoptimized={true} />
                   </div>
                   <span className={styles.moreInfoBtnTxt}>More Info</span>
                 </button>

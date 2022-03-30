@@ -82,6 +82,7 @@ const UserComponent = () => {
               objectFit="cover"
               className={styles.profilePic}
               alt="user profile picture"
+              unoptimized={true}
             />
           ) : (
             ""
@@ -93,6 +94,7 @@ const UserComponent = () => {
           height="20px"
           className={styles.profilePicIcon}
           alt=""
+          unoptimized={true}
         />
       </div>
       {navUserStyle.visibility == "visible" ? (
@@ -110,6 +112,7 @@ const UserComponent = () => {
                 height="20px"
                 className={styles.dropDownUseruNavListArr}
                 alt=""
+                unoptimized={true}
               />
             </div>
             <UserDropDownList
@@ -183,6 +186,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
               objectFit="cover"
               className={styles.profilePic}
               alt="profile icon"
+              unoptimized={true}
             />
           </div>
           <p
@@ -219,6 +223,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                       objectFit="cover"
                       className={styles.profilePic}
                       alt="profile icon"
+                      unoptimized={true}
                     />
                   ) : (
                     ""
@@ -239,7 +244,11 @@ export function UserDropDownList({ currentUser, switchProfile }) {
           <span key={index}>
             <div className={styles.listItemContainer}>
               <div className={styles.listItemImg}>
-                <Image src={listItem.src} alt="user profile picture" />
+                <Image
+                  src={listItem.src}
+                  alt="user profile picture"
+                  unoptimized={true}
+                />
               </div>
               <span style={{ padding: "4px 0" }}>
                 {listItem.loc === "external" ? (

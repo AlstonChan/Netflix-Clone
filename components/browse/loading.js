@@ -31,6 +31,7 @@ export default function LoadingBrowse() {
               objectFit="cover"
               className={styles.profilePic}
               alt="User profile Picture"
+              unoptimized={true}
             />
           ) : (
             ""

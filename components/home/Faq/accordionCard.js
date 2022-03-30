@@ -36,6 +36,7 @@ export default function AccordianCard({ faq, toggleOne, classNm, data }) {
                 : styles.closeCross
             }
             alt=""
+            unoptimized={true}
           />
         </div>
       </button>
