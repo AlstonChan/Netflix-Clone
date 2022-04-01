@@ -1,18 +1,19 @@
 import styles from "../../../styles/browse/modals.module.css";
 import imageNotFound from "../../../public/images/image-not-found.png";
-import adult from "../../../public/images/icons/misc/adultOnly.png";
 
-import Image from "next/image";
-
-import { useEffect, useState } from "react";
-import { genres } from "../../../lib/movieGenres";
+import { useEffect, useRef, useState } from "react";
+import ImageRender from "../../ImageRender";
+import MovieDetails from "./movieDetails";
+import MovieDetailsOpen from "./movieDetailsOpen";
 
 import IconGroup from "./iconGroup";
 
-export default function BrowseModals({ modalStyle }) {
-  const [modalTranslate, setModalTranslate] = useState({});
+export default function BrowseModals({ modalStyle, openModal, modalToggle }) {
+  const [modalTranslate, setModalTranslate] = useState("");
   const [modalVisibility, setModalVisiblity] = useState();
-  const [modalWidth, setModalWidth] = useState(null);
+  const [modalWidth, setModalWidth] = useState();
+  const delayRef = useRef();
+  const openModalRef = useRef({ firstTime: false });
 
   useEffect(() => {
     setModalWidth(modalStyle.width);
@@ -24,7 +25,9 @@ export default function BrowseModals({ modalStyle }) {
           ? "translate(0, -25%)"
           : modalStyle.position == "rightEdge"
           ? "translate(-28.5%, -25%)"
-          : "translate(-13%, -25%)"
+          : modalStyle.position == "middle"
+          ? "translate(-13%, -25%)"
+          : ""
       );
     }, 150);
   }, [modalStyle]);
@@ -33,8 +36,29 @@ export default function BrowseModals({ modalStyle }) {
     setModalVisiblity("");
   }, []);
 
+  useEffect(() => {
+    handleWindowResize(window);
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+
+  const handleWindowResize = () => {
+    if (openModal.state && !openModalRef.current.firstTime) {
+      setModalWidth(window.innerWidth);
+      openModalRef.current = { firstTime: true };
+    } else if (openModal.state && openModalRef.current.firstTime) {
+      clearTimeout(delayRef.current);
+      delayRef.current = setTimeout(() => {
+        setModalWidth(window.innerWidth);
+      }, 500);
+    } else openModalRef.current = { firstTime: false };
+  };
+
   function toggleModalFunc(e) {
-    if (e.type === "mouseleave") {
+    if (e.type === "mouseleave" && !openModal.state) {
       setTimeout(() => {
         setModalWidth(modalStyle.width);
         setModalTranslate("translate(0)");
@@ -46,42 +70,93 @@ export default function BrowseModals({ modalStyle }) {
     // return;
   }
 
+  function closeOpenModal(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.bubbles = false;
+    e.nativeEvent.stopImmediatePropagation();
+    if (openModal.state && e.currentTarget === e.target) {
+      setModalVisiblity("");
+      modalToggle();
+      openModalRef.current = { firstTime: false };
+    }
+  }
+
   return modalVisibility ? (
     <div
-      className={`${styles.mainModals} ${modalVisibility}`}
-      style={modalStyle.mainClass}
+      className={
+        !openModal.state
+          ? `${styles.mainModals} ${modalVisibility}`
+          : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`
+      }
+      style={
+        !openModal.state
+          ? modalStyle.mainClass
+          : { backgroundColor: "rgba(0, 0, 0, 0.7)", padding: "3rem" }
+      }
+      onClick={(e) => closeOpenModal(e)}
       onMouseEnter={(e) => toggleModalFunc(e)}
       onMouseLeave={(e) => toggleModalFunc(e)}
     >
       <div
         style={{
-          width: modalWidth || "300px",
-          transform: modalTranslate,
+          width: modalWidth,
+          transform: !openModal.state && modalTranslate,
           opacity: 1,
-          maxWidth: "1360px",
+          maxWidth: "1240px",
         }}
         className={styles.modalsContainer}
       >
-        <div className={styles.upperPanel}>
+        <div className={!openModal.state ? "" : styles.upperPanel}>
           <div className={styles.mainImageContainer}>
-            <Image
+            <ImageRender
               src={
-                modalStyle.movieSet?.backdrop_path
-                  ? `http://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
-                  : imageNotFound
+                !openModal.state
+                  ? modalStyle.movieSet?.backdrop_path
+                    ? `https://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
+                    : imageNotFound
+                  : `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
               }
-              loading="eager"
-              width="1364px"
-              height="768px"
+              width="1364"
+              height="768"
               className={styles.backdrop_pathStyle}
               alt="movie thumbnails"
             />
-            <span className={styles.backdrop_placeholder}></span>
+            {openModal.state ? <div className={styles.blend}></div> : ""}
+            {/* <span className={styles.backdrop_placeholder}></span> */}
+            {/* This backdrop placeholder is the main 
+            cause of modal image flashing */}
+            {openModal.state ? (
+              <IconGroup
+                mov={modalStyle.movieSet}
+                modalToggle={modalToggle}
+                openModal={openModal}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
-        <div className={styles.lowerPanel}>
-          <IconGroup mov={modalStyle.movieSet} />
-          {modalStyle.movieSet ? <MovieDetails modalStyle={modalStyle} /> : ""}
+        <div
+          className={
+            !openModal.state ? styles.lowerPanel : styles.lowerPanelOpen
+          }
+        >
+          {openModal.state ? (
+            ""
+          ) : (
+            <IconGroup mov={modalStyle.movieSet} modalToggle={modalToggle} />
+          )}
+
+          {modalStyle.movieSet ? (
+            !openModal.state ? (
+              <MovieDetails modalStyle={modalStyle} />
+            ) : (
+              <MovieDetailsOpen modalStyle={modalStyle} />
+            )
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
@@ -89,63 +164,3 @@ export default function BrowseModals({ modalStyle }) {
     ""
   );
 }
-
-export const MovieDetails = ({ modalStyle }) => {
-  const mov = modalStyle.movieSet;
-  return (
-    <div>
-      <div className={styles.title}>
-        <span className={styles.titleName}>{mov.title || mov.name} </span>
-      </div>
-      <div className={styles.adultMovies}>
-        {mov.adult ? (
-          <div className={styles.isAdultIcon}>
-            <Image src={adult} alt="18+ sign" />{" "}
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-      <div className={styles.releaseDate}>
-        <span>{mov.release_date || mov.first_air_date} </span>
-      </div>
-      <div className={styles.genreDetails}>
-        {mov.genre_ids
-          ? mov.genre_ids.map((ids, index) => {
-              let genreName;
-              genres.forEach((obj) => {
-                if (obj.id == ids) genreName = obj.name;
-              });
-              if (index != 0) {
-                return (
-                  <span className={styles.genre} key={index}>
-                    | {genreName}{" "}
-                  </span>
-                );
-              } else {
-                return (
-                  <span className={styles.genre} key={index}>
-                    {genreName}{" "}
-                  </span>
-                );
-              }
-            })
-          : mov.genres.map((genre, index) => {
-              if (index != 0) {
-                return (
-                  <span className={styles.genre} key={index}>
-                    | {genre.name}{" "}
-                  </span>
-                );
-              } else {
-                return (
-                  <span className={styles.genre} key={index}>
-                    {genre.name}{" "}
-                  </span>
-                );
-              }
-            })}
-      </div>
-    </div>
-  );
-};

@@ -4,6 +4,8 @@ import info from "../../public/images/browse/featured/info.png";
 
 import Image from "next/image";
 
+import ImageRender from "../ImageRender";
+
 export default function Featured({ url }) {
   return (
     <div className={styles.featuredSpace}>
@@ -23,14 +25,13 @@ export default function Featured({ url }) {
           </div>
           <div className={styles.wordGroup}>
             <div className={styles.featuredTxt}>
-              <Image
+              <ImageRender
                 src={`/images/browse/featured/featured-txt${
                   url == "tvs" ? "Tv" : "Mov"
                 }.png`}
-                width="625px"
-                height="250px"
+                width="625"
+                height="250"
                 alt="The Witcher Series Text"
-                priority
               />
               <p className={styles.feaDescription}>
                 Geralt of Rivia, a mutated monster-hunter for hire, journeys

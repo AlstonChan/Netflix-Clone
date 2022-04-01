@@ -9,7 +9,7 @@ import SearchComponent from "./searchComponent";
 import BellComponent from "./bellComponent";
 import UserComponent from "./userComponent";
 
-export function Header({ route, searchRef }) {
+export function Header({ route, searchRef, openModal }) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -101,7 +101,19 @@ export function Header({ route, searchRef }) {
 
   return (
     <>
-      <header className={styles.main}>
+      <header
+        className={styles.main}
+        style={
+          openModal.state
+            ? {
+                position: "fixed",
+                width: "100vw",
+                height: "80px",
+                backgroundColor: "#000",
+              }
+            : {}
+        }
+      >
         <div className={styles.mainContain} style={scrollStyle}>
           <div className={styles.netflixLogoContainer}>
             <Image

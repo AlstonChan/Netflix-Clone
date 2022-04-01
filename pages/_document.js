@@ -4,15 +4,14 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>Netflix Clone</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         {/* <!-- Meta Tag --> */}
-        <meta name="title" content="Netlix Clone" />
+        <meta name="title" content="Netlix Clone" key="title" />
         <meta
           name="description"
           content="A Netlix Clone made with NextJs and Firebase, mimic the UI/UX and function of Netflix"
         />
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Chan Alston" />
 
@@ -27,7 +26,7 @@ export default function Document() {
           property="og:description"
           content="A Netlix Clone made with NextJs and Firebase, mimic the UI/UX and function of Netflix"
         />
-        <meta property="og:image" content="/public/images/netflix cover.jpg" />
+        <meta property="og:image" content="/images/netflix cover.jpg" />
 
         {/* <!-- Twitter --> */}
         <meta property="twitter:card" content="summary_large_image" />
@@ -40,10 +39,7 @@ export default function Document() {
           property="twitter:description"
           content="A Netlix Clone made with NextJs and Firebase, mimic the UI/UX and function of Netflix"
         />
-        <meta
-          property="twitter:image"
-          content="/public/images/netflix cover.jpg"
-        />
+        <meta property="twitter:image" content="/images/netflix cover.jpg" />
       </Head>
       <body>
         <Main />

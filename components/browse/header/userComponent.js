@@ -56,9 +56,9 @@ const UserComponent = () => {
       const encrypted = aes
         .encrypt(user, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
         .toString();
-      const data = window.sessionStorage.setItem("profile", encrypted);
+      window.sessionStorage.setItem("profile", encrypted);
       router.reload();
-      setCurrentUser(data);
+      setCurrentUser(user);
     }
   }
 

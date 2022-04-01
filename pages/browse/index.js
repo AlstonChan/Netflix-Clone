@@ -33,6 +33,11 @@ export const Browse = () => {
   const [firstLoad, setFirstLoad] = useState(true);
   const searchRef = useRef();
   const [delay, setDelay] = useState();
+  const [openModal, setOpenModal] = useState({
+    state: false,
+    top: 0,
+  });
+  const scrollPosition = useRef();
 
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
@@ -53,6 +58,22 @@ export const Browse = () => {
     fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
   );
 
+  function modalToggle() {
+    if (openModal.state) {
+      setOpenModal({ state: false, top: "" });
+      setTimeout(() => {
+        window.scrollTo({
+          top: scrollPosition.current,
+          left: 0,
+          behavior: "auto",
+        });
+      }, 10);
+      return;
+    }
+    scrollPosition.current = window.scrollY;
+    setOpenModal({ state: true, top: window.scrollY });
+  }
+
   useEffect(() => {
     if (searchRef.current?.value) {
       clearTimeout(delay);
@@ -68,7 +89,7 @@ export const Browse = () => {
   // function that collects the data for modals,
   // determine the width and position of modal
   function toggleModal(state, e, movieSet, position) {
-    if (state.state === "mouseenter") {
+    if (state.state === "mouseenter" || openModal.state) {
       const { width, top, bottom, left, right } =
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
@@ -121,10 +142,26 @@ export const Browse = () => {
         <Head>
           <title>Netflix Clone - Home</title>
         </Head>
-        <div className={styles.container}>
-          <Header route={"hom"} searchRef={searchRef} />
+        <Modals
+          modalStyle={modal}
+          openModal={openModal}
+          modalToggle={modalToggle}
+        />
+        <div
+          className={styles.container}
+          style={
+            openModal.state
+              ? {
+                  position: "fixed",
+                  overflow: "hidden",
+                  width: "100%",
+                  top: `-${openModal.top}px`,
+                }
+              : { position: "static", top: `-${openModal.top}px` }
+          }
+        >
+          <Header route={"hom"} searchRef={searchRef} openModal={openModal} />
           <main className={styles.main}>
-            <Modals modalStyle={modal} />
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
                 <span className={styles.featuredMain}>

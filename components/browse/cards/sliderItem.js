@@ -3,6 +3,7 @@ import styles from "../../../styles/browse/cards.module.css";
 import Image from "next/image";
 
 import { useState } from "react";
+import ImageRender from "../../ImageRender";
 
 export default function SliderItem({
   width,
@@ -47,20 +48,18 @@ export default function SliderItem({
       >
         <div className={`${styles.imgContainer}`}>
           {movieSet.backdrop_path ? (
-            <Image
-              src={`http://image.tmdb.org/t/p/w500${movieSet.backdrop_path}`}
-              width="341px"
-              height="192px"
-              layout="responsive"
+            <ImageRender
+              src={`https://image.tmdb.org/t/p/w500${movieSet.backdrop_path}`}
+              width="341"
+              height="192"
               className={styles.pictureCard}
               alt="Movie thumbnails"
             />
           ) : (
-            <Image
+            <ImageRender
               src={"/images/image-not-found.png"}
-              width="341px"
-              height="192px"
-              layout="responsive"
+              width="341"
+              height="192"
               className={styles.pictureCard}
               alt="Movie thumbnails"
             />

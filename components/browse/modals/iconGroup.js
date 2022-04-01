@@ -1,10 +1,12 @@
 import styles from "../../../styles/browse/modals.module.css";
+import browseStyles from "../../../styles/browse/browse.module.css";
 import thumbsDown from "../../../public/images/icons/misc/thumbs-down.svg";
 import thumbsUp from "../../../public/images/icons/misc/thumbs-up.svg";
 import plus from "../../../public/images/icons/misc/plus.svg";
 import cancel from "../../../public/images/icons/misc/cancel.svg";
 import arrow from "../../../public/images/icons/misc/nav_arrow.svg";
 import play from "../../../public/images/icons/misc/play-btn.svg";
+import playBtn from "../../../public/images/browse/featured/play-button.png";
 
 import Image from "next/image";
 
@@ -12,7 +14,7 @@ import { useContext } from "react";
 import useFetchMyMovie from "../../../lib/useFetchMyMovie";
 import { UserContext } from "../../../pages/_app";
 
-export default function IconGroup({ mov }) {
+export default function IconGroup({ mov, modalToggle, openModal }) {
   const { user, loading } = useContext(UserContext);
   const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
     mov.id,
@@ -29,11 +31,29 @@ export default function IconGroup({ mov }) {
   console.log(currentMovieData, latestData);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={
+        !openModal?.state
+          ? styles.container
+          : `${styles.container} ${styles.containerOpen}`
+      }
+    >
       <div className={styles.iconGroup}>
-        <div className={styles.circleContainerPlay}>
-          <Image src={play} alt="play the movie" />
-        </div>
+        {!openModal?.state ? (
+          <div className={styles.circleContainerPlay}>
+            <Image src={play} alt="play the movie" />
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={`${browseStyles.playBtn} ${styles.playBtn}`}
+          >
+            <div className={browseStyles.btnImage}>
+              <Image src={playBtn} alt="" />
+            </div>
+            <span className={browseStyles.playBtnTxt}>Play</span>
+          </button>
+        )}
         {currentMovieData.addList ? (
           <div
             onClick={(e) => actionToggle(e)}
@@ -77,7 +97,7 @@ export default function IconGroup({ mov }) {
         </div>
       </div>
       <div className={styles.circleContainerDrop}>
-        <div style={{ transform: "rotate(-90deg)" }}>
+        <div style={{ transform: "rotate(-90deg)" }} onClick={modalToggle}>
           <Image src={arrow} alt="show more" />
         </div>
       </div>
