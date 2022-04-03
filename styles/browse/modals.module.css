@@ -10,7 +10,6 @@ component/browse/modals/modal.js;
   display: none;
   cursor: pointer;
   z-index: 120;
-  overflow: hidden;
 }
 
 .modalsContainer {
@@ -18,7 +17,6 @@ component/browse/modals/modal.js;
     opacity 170ms ease-in-out;
   aspect-ratio: 1364/768;
   max-width: 1240px;
-  height: fit-content;
 }
 
 /* modalVisibility */
@@ -236,6 +234,9 @@ component/browse/modals/modal.js;
 }
 
 @media screen and (max-width: 650px) {
+  .bigModal {
+    overflow: hidden;
+  }
   .movieDetailsOpen {
     flex-direction: column;
   }
