@@ -26,7 +26,7 @@ export default function MovieDetails({ modalStyle }) {
       )}
 
       {/* Movie/Tv shows release date */}
-      <div className={styles.releaseDate}>
+      <div className={styles.headings}>
         <span>{mov.release_date || mov.first_air_date} </span>
       </div>
 

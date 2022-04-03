@@ -6,16 +6,20 @@ component/browse/modals/modal.js;
 
 .mainModals {
   position: absolute;
-  z-index: 10;
+  z-index: 100;
   max-width: 1240px;
   display: none;
   cursor: pointer;
 }
 
 .modalsContainer {
-  transition: width 150ms ease-in-out, transform 150ms ease-in-out;
+  transition: width 170ms ease-in-out, transform 170ms ease-in-out,
+    opacity 170ms ease-in-out;
+  aspect-ratio: 1364/768;
+  max-width: 1240px;
 }
 
+/* modalVisibility */
 .modalShow {
   display: block;
 }
@@ -27,7 +31,6 @@ component/browse/modals/modal.js;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   display: flex;
@@ -72,13 +75,6 @@ component/browse/modals/modal.js;
 .container {
   display: flex;
   overflow: hidden;
-}
-
-.containerOpen {
-  padding: 0 3rem 5rem 3rem;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .iconGroup {
@@ -134,13 +130,9 @@ component/browse/modals/modal.js;
   border: 2px solid rgb(255, 255, 255, 1);
 }
 
-.headings,
-.releaseDate {
+.headings {
   color: #fff;
   margin: 2px 0;
-}
-
-.headings {
   font-size: 1.15rem;
 }
 
@@ -150,10 +142,6 @@ component/browse/modals/modal.js;
 .titleName {
   color: #fff;
   font-size: 1.2rem;
-}
-.titleNameOpen {
-  font-size: 1.9rem;
-  color: #fff;
 }
 
 .isAdultIcon {
@@ -165,6 +153,18 @@ component/browse/modals/modal.js;
   margin: 2px 0 6px 0;
 }
 .genre {
+  color: #fff;
+}
+
+/* For Open Modals */
+.containerOpen {
+  padding: 0 3rem 5rem 3rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.titleNameOpen {
+  font-size: 1.9rem;
   color: #fff;
 }
 

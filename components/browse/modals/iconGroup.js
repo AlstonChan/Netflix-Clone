@@ -33,13 +33,13 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
   return (
     <div
       className={
-        !openModal?.state
+        !openModal
           ? styles.container
           : `${styles.container} ${styles.containerOpen}`
       }
     >
       <div className={styles.iconGroup}>
-        {!openModal?.state ? (
+        {!openModal ? (
           <div className={styles.circleContainerPlay}>
             <Image src={play} alt="play the movie" />
           </div>
@@ -97,7 +97,10 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
         </div>
       </div>
       <div className={styles.circleContainerDrop}>
-        <div style={{ transform: "rotate(-90deg)" }} onClick={modalToggle}>
+        <div
+          style={{ transform: "rotate(-90deg)" }}
+          onClick={() => modalToggle("open")}
+        >
           <Image src={arrow} alt="show more" />
         </div>
       </div>

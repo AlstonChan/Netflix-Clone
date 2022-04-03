@@ -28,17 +28,24 @@ import Main from "../../components/browse/main";
 import Loader from "../../components/Loader";
 
 export const Browse = () => {
-  const [modal, setModal] = useState({});
-  const [profile, setProfile] = useState(null);
-  const [firstLoad, setFirstLoad] = useState(true);
-  const searchRef = useRef();
-  const [delay, setDelay] = useState();
-  const [openModal, setOpenModal] = useState({
-    state: false,
-    top: 0,
-  });
-  const scrollPosition = useRef();
+  const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
+  const [profile, setProfile] = useState(null); // set the current active profile (user)
 
+  // To assist profile state hook, show profile loading when loading
+  // for the first time. SO when changing to page "TV Shows or Trending",
+  // the loading component will be hid away
+  const [firstLoad, setFirstLoad] = useState(true);
+  const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
+  const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
+  const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
+  const scrollPosition = useRef(); // To determine the current scroll position of user, used by modal.js
+  const [closeBigModal, setCloseBigModal] = useState(false);
+  const searchMutation = useMutation((query) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query)
+  ); // To query search data using searchRef hook input
+
+  // To get sessionstorage data - "profile" as soon as the possible, and
+  // decrypt the data to determine the current user for profile state hook
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
@@ -54,42 +61,35 @@ export const Browse = () => {
     }
   }, [profile]);
 
-  const searchMutation = useMutation((searc) =>
-    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
-  );
-
-  function modalToggle() {
-    if (openModal.state) {
-      setOpenModal({ state: false, top: "" });
-      setTimeout(() => {
-        window.scrollTo({
-          top: scrollPosition.current,
-          left: 0,
-          behavior: "auto",
-        });
-      }, 10);
-      return;
-    }
-    scrollPosition.current = window.scrollY;
-    setOpenModal({ state: true, top: window.scrollY });
-  }
-
+  // To query search data using searchmutation hook with delay
   useEffect(() => {
     if (searchRef.current?.value) {
-      clearTimeout(delay);
-      setDelay(
-        setTimeout(() => {
-          searchMutation.mutate(searchRef.current.value);
-        }, 400)
-      );
+      clearTimeout(delayRef.current);
+      delayRef.current = setTimeout(() => {
+        searchMutation.mutate(searchRef.current.value);
+      }, 400);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
 
-  // function that collects the data for modals,
+  // To toggle small modals when sliderItem is onmouseenter or isonmouseleave
+  function modalToggle(state) {
+    if (openModal && state === "close") {
+      setOpenModal(false);
+      return window.scrollTo({
+        top: scrollPosition.current,
+        left: 0,
+        behavior: "auto",
+      });
+    }
+    scrollPosition.current = window.scrollY;
+    setOpenModal(true);
+  }
+
+  // function that collects the data for small modals,
   // determine the width and position of modal
   function toggleModal(state, e, movieSet, position) {
-    if (state.state === "mouseenter" || openModal.state) {
+    if (state.state === "mouseenter" || openModal) {
       const { width, top, bottom, left, right } =
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
@@ -103,6 +103,7 @@ export const Browse = () => {
     }
   }
 
+  // To query data for Cards, page main data
   const { data, isLoading } = useQuery(
     ["moviesDB", "hom"],
     () => fetchMoviesDB("hom", getAbsoluteURL("/api/fetchmovie")),
@@ -115,6 +116,16 @@ export const Browse = () => {
     }
   );
 
+  useEffect(() => {
+    if (!openModal && typeof window === "object") {
+      window.scrollTo({
+        top: scrollPosition.current,
+        left: 0,
+        behavior: "auto",
+      });
+    }
+  }, [openModal]);
+
   // make sure loading page only show up when moving
   // from profile page to movies page on initial load
   useEffect(() => {
@@ -123,6 +134,7 @@ export const Browse = () => {
     }
   }, [isLoading, profile, data]);
 
+  // set the current profile (user)
   function switchPage(name) {
     const encrypted = aes
       .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
@@ -133,6 +145,13 @@ export const Browse = () => {
   if (firstLoad && profile && (!data || isLoading)) {
     return <Loading />;
   }
+
+  const browseStyle = {
+    position: "fixed",
+    overflow: "hidden",
+    width: "100%",
+    top: `-${scrollPosition.current}px`,
+  };
 
   if (!profile) {
     return <Profile switchPage={switchPage} />;
@@ -146,21 +165,31 @@ export const Browse = () => {
           modalStyle={modal}
           openModal={openModal}
           modalToggle={modalToggle}
+          close={closeBigModal}
+          setClose={setCloseBigModal}
         />
+        {openModal ? (
+          <>
+            <div
+              className={styles.darkBgModal}
+              onClick={() => setCloseBigModal(true)}
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.001)", zIndex: "120" }}
+            ></div>
+            <div className={styles.darkBgModal}></div>
+          </>
+        ) : (
+          ""
+        )}
         <div
           className={styles.container}
-          style={
-            openModal.state
-              ? {
-                  position: "fixed",
-                  overflow: "hidden",
-                  width: "100%",
-                  top: `-${openModal.top}px`,
-                }
-              : { position: "static", top: `-${openModal.top}px` }
-          }
+          style={openModal ? browseStyle : { position: "static" }}
         >
-          <Header route={"hom"} searchRef={searchRef} openModal={openModal} />
+          <Header
+            route={"hom"}
+            searchRef={searchRef}
+            openModal={openModal}
+            modalToggle={modalToggle}
+          />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>

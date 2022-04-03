@@ -1,4 +1,5 @@
 import styles from "../../../styles/browse/header.module.css";
+import BrowseStyles from "../../../styles/browse/browse.module.css";
 
 import Image from "next/image";
 
@@ -78,13 +79,12 @@ export function Header({ route, searchRef, openModal }) {
   let ticking = false;
 
   function checkScroll(scrollPos) {
+    const backgroundStyle = "rgba(20, 20, 20, 100)";
+    const backgroundStyleNone = "rgba(20, 20, 20, 0)";
     if (scrollPos == 0) {
-      setScrollStyle({ background: "rgba(20, 20, 20, 0)" });
-    } else if (
-      scrollPos != 0 &&
-      scrollStyle.background != "rgba(20, 20, 20, 100)"
-    ) {
-      setScrollStyle({ background: "rgba(20, 20, 20, 100)" });
+      setScrollStyle({ background: backgroundStyleNone });
+    } else if (scrollPos != 0 && scrollStyle.background != backgroundStyle) {
+      setScrollStyle({ background: backgroundStyle });
     }
   }
 
@@ -99,21 +99,16 @@ export function Header({ route, searchRef, openModal }) {
     }
   }
 
+  const headerStyle = {
+    position: "fixed",
+    width: "100vw",
+    height: "80px",
+    backgroundColor: "#000",
+  };
+
   return (
     <>
-      <header
-        className={styles.main}
-        style={
-          openModal.state
-            ? {
-                position: "fixed",
-                width: "100vw",
-                height: "80px",
-                backgroundColor: "#000",
-              }
-            : {}
-        }
-      >
+      <header className={styles.main} style={openModal ? headerStyle : {}}>
         <div className={styles.mainContain} style={scrollStyle}>
           <div className={styles.netflixLogoContainer}>
             <Image
