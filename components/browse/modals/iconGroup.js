@@ -30,14 +30,12 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
 
   console.log(currentMovieData, latestData);
 
+  const containerClass = !openModal
+    ? styles.container
+    : `${styles.container} ${styles.containerOpen}`;
+
   return (
-    <div
-      className={
-        !openModal
-          ? styles.container
-          : `${styles.container} ${styles.containerOpen}`
-      }
-    >
+    <div className={containerClass}>
       <div className={styles.iconGroup}>
         {!openModal ? (
           <div className={styles.circleContainerPlay}>
@@ -96,14 +94,18 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
           <Image src={thumbsDown} alt="likes the movies" />
         </div>
       </div>
-      <div className={styles.circleContainerDrop}>
-        <div
-          style={{ transform: "rotate(-90deg)" }}
-          onClick={() => modalToggle("open")}
-        >
-          <Image src={arrow} alt="show more" />
+      {!openModal ? (
+        <div className={styles.circleContainerDrop}>
+          <div
+            style={{ transform: "rotate(-90deg)" }}
+            onClick={() => modalToggle("open")}
+          >
+            <Image src={arrow} alt="show more" />
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

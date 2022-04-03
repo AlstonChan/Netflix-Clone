@@ -33,7 +33,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         )}
 
         {/* Movie/Tv shows release date */}
-        <div className={styles.headings}>
+        <div className={styles.headingsOpen}>
           <span>
             <span className={styles.subHead}>Release Date:</span>{" "}
             {mov.release_date || mov.first_air_date}{" "}
@@ -41,7 +41,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         </div>
 
         {/* Movie/Tv shows genres */}
-        <div className={styles.headings}>
+        <div className={styles.headingsOpen}>
           <span className={styles.subHead}>Genres:</span>{" "}
           {mov.genre_ids
             ? mov.genre_ids.map((ids, index) => {
@@ -81,7 +81,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         </div>
 
         {/* Movie/Tv shows Original Language */}
-        <div className={styles.headings}>
+        <div className={styles.headingsOpen}>
           <span>
             <span className={styles.subHead}>Original Language:</span>{" "}
             {mov.original_language.toUpperCase()}{" "}
@@ -89,7 +89,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         </div>
 
         {/* Movie/Tv shows Average user rating Score */}
-        <div className={styles.headings}>
+        <div className={styles.headingsOpen}>
           <span>
             <span className={styles.subHead}>Average User Score:</span>{" "}
             <span
@@ -105,7 +105,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         </div>
 
         {/* Movie/Tv shows Total user vote */}
-        <div className={styles.headings}>
+        <div className={styles.headingsOpen}>
           <span>
             <span className={styles.subHead}>Total User Vote:</span>{" "}
             <span style={mov.vote_count <= 2000 ? { color: "#de8519" } : {}}>

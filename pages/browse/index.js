@@ -72,18 +72,19 @@ export const Browse = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
 
-  // To toggle small modals when sliderItem is onmouseenter or isonmouseleave
+  // To toggle BIg modals
   function modalToggle(state) {
     if (openModal && state === "close") {
       setOpenModal(false);
-      return window.scrollTo({
+      window.scrollTo({
         top: scrollPosition.current,
         left: 0,
         behavior: "auto",
       });
+    } else {
+      scrollPosition.current = window.scrollY;
+      setOpenModal(true);
     }
-    scrollPosition.current = window.scrollY;
-    setOpenModal(true);
   }
 
   // function that collects the data for small modals,
@@ -116,15 +117,15 @@ export const Browse = () => {
     }
   );
 
-  useEffect(() => {
-    if (!openModal && typeof window === "object") {
-      window.scrollTo({
-        top: scrollPosition.current,
-        left: 0,
-        behavior: "auto",
-      });
-    }
-  }, [openModal]);
+  // useEffect(() => {
+  //   if (!openModal && typeof window === "object") {
+  //     window.scrollTo({
+  //       top: scrollPosition.current,
+  //       left: 0,
+  //       behavior: "auto",
+  //     });
+  //   }
+  // }, [openModal]);
 
   // make sure loading page only show up when moving
   // from profile page to movies page on initial load
@@ -151,6 +152,7 @@ export const Browse = () => {
     overflow: "hidden",
     width: "100%",
     top: `-${scrollPosition.current}px`,
+    paddingRight: "20px",
   };
 
   if (!profile) {
@@ -173,9 +175,7 @@ export const Browse = () => {
             <div
               className={styles.darkBgModal}
               onClick={() => setCloseBigModal(true)}
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.001)", zIndex: "120" }}
             ></div>
-            <div className={styles.darkBgModal}></div>
           </>
         ) : (
           ""

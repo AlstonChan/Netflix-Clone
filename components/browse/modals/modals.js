@@ -57,10 +57,15 @@ export default function Modals({
 
   useMemo(() => {
     if (close) {
-      setClose(false);
-      setModalVisiblity("");
-      modalToggle("close");
-      openModalRef.current = { firstTime: false };
+      setModalVisiblity("closing");
+      setTimeout(() => {
+        setClose(false);
+        modalToggle("close");
+        openModalRef.current = { firstTime: false };
+        setTimeout(() => {
+          setModalVisiblity("");
+        }, 190);
+      }, 100);
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [close]);
 
@@ -84,11 +89,22 @@ export default function Modals({
           setModalTranslate("translate(0)");
           setTimeout(() => {
             setModalVisiblity("");
-          }, 190);
-        }, 100);
+          }, 300);
+        }, 200);
       }
     }
     // return;
+  }
+
+  function localCloseModal(e) {
+    console.log(e.currentTarget);
+    console.log(e.target);
+    e.stopPropagation();
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    if (openModal && e.currentTarget == e.target) {
+      setClose(true);
+    }
   }
 
   const mainModalClass = !openModal
@@ -96,10 +112,16 @@ export default function Modals({
     : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
 
   const modalContainerStyles = {
+    // position: !openModal && "relative",
     width: modalWidth,
     transform: !openModal && modalTranslate,
-    opacity: 1,
-    opacity: modalTranslate === "translate(0)" ? 0 : 1,
+    opacity:
+      modalVisibility === "closing"
+        ? 0
+        : modalTranslate === "translate(0)"
+        ? 0
+        : 1,
+    transition: modalVisibility === "closing" ? "opacity 500ms ease-out" : "",
   };
 
   const modalImage = !openModal
@@ -114,6 +136,7 @@ export default function Modals({
       style={!openModal ? modalStyle.mainClass : { padding: `3rem` }}
       onMouseEnter={(e) => toggleModalFunc(e)}
       onMouseLeave={(e) => toggleModalFunc(e)}
+      onClick={(e) => localCloseModal(e)}
     >
       <div style={modalContainerStyles} className={styles.modalsContainer}>
         <div className={!openModal ? "" : styles.upperPanel}>
