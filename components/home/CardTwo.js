@@ -19,6 +19,7 @@ export default function CardTwo() {
                   fixed="true"
                   alt="a small netflix film poster"
                   src={boxshotImg}
+                  unoptimized={true}
                 />
               </div>
               <div className={styles.smallCardTextGrp}>

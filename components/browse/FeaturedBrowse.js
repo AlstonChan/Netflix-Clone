@@ -21,6 +21,7 @@ export default function FeaturedBrowse({ url }) {
               alt="The Witcher Series Wallpaper"
               layout="responsive"
               priority
+              unoptimized={true}
             />
           </div>
           <div className={styles.wordGroup}>
@@ -41,13 +42,13 @@ export default function FeaturedBrowse({ url }) {
               <div className={styles.btnGroup}>
                 <button type="button" className={styles.playBtn}>
                   <div className={styles.btnImage}>
-                    <Image src={playBtn} alt="" />
+                    <Image src={playBtn} alt="" unoptimized={true} />
                   </div>
                   <span className={styles.playBtnTxt}>Play</span>
                 </button>
                 <button type="button" className={styles.moreInfoBtn}>
                   <div className={styles.btnImageInfo}>
-                    <Image src={info} alt="" />
+                    <Image src={info} alt="" unoptimized={true} />
                   </div>
                   <span className={styles.moreInfoBtnTxt}>More Info</span>
                 </button>

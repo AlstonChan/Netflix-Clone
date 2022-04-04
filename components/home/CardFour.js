@@ -9,7 +9,11 @@ export default function CardFour() {
     <div className={baseStyles.container}>
       <div className={styles.containerCard}>
         <div className={styles.imgPresentContainer}>
-          <Image src={netflixKid} alt="netflix kid display image" />
+          <Image
+            src={netflixKid}
+            alt="netflix kid display image"
+            unoptimized={true}
+          />
         </div>
         <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>
           <div className={styles.wordGroupContain}>

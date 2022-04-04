@@ -30,6 +30,7 @@ export default function CardOne() {
                 src={tvImg}
                 alt="a tv displaying netflix user interface"
                 className={styles.tvImg}
+                unoptimized={true}
               />
             </div>
           </div>
