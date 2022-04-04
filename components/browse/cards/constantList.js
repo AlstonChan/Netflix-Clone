@@ -1,10 +1,9 @@
 import styles from "../../../styles/browse/cards.module.css";
 
-import Image from "next/image";
-
 import { useState, useEffect } from "react";
+import ImageRender from "../../ImageRender";
 
-import PlaceholderCard from "./placeholderCard";
+import PlaceholderCard from "./PlaceholderCard";
 
 export default function ConstantList({ modal, movieList }) {
   const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
@@ -79,20 +78,18 @@ export default function ConstantList({ modal, movieList }) {
           >
             <div className={`${styles.imgContainer}`}>
               {dataArr[0].data.backdrop_path ? (
-                <Image
+                <ImageRender
                   src={`http://image.tmdb.org/t/p/w500${dataArr[0].data.backdrop_path}`}
-                  width="341px"
-                  height="192px"
-                  layout="responsive"
+                  width="341"
+                  height="192"
                   className={styles.pictureCard}
                   alt="Movie thumbnails"
                 />
               ) : (
-                <Image
-                  src={"/images/image-not-found.png"}
-                  width="341px"
-                  height="192px"
-                  layout="responsive"
+                <ImageRender
+                  src="/images/image-not-found.png"
+                  width="341"
+                  height="192"
                   className={styles.pictureCard}
                   alt="Movie thumbnails"
                 />

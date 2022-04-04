@@ -5,8 +5,8 @@ import router from "next/router";
 
 import { useEffect } from "react";
 
-import Header from "../components/header";
-import Footer from "../components/footer/footerStyle2";
+import Header from "../components/Header";
+import Footer from "../components/footer/FooterStyle2";
 
 export default function LogOut() {
   useEffect(() => {

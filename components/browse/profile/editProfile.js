@@ -5,6 +5,7 @@ import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Image from "next/image";
 
 import { useContext, useEffect, useRef, useState } from "react";
+import ImageRender from "../../ImageRender";
 import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
 import { UserContext } from "../../../pages/_app";
 
@@ -78,7 +79,7 @@ export default function EditProfile({ currentUserId, back }) {
       <hr className={baseStyles.borderLine} />
       <div className={styles.container}>
         <div className={baseStyles.avatarContainer}>
-          <Image
+          <ImageRender
             src={
               uploadedProfilePic
                 ? uploadedProfilePic.src
@@ -86,19 +87,15 @@ export default function EditProfile({ currentUserId, back }) {
                 ? userData[currentUserId].pic
                 : `/images/profile pic/${userData[currentUserId].pic}.png`
             }
-            width="320px"
-            height="320px"
+            width="320"
+            height="320"
             objectFit="cover"
             className={
               showWarnPic
                 ? `${baseStyles.profilePic} ${styles.profilePicWarn}`
                 : baseStyles.profilePic
             }
-            alt={
-              uploadedProfilePic
-                ? uploadedProfilePic.alt
-                : "User profile Picture"
-            }
+            alt={uploadedProfilePic ? uploadedProfilePic.alt : "User profile"}
           />
           <form className={styles.editContainer}>
             <label htmlFor="profileAvatar" className={styles.editPosition}>
@@ -111,7 +108,7 @@ export default function EditProfile({ currentUserId, back }) {
                 onChange={(e) => uploadFile(e)}
                 className={styles.inputFile}
               />
-              <Image src={editPencil} alt="edit button" />
+              <Image src={editPencil} alt="edit button" unoptimized />
             </label>
           </form>
         </div>

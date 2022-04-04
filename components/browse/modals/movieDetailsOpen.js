@@ -3,8 +3,9 @@ import adult from "../../../public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
 
-import ImageRender from "../../ImageRender";
 import { genres } from "../../../lib/movieGenres";
+
+import ImageRender from "../../ImageRender";
 
 export default function MovieDetailsOpen({ modalStyle }) {
   const mov = modalStyle.movieSet;
@@ -25,7 +26,7 @@ export default function MovieDetailsOpen({ modalStyle }) {
         {mov.adult ? (
           <div className={styles.adultMovies}>
             <div className={styles.isAdultIcon}>
-              <Image src={adult} alt="18+ sign" />{" "}
+              <Image src={adult} alt="18+ sign" unoptimized />{" "}
             </div>
           </div>
         ) : (

@@ -7,7 +7,7 @@ import movieDB from "../../public/images/movieDB.svg";
 
 import Image from "next/image";
 
-export default function Footer1() {
+export default function FooterBrwose() {
   const footerContArr = [
     "Audio and Subtitles",
     "Audio Description",
@@ -29,24 +29,24 @@ export default function Footer1() {
         <div className={styles.socialMediaContainer}>
           <div className={styles.socialMedia}>
             <a href="">
-              <Image src={facebook} alt="facebook icon" />
+              <Image src={facebook} alt="facebook icon" unoptimized />
             </a>
           </div>
           <div className={styles.socialMedia}>
             <a href="">
-              <Image src={instagram} alt="instagram icon" />
-            </a>
-          </div>
-          <div className={styles.socialMedia}>
-            {" "}
-            <a href="">
-              <Image src={twitter} alt="twitter icon" />
+              <Image src={instagram} alt="instagram icon" unoptimized />
             </a>
           </div>
           <div className={styles.socialMedia}>
             {" "}
             <a href="">
-              <Image src={youtube} alt="youtube icon" />
+              <Image src={twitter} alt="twitter icon" unoptimized />
+            </a>
+          </div>
+          <div className={styles.socialMedia}>
+            {" "}
+            <a href="">
+              <Image src={youtube} alt="youtube icon" unoptimized />
             </a>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Footer1() {
         </div>
         <div>
           <h3 className={styles.attribution}>Special Thanks to:</h3>
-          <Image src={movieDB} alt="movieDB logo" />
+          <Image src={movieDB} alt="movieDB logo" unoptimized />
           <p className={styles.attribution}>
             This product uses the TMDB API but is not endorsed or certified by
             TMDB.

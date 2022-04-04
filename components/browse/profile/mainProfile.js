@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../pages/_app";
 
-import ProfileAvatar from "./profileAvatar";
+import ProfileAvatar from "./ProfileAvatar";
 
 export default function MainProfile({
   title,
@@ -77,7 +77,8 @@ export default function MainProfile({
               <Image
                 src={ProfileAdd}
                 className={`${baseStyles.profilePic}`}
-                alt="User profile Picture"
+                alt="User profile"
+                unoptimized
               />
             </div>
             <span className={baseStyles.nameContain}>

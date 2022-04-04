@@ -5,6 +5,7 @@ import Spinner from "../../public/images/browse/spinner.png";
 import Image from "next/image";
 
 import { useContext } from "react";
+import ImageRender from "../ImageRender";
 import { UserContext } from "../../pages/_app";
 
 export default function LoadingBrowse() {
@@ -20,23 +21,23 @@ export default function LoadingBrowse() {
       <main className={styles.mainLoading}>
         <div className={styles.profilePicCenter}>
           {userData ? (
-            <Image
+            <ImageRender
               src={
                 userData["user-main"].pic.length > 3
                   ? userData["user-main"].pic
                   : `/images/profile pic/${userData["user-main"].pic}.png`
               }
-              width="320px"
-              height="320px"
+              width="320"
+              height="320"
               objectFit="cover"
               className={styles.profilePic}
-              alt="User profile Picture"
+              alt="User profile"
             />
           ) : (
             ""
           )}
           <div className={styles.spinnerContain}>
-            <Image src={Spinner} alt="loading spinner" />
+            <Image src={Spinner} alt="loading spinner" unoptimized />
           </div>
         </div>
       </main>

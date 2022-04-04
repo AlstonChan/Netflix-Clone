@@ -5,7 +5,7 @@ import router from "next/router";
 
 import { useState, useContext, useEffect } from "react";
 import { signOut } from "firebase/auth";
-import useIsomorphicLayoutEffect from "../lib/isomorphic-layout";
+import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayout";
 import { UserContext } from "../pages/_app";
 import { auth } from "../lib/firebase";
 

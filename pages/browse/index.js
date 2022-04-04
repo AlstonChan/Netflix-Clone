@@ -13,18 +13,18 @@ import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
+import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
 
-import Loading from "../../components/browse/loading";
-import Header from "../../components/browse/header/header.js";
-import Profile from "../../components/browse/profile/profile.js";
-import Cards from "../../components/browse/cards/cards";
-import ConstantList from "../../components/browse/cards/constantList";
-import Featured from "../../components/browse/featured";
-import Footer from "../../components/footer/footerBrowse";
-import PlaceholderCard from "../../components/browse/cards/placeholderCard";
-import Modals from "../../components/browse/modals/modals";
-import Main from "../../components/browse/main";
+import Loading from "../../components/browse/Loading";
+import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
+import Profile from "../../components/browse/profile/Profile";
+import Cards from "../../components/browse/cards/Cards";
+import ConstantList from "../../components/browse/cards/ConstantList";
+import FeaturedBrowse from "../../components/browse/FeaturedBrowse";
+import FooterBrowse from "../../components/footer/FooterBrowse";
+import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
+import Modals from "../../components/browse/modals/Modals";
+import Main from "../../components/browse/Main";
 import Loader from "../../components/Loader";
 
 export const Browse = () => {
@@ -72,7 +72,7 @@ export const Browse = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
 
-  // To toggle BIg modals
+  // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
       setOpenModal(false);
@@ -116,16 +116,6 @@ export const Browse = () => {
       staleTime: 1000 * 60 * 15,
     }
   );
-
-  // useEffect(() => {
-  //   if (!openModal && typeof window === "object") {
-  //     window.scrollTo({
-  //       top: scrollPosition.current,
-  //       left: 0,
-  //       behavior: "auto",
-  //     });
-  //   }
-  // }, [openModal]);
 
   // make sure loading page only show up when moving
   // from profile page to movies page on initial load
@@ -184,11 +174,10 @@ export const Browse = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "static" }}
         >
-          <Header
+          <HeaderBrowse
             route={"hom"}
             searchRef={searchRef}
             openModal={openModal}
-            modalToggle={modalToggle}
           />
           <main className={styles.main}>
             {searchRef.current?.value ? (
@@ -211,7 +200,7 @@ export const Browse = () => {
             ) : (
               <Main data={data}>
                 <span className={styles.featuredMain}>
-                  <Featured url={"hom"} />
+                  <FeaturedBrowse url={"hom"} />
                 </span>
                 {data ? (
                   data.map((movie, index) => {
@@ -233,7 +222,7 @@ export const Browse = () => {
               </Main>
             )}
           </main>
-          <Footer />
+          <FooterBrowse />
         </div>
       </>
     );

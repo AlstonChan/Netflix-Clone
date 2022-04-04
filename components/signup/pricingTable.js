@@ -47,7 +47,7 @@ export default function PricingTable() {
                 <p className={styles.boxTxt}>{txt} </p>
                 {selectedCol.plan == txt ? (
                   <div className={styles.boxArrContainer}>
-                    <Image src={ArrRed} alt="red check mark" />
+                    <Image src={ArrRed} alt="red check mark" unoptimized />
                   </div>
                 ) : (
                   ""
@@ -120,9 +120,9 @@ export default function PricingTable() {
               return (
                 <td key={index} className={styles.rowDataStyle}>
                   {selectedCol.plannum == index ? (
-                    <Image src={CheckRed} alt="red check mark" />
+                    <Image src={CheckRed} alt="red check mark" unoptimized />
                   ) : (
-                    <Image src={CheckGray} alt="gray check mark" />
+                    <Image src={CheckGray} alt="gray check mark" unoptimized />
                   )}
                 </td>
               );

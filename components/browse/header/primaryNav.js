@@ -48,6 +48,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
           height="20px"
           className={styles.navItemMenuImg}
           alt=""
+          unoptimized
         />
       </div>
       {navMenuStyle.mode === 1 ? (
@@ -65,6 +66,7 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
                 height="20px"
                 className={styles.dropDownMenuNavListArr}
                 alt=""
+                unoptimized
               />
             </div>
             {text.map((txt, index) => {

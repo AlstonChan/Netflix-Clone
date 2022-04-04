@@ -18,7 +18,7 @@ export default function MovieDetails({ modalStyle }) {
       {mov.adult ? (
         <div className={styles.adultMovies}>
           <div className={styles.isAdultIcon}>
-            <Image src={adult} alt="18+ sign" />{" "}
+            <Image src={adult} alt="18+ sign" unoptimized />{" "}
           </div>
         </div>
       ) : (

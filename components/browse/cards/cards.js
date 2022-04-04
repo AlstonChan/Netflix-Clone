@@ -2,8 +2,8 @@ import styles from "../../../styles/browse/cards.module.css";
 
 import { useState, useEffect } from "react";
 
-import SliderHandler from "./sliderHandler";
-import SliderItem from "./sliderItem";
+import SliderHandler from "./SliderHandler";
+import SliderItem from "./SliderItem";
 
 // Disclamer, I didn't write the code below, just
 // make a few changes so it can fit my app, all

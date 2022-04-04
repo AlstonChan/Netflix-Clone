@@ -10,8 +10,8 @@ import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { auth, db, provider } from "../lib/firebase";
 
-import Footer from "../components/footer/footerStyle2";
-import LoginForm from "../components/login/loginForm";
+import Footer from "../components/footer/FooterStyle2";
+import LoginForm from "../components/login/LoginForm";
 import Loader from "../components/Loader";
 
 export function Login() {
@@ -70,6 +70,7 @@ export function Login() {
                   alt="Netflix logo"
                   width="25"
                   height="20"
+                  unoptimized
                 />
                 <span className={styles.loginTxt}>Login with Google</span>
               </div>

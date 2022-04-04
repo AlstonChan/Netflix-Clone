@@ -1,7 +1,5 @@
 import styles from "../../../styles/browse/cards.module.css";
 
-import Image from "next/image";
-
 import { useState } from "react";
 import ImageRender from "../../ImageRender";
 
@@ -57,7 +55,7 @@ export default function SliderItem({
             />
           ) : (
             <ImageRender
-              src={"/images/image-not-found.png"}
+              src="/images/image-not-found.png"
               width="341"
               height="192"
               className={styles.pictureCard}

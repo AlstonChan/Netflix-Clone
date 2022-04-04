@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { useRef, useState } from "react";
 import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
+import ImageRender from "../../ImageRender";
 
 export default function AddProfile({ back }) {
   const picNumRef = useRef(Math.ceil(Math.random() * 4));
@@ -49,10 +50,10 @@ export default function AddProfile({ back }) {
       <hr className={baseStyles.borderLine} />
       <div className={styles.AddProfileMain}>
         <div className={baseStyles.avatarContainer}>
-          <Image
+          <ImageRender
             src={`/images/profile pic/${picNumRef.current}.png`}
-            width="320px"
-            height="320px"
+            width="320"
+            height="320"
             objectFit="cover"
             alt="User profile Picture"
             className={baseStyles.profilePic}

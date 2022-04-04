@@ -5,8 +5,8 @@ import router from "next/router";
 import { useRef, useState } from "react";
 import aes from "crypto-js/aes";
 
-import EmailInput from "../featured/input";
-import Accordion from "./accordion";
+import EmailInput from "../featured/Input";
+import Accordion from "./Accordion";
 
 export default function CardFaq() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(

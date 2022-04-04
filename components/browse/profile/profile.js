@@ -5,8 +5,8 @@ import Head from "next/head";
 
 import { useState } from "react";
 
-import MainProfile from "./mainProfile";
-import AddProfile from "./addProfile";
+import MainProfile from "./MainProfile";
+import AddProfile from "./AddProfile";
 
 export default function Profile({ switchPage }) {
   const [profileModal, setProfileModal] = useState(false);

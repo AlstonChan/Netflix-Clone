@@ -1,6 +1,6 @@
 import styles from "../../styles/footer.module.css";
 
-export default function Footer1() {
+export default function FooterStyle1() {
   const footerContArr = [
     "FAQ",
     "Help Center",

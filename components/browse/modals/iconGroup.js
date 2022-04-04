@@ -39,7 +39,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
       <div className={styles.iconGroup}>
         {!openModal ? (
           <div className={styles.circleContainerPlay}>
-            <Image src={play} alt="play the movie" />
+            <Image src={play} alt="play the movie" unoptimized />
           </div>
         ) : (
           <button
@@ -47,7 +47,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             className={`${browseStyles.playBtn} ${styles.playBtn}`}
           >
             <div className={browseStyles.btnImage}>
-              <Image src={playBtn} alt="" />
+              <Image src={playBtn} alt="" unoptimized />
             </div>
             <span className={browseStyles.playBtnTxt}>Play</span>
           </button>
@@ -58,7 +58,11 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             className={styles.circleContainer}
             data-action="cancel"
           >
-            <Image src={cancel} alt="remove the movies from your list" />
+            <Image
+              src={cancel}
+              alt="remove the movies from your list"
+              unoptimized
+            />
           </div>
         ) : (
           <div
@@ -66,7 +70,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             className={styles.circleContainer}
             data-action="plus"
           >
-            <Image src={plus} alt="add the movies to your list" />
+            <Image src={plus} alt="add the movies to your list" unoptimized />
           </div>
         )}
         <div
@@ -79,7 +83,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
               : { display: "block" }
           }
         >
-          <Image src={thumbsUp} alt="dislikes the movies" />
+          <Image src={thumbsUp} alt="dislikes the movies" unoptimized />
         </div>
         <div
           onClick={(e) => actionToggle(e)}
@@ -91,7 +95,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
               : { display: "block" }
           }
         >
-          <Image src={thumbsDown} alt="likes the movies" />
+          <Image src={thumbsDown} alt="likes the movies" unoptimized />
         </div>
       </div>
       {!openModal ? (
@@ -100,7 +104,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             style={{ transform: "rotate(-90deg)" }}
             onClick={() => modalToggle("open")}
           >
-            <Image src={arrow} alt="show more" />
+            <Image src={arrow} alt="show more" unoptimized />
           </div>
         </div>
       ) : (

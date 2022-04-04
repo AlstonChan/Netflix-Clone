@@ -3,12 +3,21 @@ import styles from "../styles/imageRender.module.css";
 import { useRef, useState } from "react";
 import useIntersection from "../lib/useIntersection";
 
-export default function ImageRender({ src, alt, width, height, className }) {
+export default function ImageRender({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  objectFit,
+}) {
   const [isInView, setIsInView] = useState(false);
   const imgRef = useRef();
   useIntersection(imgRef, () => {
     setIsInView(true);
   });
+
+  if (typeof src === "object") console.log(src);
 
   return (
     <div
@@ -33,11 +42,12 @@ export default function ImageRender({ src, alt, width, height, className }) {
       ></span>
       {isInView && (
         <img
-          src={src}
+          src={typeof src === "object" ? src.src : src}
           alt={alt}
           className={
             className ? `${className} ${styles.imgContent}` : styles.imgContent
           }
+          style={objectFit ? { objectFit } : {}}
         />
       )}
     </div>

@@ -8,7 +8,7 @@ import { db, auth } from "../../lib/firebase";
 import InputEmail from "../login/InputEmail";
 import InputPassword from "../login/InputPassword";
 
-export default function RegForm() {
+export default function RegFormInput() {
   const emailInputRef = useRef();
   const passInputRef = useRef();
 

@@ -2,13 +2,13 @@ import Head from "next/head";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-import Featured from "../components/home/featured/index";
+import FeaturedHome from "../components/home/featured/FeaturedHome";
 import CardOne from "../components/home/CardOne";
 import CardTwo from "../components/home/CardTwo";
 import CardThree from "../components/home/CardThree";
 import CardFour from "../components/home/CardFour";
-import CardFaq from "../components/home/Faq/index";
-import Footer from "../components/footer/footerStyle1";
+import CardFaq from "../components/home/Faq/CardFaq";
+import Footer from "../components/footer/FooterStyle1";
 import Loader from "../components/Loader";
 
 function Home() {
@@ -17,7 +17,7 @@ function Home() {
       <Head>
         <title>Netflix Clone</title>
       </Head>
-      <Featured />
+      <FeaturedHome />
       <CardOne />
       <CardTwo />
       <CardThree />

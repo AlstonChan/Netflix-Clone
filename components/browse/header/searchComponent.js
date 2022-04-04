@@ -120,13 +120,14 @@ export default function SearchComponent({ searchRef }) {
           src={search}
           onClick={(e) => toggleSearchInput(e, "show")}
           alt="search icon"
+          unoptimized
         />
       )}
       {showInput ? (
         <div className={styles.inputContainer}>
           <div className={styles.inputContain}>
             <label className={styles.searchIconInput} htmlFor="q">
-              <Image src={search} alt="search icon" />
+              <Image src={search} alt="search icon" unoptimized />
             </label>
             <input
               type="search"
@@ -143,7 +144,7 @@ export default function SearchComponent({ searchRef }) {
               htmlFor="q"
               onClick={clearQuery}
             >
-              <Image src={cross} alt="cancel icon" />
+              <Image src={cross} alt="cancel icon" unoptimized />
             </label>
           </div>
         </div>

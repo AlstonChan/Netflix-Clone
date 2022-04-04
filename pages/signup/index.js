@@ -9,8 +9,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-import Footer from "../../components/footer/footerStyle2";
-import Header from "../../components/signup/header";
+import Footer from "../../components/footer/FooterStyle2";
+import Header from "../../components/signup/HeaderSignUp";
 import Loader from "../../components/Loader";
 import Layout from "../layout";
 

@@ -13,9 +13,10 @@ import { signOut } from "firebase/auth";
 import { useContext, useState, useEffect } from "react";
 import { auth } from "../../../lib/firebase";
 import { UserContext } from "../../../pages/_app";
-import useIsomorphicLayoutEffect from "../../../lib/isomorphic-layout";
+import ImageRender from "../../ImageRender";
+import useIsomorphicLayoutEffect from "../../../lib/useIsomorphicLayout";
 
-const UserComponent = () => {
+export default function UserComponent() {
   const { userData } = useContext(UserContext);
   const [currentUser, setCurrentUser] = useState(false);
   const [navUserStyle, setNavUserStyle] = useState({
@@ -71,17 +72,17 @@ const UserComponent = () => {
       >
         <div className={styles.profilePicContainer}>
           {userData && currentUser ? (
-            <Image
+            <ImageRender
               src={
                 userData[currentUser].pic.length > 3
                   ? userData[currentUser].pic
                   : `/images/profile pic/${userData[currentUser].pic}.png`
               }
-              width="35px"
-              height="35px"
+              width="35"
+              height="35"
               objectFit="cover"
               className={styles.profilePic}
-              alt="user profile picture"
+              alt="user profile"
             />
           ) : (
             ""
@@ -93,6 +94,7 @@ const UserComponent = () => {
           height="20px"
           className={styles.profilePicIcon}
           alt=""
+          unoptimized
         />
       </div>
       {navUserStyle.visibility == "visible" ? (
@@ -110,6 +112,7 @@ const UserComponent = () => {
                 height="20px"
                 className={styles.dropDownUseruNavListArr}
                 alt=""
+                unoptimized
               />
             </div>
             <UserDropDownList
@@ -123,9 +126,7 @@ const UserComponent = () => {
       )}
     </div>
   );
-};
-
-export default UserComponent;
+}
 
 export function UserDropDownList({ currentUser, switchProfile }) {
   const { userData } = useContext(UserContext);
@@ -172,14 +173,14 @@ export function UserDropDownList({ currentUser, switchProfile }) {
           onClick={() => switchProfile("user-main")}
         >
           <div className={styles.listItemImg}>
-            <Image
+            <ImageRender
               src={
                 userData["user-main"].pic.length > 3
                   ? userData["user-main"].pic
                   : `/images/profile pic/${userData["user-main"].pic}.png`
               }
-              width="35px"
-              height="35px"
+              width="35"
+              height="35"
               objectFit="cover"
               className={styles.profilePic}
               alt="profile icon"
@@ -206,7 +207,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
               >
                 <div className={styles.listItemImg}>
                   {userData ? (
-                    <Image
+                    <ImageRender
                       src={
                         userData[secProfile[prof]].pic.length > 3
                           ? userData[secProfile[prof]].pic
@@ -214,8 +215,8 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                               userData[secProfile[prof]].pic
                             }.png`
                       }
-                      width="35px"
-                      height="35px"
+                      width="35"
+                      height="35"
                       objectFit="cover"
                       className={styles.profilePic}
                       alt="profile icon"
@@ -239,7 +240,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
           <span key={index}>
             <div className={styles.listItemContainer}>
               <div className={styles.listItemImg}>
-                <Image src={listItem.src} alt="user profile picture" />
+                <Image src={listItem.src} alt="user profile" unoptimized />
               </div>
               <span style={{ padding: "4px 0" }}>
                 {listItem.loc === "external" ? (

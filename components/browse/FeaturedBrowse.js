@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import ImageRender from "../ImageRender";
 
-export default function Featured({ url }) {
+export default function FeaturedBrowse({ url }) {
   return (
     <div className={styles.featuredSpace}>
       <div className={styles.featuredAbsolute}>

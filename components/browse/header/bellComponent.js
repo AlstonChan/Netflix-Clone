@@ -42,7 +42,7 @@ export default function BellComponent() {
         onMouseEnter={(e) => toggleNavMenu(e)}
         onMouseLeave={(e) => toggleNavMenu(e)}
       >
-        <Image src={bell} alt="notification icon" />
+        <Image src={bell} alt="notification icon" unoptimized />
         <div
           className={styles.notification}
           style={
@@ -68,6 +68,7 @@ export default function BellComponent() {
               height="20px"
               className={styles.notificationArr}
               alt=""
+              unoptimized
             />
           </div>
           <div className={styles.dropDownMenuListSec}>

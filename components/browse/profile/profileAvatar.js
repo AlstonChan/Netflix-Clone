@@ -3,6 +3,8 @@ import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
 
+import ImageRender from "../../ImageRender";
+
 export default function ProfileAvatar({
   user,
   switchPage,
@@ -24,21 +26,21 @@ export default function ProfileAvatar({
       <div className={baseStyles.avatarContainer}>
         {user ? (
           <>
-            <Image
+            <ImageRender
               src={
                 user.pic.length > 3
                   ? user.pic
                   : `/images/profile pic/${user.pic}.png`
               }
               objectFit="cover"
-              width="320px"
-              height="320px"
+              width="320"
+              height="320"
               className={baseStyles.profilePic}
-              alt="User profile Picture"
+              alt="User profile"
             />
             {currentUserId ? (
               <div className={baseStyles.editCover}>
-                <Image src={editPencil} alt="edit icon" />
+                <Image src={editPencil} alt="edit icon" unoptimized />
               </div>
             ) : (
               ""

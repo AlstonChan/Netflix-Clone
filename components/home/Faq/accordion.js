@@ -3,7 +3,7 @@ import styles from "../../../styles/Home/cardFaq.module.css";
 import { useState } from "react";
 
 import { faq } from "./accordianContent";
-import AccordionCard from "./accordionCard";
+import AccordionCard from "./AccordionCard";
 
 export default function Accordian() {
   const [selectedOptionAcc, setSelectedOptionAcc] = useState({

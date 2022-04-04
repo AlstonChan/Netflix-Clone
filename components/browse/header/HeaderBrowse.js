@@ -1,16 +1,16 @@
 import styles from "../../../styles/browse/header.module.css";
-import BrowseStyles from "../../../styles/browse/browse.module.css";
+import NetflixLogo from "../../../public/images/NetflixLogo.png";
 
 import Image from "next/image";
 
 import React, { useEffect, useState } from "react";
 
-import PrimaryNav from "./primaryNav";
-import SearchComponent from "./searchComponent";
-import BellComponent from "./bellComponent";
-import UserComponent from "./userComponent";
+import PrimaryNav from "./PrimaryNav";
+import SearchComponent from "./SearchComponent";
+import BellComponent from "./BellComponent";
+import UserComponent from "./UserComponent";
 
-export function Header({ route, searchRef, openModal }) {
+export function HeaderBrowse({ route, searchRef, openModal }) {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -112,7 +112,7 @@ export function Header({ route, searchRef, openModal }) {
         <div className={styles.mainContain} style={scrollStyle}>
           <div className={styles.netflixLogoContainer}>
             <Image
-              src="/images/NetflixLogo.png"
+              src={NetflixLogo}
               className={styles.netflixLogo}
               alt="Netflix logo"
               width="120px"
@@ -125,7 +125,7 @@ export function Header({ route, searchRef, openModal }) {
               <PrimaryNav
                 text={navItemTxt}
                 handler={handleNavSelection}
-                menu={true}
+                menu
                 classNm={selectedOptionNav}
               />
             ) : (
@@ -154,5 +154,5 @@ export function Header({ route, searchRef, openModal }) {
   );
 }
 
-const MemoizedHeader = React.memo(Header);
+const MemoizedHeader = React.memo(HeaderBrowse);
 export default MemoizedHeader;

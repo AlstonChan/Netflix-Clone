@@ -2,11 +2,11 @@ import styles from "../../../styles/browse/modals.module.css";
 import imageNotFound from "../../../public/images/image-not-found.png";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import ImageRender from "../../ImageRender";
-import MovieDetails from "./movieDetails";
-import MovieDetailsOpen from "./movieDetailsOpen";
 
-import IconGroup from "./iconGroup";
+import MovieDetails from "./MovieDetails";
+import MovieDetailsOpen from "./MovieDetailsOpen";
+import IconGroup from "./IconGroup";
+import ImageRender from "../../ImageRender";
 
 export default function Modals({
   modalStyle,
@@ -128,7 +128,9 @@ export default function Modals({
     ? modalStyle.movieSet?.backdrop_path
       ? `https://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
       : imageNotFound
-    : `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`;
+    : modalStyle.movieSet?.backdrop_path
+    ? `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
+    : imageNotFound;
 
   return modalVisibility ? (
     <div

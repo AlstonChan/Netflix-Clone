@@ -13,7 +13,7 @@ export default function SliderHandler({ onClick, direction }) {
       data-handle={direction}
     >
       <div className={styles.navArrowContainer}>
-        <Image layout="fill" src={navArrow} alt="" />
+        <Image layout="fill" src={navArrow} alt="" unoptimized />
       </div>
     </span>
   );
