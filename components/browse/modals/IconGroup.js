@@ -28,7 +28,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
     }
   };
 
-  console.log(currentMovieData, latestData);
+  // console.log(currentMovieData, latestData);
 
   const containerClass = !openModal
     ? styles.container

@@ -17,8 +17,6 @@ export default function ImageRender({
     setIsInView(true);
   });
 
-  if (typeof src === "object") console.log(src);
-
   return (
     <div
       className={styles.imageContainer}

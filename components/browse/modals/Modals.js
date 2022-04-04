@@ -97,8 +97,6 @@ export default function Modals({
   }
 
   function localCloseModal(e) {
-    console.log(e.currentTarget);
-    console.log(e.target);
     e.stopPropagation();
     e.preventDefault();
     e.nativeEvent.stopImmediatePropagation();
