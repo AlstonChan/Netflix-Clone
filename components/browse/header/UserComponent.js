@@ -184,7 +184,6 @@ export function UserDropDownList({ currentUser, switchProfile }) {
               objectFit="cover"
               className={styles.profilePic}
               alt="profile icon"
-              unoptimized={true}
             />
           </div>
           <p
@@ -221,7 +220,6 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                       objectFit="cover"
                       className={styles.profilePic}
                       alt="profile icon"
-                      unoptimized={true}
                     />
                   ) : (
                     ""

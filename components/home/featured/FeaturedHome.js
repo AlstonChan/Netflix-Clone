@@ -5,10 +5,10 @@ import router from "next/router";
 import { useRef, useState } from "react";
 import aes from "crypto-js/aes";
 
-import Header from "../../header";
-import Input from "./input";
+import Header from "../../Header";
+import Input from "./Input";
 
-export default function Featured() {
+export default function FeaturedHome() {
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
     `netflixBtn ${styles.getStartedBtn}`
   );

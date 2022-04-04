@@ -1,0 +1,29 @@
+.imageContainer {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%;
+  opacity: 1;
+  border: 0px none;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+.imgContent {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: medium none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}

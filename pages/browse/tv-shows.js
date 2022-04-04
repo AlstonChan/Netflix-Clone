@@ -13,25 +13,33 @@ import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
+import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
 
-import Header from "../../components/browse/header/header.js";
-import Profile from "../../components/browse/profile/profile.js";
-import Cards from "../../components/browse/cards/cards";
-import ConstantList from "../../components/browse/cards/constantList";
-import Featured from "../../components/browse/featured";
-import Footer from "../../components/footer/footerBrowse";
-import PlaceholderCard from "../../components/browse/cards/placeholderCard";
-import Modals from "../../components/browse/modals/modals";
-import Main from "../../components/browse/main";
+import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
+import Profile from "../../components/browse/profile/Profile";
+import Cards from "../../components/browse/cards/Cards";
+import ConstantList from "../../components/browse/cards/ConstantList";
+import FeaturedBrowse from "../../components/browse/FeaturedBrowse";
+import FooterBrowse from "../../components/footer/FooterBrowse";
+import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
+import Modals from "../../components/browse/modals/Modals";
+import Main from "../../components/browse/Main";
 import Loader from "../../components/Loader";
 
 export const TvShows = () => {
-  const [modal, setModal] = useState({});
-  const [profile, setProfile] = useState(null);
-  const searchRef = useRef();
-  const [delay, setDelay] = useState();
+  const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
+  const [profile, setProfile] = useState(null); // set the current active profile (user)
+  const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
+  const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
+  const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
+  const scrollPosition = useRef(); // To determine the current scroll position of user, used by modal.js
+  const [closeBigModal, setCloseBigModal] = useState(false);
+  const searchMutation = useMutation((searc) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
+  ); // To query search data using searchRef hook input
 
+  // To get sessionstorage data - "profile" as soon as the possible, and
+  // decrypt the data to determine the current user for profile state hook
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
@@ -47,21 +55,31 @@ export const TvShows = () => {
     }
   }, [profile]);
 
-  const searchMutation = useMutation((searc) =>
-    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
-  );
-
+  // To query search data using searchmutation hook with delay
   useEffect(() => {
     if (searchRef.current?.value) {
-      clearTimeout(delay);
-      setDelay(
-        setTimeout(() => {
-          searchMutation.mutate(searchRef.current.value);
-        }, 400)
-      );
+      clearTimeout(delayRef.current);
+      delayRef.current = setTimeout(() => {
+        searchMutation.mutate(searchRef.current.value);
+      }, 400);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
+
+  // To toggle BIG modals
+  function modalToggle(state) {
+    if (openModal && state === "close") {
+      setOpenModal(false);
+      window.scrollTo({
+        top: scrollPosition.current,
+        left: 0,
+        behavior: "auto",
+      });
+    } else {
+      scrollPosition.current = window.scrollY;
+      setOpenModal(true);
+    }
+  }
 
   // function that collects the data for modals,
   // determine the width and position of modal
@@ -79,6 +97,8 @@ export const TvShows = () => {
       });
     }
   }
+
+  // To query data for Cards, page main data
   const { data } = useQuery(
     ["moviesDBTv", "tvs"],
     () => fetchMoviesDB("tvs", getAbsoluteURL("/api/fetchmovie")),
@@ -92,12 +112,21 @@ export const TvShows = () => {
     }
   );
 
+  // set the current profile (user)
   function switchPage(name) {
     const encrypted = aes
       .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
       .toString();
     setProfile(sessionStorage.setItem("profile", encrypted));
   }
+
+  const browseStyle = {
+    position: "fixed",
+    overflow: "hidden",
+    width: "100%",
+    top: `-${scrollPosition.current}px`,
+    paddingRight: "20px",
+  };
 
   if (!profile) {
     return <Profile switchPage={switchPage} />;
@@ -107,10 +136,33 @@ export const TvShows = () => {
         <Head>
           <title>Netflix Clone - Tv Shows</title>
         </Head>
-        <div className={styles.container}>
-          <Header route={"tvs"} searchRef={searchRef} />
+        <Modals
+          modalStyle={modal}
+          openModal={openModal}
+          modalToggle={modalToggle}
+          close={closeBigModal}
+          setClose={setCloseBigModal}
+        />
+        {openModal ? (
+          <>
+            <div
+              className={styles.darkBgModal}
+              onClick={() => setCloseBigModal(true)}
+            ></div>
+          </>
+        ) : (
+          ""
+        )}
+        <div
+          className={styles.container}
+          style={openModal ? browseStyle : { position: "static" }}
+        >
+          <HeaderBrowse
+            route={"tvs"}
+            searchRef={searchRef}
+            openModal={openModal}
+          />
           <main className={styles.main}>
-            <Modals modalStyle={modal} />
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
                 <span className={styles.featuredMain}>
@@ -131,7 +183,7 @@ export const TvShows = () => {
             ) : (
               <Main data={data}>
                 <span className={styles.featuredMain}>
-                  <Featured url={"tvs"} />
+                  <FeaturedBrowse url={"tvs"} />
                 </span>
                 {data ? (
                   data.map((movie, index) => {
@@ -153,7 +205,7 @@ export const TvShows = () => {
               </Main>
             )}
           </main>
-          <Footer />
+          <FooterBrowse />
         </div>
       </>
     );

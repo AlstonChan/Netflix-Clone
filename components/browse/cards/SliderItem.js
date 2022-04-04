@@ -52,7 +52,6 @@ export default function SliderItem({
               height="192"
               className={styles.pictureCard}
               alt="Movie thumbnails"
-              unoptimized={true}
             />
           ) : (
             <ImageRender
@@ -61,7 +60,6 @@ export default function SliderItem({
               height="192"
               className={styles.pictureCard}
               alt="Movie thumbnails"
-              unoptimized={true}
             />
           )}
         </div>

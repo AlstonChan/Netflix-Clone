@@ -6,9 +6,9 @@ import Head from "next/head";
 import { useState } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-import AddProfile from "../components/browse/profile/addProfile";
-import MainProfile from "../components/browse/profile/mainProfile";
-import EditProfile from "../components/browse/profile/editProfile";
+import AddProfile from "../components/browse/profile/AddProfile";
+import MainProfile from "../components/browse/profile/MainProfile";
+import EditProfile from "../components/browse/profile/EditProfile";
 import Loader from "../components/Loader";
 
 export function ManageProfile({ addProfile }) {

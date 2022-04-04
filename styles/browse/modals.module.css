@@ -6,18 +6,36 @@ component/browse/modals/modal.js;
 
 .mainModals {
   position: absolute;
-  z-index: 10;
-  max-width: 1360px;
+  max-width: 1240px;
   display: none;
   cursor: pointer;
+  z-index: 120;
 }
 
 .modalsContainer {
-  transition: width 150ms ease-in-out, transform 150ms ease-in-out;
+  transition: width 170ms ease-in-out, transform 170ms ease-in-out,
+    opacity 170ms ease-in-out;
+  aspect-ratio: 1364/768;
+  max-width: 1240px;
 }
 
+/* modalVisibility */
 .modalShow {
   display: block;
+}
+
+.bigModal {
+  max-width: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: default;
 }
 
 .backdrop_pathStyle {
@@ -36,13 +54,21 @@ component/browse/modals/modal.js;
   position: absolute;
   border-radius: 10px 10px 0 0;
   left: 0;
+  top: 0;
   z-index: -1;
 }
 
-.lowerPanel {
+.lowerPanel,
+.lowerPanelOpen {
   background-color: #222;
   padding: 20px;
+  padding-top: min(5%, 3.5vh);
   border-radius: 0 0 10px 10px;
+}
+
+.lowerPanelOpen {
+  background-color: #181818;
+  padding: 20px 3rem 3rem 3rem;
 }
 
 /* iconGroup Component */
@@ -53,6 +79,7 @@ component/browse/modals/modal.js;
 
 .iconGroup {
   display: flex;
+  align-items: center;
 }
 
 .circleContainerPlay,
@@ -63,6 +90,8 @@ component/browse/modals/modal.js;
   cursor: pointer;
   max-width: 38px;
   min-width: 23px;
+  aspect-ratio: 1;
+  height: fit-content;
 }
 
 .circleContainer {
@@ -82,6 +111,10 @@ component/browse/modals/modal.js;
   background-color: #ffffff;
 }
 
+.playBtn {
+  margin-right: 5px;
+}
+
 .circleContainerDrop {
   margin: 0 0 0 auto;
   padding: 4px 2px 1px 6.5px;
@@ -97,9 +130,11 @@ component/browse/modals/modal.js;
   border: 2px solid rgb(255, 255, 255, 1);
 }
 
-.releaseDate {
+.headingsOpen,
+.headings {
   color: #fff;
   margin: 2px 0;
+  font-size: 1.15rem;
 }
 
 .title {
@@ -120,4 +155,101 @@ component/browse/modals/modal.js;
 }
 .genre {
   color: #fff;
+}
+
+/* For Open Modals */
+.containerOpen {
+  padding-left: clamp(1rem, 1rem + 3vw, 3rem);
+  padding-right: clamp(1rem, 1rem + 3vw, 3rem);
+  padding-bottom: clamp(1.5rem, 1.5rem + 3vw, 5rem);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.titleNameOpen {
+  font-size: 1.9rem;
+  color: #fff;
+}
+
+.desc {
+  margin: 5px 0 8px 0;
+}
+.descContent {
+  color: rgb(238, 238, 238);
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+}
+
+.subHead {
+  color: #777;
+}
+
+.blend {
+  background: rgb(24, 24, 24);
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 24, 0) 49%,
+    rgba(24, 24, 24, 0.22170875186011907) 69%,
+    rgba(24, 24, 24, 1) 100%
+  );
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.movieDetailsOpen {
+  display: flex;
+}
+
+.movieDetailsOpenLeft {
+  width: 65%;
+}
+.movieDetailsOpenRight {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.imageContainerPoster {
+  width: 70%;
+}
+
+@media screen and (max-width: 900px) {
+  .headingsOpen {
+    font-size: 1rem;
+  }
+  .subHead {
+    font-size: 0.95rem;
+  }
+  .titleNameOpen {
+    font-size: 1.6rem;
+  }
+  .descContent {
+    font-size: 1rem;
+  }
+  .imageContainerPoster {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .bigModal {
+    overflow: hidden;
+  }
+  .movieDetailsOpen {
+    flex-direction: column;
+  }
+  .movieDetailsOpenLeft {
+    width: 100%;
+  }
+  .movieDetailsOpenRight {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .imageContainerPoster {
+    margin-top: 2rem;
+    width: 80%;
+  }
 }

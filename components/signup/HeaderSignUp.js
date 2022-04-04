@@ -9,7 +9,7 @@ import { signOut } from "firebase/auth";
 import { UserContext } from "../../pages/_app";
 import { auth } from "../../lib/firebase";
 
-export default function Header({ logoClickHome }) {
+export default function HeaderSignUp({ logoClickHome }) {
   const { user, loading } = useContext(UserContext);
   //Set button text according to the auth state (Sign in/Sign out)
   const [isSignIn, setIsSignIn] = useState(false);

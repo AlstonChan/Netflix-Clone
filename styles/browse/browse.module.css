@@ -10,6 +10,7 @@ component/browse/loading.js;
 
 .main {
   min-height: 80vh;
+  background-color: #000;
 }
 
 .container {
@@ -222,4 +223,14 @@ component/browse/loading.js;
     margin: 1% 0 0 0;
     max-width: 60vw;
   }
+}
+
+.darkBgModal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 90;
 }

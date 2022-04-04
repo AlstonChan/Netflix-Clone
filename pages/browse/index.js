@@ -13,27 +13,39 @@ import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/isomorphic-layout";
+import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
 
-import Loading from "../../components/browse/loading";
-import Header from "../../components/browse/header/header.js";
-import Profile from "../../components/browse/profile/profile.js";
-import Cards from "../../components/browse/cards/cards";
-import ConstantList from "../../components/browse/cards/constantList";
-import Featured from "../../components/browse/featured";
-import Footer from "../../components/footer/footerBrowse";
-import PlaceholderCard from "../../components/browse/cards/placeholderCard";
-import Modals from "../../components/browse/modals/modals";
-import Main from "../../components/browse/main";
+import Loading from "../../components/browse/Loading";
+import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
+import Profile from "../../components/browse/profile/Profile";
+import Cards from "../../components/browse/cards/Cards";
+import ConstantList from "../../components/browse/cards/ConstantList";
+import FeaturedBrowse from "../../components/browse/FeaturedBrowse";
+import FooterBrowse from "../../components/footer/FooterBrowse";
+import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
+import Modals from "../../components/browse/modals/Modals";
+import Main from "../../components/browse/Main";
 import Loader from "../../components/Loader";
 
 export const Browse = () => {
-  const [modal, setModal] = useState({});
-  const [profile, setProfile] = useState(null);
-  const [firstLoad, setFirstLoad] = useState(true);
-  const searchRef = useRef();
-  const [delay, setDelay] = useState();
+  const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
+  const [profile, setProfile] = useState(null); // set the current active profile (user)
 
+  // To assist profile state hook, show profile loading when loading
+  // for the first time. SO when changing to page "TV Shows or Trending",
+  // the loading component will be hid away
+  const [firstLoad, setFirstLoad] = useState(true);
+  const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
+  const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
+  const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
+  const scrollPosition = useRef(); // To determine the current scroll position of user, used by modal.js
+  const [closeBigModal, setCloseBigModal] = useState(false);
+  const searchMutation = useMutation((query) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query)
+  ); // To query search data using searchRef hook input
+
+  // To get sessionstorage data - "profile" as soon as the possible, and
+  // decrypt the data to determine the current user for profile state hook
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
@@ -49,26 +61,36 @@ export const Browse = () => {
     }
   }, [profile]);
 
-  const searchMutation = useMutation((searc) =>
-    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
-  );
-
+  // To query search data using searchmutation hook with delay
   useEffect(() => {
     if (searchRef.current?.value) {
-      clearTimeout(delay);
-      setDelay(
-        setTimeout(() => {
-          searchMutation.mutate(searchRef.current.value);
-        }, 400)
-      );
+      clearTimeout(delayRef.current);
+      delayRef.current = setTimeout(() => {
+        searchMutation.mutate(searchRef.current.value);
+      }, 400);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchRef.current?.value]);
 
-  // function that collects the data for modals,
+  // To toggle BIG modals
+  function modalToggle(state) {
+    if (openModal && state === "close") {
+      setOpenModal(false);
+      window.scrollTo({
+        top: scrollPosition.current,
+        left: 0,
+        behavior: "auto",
+      });
+    } else {
+      scrollPosition.current = window.scrollY;
+      setOpenModal(true);
+    }
+  }
+
+  // function that collects the data for small modals,
   // determine the width and position of modal
   function toggleModal(state, e, movieSet, position) {
-    if (state.state === "mouseenter") {
+    if (state.state === "mouseenter" || openModal) {
       const { width, top, bottom, left, right } =
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
@@ -82,6 +104,7 @@ export const Browse = () => {
     }
   }
 
+  // To query data for Cards, page main data
   const { data, isLoading } = useQuery(
     ["moviesDB", "hom"],
     () => fetchMoviesDB("hom", getAbsoluteURL("/api/fetchmovie")),
@@ -102,6 +125,7 @@ export const Browse = () => {
     }
   }, [isLoading, profile, data]);
 
+  // set the current profile (user)
   function switchPage(name) {
     const encrypted = aes
       .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
@@ -113,6 +137,14 @@ export const Browse = () => {
     return <Loading />;
   }
 
+  const browseStyle = {
+    position: "fixed",
+    overflow: "hidden",
+    width: "100%",
+    top: `-${scrollPosition.current}px`,
+    paddingRight: "20px",
+  };
+
   if (!profile) {
     return <Profile switchPage={switchPage} />;
   } else {
@@ -121,10 +153,33 @@ export const Browse = () => {
         <Head>
           <title>Netflix Clone - Home</title>
         </Head>
-        <div className={styles.container}>
-          <Header route={"hom"} searchRef={searchRef} />
+        <Modals
+          modalStyle={modal}
+          openModal={openModal}
+          modalToggle={modalToggle}
+          close={closeBigModal}
+          setClose={setCloseBigModal}
+        />
+        {openModal ? (
+          <>
+            <div
+              className={styles.darkBgModal}
+              onClick={() => setCloseBigModal(true)}
+            ></div>
+          </>
+        ) : (
+          ""
+        )}
+        <div
+          className={styles.container}
+          style={openModal ? browseStyle : { position: "static" }}
+        >
+          <HeaderBrowse
+            route={"hom"}
+            searchRef={searchRef}
+            openModal={openModal}
+          />
           <main className={styles.main}>
-            <Modals modalStyle={modal} />
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
                 <span className={styles.featuredMain}>
@@ -145,7 +200,7 @@ export const Browse = () => {
             ) : (
               <Main data={data}>
                 <span className={styles.featuredMain}>
-                  <Featured url={"hom"} />
+                  <FeaturedBrowse url={"hom"} />
                 </span>
                 {data ? (
                   data.map((movie, index) => {
@@ -167,7 +222,7 @@ export const Browse = () => {
               </Main>
             )}
           </main>
-          <Footer />
+          <FooterBrowse />
         </div>
       </>
     );

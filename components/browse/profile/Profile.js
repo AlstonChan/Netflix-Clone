@@ -27,7 +27,6 @@ export default function Profile({ switchPage }) {
               width="150px"
               height="40.875px"
               alt="netflix logo"
-              unoptimized={true}
             />
           </div>
         </header>
