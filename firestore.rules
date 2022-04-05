@@ -17,8 +17,7 @@ service cloud.firestore {
     match /mymovie/{mymovieID} {
       allow read, create: if isSignedIn() && request.auth.uid == mymovieID;
       allow update: if isSignedIn() && 
-      request.auth.uid == mymovieID &&
-      request.resource.data.myMovies.size() > 0;
+      request.auth.uid == mymovieID;
     }
   }
 }

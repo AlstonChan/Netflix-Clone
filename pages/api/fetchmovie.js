@@ -57,11 +57,11 @@ export default async function handler(req, res) {
         }
         res.status(200).json({ movies });
         res.end();
-      } else if (requestedData === "my-list" && additionData !== null) {
+      } else if (requestedData === "my-list" && additionData) {
         const movies = [];
 
         for (let x = 0; x < additionData.length; x++) {
-          if (additionData[x].addList) {
+          if (additionData[x].addList && additionData[x].movieID) {
             if (additionData[x].movType === "movie") {
               const url = `/movie/${additionData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
               const res = await instances.get(url, {

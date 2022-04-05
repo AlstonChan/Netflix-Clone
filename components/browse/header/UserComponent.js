@@ -6,9 +6,9 @@ import UserProfile from "../../../public/images/icons/misc/user.svg";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
+
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-
 import { signOut } from "firebase/auth";
 import { useContext, useState, useEffect } from "react";
 import { auth } from "../../../lib/firebase";

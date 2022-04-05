@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
   const [userData, setUserData] = useState(null);
   const myMovieData = useRef();
+  const [listMovieData, setListMovieData] = useState();
 
   const getLayout = Component.getLayout || ((page) => page);
 
@@ -43,11 +44,13 @@ function MyApp({ Component, pageProps }) {
                 if (documents.exists() === false) {
                   console.info("no doc found");
                   setDoc(doc(db, "mymovie", user.uid), {
-                    myMovies: [{ movieID: null, addList: false, like: "none" }],
-                  }).then(() => (myMovieData.current = documents));
-                } else {
-                  myMovieData.current = documents;
+                    "user-main": [
+                      { movieID: null, addList: false, like: "none" },
+                    ],
+                  });
                 }
+                myMovieData.current = documents;
+                setListMovieData(documents);
               }
             );
           }
@@ -66,7 +69,14 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <UserContext.Provider
-            value={{ user, loading, error, userData, myMovieData }}
+            value={{
+              user,
+              loading,
+              error,
+              userData,
+              myMovieData,
+              listMovieData,
+            }}
           >
             <Component {...pageProps} />
           </UserContext.Provider>

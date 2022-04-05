@@ -24,7 +24,7 @@ import Loader from "../../components/Loader";
 export function MyList() {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState(null); // set the current active profile (user)
-  const { myMovieData } = useContext(UserContext); // get own movie list to query movie data
+  const { listMovieData } = useContext(UserContext); // get own movie list to query movie data
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
   const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
   const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
@@ -94,15 +94,27 @@ export function MyList() {
     }
   }
 
+  useEffect(() => {
+    if (listMovieData && profile) {
+      if (listMovieData.data()[profile]) {
+        myListData.mutate(listMovieData.data()[profile]);
+      } else {
+        myListData.mutate([
+          {
+            addList: false,
+            like: "none",
+            movieID: null,
+          },
+        ]);
+      }
+    }
+  }, [listMovieData, profile]);
+
   // To query data for Cards, page main data
-  const { data } = useQuery(
+  const myListData = useMutation(
     ["moviesDBList", "my-list"],
-    () =>
-      fetchMoviesDB(
-        "my-list",
-        getAbsoluteURL("/api/fetchmovie"),
-        myMovieData.current.data().myMovies
-      ),
+    (listData) =>
+      fetchMoviesDB("my-list", getAbsoluteURL("/api/fetchmovie"), listData),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: true,
@@ -168,7 +180,7 @@ export function MyList() {
                 <span className={styles.featuredMain}>
                   <div className={styles.emptyFea}></div>
                 </span>
-                {data ? (
+                {myListData.data ? (
                   <ConstantList
                     modal={toggleModal}
                     movieList={searchMutation.data}
@@ -181,13 +193,16 @@ export function MyList() {
                 )}
               </Main>
             ) : (
-              <Main data={data}>
+              <Main data={myListData.data}>
                 <span className={styles.featuredMain}>
                   <div className={styles.emptyFea}></div>
                 </span>
                 <h1 className={styles.listHeader}>My List</h1>
-                {data ? (
-                  <ConstantList modal={toggleModal} movieList={data} />
+                {myListData.data ? (
+                  <ConstantList
+                    modal={toggleModal}
+                    movieList={myListData.data}
+                  />
                 ) : (
                   <>
                     <PlaceholderCard />
