@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "0.26.0",
     "crypto-js": "4.1.1",
+    "dompurify": "^2.3.6",
     "firebase": "9.6.7",
     "firebase-admin": "10.0.2",
     "firebaseui": "6.0.0",
@@ -40,5 +41,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/AlstonChan/Netflix-clone"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

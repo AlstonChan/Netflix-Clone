@@ -3,6 +3,8 @@ import signUpStyles from "../../styles/signup.module.css";
 import { useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 import { db, auth } from "../../lib/firebase";
 
 import InputEmail from "../login/InputEmail";
@@ -16,18 +18,23 @@ export default function RegFormInput() {
     e.preventDefault();
     const email = emailInputRef.current.value;
     const password = passInputRef.current.value;
-
+    const sessionData = window.sessionStorage.getItem("plan");
+    const plan = aes
+      .decrypt(sessionData, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+      .toString(CryptoJS.enc.Utf8);
     //validation of email and password
     const passwordLength = password.length > 5 && password.length < 60;
 
     const regexValidateEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email.match(regexValidateEmail)) {
-      if (passwordLength) {
+      if (passwordLength && plan) {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             setDoc(doc(db, "Acc", userCredential.user.uid), {
               uid: userCredential.user.uid,
+              createdAt: Date(),
+              plan,
               "user-main": {
                 name: userCredential.user.email.split("@").shift(),
                 pic: Math.ceil(Math.random() * 4),
@@ -35,6 +42,7 @@ export default function RegFormInput() {
             });
           })
           .then(() => window.sessionStorage.removeItem("user"))
+          .then(() => window.sessionStorage.removeItem("plan"))
           .catch((error) => {
             const { code, message } = error;
             console.error(message);

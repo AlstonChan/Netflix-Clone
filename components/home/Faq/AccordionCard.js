@@ -3,16 +3,17 @@ import svgCross from "../../../public/images/icons/misc/cross.svg";
 
 import Image from "next/image";
 
+import DOMPurify from "dompurify";
+
 export default function AccordianCard({ faq, toggleOne, classNm, data }) {
-  // Warn: not yet seralize
   function createMarkup() {
     let txt;
     if (typeof faq.content !== "object") {
       txt = faq.content;
-      return { __html: txt };
+      return { __html: DOMPurify.sanitize(txt) };
     } else {
       txt = faq.content[0] + "<br /><br />" + faq.content[1];
-      return { __html: txt };
+      return { __html: DOMPurify.sanitize(txt) };
     }
   }
 

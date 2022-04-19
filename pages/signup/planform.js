@@ -5,8 +5,10 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
+import aes from "crypto-js/aes";
 
 import PricingTable from "../../components/signup/PricingTable";
 import Footer from "../../components/footer/FooterStyle2";
@@ -27,6 +29,15 @@ const variants = {
 };
 
 export function PlanForm() {
+  const selectedPlan = useRef();
+
+  const updatePlan = () => {
+    const encrypted = aes
+      .encrypt(selectedPlan.current, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+      .toString();
+    sessionStorage.setItem("plan", encrypted);
+  };
+
   return (
     <>
       <Head>
@@ -64,7 +75,7 @@ export function PlanForm() {
                 );
               })}
               <br />
-              <PricingTable />
+              <PricingTable plan={selectedPlan} />
               <div className={styles.termsCondition}>
                 <small className={styles.termsConditionSmall}>
                   HD (720p), Full HD (1080p), Ultra HD (4K) and HDR availability
@@ -85,7 +96,9 @@ export function PlanForm() {
               </div>
               <div className={styles.btnContainerNext}>
                 <Link href="/signup/registration">
-                  <a className={styles.nextButton}>Next</a>
+                  <a className={styles.nextButton} onClick={updatePlan}>
+                    Next
+                  </a>
                 </Link>
               </div>
             </div>

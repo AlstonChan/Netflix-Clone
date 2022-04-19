@@ -156,7 +156,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
 
   const dropDownPanel = [
     { src: EditPencil, text: "Manage Profiles", link: "/manageProfile" },
-    { src: UserProfile, text: "Account", link: "/YourAccont" },
+    { src: UserProfile, text: "Account", link: "/yourAccount" },
     {
       src: Help,
       text: "Help Centre",

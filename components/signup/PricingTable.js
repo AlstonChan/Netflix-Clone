@@ -6,8 +6,11 @@ import ArrRed from "../../public/images/icons/misc/nav_arrow_bold red.svg";
 import Image from "next/image";
 
 import { useState } from "react";
+import aes from "crypto-js/aes";
+import CryptoJS from "crypto-js";
+import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
 
-export default function PricingTable() {
+export default function PricingTable({ plan }) {
   const packagePlan = ["Basic", "Standard", "Premium"];
   const monthlyPrices = ["RM35", "RM45", "RM55"];
   const videoQuality = ["Good", "Better", "Best"];
@@ -21,6 +24,7 @@ export default function PricingTable() {
   });
 
   function selectPlan(e) {
+    plan.current = e.currentTarget.dataset.plan;
     setSelectedCol({
       stylesBox: `${styles.box} ${styles.boxActive}`,
       stylesCol: `${styles.rowDataStyle} ${styles.rowDataStyleActive}`,
@@ -28,6 +32,27 @@ export default function PricingTable() {
       plannum: e.currentTarget.dataset.plannum,
     });
   }
+
+  useIsomorphicLayoutEffect(() => {
+    const data = window.sessionStorage.getItem("plan");
+    if (data) {
+      plan.current = aes
+        .decrypt(data, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
+        .toString(CryptoJS.enc.Utf8);
+      setSelectedCol({
+        stylesBox: `${styles.box} ${styles.boxActive}`,
+        stylesCol: `${styles.rowDataStyle} ${styles.rowDataStyleActive}`,
+        plan:
+          plan.current === "Basic"
+            ? "Basic"
+            : plan.current === "Standard"
+            ? "Standard"
+            : "Premium",
+        plannum:
+          plan.current === "Basic" ? 0 : plan.current === "Standard" ? 1 : 2,
+      });
+    }
+  }, []);
 
   return (
     <>
