@@ -1,3 +1,136 @@
 .main {
-  min-height: 80vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.footer {
+  margin: auto 0 0 0;
+}
+
+.centerContent {
+  padding: 30px 50px;
+  position: relative;
+  height: 100%;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.headings {
+  display: flex;
+}
+.mainHeaders {
+  font-weight: 400;
+  margin: 0;
+}
+.memContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.memberSince {
+  margin: 0;
+  font-weight: bold;
+  color: #444;
+  font-size: 0.9rem;
+}
+.section {
+  display: flex;
+}
+.headerContainer {
+  width: 170px;
+}
+
+.contentContainer {
+  width: 100%;
+}
+
+.divider {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #999;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.subHeaders {
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.2rem;
+  color: #757575;
+}
+
+/* Membership.js */
+.userEmail,
+.userEmailVerified,
+.userPassword,
+.linkUpdate {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.userInfo {
+  display: flex;
+}
+
+.userEmail {
+  font-weight: 800;
+}
+.userEmailVerified {
+  color: #757575;
+}
+.userEmailVerifiedTrue,
+.userEmailVerifiedFalse {
+  font-weight: 700;
+}
+.userEmailVerifiedTrue {
+  color: rgb(34, 194, 13, 0.7);
+}
+.userEmailVerifiedFalse {
+  color: rgb(224, 14, 14, 0.7);
+}
+.userPassword {
+  color: #757575;
+  font-weight: 100;
+}
+
+.userInfoLink {
+  margin: 0 0 0 auto;
+}
+.linkUpdate {
+  text-align: end;
+}
+.linkUpdate > a {
+  color: #0073e6;
+  text-decoration: none;
+}
+.linkUpdate:hover > a {
+  text-decoration: underline;
+}
+
+/* ProfileSetting */
+.userBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.imgContainer {
+  width: 60px;
+  margin-right: 15px;
+}
+.arrowContainer {
+  transform: rotate(-90deg);
+  margin: 0 0 0 auto;
+}
+.arrowContainerOpen {
+  transform: rotate(90deg);
+  margin: 0 0 0 auto;
+}
+.userName {
+  font-weight: 500;
 }
