@@ -15,6 +15,7 @@ import FooterStyle2 from "../components/footer/FooterStyle2";
 import Membership from "../components/yourAccount/Membership";
 import PlanDetails from "../components/yourAccount/PlanDetails";
 import ProfileSetting from "../components/yourAccount/ProfileSetting";
+import AccountHeader from "../components/yourAccount/AccountHeader";
 
 export function YourAccount() {
   const { user, userData } = useContext(UserContext);
@@ -28,7 +29,7 @@ export function YourAccount() {
       </Head>
       <main className={styles.main}>
         <div style={{ backgroundColor: "#000" }}>
-          <Header logoClickHome={false} />
+          <AccountHeader />
         </div>
         <article className={styles.centerContent}>
           {userData && user ? (

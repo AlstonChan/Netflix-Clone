@@ -109,6 +109,7 @@ component/browse/header/userComponent.js;
 .profilePicContainAll {
   cursor: pointer;
   position: relative;
+  z-index: 200;
 }
 
 .profilePicContainAll:hover .profilePicIcon {

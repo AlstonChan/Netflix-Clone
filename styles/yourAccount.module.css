@@ -9,6 +9,11 @@
   margin: auto 0 0 0;
 }
 
+/* headings */
+.userHeader {
+  margin: 0 0 0 auto;
+}
+
 .centerContent {
   padding: 30px 50px;
   position: relative;
@@ -93,6 +98,7 @@
 .userEmailVerifiedFalse {
   color: rgb(224, 14, 14, 0.7);
 }
+.infoHeaderPara,
 .userPassword {
   color: #757575;
   font-weight: 100;
@@ -104,15 +110,19 @@
 .linkUpdate {
   text-align: end;
 }
+.infoLinksDisabled > a,
+.infoLinks > a,
 .linkUpdate > a {
+  cursor: pointer;
   color: #0073e6;
   text-decoration: none;
 }
+.infoLinks > a:hover,
 .linkUpdate:hover > a {
   text-decoration: underline;
 }
 
-/* ProfileSetting */
+/* ProfileSetting && UserBar */
 .userBox {
   width: 100%;
   display: flex;
@@ -133,4 +143,33 @@
 }
 .userName {
   font-weight: 500;
+}
+
+.infoContainer {
+  margin-left: 75px;
+}
+.info {
+  display: flex;
+  height: 60px;
+  align-items: center;
+}
+.infoHeader {
+  display: flex;
+  flex-direction: column;
+}
+.infoHeaderTxt,
+.infoHeaderPara {
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.infoLinksDisabled,
+.infoLinks {
+  margin: 0 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.infoLinksDisabled > a {
+  cursor: not-allowed;
 }
