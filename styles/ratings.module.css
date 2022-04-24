@@ -1,0 +1,45 @@
+.bar {
+  display: flex;
+  align-items: center;
+}
+
+.headerBlock {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.headerBlock > h1 {
+  font-weight: 400;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.picContainer {
+  margin: 0 0 0 auto;
+  width: 50px;
+  height: 50px;
+}
+
+.movTitle,
+.movDate {
+  margin: 0;
+}
+.movTitle {
+  color: #0080ff;
+  font-weight: 400;
+}
+.movDate {
+  width: 120px;
+  font-size: 1.1rem;
+}
+
+.iconGroup {
+  display: flex;
+  height: 100%;
+  background-color: #222;
+}
+
+.roundBorder {
+  border-radius: 5px;
+}

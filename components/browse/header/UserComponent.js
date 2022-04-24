@@ -28,7 +28,7 @@ export default function UserComponent() {
     if (typeof window === "object") {
       const data = window.sessionStorage.getItem("profile");
       if (!data) {
-        setCurrentUser(null);
+        setCurrentUser("user-main");
       } else {
         setCurrentUser(
           aes
@@ -89,7 +89,7 @@ export default function UserComponent() {
           )}
         </div>
         <Image
-          src="/images/icons/misc/nav_arrow_bold.svg"
+          src="/images/icons/arrow/nav_arrow_bold.svg"
           width="20px"
           height="20px"
           className={styles.profilePicIcon}
@@ -107,7 +107,7 @@ export default function UserComponent() {
           <div>
             <div className={styles.dropDownUserNavListArrContain}>
               <Image
-                src="/images/icons/misc/nav_arrow_bold.svg"
+                src="/images/icons/arrow/nav_arrow_bold.svg"
                 width="20px"
                 height="20px"
                 className={styles.dropDownUseruNavListArr}
@@ -135,18 +135,17 @@ export function UserDropDownList({ currentUser, switchProfile }) {
 
   useEffect(() => {
     if (userData) {
-      if (userData[secProfile[3]]) {
-        setShowProfile([0, 1, 2, 3]);
-      } else if (userData[secProfile[2]]) {
-        setShowProfile([0, 1, 2]);
-      } else if (userData[secProfile[1]]) {
-        setShowProfile([0, 1]);
-      } else if (userData[secProfile[0]]) {
-        setShowProfile([0]);
+      const tempArr = [];
+      for (let x = 0; x < 4; x++) {
+        if (userData[`user-sec${x}`]) {
+          tempArr.push(x);
+        }
       }
+      setShowProfile(tempArr);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
+
   const logout = () => {
     signOut(auth)
       .then(() => router.push("/logout"))

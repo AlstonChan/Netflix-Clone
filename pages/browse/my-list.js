@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { UserContext } from "../_app";

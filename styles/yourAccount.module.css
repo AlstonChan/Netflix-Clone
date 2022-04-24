@@ -2,7 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 340px;
 }
 
 .footer {
@@ -17,11 +17,10 @@
 .centerContent {
   padding: 30px 50px;
   position: relative;
-  height: 100%;
   max-width: 1024px;
   width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
+  margin: 20px auto 20px auto;
+  height: 100%;
 }
 
 .headings {
@@ -172,4 +171,48 @@
 
 .infoLinksDisabled > a {
   cursor: not-allowed;
+}
+
+@media screen and (max-width: 740px) {
+  .section {
+    flex-direction: column;
+  }
+  .headerContainer {
+    width: 170px;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .main {
+    background-color: #f3f3f3;
+  }
+  .centerContent {
+    padding: 10px 20px;
+    margin: 10px auto 20px auto;
+  }
+  .headings {
+    flex-direction: column;
+  }
+  .memContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 6px;
+  }
+  .mobileContainer {
+    border: solid 1px #999;
+    margin: 18px 0;
+    padding: 20px 10px;
+    background-color: #fff;
+  }
+  .userInfo {
+    flex-direction: column;
+  }
+  .userInfoLink {
+    margin: 0;
+  }
+  .linkUpdate {
+    text-align: start;
+  }
 }

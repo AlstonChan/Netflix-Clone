@@ -1,63 +1,43 @@
-import styles from "../../../styles/browse/modals.module.css";
-import browseStyles from "../../../styles/browse/browse.module.css";
+import baseStyles from "../../../styles/yourAccount.module.css";
+import modalStyles from "../../../styles/browse/modals.module.css";
+import styles from "../../../styles/ratings.module.css";
 import thumbsDown from "../../../public/images/icons/misc/thumbs-down.svg";
 import thumbsUp from "../../../public/images/icons/misc/thumbs-up.svg";
 import plus from "../../../public/images/icons/misc/plus.svg";
 import cancel from "../../../public/images/icons/misc/cancel.svg";
-import arrow from "../../../public/images/icons/arrow/nav_arrow.svg";
-import play from "../../../public/images/icons/misc/play-btn.svg";
-import playBtn from "../../../public/images/browse/featured/play-button.png";
 
 import Image from "next/image";
 
-import { useContext } from "react";
 import useFetchMyMovie from "../../../lib/useFetchMyMovie";
-import { UserContext } from "../../../pages/_app";
 
-export default function IconGroup({ mov, modalToggle, openModal }) {
-  const { user, loading } = useContext(UserContext);
+export default function MovieInfoBar({ movDetails }) {
   const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
-    mov.id,
-    mov
+    movDetails.id,
+    movDetails
   );
 
   const actionToggle = async (e) => {
     if (user && !loading) {
       const action = e.currentTarget.dataset.action;
-      setMovieData(mov.id, mov.title, action);
+      setMovieData(mov.id, action);
     }
   };
 
-  console.log(currentMovieData);
+  if (movDetails.movieID === null) {
+    return null;
+  }
 
-  // console.log(currentMovieData, latestData);
-
-  const containerClass = !openModal
-    ? styles.container
-    : `${styles.container} ${styles.containerOpen}`;
+  const date = new Date(movDetails.lastUpdate);
 
   return (
-    <div className={containerClass}>
+    <section className={styles.bar}>
+      <p className={styles.movDate}>{date.toLocaleDateString("en-GB")}</p>
+      <h3 className={styles.movTitle}>{movDetails.title} </h3>
       <div className={styles.iconGroup}>
-        {!openModal ? (
-          <div className={styles.circleContainerPlay}>
-            <Image src={play} alt="play the movie" unoptimized />
-          </div>
-        ) : (
-          <button
-            type="button"
-            className={`${browseStyles.playBtn} ${styles.playBtn}`}
-          >
-            <div className={browseStyles.btnImage}>
-              <Image src={playBtn} alt="" unoptimized />
-            </div>
-            <span className={browseStyles.playBtnTxt}>Play</span>
-          </button>
-        )}
         {currentMovieData.addList ? (
           <div
             onClick={(e) => actionToggle(e)}
-            className={styles.circleContainer}
+            className={modalStyles.circleContainer}
             data-action="cancel"
           >
             <Image
@@ -69,7 +49,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
         ) : (
           <div
             onClick={(e) => actionToggle(e)}
-            className={styles.circleContainer}
+            className={modalStyles.circleContainer}
             data-action="plus"
           >
             <Image src={plus} alt="add the movies to your list" unoptimized />
@@ -77,7 +57,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
         )}
         <div
           onClick={(e) => actionToggle(e)}
-          className={styles.circleContainer}
+          className={modalStyles.circleContainer}
           data-action="thumbsUp"
           style={
             currentMovieData.like === "Liked"
@@ -89,7 +69,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
         </div>
         <div
           onClick={(e) => actionToggle(e)}
-          className={styles.circleContainer}
+          className={modalStyles.circleContainer}
           data-action="thumbsDown"
           style={
             currentMovieData.like === "Disliked"
@@ -100,18 +80,6 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
           <Image src={thumbsDown} alt="likes the movies" unoptimized />
         </div>
       </div>
-      {!openModal ? (
-        <div className={styles.circleContainerDrop}>
-          <div
-            style={{ transform: "rotate(-90deg)" }}
-            onClick={() => modalToggle("open")}
-          >
-            <Image src={arrow} alt="show more" unoptimized />
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-    </div>
+    </section>
   );
 }

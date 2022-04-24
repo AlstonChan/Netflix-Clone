@@ -63,7 +63,7 @@ export default function BellComponent() {
         >
           <div className={styles.notificationArrContain}>
             <Image
-              src="/images/icons/misc/nav_arrow_bold.svg"
+              src="/images/icons/arrow/nav_arrow_bold.svg"
               width="20px"
               height="20px"
               className={styles.notificationArr}
