@@ -33,6 +33,7 @@ export function MyList() {
   const searchMutation = useMutation((searc) =>
     fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
   ); // To query search data using searchRef hook input
+  const [latestData, setLatestData] = useState(null);
 
   // To get sessionstorage data - "profile" as soon as the possible, and
   // decrypt the data to determine the current user for profile state hook
@@ -124,6 +125,13 @@ export function MyList() {
     }
   );
 
+  useEffect(() => {
+    if (myListData.data) {
+      setLatestData(myListData.data);
+    }
+    console.log(myListData.data);
+  }, [myListData.data]);
+
   // set the current profile (user)
   function switchPage(name) {
     const encrypted = aes
@@ -193,12 +201,12 @@ export function MyList() {
                 )}
               </Main>
             ) : (
-              <Main data={myListData.data}>
+              <Main data={latestData}>
                 <span className={styles.featuredMain}>
                   <div className={styles.emptyFea}></div>
                 </span>
                 <h1 className={styles.listHeader}>My List</h1>
-                {myListData.data ? (
+                {latestData ? (
                   <ConstantList
                     modal={toggleModal}
                     movieList={myListData.data}

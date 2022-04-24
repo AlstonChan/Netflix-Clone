@@ -1,6 +1,6 @@
 import styles from "../../styles/yourAccount.module.css";
 import stylesProfile from "../../styles/browse/secondaryHeader.module.css";
-import navArrow from "../../public/images/icons/misc/nav_arrow black.svg";
+import navArrow from "../../public/images/icons/arrow/nav_arrow black.svg";
 
 import Image from "next/image";
 import Link from "next/link";

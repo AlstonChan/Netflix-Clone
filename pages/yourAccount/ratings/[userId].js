@@ -6,6 +6,7 @@ import Spinner from "../../../public/images/browse/spinner.png";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useContext, useEffect, useState } from "react";
 import aes from "crypto-js/aes";
@@ -64,13 +65,13 @@ export default function UserRating() {
             </div>
             <hr className={baseStyles.divider} />
             {listMovieData.data()[currentUser].map((movDetails, index) => {
-              return (
-                <div key={index}>
-                  <MovieInfoBar movDetails={movDetails} />
-                  <hr className={baseStyles.divider} />
-                </div>
-              );
+              return <MovieInfoBar key={index} movDetails={movDetails} />;
             })}
+            <button className={styles.backBtn}>
+              <Link href="/yourAccount">
+                <a className={styles.backBtnTxt}>Back to Your Account</a>
+              </Link>
+            </button>
           </article>
         ) : (
           <main className={stylesSpin.mainLoader}>

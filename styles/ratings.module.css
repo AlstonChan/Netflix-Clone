@@ -37,9 +37,22 @@
 .iconGroup {
   display: flex;
   height: 100%;
-  background-color: #222;
+  margin: 0 0 0 auto;
 }
 
 .roundBorder {
   border-radius: 5px;
+}
+
+.backBtn {
+  padding: 8px 18px;
+  background-color: #e6e6e6;
+}
+.backBtn:hover {
+  background-color: #f3f3f3;
+}
+.backBtnTxt {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #000;
 }

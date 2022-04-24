@@ -24,11 +24,12 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
   const actionToggle = async (e) => {
     if (user && !loading) {
       const action = e.currentTarget.dataset.action;
-      setMovieData(mov.id, mov.title, action);
+      setMovieData(mov.id, mov.title || mov.name, action);
     }
   };
 
   console.log(currentMovieData);
+  console.log(mov.name);
 
   // console.log(currentMovieData, latestData);
 
