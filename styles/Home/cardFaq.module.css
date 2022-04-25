@@ -70,6 +70,8 @@ component/home/Faq/index.js;
   margin: 0 0 0 auto;
   max-width: 27px;
   align-self: center;
+  display: flex;
+  align-items: center;
 }
 
 .closeCross {

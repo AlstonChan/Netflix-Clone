@@ -1,11 +1,11 @@
-export default function ThumbsDownSvg({ selected, stColor, bgColor }) {
+export default function ThumbsDownSvg({ selected, stColor, bgColor, modal }) {
   return (
     <svg
       width={30}
       height={30}
       strokeWidth={1.5}
       viewBox="0 0 24 24"
-      fill={selected ? "#000" : bgColor || "none"}
+      fill={selected ? (modal ? " #fff" : "#000") : bgColor || "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -15,7 +15,7 @@ export default function ThumbsDownSvg({ selected, stColor, bgColor }) {
       />
       <path
         d="M7 14.5v-11"
-        stroke={selected ? "#fff" : stColor || "#fff"}
+        stroke={selected ? (modal ? "#000" : "#fff") : stColor || "#fff"}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

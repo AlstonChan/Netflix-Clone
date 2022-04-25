@@ -1,7 +1,5 @@
 import styles from "../../../styles/Home/cardFaq.module.css";
-import svgCross from "../../../public/images/icons/misc/cross.svg";
-
-import Image from "next/image";
+import CancelSvg from "../../icons/CancelSvg";
 
 import DOMPurify from "dompurify";
 
@@ -28,16 +26,13 @@ export default function AccordianCard({ faq, toggleOne, classNm, data }) {
           {faq.headers}{" "}
         </span>
         <div className={styles.btnCross}>
-          <Image
-            data-num={data}
-            src={svgCross}
+          <CancelSvg
+            data={data}
             className={
               classNm.active && classNm.index == data
                 ? styles.openCross
                 : styles.closeCross
             }
-            alt=""
-            unoptimized
           />
         </div>
       </button>

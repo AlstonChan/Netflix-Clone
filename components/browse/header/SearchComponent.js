@@ -1,6 +1,6 @@
 import styles from "../../../styles/browse/secondaryHeader.module.css";
 import search from "../../../public/images/icons/misc/search.svg";
-import cross from "../../../public/images/icons/misc/cross.svg";
+import CancelSvg from "../../icons/CancelSvg";
 
 import Image from "next/image";
 
@@ -144,7 +144,7 @@ export default function SearchComponent({ searchRef }) {
               htmlFor="q"
               onClick={clearQuery}
             >
-              <Image src={cross} alt="cancel icon" unoptimized />
+              <CancelSvg />
             </label>
           </div>
         </div>

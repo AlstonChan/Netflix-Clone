@@ -45,9 +45,7 @@ component/browse/header/userComponent.js;
 
 .searchCross {
   display: inline-block;
-  margin: 0 8px -1% auto;
-  width: 16px;
-  background-color: black;
+  margin: 0 0 -1% auto;
   z-index: 10;
   align-self: center;
   cursor: pointer;

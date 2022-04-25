@@ -24,8 +24,6 @@ export default function MovieInfoBar({ movDetails }) {
     }
   };
 
-  console.log(movDetails.title, movDetails.like);
-
   if (movDetails.movieID === null) {
     return null;
   } else if (movDetails.like === "Disliked" && movDetails.addList !== true) {

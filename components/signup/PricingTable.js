@@ -1,7 +1,6 @@
 import styles from "../../styles/signup.module.css";
-import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
-import CheckGray from "../../public/images/icons/misc/icons_check gray.svg";
-import ArrRed from "../../public/images/icons/misc/nav_arrow_bold red.svg";
+import CheckMarkSvg from "../icons/CheckMarkSvg";
+import ArrRed from "../../public/images/icons/arrow/nav_arrow_bold red.svg";
 
 import Image from "next/image";
 
@@ -145,9 +144,9 @@ export default function PricingTable({ plan }) {
               return (
                 <td key={index} className={styles.rowDataStyle}>
                   {selectedCol.plannum == index ? (
-                    <Image src={CheckRed} alt="red check mark" unoptimized />
+                    <CheckMarkSvg stColor="rgb(212, 60, 60)" />
                   ) : (
-                    <Image src={CheckGray} alt="gray check mark" unoptimized />
+                    <CheckMarkSvg stColor="#737373" />
                   )}
                 </td>
               );

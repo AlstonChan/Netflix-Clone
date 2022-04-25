@@ -1,6 +1,6 @@
 import styles from "../../styles/signup.module.css";
-import CheckMark from "../../public/images/icons/misc/Checkmark.png";
-import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
+import CheckMark from "../../public/images/icons/misc/rounded-checkmark.png";
+import CheckMarkSvg from "../../components/icons/CheckMarkSvg";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -52,7 +52,7 @@ export function SignUp() {
                 {benefitTxt.map((txt, index) => {
                   return (
                     <li key={index} className={styles.benefitListItem}>
-                      <Image src={CheckRed} alt="a red check Mark" />
+                      <CheckMarkSvg stColor="rgb(212, 60, 60)" />
                       <span className={styles.benefitListItemTxt}>{txt}</span>
                     </li>
                   );

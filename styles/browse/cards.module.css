@@ -28,7 +28,7 @@ component/browse/cards/sliderHandler.js;
 .cardsRow {
   display: flex;
 }
-.cardsRow:hover .navArrowContainer {
+.cardsRow:hover .handlerSvg {
   visibility: visible;
 }
 
@@ -46,7 +46,6 @@ component/browse/cards/sliderHandler.js;
   bottom: 0;
   width: 4%;
   text-align: center;
-  transition: transform 180ms ease-in-out;
   cursor: pointer;
   background-color: rgba(51, 51, 51, 0.733);
   z-index: 2;
@@ -60,22 +59,29 @@ component/browse/cards/sliderHandler.js;
   right: 0;
 }
 
-.handle:hover {
+.handle:hover .handlerSvg {
   transform: scale(1.25);
 }
-.handleRgt:hover {
-  transform: scale(-1.25, 1.25);
+.handleRgt:hover .handlerSvg {
+  transform: scale(1.25, 1.25);
 }
 
-.handle:hover .navArrowContainer {
+.handle:hover .handlerSvg {
   visibility: visible;
 }
 
 .navArrowContainer {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   height: 100%;
   width: 100%;
   visibility: hidden;
+}
+
+.handlerSvg {
+  transition: transform 180ms ease-in-out;
 }
 
 /* Collection of cards start here*/
