@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 
-export default function Input({ setRef, inputId, page }) {
+export default function Input({
+  setRef,
+  inputId,
+  mode,
+  useLocalStorageData,
+  label,
+  warnings,
+}) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
@@ -13,7 +20,7 @@ export default function Input({ setRef, inputId, page }) {
 
   //Set warning about user email input and toggle the warning presence
   const [emailInput, setEmailInput] = useState({
-    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
+    class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
     warnings: "",
   });
 
@@ -22,7 +29,7 @@ export default function Input({ setRef, inputId, page }) {
   useEffect(() => {
     setRef.current.value = "";
     handleInputClick({ type: "blur" });
-    if (page == "regForm" && typeof setRef != undefined) {
+    if (useLocalStorageData && typeof setRef != undefined) {
       const val = sessionStorage.getItem("user");
       if (val) {
         const decrypted = aes
@@ -44,25 +51,22 @@ export default function Input({ setRef, inputId, page }) {
     if (valLength <= 4) {
       setEmailInput({
         class:
-          page == "LoginForm"
-            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
-            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
-        warnings:
-          page == "LoginForm"
-            ? "Email is required!"
-            : "Email should be between 5 and 50 characters.",
+          mode === "dark"
+            ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
+        warnings: warnings || "Email is required!",
       });
     } else if (!val.match(regexValidateEmail)) {
       setEmailInput({
         class:
-          page == "LoginForm"
-            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
-            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
+          mode === "dark"
+            ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
         warnings: "Please enter a valid email address",
       });
     } else {
       setEmailInput({
-        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
+        class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
         warnings: "",
       });
     }
@@ -83,7 +87,7 @@ export default function Input({ setRef, inputId, page }) {
     }
   }
 
-  return page == "LoginForm" ? (
+  return (
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
@@ -101,33 +105,16 @@ export default function Input({ setRef, inputId, page }) {
           onChange={(e) => handleInputClick(e)}
         />
         <label htmlFor={inputId} className={emailInputLabelClass}>
-          Email
+          {label || "Email"}
         </label>
       </div>
-      <p className={styles.inputBoxWarn}>{emailInput.warnings}</p>
-    </div>
-  ) : (
-    <div className={styles.inputContainAll}>
-      <div className={styles.inputContain}>
-        <input
-          type="email"
-          name="emailInput"
-          autoComplete="true"
-          dir="lft"
-          tabIndex={0}
-          maxLength="50"
-          id={inputId}
-          className={emailInput.class}
-          ref={setRef}
-          onFocus={(e) => handleInputClick(e)}
-          onBlur={(e) => handleInputClick(e)}
-          onChange={(e) => handleInputClick(e)}
-        />
-        <label htmlFor={inputId} className={emailInputLabelClass}>
-          Email
-        </label>
-      </div>
-      <p className={styles.inputBoxWarnSign}>{emailInput.warnings}</p>
+      <p
+        className={
+          mode === "dark" ? styles.inputBoxWarn : styles.inputBoxWarnSign
+        }
+      >
+        {emailInput.warnings}
+      </p>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import styles from "../../styles/yourAccount.module.css";
+import styles from "../../styles/yourAccount/yourAccount.module.css";
 import stylesSpin from "../../styles/loader.module.css";
 import Spinner from "../../public/images/browse/spinner.png";
 

@@ -1,6 +1,20 @@
-import styles from "../../styles/yourAccount.module.css";
+import styles from "../../styles/yourAccount/yourAccount.module.css";
+
+import Link from "next/link";
+
+import { sendEmailVerification } from "firebase/auth";
+import { useState } from "react";
 
 export default function Membership({ user, divider }) {
+  const [respondPopup, setRespondPopup] = useState();
+
+  const manageUser = (type) => {
+    if (!user.emailVerified && type === "verify") {
+      sendEmailVerification(user).then(() =>
+        setRespondPopup({ state: "success", msg: "Email verification sent!" })
+      );
+    }
+  };
   return (
     <section className={styles.section}>
       <div className={styles.headerContainer}>
@@ -26,16 +40,21 @@ export default function Membership({ user, divider }) {
           </div>
           <div className={styles.userInfoLink}>
             {divider ? "" : <hr className={styles.divider} />}
-            <p className={styles.linkUpdate}>
-              <a href="">Change account email</a>
+            <p className={styles.linkUpdate}>Change account email</p>
+            {divider ? "" : <hr className={styles.divider} />}
+            <p
+              className={`${styles.linkUpdate} ${
+                user.emailVerified && styles.linkUpdateDisabled
+              }`}
+              onClick={() => manageUser("verify")}
+            >
+              Verify email
             </p>
             {divider ? "" : <hr className={styles.divider} />}
             <p className={styles.linkUpdate}>
-              <a href="">Verify email</a>
-            </p>
-            {divider ? "" : <hr className={styles.divider} />}
-            <p className={styles.linkUpdate}>
-              <a href="">Change passowrd</a>
+              <Link href="/yourAccount/password">
+                <a>Change passowrd</a>
+              </Link>
             </p>
             {divider ? "" : <hr className={styles.divider} />}
           </div>

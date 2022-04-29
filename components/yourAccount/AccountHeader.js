@@ -1,5 +1,5 @@
 import styles from "../../styles/header.module.css";
-import baseStyles from "../../styles/yourAccount.module.css";
+import baseStyles from "../../styles/yourAccount/yourAccount.module.css";
 
 import Image from "next/image";
 import router from "next/router";

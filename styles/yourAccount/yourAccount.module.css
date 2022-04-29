@@ -111,14 +111,23 @@
 }
 .infoLinksDisabled > a,
 .infoLinks > a,
-.linkUpdate > a {
+.linkUpdate > a,
+.linkUpdate {
   cursor: pointer;
   color: #0073e6;
   text-decoration: none;
 }
 .infoLinks > a:hover,
-.linkUpdate:hover > a {
+.linkUpdate:hover {
   text-decoration: underline;
+}
+
+.linkUpdateDisabled {
+  color: rgb(185, 185, 185);
+  cursor: not-allowed;
+}
+.linkUpdateDisabled:hover {
+  text-decoration: none;
 }
 
 /* ProfileSetting && UserBar */

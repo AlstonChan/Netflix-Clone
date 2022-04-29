@@ -1,8 +1,20 @@
 import styles from "../../styles/emailPassInput.module.css";
 
+import Link from "next/link";
+
 import { useState, useEffect } from "react";
 
-export default function Input({ setRef, inputId, page }) {
+export default function InputPassword({
+  setRef,
+  inputId,
+  mode = "dark",
+  showHidePassword = false,
+  label,
+  warnings,
+  warningsRef = null,
+  caption,
+  matchPass = null,
+}) {
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [passInputLabelClass, setPassInputLabelClass] = useState({
@@ -12,7 +24,7 @@ export default function Input({ setRef, inputId, page }) {
 
   //Toggle warning if user input password is too short or too long
   const [passInputWarn, setPassInputWarn] = useState({
-    class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
+    class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
     warnings: "",
   });
 
@@ -30,6 +42,46 @@ export default function Input({ setRef, inputId, page }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const checkInputRef = () => {
+    if (warningsRef.state) {
+      if (warningsRef.name === "current") {
+        if (warningsRef.err === "auth/wrong-password") {
+          setPassInputWarn({
+            class:
+              mode === "dark"
+                ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+                : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
+            warnings:
+              warnings ||
+              "Password should be between 6 and 60 characters long.",
+          });
+        } else if (warningsRef.err === "auth/too-many-requests") {
+          setPassInputWarn({
+            class:
+              mode === "dark"
+                ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+                : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
+            warnings:
+              "Account temporary disabled due to too many failed login attempt, try again later.",
+          });
+        }
+      } else if (warningsRef.name === "new") {
+        checkPasswordInput(setRef.current._valueTracker.getValue());
+      }
+    } else {
+      setPassInputWarn({
+        class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
+        warnings: "",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (warningsRef !== null) {
+      checkInputRef();
+    }
+  }, [warningsRef?.state]);
+
   function toggleClick() {
     if (togglePassword.state === "SHOW") {
       setTogglePassword({ state: "HIDE", type: "password" });
@@ -38,23 +90,42 @@ export default function Input({ setRef, inputId, page }) {
     }
   }
 
-  function checkEmailInput(val) {
+  function matchPassword() {
+    if (matchPass.current.value !== setRef.current.value) {
+      setPassInputWarn({
+        class:
+          mode === "dark"
+            ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
+        warnings,
+      });
+    } else {
+      setPassInputWarn({
+        class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
+        warnings: "",
+      });
+    }
+  }
+
+  function checkPasswordInput(val) {
     const valLength = val?.length ?? 0;
+    if (warningsRef !== null) {
+      if (warningsRef.name === "current") return;
+      if (warningsRef.name === "confirm") return matchPassword();
+    }
     if (valLength == 0) return;
     if (valLength < 6 || valLength > 60) {
       setPassInputWarn({
         class:
-          page == "LoginForm"
-            ? `${styles.inputBox} ${styles.inputBoxWarnBorder}`
-            : `${styles.inputBoxSign} ${styles.inputBoxWarnBorderSign}`,
+          mode === "dark"
+            ? `${styles.darkInputBox} ${styles.inputBoxWarnBorder}`
+            : `${styles.lightInputBox} ${styles.inputBoxWarnBorderSign}`,
         warnings:
-          page == "LoginForm"
-            ? "Your password must contain between 6 and 60 characters."
-            : "Password should be between 6 and 60 characters long.",
+          warnings || "Password should be between 6 and 60 characters long.",
       });
     } else {
       setPassInputWarn({
-        class: page == "LoginForm" ? styles.inputBox : styles.inputBoxSign,
+        class: mode === "dark" ? styles.darkInputBox : styles.lightInputBox,
         warnings: "",
       });
     }
@@ -63,33 +134,34 @@ export default function Input({ setRef, inputId, page }) {
   function handleInputClick(e) {
     const val = setRef.current._valueTracker.getValue();
     if (e.type === "change") {
-      checkEmailInput(val);
+      if (warnings === "none") return;
+      checkPasswordInput(val);
     } else if (e.type === "focus") {
       setPassInputLabelClass({
         email: `${styles.inputBoxLabel} ${styles.inputBoxLabelMove}`,
         class: `${styles.show} ${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val === "") {
-      if (page == "LoginForm")
+      if (showHidePassword)
         setTogglePassword({ state: "HIDE", type: "password" });
       setPassInputLabelClass({
         email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
     } else if (e.type === "blur" && val !== "") {
-      if (page == "LoginForm")
+      if (showHidePassword)
         setTogglePassword({ state: "HIDE", type: "password" });
     } else if (e.type === "clear") {
       setPassInputLabelClass({
         email: `${styles.inputBoxLabel}`,
         class: `${styles.togglePassword}`,
       });
-      if (page == "LoginForm")
+      if (showHidePassword)
         setTogglePassword({ state: "HIDE", type: "password" });
     }
   }
 
-  return page == "LoginForm" ? (
+  return (
     <div className={styles.inputContainAll}>
       <div className={styles.inputContain}>
         <input
@@ -104,35 +176,32 @@ export default function Input({ setRef, inputId, page }) {
           onChange={(e) => handleInputClick(e)}
         />
         <label htmlFor={inputId} className={passInputLabelClass.email}>
-          Password
+          {label || "Password"}
         </label>
-        <div className={passInputLabelClass.class}>
-          <div onClick={toggleClick}>
-            <span className={styles.hideShowTxt}>{togglePassword.state} </span>
+        {showHidePassword ? (
+          <div className={passInputLabelClass.class}>
+            <div onClick={toggleClick}>
+              <span className={styles.hideShowTxt}>
+                {togglePassword.state}{" "}
+              </span>
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
-      <p className={styles.inputBoxWarn}>{passInputWarn.warnings}</p>
-    </div>
-  ) : (
-    <div className={styles.inputContainAll}>
-      <div className={styles.inputContain}>
-        <input
-          type={togglePassword.type}
-          name="passwordInput"
-          maxLength="50"
-          id={inputId}
-          className={passInputWarn.class}
-          ref={setRef}
-          onFocus={(e) => handleInputClick(e)}
-          onBlur={(e) => handleInputClick(e)}
-          onChange={(e) => handleInputClick(e)}
-        />
-        <label htmlFor={inputId} className={passInputLabelClass.email}>
-          Add a password
-        </label>
-      </div>
-      <p className={styles.inputBoxWarnSign}>{passInputWarn.warnings}</p>
+      <p
+        className={
+          mode === "dark" ? styles.inputBoxWarn : styles.inputBoxWarnSign
+        }
+      >
+        {passInputWarn.warnings}{" "}
+        <span className={styles.caption}>
+          <Link href="/yourAccount/loginHelp">
+            <a>{caption}</a>
+          </Link>
+        </span>
+      </p>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import styles from "../../styles/yourAccount.module.css";
+import styles from "../../styles/yourAccount/yourAccount.module.css";
 
 export default function PlanDetails({ userData, divider }) {
   return (
