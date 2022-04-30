@@ -166,11 +166,9 @@ export function Password() {
                     <button className={styles.saveBtn} type="submit">
                       <span className={styles.btnContent}>Save</span>
                     </button>
-                    <button className={styles.cancelBtn}>
-                      <Link href="/yourAccount">
-                        <a className={styles.btnContent}>Cancel</a>
-                      </Link>
-                    </button>
+                    <Link href="/yourAccount">
+                      <a className={styles.cancelBtn}>Cancel</a>
+                    </Link>
                   </div>
                 </form>
               </>

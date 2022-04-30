@@ -1,9 +1,9 @@
-export default function CheckMarkSvg({ stColor, bgColor }) {
+export default function CheckMarkSvg({ stColor, bgColor, stWidth }) {
   return (
     <svg
       width={24}
       height={24}
-      strokeWidth={1.5}
+      strokeWidth={stWidth || 1.5}
       fill={bgColor || "none"}
       xmlns="http://www.w3.org/2000/svg"
     >

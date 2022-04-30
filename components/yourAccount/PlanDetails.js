@@ -1,5 +1,7 @@
 import styles from "../../styles/yourAccount/yourAccount.module.css";
 
+import Link from "next/link";
+
 export default function PlanDetails({ userData, divider }) {
   return (
     <section className={styles.section}>
@@ -16,7 +18,9 @@ export default function PlanDetails({ userData, divider }) {
           {divider ? "" : <hr className={styles.divider} />}
           <div className={styles.userInfoLink}>
             <p className={styles.linkUpdate}>
-              <a href="">Change plan</a>
+              <Link href="/yourAccount/changePlan">
+                <a>Change plan</a>
+              </Link>
             </p>
           </div>
         </div>
