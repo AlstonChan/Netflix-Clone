@@ -89,7 +89,7 @@ component/browse/modals/modal.js;
   border-radius: 60%;
   cursor: pointer;
   max-width: 38px;
-  min-width: 23px;
+  min-width: 30px;
   aspect-ratio: 1;
   height: fit-content;
 }
@@ -234,9 +234,9 @@ component/browse/modals/modal.js;
 }
 
 @media screen and (max-width: 650px) {
-  .bigModal {
+  /* .bigModal {
     overflow: hidden;
-  }
+  } */
   .movieDetailsOpen {
     flex-direction: column;
   }
@@ -251,5 +251,54 @@ component/browse/modals/modal.js;
   .imageContainerPoster {
     margin-top: 2rem;
     width: 80%;
+  }
+
+  .lowerPanelOpen {
+    background-color: #181818;
+    padding: 15px 2rem 2rem 2rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .movieDetailsOpen {
+    flex-direction: column;
+  }
+  .movieDetailsOpenLeft {
+    width: 100%;
+  }
+  .movieDetailsOpenRight {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .imageContainerPoster {
+    margin-top: 2rem;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .containerOpen {
+    padding-left: clamp(0.7rem, 0.7rem + 2vw, 3rem);
+    padding-right: clamp(0.7rem, 0.7rem + 2vw, 3rem);
+    padding-bottom: clamp(1.2rem, 1rem + 1.8vw, 5rem);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .imageContainerPoster {
+    margin-top: 1rem;
+    width: 90%;
+  }
+
+  .lowerPanelOpen {
+    background-color: #181818;
+    padding: 10px 1rem 1rem 1rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .container {
+    overflow: scroll;
   }
 }

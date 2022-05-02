@@ -13,7 +13,7 @@ pages/signup/regFormInput.js;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-width: 340px;
+  min-width: 320px;
 }
 
 .main {
@@ -247,9 +247,24 @@ pages/signup/regFormInput.js;
   .boxTxt {
     font-size: 0.9rem;
   }
+
+  .centerDiv {
+    margin: 100px auto 100px auto;
+  }
+
+  .btnContainerNext {
+    width: 40%;
+  }
+  .nextButton {
+    font-size: 1.5rem;
+    padding: 14px 0;
+  }
 }
 
 @media screen and (max-width: 600px) {
+  .centerDiv {
+    margin: 80px auto 80px auto;
+  }
   .termsConditionSmall {
     padding: 0;
   }
@@ -294,5 +309,16 @@ pages/signup/regFormInput.js;
   }
   .centerPlanform {
     padding: 10px 20px;
+  }
+
+  .nextButton {
+    font-size: 1.3rem;
+    padding: 12px 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .centerDiv {
+    margin: 40px auto 40px auto;
   }
 }

@@ -24,7 +24,7 @@ export default function UserBar({ userData, currentUser }) {
       .encrypt(currentUser, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
       .toString();
     setRouteId(encrypted.replace(/\//g, "$"));
-  }, [userData]);
+  }, [userData, currentUser]);
 
   return (
     <div className={styles.userBoxContainer}>
@@ -46,7 +46,7 @@ export default function UserBar({ userData, currentUser }) {
         <div
           className={open ? styles.arrowContainerOpen : styles.arrowContainer}
         >
-          <Image src={navArrow} />
+          <Image src={navArrow} alt="" />
         </div>
       </div>
       {open ? (

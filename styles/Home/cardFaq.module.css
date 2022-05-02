@@ -287,3 +287,10 @@ component/home/Faq/index.js;
     height: 2.6rem;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .accordionItemBtn {
+    height: 3.6rem;
+    padding: 10px 15px;
+  }
+}

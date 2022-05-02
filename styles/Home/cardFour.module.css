@@ -38,6 +38,10 @@ component/home/CardFour.js;
   .containerCard {
     flex-direction: column-reverse;
   }
+  .wordGroup {
+    width: 100%;
+    padding-left: 0;
+  }
   .wordGroupBig {
     margin: 0;
     font-size: 2.6rem;
@@ -72,5 +76,11 @@ component/home/CardFour.js;
   .wordGroupSml {
     font-size: 1.1rem;
     margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .containerCard {
+    margin: 40px 20px;
   }
 }

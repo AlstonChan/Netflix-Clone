@@ -14,7 +14,7 @@ pages/manageProfile.js;
   background-color: #000;
   overflow: hidden;
   position: relative;
-  min-width: 340px;
+  min-width: 300px;
 }
 
 /* Header section */
@@ -216,6 +216,11 @@ pages/manageProfile.js;
   .headingMain {
     font-size: 2.2rem;
   }
+
+  .imgLogo {
+    height: fit-content;
+    width: 130px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -223,5 +228,10 @@ pages/manageProfile.js;
     padding: 15px 0 0 30px;
     height: 6%;
     min-height: 77px;
+  }
+
+  .imgLogo {
+    height: fit-content;
+    width: 100px;
   }
 }

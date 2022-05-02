@@ -70,8 +70,11 @@ component/header.js;
 /* media queries */
 @media screen and (max-width: 570px) {
   .mainContain {
-    max-width: 1500px;
     padding: 30px;
+  }
+
+  .mainContainSignUp {
+    padding: 18px 37px;
     display: flex;
     justify-content: center;
     margin: 0 auto;
@@ -80,5 +83,19 @@ component/header.js;
 
   .netflixLogoContainer {
     max-width: 100px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .mainContain {
+    padding: 15px 20px;
+  }
+
+  .mainContainSignUp {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
   }
 }

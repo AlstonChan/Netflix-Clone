@@ -96,6 +96,10 @@ component/home/CardTwo.js;
   .containerCard {
     flex-direction: column-reverse;
   }
+  .wordGroup {
+    width: 100%;
+    padding-left: 0;
+  }
   .wordGroupBig {
     margin: 0;
     font-size: 2.6rem;
@@ -149,5 +153,11 @@ component/home/CardTwo.js;
   }
   .smallCardImg {
     max-width: 34.28px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .containerCard {
+    margin: 40px 20px;
   }
 }

@@ -225,6 +225,9 @@ component/login/loginForm.js;
     height: 100%;
     display: block;
   }
+  .loginHead {
+    margin: 0 0 20px 0;
+  }
   .loginContainer {
     width: 100%;
     background-color: none;
@@ -237,6 +240,10 @@ component/login/loginForm.js;
     max-width: none;
   }
 
+  .btnContain {
+    margin: 20px auto 10px auto;
+  }
+
   /* LoginForm main part <form></form> */
   .formFlex {
     max-width: none;
@@ -247,5 +254,26 @@ component/login/loginForm.js;
   }
   .captchaContent {
     max-width: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .loginHead {
+    margin: 0 0 10px 0;
+  }
+  .head {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .netflixLogoContainer {
+    height: fit-content;
+    width: 130px;
+    margin-left: 5%;
+  }
+
+  .btnContain {
+    margin: 10px auto 5px auto;
   }
 }

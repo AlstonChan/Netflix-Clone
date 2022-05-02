@@ -133,7 +133,13 @@ export default function Modals({
   return modalVisibility ? (
     <div
       className={mainModalClass}
-      style={!openModal ? modalStyle.mainClass : { padding: `3rem` }}
+      style={
+        !openModal
+          ? modalStyle.mainClass
+          : modalWidth < 500
+          ? { padding: "1.5rem" }
+          : { padding: `3rem` }
+      }
       onMouseEnter={(e) => toggleModalFunc(e)}
       onMouseLeave={(e) => toggleModalFunc(e)}
       onClick={(e) => localCloseModal(e)}

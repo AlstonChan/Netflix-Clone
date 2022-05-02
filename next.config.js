@@ -13,5 +13,5 @@ module.exports = {
   //     exclude: ["error"],
   //   },
   // },
-  swcMinify: true,
+  // swcMinify: true,
 };

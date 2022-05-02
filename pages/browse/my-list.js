@@ -121,6 +121,7 @@ export function MyList() {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listMovieData, profile]);
 
   // To query data for Cards, page main data

@@ -26,3 +26,12 @@ components/browse/profile/addProfile.js;
   display: flex;
   margin: 20px 0;
 }
+
+@media screen and (max-width: 450px) {
+  .AddProfileMain {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+}

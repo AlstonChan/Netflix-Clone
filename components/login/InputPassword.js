@@ -80,6 +80,7 @@ export default function InputPassword({
     if (warningsRef !== null) {
       checkInputRef();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [warningsRef?.state]);
 
   function toggleClick() {

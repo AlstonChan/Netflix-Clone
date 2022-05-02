@@ -88,3 +88,9 @@ component/home/CardOne.js;
     align-self: center;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .containerCard {
+    margin: 40px 20px;
+  }
+}
