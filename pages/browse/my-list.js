@@ -98,15 +98,27 @@ export function MyList() {
   useEffect(() => {
     if (listMovieData && profile) {
       if (listMovieData.data()[profile]) {
-        myListData.mutate(listMovieData.data()[profile]);
+        myListData.mutate({
+          new: listMovieData.data()[profile],
+          last: latestData,
+        });
       } else {
-        myListData.mutate([
-          {
-            addList: false,
-            like: "none",
-            movieID: null,
-          },
-        ]);
+        myListData.mutate({
+          new: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+          last: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+        });
       }
     }
   }, [listMovieData, profile]);
@@ -129,7 +141,6 @@ export function MyList() {
     if (myListData.data) {
       setLatestData(myListData.data);
     }
-    console.log(myListData.data);
   }, [myListData.data]);
 
   // set the current profile (user)

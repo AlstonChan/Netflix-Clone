@@ -69,11 +69,12 @@ export function UserRating() {
             {listMovieData.data()[currentUser].map((movDetails, index) => {
               return <MovieInfoBar key={index} movDetails={movDetails} />;
             })}
-            <button className={styles.backBtn}>
-              <Link href="/yourAccount">
-                <a className={styles.backBtnTxt}>Back to Your Account</a>
-              </Link>
-            </button>
+
+            <Link href="/yourAccount">
+              <a className={`${styles.backBtn} ${styles.backBtnTxt}`}>
+                Back to Your Account
+              </a>
+            </Link>
           </article>
         ) : (
           <main className={stylesSpin.mainLoader}>

@@ -9,7 +9,7 @@ const variants = {
   exit: { opacity: 0, y: 100 },
 };
 
-export default function PasswordModal() {
+export default function PasswordModal({ content }) {
   return (
     <motion.div
       key="modal"
@@ -20,7 +20,7 @@ export default function PasswordModal() {
       transition={{ type: "linear" }} // Set the transition to linear
       className={styles.modal}
     >
-      <span className={styles.modalContent}>Password Updated</span>
+      <span className={styles.modalContent}>{content} </span>
       <CheckMarkSvg />
     </motion.div>
   );

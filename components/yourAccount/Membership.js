@@ -3,10 +3,16 @@ import styles from "../../styles/yourAccount/yourAccount.module.css";
 import Link from "next/link";
 
 import { sendEmailVerification } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
+import PasswordModal from "./PasswordModal";
 
 export default function Membership({ user, divider }) {
-  const [respondPopup, setRespondPopup] = useState();
+  const [respondPopup, setRespondPopup] = useState({
+    state: "none",
+    msg: "none",
+  });
 
   const manageUser = (type) => {
     if (!user.emailVerified && type === "verify") {
@@ -15,6 +21,27 @@ export default function Membership({ user, divider }) {
       );
     }
   };
+
+  if (respondPopup.state === "success") {
+    setTimeout(
+      () =>
+        setRespondPopup({
+          state: "none",
+          msg: "none",
+        }),
+      5000
+    );
+  }
+
+  useEffect(() => {
+    if (user.emailVerified) {
+      setRespondPopup({
+        state: "verified",
+        msg: "none",
+      });
+    }
+  }, [user.emailVerified]);
+
   return (
     <section className={styles.section}>
       <div className={styles.headerContainer}>
@@ -40,7 +67,9 @@ export default function Membership({ user, divider }) {
           </div>
           <div className={styles.userInfoLink}>
             {divider ? "" : <hr className={styles.divider} />}
-            <p className={styles.linkUpdate}>Change account email</p>
+            <p className={`${styles.linkUpdate} ${styles.linkUpdateDisabled}`}>
+              Change account email
+            </p>
             {divider ? "" : <hr className={styles.divider} />}
             <p
               className={`${styles.linkUpdate} ${
@@ -59,6 +88,11 @@ export default function Membership({ user, divider }) {
             {divider ? "" : <hr className={styles.divider} />}
           </div>
         </div>
+        <AnimatePresence>
+          {respondPopup.state === "success" && (
+            <PasswordModal content={respondPopup.msg} />
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

@@ -183,7 +183,9 @@ export function Password() {
             )}
           </div>
           <AnimatePresence>
-            {updateStatus === "success" ? <PasswordModal /> : ""}
+            {updateStatus === "success" && (
+              <PasswordModal content="Password Updated" />
+            )}
           </AnimatePresence>
         </article>
         <FooterStyle2 />

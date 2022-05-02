@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   try {
     if (requiredKey === process.env.FETCH_KEY && req.method === "POST") {
       if (requestedData === "hom") {
+        // Browse Homepage
         const movies = [];
         let pageIndex = 1;
         for (let x = 0; x < movieGenres.length; x++) {
@@ -23,6 +24,7 @@ export default async function handler(req, res) {
         res.status(200).json({ movies });
         res.end();
       } else if (requestedData === "tvs") {
+        // Browse TV Shows page
         const movies = [];
         let pageIndex = 1;
         for (let x = 0; x < tvGenres.length; x++) {
@@ -37,6 +39,7 @@ export default async function handler(req, res) {
         res.status(200).json({ movies });
         res.end();
       } else if (requestedData === "new") {
+        // Browse Trending page
         const movies = [];
         let pageIndex = 1;
         for (let x = 0; x < trendingType.length; x++) {
@@ -58,31 +61,96 @@ export default async function handler(req, res) {
         res.status(200).json({ movies });
         res.end();
       } else if (requestedData === "my-list" && additionData) {
+        // Browse My List Page
         const movies = [];
+        const movieLists = [];
 
-        for (let x = 0; x < additionData.length; x++) {
-          if (additionData[x].addList && additionData[x].movieID) {
-            if (additionData[x].movType === "movie") {
-              const url = `/movie/${additionData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
-              const res = await instances.get(url, {
-                validateStatus: false,
-              });
-              const data = res.data;
-              if (data.success !== false || typeof data.success === undefined) {
+        if (additionData.last === null) {
+          for (let x = 0; x < additionData.new.length; x++) {
+            if (additionData.new[x].addList && additionData.new[x].movieID) {
+              if (additionData.new[x].movType === "movie") {
+                const url = `/movie/${additionData.new[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+                const res = await instances.get(url, {
+                  validateStatus: false,
+                });
+                const data = res.data;
+                if (
+                  data.success !== false ||
+                  typeof data.success === undefined
+                ) {
+                  movies.push({
+                    data,
+                  });
+                }
+              } else if (additionData.new[x].movType === "tv") {
+                const url = `/tv/${additionData.new[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+                const res = await instances.get(url, {
+                  validateStatus: false,
+                });
+                const data = res.data;
+                if (
+                  data.success !== false ||
+                  typeof data.success === undefined
+                ) {
+                  movies.push({
+                    data,
+                  });
+                }
+              }
+            }
+          }
+        } else {
+          for (let x = 0; x < additionData.new.length; x++) {
+            if (additionData.new[x].addList === true) {
+              movieLists.push(additionData.new[x]);
+            }
+          }
+
+          for (let x = 0; x < additionData.last.length; x++) {
+            for (let y = 0; y < movieLists.length; y++) {
+              if (
+                Object.is(additionData.last[x].data.id, movieLists[y].movieID)
+              ) {
+                movieLists.splice(y, 1);
                 movies.push({
-                  data,
+                  data: additionData.last[x].data,
                 });
               }
-            } else if (additionData[x].movType === "tv") {
-              const url = `/tv/${additionData[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
-              const res = await instances.get(url, {
-                validateStatus: false,
-              });
-              const data = res.data;
-              if (data.success !== false || typeof data.success === undefined) {
-                movies.push({
-                  data,
-                });
+            }
+          }
+
+          if (movieLists.length >= 1) {
+            for (let x = 0; x < movieLists.length; x++) {
+              if (movieLists[x].addList && movieLists[x].movieID) {
+                if (movieLists[x].movType === "movie") {
+                  const url = `/movie/${movieLists[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+                  const res = await instances.get(url, {
+                    validateStatus: false,
+                  });
+                  const data = res.data;
+                  if (
+                    data.success !== false ||
+                    typeof data.success === undefined
+                  ) {
+                    movies.push({
+                      data,
+                    });
+                  }
+                } else if (movieLists[x].movType === "tv") {
+                  const url = `/tv/${movieLists[x].movieID}?api_key=${process.env.MOVIE_DB_API_KEY}`;
+                  const res = await instances.get(url, {
+                    validateStatus: false,
+                  });
+                  const data = res.data;
+                  if (
+                    data.success !== false ||
+                    typeof data.success === undefined
+                  ) {
+                    movies.push({
+                      data,
+                    });
+                  }
+                }
               }
             }
           }
