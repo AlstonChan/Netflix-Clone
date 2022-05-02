@@ -8,7 +8,7 @@ import { useContext } from "react";
 import ImageRender from "../ImageRender";
 import { UserContext } from "../../pages/_app";
 
-export default function LoadingBrowse() {
+export default function LoadingBrowse({ profile }) {
   const { userData } = useContext(UserContext);
 
   return (
@@ -20,12 +20,12 @@ export default function LoadingBrowse() {
       </header>
       <main className={styles.mainLoading}>
         <div className={styles.profilePicCenter}>
-          {userData ? (
+          {userData && profile ? (
             <ImageRender
               src={
-                userData["user-main"].pic.length > 3
-                  ? userData["user-main"].pic
-                  : `/images/profile pic/${userData["user-main"].pic}.png`
+                userData[profile].pic.length > 3
+                  ? userData[profile].pic
+                  : `/images/profile pic/${userData[profile].pic}.png`
               }
               width="320"
               height="320"

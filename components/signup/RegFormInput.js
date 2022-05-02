@@ -55,12 +55,15 @@ export default function RegFormInput() {
       <InputEmail
         setRef={emailInputRef}
         inputId={"RegFormInputEml"}
-        page={"regForm"}
+        mode="light"
+        warnings="Email should be between 5 and 50 characters."
+        useLocalStorageData
       />
       <InputPassword
         setRef={passInputRef}
         inputId={"RegFormInputPas"}
-        page={"regForm"}
+        mode="light"
+        showHidePassword={false}
       />
 
       <button className={`${signUpStyles.nextButton}`} type="submit">

@@ -1,0 +1,71 @@
+.bar {
+  display: flex;
+  align-items: center;
+}
+
+.headerBlock {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.headerBlock > h1 {
+  font-weight: 400;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.picContainer {
+  margin: 0 0 0 auto;
+  width: 50px;
+  height: 50px;
+}
+
+.movTitle,
+.movDate {
+  margin: 0;
+}
+.movTitle {
+  color: #0080ff;
+  font-weight: 400;
+}
+.movDate {
+  width: 120px;
+  font-size: 1.1rem;
+}
+
+.iconGroup {
+  display: flex;
+  height: 100%;
+  margin: 0 0 0 auto;
+}
+
+.roundBorder {
+  border-radius: 5px;
+}
+
+.backBtn {
+  padding: 8px 18px;
+  background-color: #e6e6e6;
+}
+.backBtn:hover {
+  background-color: #f3f3f3;
+}
+.backBtnTxt {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+@media screen and (max-width: 720px) {
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .movDate {
+    margin: 0 0 10px 0;
+  }
+  .iconGroup {
+    margin: 10px 0 0 0;
+  }
+}

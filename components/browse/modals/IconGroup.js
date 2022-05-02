@@ -1,10 +1,10 @@
 import styles from "../../../styles/browse/modals.module.css";
 import browseStyles from "../../../styles/browse/browse.module.css";
-import thumbsDown from "../../../public/images/icons/misc/thumbs-down.svg";
-import thumbsUp from "../../../public/images/icons/misc/thumbs-up.svg";
-import plus from "../../../public/images/icons/misc/plus.svg";
-import cancel from "../../../public/images/icons/misc/cancel.svg";
-import arrow from "../../../public/images/icons/misc/nav_arrow.svg";
+import ThumbsDownSvg from "../../icons/ThumbsDownSvg";
+import ThumbsUpSvg from "../../icons/ThumbsUpSvg";
+import PlusSvg from "../../icons/PlusSvg";
+import CancelSvg from "../../icons/CancelSvg";
+import arrow from "../../../public/images/icons/arrow/nav_arrow.svg";
 import play from "../../../public/images/icons/misc/play-btn.svg";
 import playBtn from "../../../public/images/browse/featured/play-button.png";
 
@@ -24,7 +24,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
   const actionToggle = async (e) => {
     if (user && !loading) {
       const action = e.currentTarget.dataset.action;
-      setMovieData(mov.id, action);
+      setMovieData(mov.id, mov.title || mov.name, action);
     }
   };
 
@@ -58,11 +58,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             className={styles.circleContainer}
             data-action="cancel"
           >
-            <Image
-              src={cancel}
-              alt="remove the movies from your list"
-              unoptimized
-            />
+            <CancelSvg />
           </div>
         ) : (
           <div
@@ -70,7 +66,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
             className={styles.circleContainer}
             data-action="plus"
           >
-            <Image src={plus} alt="add the movies to your list" unoptimized />
+            <PlusSvg />
           </div>
         )}
         <div
@@ -83,7 +79,7 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
               : { display: "block" }
           }
         >
-          <Image src={thumbsUp} alt="dislikes the movies" unoptimized />
+          <ThumbsUpSvg selected={currentMovieData.like === "Liked"} modal />
         </div>
         <div
           onClick={(e) => actionToggle(e)}
@@ -95,7 +91,10 @@ export default function IconGroup({ mov, modalToggle, openModal }) {
               : { display: "block" }
           }
         >
-          <Image src={thumbsDown} alt="likes the movies" unoptimized />
+          <ThumbsDownSvg
+            selected={currentMovieData.like === "Disliked"}
+            modal
+          />
         </div>
       </div>
       {!openModal ? (

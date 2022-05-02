@@ -1,5 +1,5 @@
 import styles from "../../styles/signup.module.css";
-import CheckRed from "../../public/images/icons/misc/icons_check red.svg";
+import CheckMarkSvg from "../../components/icons/CheckMarkSvg";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -69,7 +69,7 @@ export function PlanForm() {
               {benefitTxt.map((txt, index) => {
                 return (
                   <li key={index} className={styles.benefitListItem}>
-                    <Image src={CheckRed} alt="a red check mark" />
+                    <CheckMarkSvg stColor="rgb(212, 60, 60)" />
                     <span className={styles.benefitListItemTxt}>{txt}</span>
                   </li>
                 );

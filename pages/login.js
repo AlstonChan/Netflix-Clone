@@ -25,6 +25,8 @@ export function Login() {
     if (docRef.exists() === false) {
       setDoc(doc(db, "Acc", uid), {
         uid,
+        createdAt: Date(),
+        plan: "Standard",
         "user-main": {
           name: displayName ? displayName : email.split("@").shift(),
           pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),

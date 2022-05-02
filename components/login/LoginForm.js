@@ -69,12 +69,15 @@ export default function LoginForm() {
         <InputEmail
           setRef={emailInputRef}
           inputId={"signInFormInputEml"}
-          page={"LoginForm"}
+          mode="dark"
+          useLocalStorageData={false}
         />
         <InputPassword
           setRef={passInputRef}
           inputId={"signInFormInputPas"}
-          page={"LoginForm"}
+          mode="dark"
+          showHidePassword
+          warnings="Your password must contain between 6 and 60 characters."
         />
         <div className={styles.btnContain}>
           <button className={`netflixBtn ${styles.submitBtn}`} type="submit">

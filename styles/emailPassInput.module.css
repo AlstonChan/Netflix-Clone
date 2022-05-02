@@ -15,8 +15,8 @@ component/login/inputPassword.js;
 /* ################################################## */
 /* InputEmail Componenet */
 /* InputPassword input also used this css */
-.inputBoxSign,
-.inputBox {
+.lightInputBox,
+.darkInputBox {
   max-width: 900px;
   width: 100%;
   padding: 19px 5px 5px 15px;
@@ -24,15 +24,15 @@ component/login/inputPassword.js;
   border-radius: 7px;
 }
 
-.inputBox {
+.darkInputBox {
   border: none;
   height: 55px;
   color: rgb(255, 255, 255);
   background-color: rgb(51, 51, 51);
 }
 
-.inputBoxSign:focus,
-.inputBox:focus {
+.lightInputBox:focus,
+.darkInputBox:focus {
   outline: none;
 }
 
@@ -51,7 +51,7 @@ component/login/inputPassword.js;
   font-weight: 600;
 }
 /* SignUp - regform page*/
-.inputBoxSign {
+.lightInputBox {
   border: solid 1px #8c8c8c;
   height: 60px;
   color: rgb(0, 0, 0);
@@ -116,4 +116,14 @@ component/login/inputPassword.js;
   color: rgba(255, 255, 255, 0.541);
   font-size: 1rem;
   cursor: pointer;
+}
+
+.caption {
+  color: #0080ff;
+}
+.caption > a {
+  text-decoration: none;
+}
+.caption > a:hover {
+  text-decoration: underline;
 }

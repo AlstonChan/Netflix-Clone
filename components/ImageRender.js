@@ -18,13 +18,7 @@ export default function ImageRender({
   });
 
   return (
-    <div
-      className={styles.imageContainer}
-      ref={imgRef}
-      style={{
-        width: "100%",
-      }}
-    >
+    <div className={styles.imageContainer} ref={imgRef}>
       <span
         style={{
           boxSizing: "border-box",

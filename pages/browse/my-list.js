@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { UserContext } from "../_app";
@@ -33,6 +33,7 @@ export function MyList() {
   const searchMutation = useMutation((searc) =>
     fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
   ); // To query search data using searchRef hook input
+  const [latestData, setLatestData] = useState(null);
 
   // To get sessionstorage data - "profile" as soon as the possible, and
   // decrypt the data to determine the current user for profile state hook
@@ -97,15 +98,27 @@ export function MyList() {
   useEffect(() => {
     if (listMovieData && profile) {
       if (listMovieData.data()[profile]) {
-        myListData.mutate(listMovieData.data()[profile]);
+        myListData.mutate({
+          new: listMovieData.data()[profile],
+          last: latestData,
+        });
       } else {
-        myListData.mutate([
-          {
-            addList: false,
-            like: "none",
-            movieID: null,
-          },
-        ]);
+        myListData.mutate({
+          new: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+          last: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+        });
       }
     }
   }, [listMovieData, profile]);
@@ -123,6 +136,12 @@ export function MyList() {
       cacheTime: 1000 * 60 * 10,
     }
   );
+
+  useEffect(() => {
+    if (myListData.data) {
+      setLatestData(myListData.data);
+    }
+  }, [myListData.data]);
 
   // set the current profile (user)
   function switchPage(name) {
@@ -193,12 +212,12 @@ export function MyList() {
                 )}
               </Main>
             ) : (
-              <Main data={myListData.data}>
+              <Main data={latestData}>
                 <span className={styles.featuredMain}>
                   <div className={styles.emptyFea}></div>
                 </span>
                 <h1 className={styles.listHeader}>My List</h1>
-                {myListData.data ? (
+                {latestData ? (
                   <ConstantList
                     modal={toggleModal}
                     movieList={myListData.data}

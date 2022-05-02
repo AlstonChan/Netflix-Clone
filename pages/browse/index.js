@@ -134,7 +134,7 @@ export const Browse = () => {
   }
 
   if (firstLoad && profile && (!data || isLoading)) {
-    return <Loading />;
+    return <Loading profile={profile} />;
   }
 
   const browseStyle = {
