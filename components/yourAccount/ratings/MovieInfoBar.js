@@ -10,11 +10,12 @@ import useFetchMyMovie from "../../../lib/useFetchMyMovie";
 import { useContext } from "react";
 import { UserContext } from "../../../pages/_app";
 
-export default function MovieInfoBar({ movDetails }) {
+export default function MovieInfoBar({ movDetails, currentUser }) {
   const { user, loading } = useContext(UserContext);
   const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
     movDetails.movieID,
-    movDetails
+    movDetails,
+    currentUser
   );
 
   const actionToggle = async (e) => {

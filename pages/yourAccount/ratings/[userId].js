@@ -67,7 +67,13 @@ export function UserRating() {
             </div>
             <hr className={baseStyles.divider} />
             {listMovieData.data()[currentUser].map((movDetails, index) => {
-              return <MovieInfoBar key={index} movDetails={movDetails} />;
+              return (
+                <MovieInfoBar
+                  key={index}
+                  movDetails={movDetails}
+                  currentUser={currentUser}
+                />
+              );
             })}
 
             <Link href="/yourAccount">
