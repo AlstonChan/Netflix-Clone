@@ -2,6 +2,9 @@
 /* 
 component/browse/modals/iconGroup.js;
 component/browse/modals/modal.js;
+component/browse/modals/MovieDetails.js;
+component/browse/modals/MovieDetailsOpen.js;
+component/browse/modals/ModalWarn.js;
 */
 
 .mainModals {
@@ -213,6 +216,35 @@ component/browse/modals/modal.js;
 
 .imageContainerPoster {
   width: 70%;
+}
+
+/* ModalWarn Component */
+.warnContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  margin-top: 5rem;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+}
+
+.warnContent {
+  background-color: rgb(158, 1, 1);
+  border-radius: 5px;
+  max-width: 270px;
+  box-shadow: 10px 20px 17px -8px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 10px 20px 17px -8px rgba(0, 0, 0, 0.5);
+}
+.warnContentHeader,
+.warnContentPara {
+  margin: 5px 10px;
+  text-align: center;
+}
+.warnContentPara {
+  color: #fff;
 }
 
 @media screen and (max-width: 900px) {

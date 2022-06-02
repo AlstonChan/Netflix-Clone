@@ -5,17 +5,21 @@ import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
 import Image from "next/image";
 
 import { useContext, useEffect, useRef, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import ImageRender from "../../ImageRender";
 import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
 import { UserContext } from "../../../pages/_app";
 
+import ModalWarn from "../ModalWarn";
+
 export default function EditProfile({ currentUserId, back }) {
-  const { userData } = useContext(UserContext);
+  const { user, userData } = useContext(UserContext);
   const inputRef = useRef();
   const [inputIsValid, setInputIsValid] = useState(false);
   const [showWarnInput, setShowWarnInput] = useState(false);
   const [showWarnPic, setShowWarnPic] = useState(false);
   const [uploadedProfilePic, setUploadedProfilePic] = useState(null);
+  const [modalWarn, setModalWarn] = useState(false);
   const createUser = useUpdateUserAcc();
 
   function checkInputValidity() {
@@ -56,6 +60,10 @@ export default function EditProfile({ currentUserId, back }) {
   }
 
   function uploadFile(e) {
+    if (user.emailVerified) {
+      toggleModalWarn();
+      return;
+    }
     if (e.target.files[0]) {
       setShowWarnPic(false);
       setUploadedProfilePic({
@@ -68,8 +76,19 @@ export default function EditProfile({ currentUserId, back }) {
     }
   }
 
+  // Tell user to verify their email address when
+  // their account is not verified and attempt to
+  // change profile picture
+  function toggleModalWarn() {
+    setModalWarn(true);
+    setTimeout(() => setModalWarn(false), 5000);
+  }
+
   return (
     <>
+      <AnimatePresence exitBeforeEnter>
+        {modalWarn ? <ModalWarn type="profile" /> : ""}
+      </AnimatePresence>
       <h1
         className={baseStyles.headingMain}
         style={{ margin: "0", width: "fit-content" }}

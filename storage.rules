@@ -2,12 +2,17 @@ rules_version = '2';
 service firebase.storage {
   match /b/netflix-clone-fe6a4.appspot.com/o {
     match /Acc/{imageId} {
+      function isEmailVerified() {
+        return request.auth.token.email_verified == true
+      }
+
       allow read: if 
         request.auth.uid == resource.metadata.uid &&
         imageId == resource.metadata.imageId;
         
       allow write: if 
         request.auth.uid == request.resource.metadata.uid &&
+        isEmailVerified() &&
         imageId == request.resource.metadata.imageId &&
         // Only allow uploads of any image file that's less than 2MB
         request.resource.size < 2 * 1024 * 1024 &&

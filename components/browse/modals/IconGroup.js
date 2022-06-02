@@ -14,14 +14,25 @@ import { useContext } from "react";
 import useFetchMyMovie from "../../../lib/useFetchMyMovie";
 import { UserContext } from "../../../pages/_app";
 
-export default function IconGroup({ mov, modalToggle, openModal }) {
+export default function IconGroup({
+  mov,
+  modalToggle,
+  openModal,
+  toggleModalWarn,
+}) {
   const { user, loading } = useContext(UserContext);
   const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
     mov.id,
     mov
-  );
+  ); // remove latestData to break application
 
   const actionToggle = async (e) => {
+    // only allow verified account to add lists
+    if (!user.emailVerified) {
+      toggleModalWarn();
+      return;
+    }
+
     if (user && !loading) {
       const action = e.currentTarget.dataset.action;
       setMovieData(mov.id, mov.title || mov.name, action);

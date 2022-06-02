@@ -4,6 +4,9 @@ service cloud.firestore {
     function isSignedIn() {
       return request.auth.uid != null 
     }
+  	function isEmailVerified() {
+      return request.auth.token.email_verified == true
+    }
 
     match /Acc/{accID} {
       allow create: if isSignedIn();
@@ -17,6 +20,7 @@ service cloud.firestore {
     match /mymovie/{mymovieID} {
       allow read, create: if isSignedIn() && request.auth.uid == mymovieID;
       allow update: if isSignedIn() && 
+      isEmailVerified() &&
       request.auth.uid == mymovieID;
     }
   }

@@ -2,11 +2,13 @@ import styles from "../../../styles/browse/modals.module.css";
 import imageNotFound from "../../../public/images/image-not-found.png";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import ImageRender from "../../ImageRender";
+import { AnimatePresence } from "framer-motion";
 
 import MovieDetails from "./MovieDetails";
 import MovieDetailsOpen from "./MovieDetailsOpen";
 import IconGroup from "./IconGroup";
-import ImageRender from "../../ImageRender";
+import ModalWarn from "../ModalWarn";
 
 export default function Modals({
   modalStyle,
@@ -18,6 +20,7 @@ export default function Modals({
   const [modalTranslate, setModalTranslate] = useState({});
   const [modalVisibility, setModalVisiblity] = useState();
   const [modalWidth, setModalWidth] = useState();
+  const [modalWarn, setModalWarn] = useState(false);
   const delayRef = useRef();
   const openModalRef = useRef({ firstTime: false });
 
@@ -105,6 +108,14 @@ export default function Modals({
     }
   }
 
+  // Tell user to verify their email address when
+  // their account is not verified and attempt to
+  // add movie or tv shows to their list
+  function toggleModalWarn() {
+    setModalWarn(true);
+    setTimeout(() => setModalWarn(false), 5000);
+  }
+
   const mainModalClass = !openModal
     ? `${styles.mainModals} ${modalVisibility}`
     : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
@@ -130,64 +141,78 @@ export default function Modals({
     ? `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
     : imageNotFound;
 
-  return modalVisibility ? (
-    <div
-      className={mainModalClass}
-      style={
-        !openModal
-          ? modalStyle.mainClass
-          : modalWidth < 500
-          ? { padding: "1.5rem" }
-          : { padding: `3rem` }
-      }
-      onMouseEnter={(e) => toggleModalFunc(e)}
-      onMouseLeave={(e) => toggleModalFunc(e)}
-      onClick={(e) => localCloseModal(e)}
-    >
-      <div style={modalContainerStyles} className={styles.modalsContainer}>
-        <div className={!openModal ? "" : styles.upperPanel}>
-          <div className={styles.mainImageContainer}>
-            <ImageRender
-              src={modalImage}
-              width="1364"
-              height="768"
-              className={styles.backdrop_pathStyle}
-              alt="movie thumbnails"
-            />
-            {openModal ? <div className={styles.blend}></div> : ""}
-            {/* <span className={styles.backdrop_placeholder}></span> */}
-            {/* This backdrop placeholder is the main cause of modal image flashing */}
-            {openModal ? (
-              <IconGroup
-                mov={modalStyle.movieSet}
-                modalToggle={modalToggle}
-                openModal={openModal}
-              />
-            ) : (
-              ""
-            )}
+  return (
+    <>
+      <AnimatePresence exitBeforeEnter>
+        {modalWarn ? <ModalWarn type="movie" /> : ""}
+      </AnimatePresence>
+      {modalVisibility ? (
+        <div
+          className={mainModalClass}
+          style={
+            !openModal
+              ? modalStyle.mainClass
+              : modalWidth < 500
+              ? { padding: "1.5rem" }
+              : { padding: `3rem` }
+          }
+          onMouseEnter={(e) => toggleModalFunc(e)}
+          onMouseLeave={(e) => toggleModalFunc(e)}
+          onClick={(e) => localCloseModal(e)}
+        >
+          <div style={modalContainerStyles} className={styles.modalsContainer}>
+            <div className={!openModal ? "" : styles.upperPanel}>
+              <div className={styles.mainImageContainer}>
+                <ImageRender
+                  src={modalImage}
+                  width="1364"
+                  height="768"
+                  className={styles.backdrop_pathStyle}
+                  alt="movie thumbnails"
+                />
+                {openModal ? <div className={styles.blend}></div> : ""}
+                {/* <span className={styles.backdrop_placeholder}></span> */}
+                {/* This backdrop placeholder is the main cause of modal image flashing */}
+                {openModal ? (
+                  <IconGroup
+                    mov={modalStyle.movieSet}
+                    modalToggle={modalToggle}
+                    openModal={openModal}
+                    toggleModalWarn={toggleModalWarn}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            <div
+              className={!openModal ? styles.lowerPanel : styles.lowerPanelOpen}
+            >
+              {openModal ? (
+                ""
+              ) : (
+                <IconGroup
+                  mov={modalStyle.movieSet}
+                  modalToggle={modalToggle}
+                  toggleModalWarn={toggleModalWarn}
+                />
+              )}
+
+              {modalStyle.movieSet ? (
+                !openModal ? (
+                  <MovieDetails modalStyle={modalStyle} />
+                ) : (
+                  <MovieDetailsOpen modalStyle={modalStyle} />
+                )
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
-        <div className={!openModal ? styles.lowerPanel : styles.lowerPanelOpen}>
-          {openModal ? (
-            ""
-          ) : (
-            <IconGroup mov={modalStyle.movieSet} modalToggle={modalToggle} />
-          )}
-
-          {modalStyle.movieSet ? (
-            !openModal ? (
-              <MovieDetails modalStyle={modalStyle} />
-            ) : (
-              <MovieDetailsOpen modalStyle={modalStyle} />
-            )
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-    </div>
-  ) : (
-    ""
+      ) : (
+        ""
+      )}
+    </>
   );
 }

@@ -14,7 +14,6 @@ export default function BellComponent() {
   });
 
   const [notificationCount, setNotificationCount] = useState(0);
-
   const [delayNotifi, setDelayNotifi] = useState(null);
 
   function toggleNavMenu(e) {
