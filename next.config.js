@@ -8,10 +8,10 @@ module.exports = {
       "localhost",
     ],
   },
-  // compiler: {
-  //   removeConsole: {
-  //     exclude: ["error"],
-  //   },
-  // },
-  // swcMinify: true,
+  compiler: {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
+  swcMinify: true,
 };

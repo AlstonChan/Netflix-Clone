@@ -3,7 +3,12 @@ import styles from "../../styles/browse/browse.module.css";
 import Head from "next/head";
 
 import React, { useEffect, useState, useRef } from "react";
-import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
+import {
+  dehydrate,
+  QueryClient,
+  useQuery,
+  useMutation,
+} from "@tanstack/react-query";
 import {
   withAuthUser,
   withAuthUserTokenSSR,

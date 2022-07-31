@@ -41,7 +41,7 @@ export default function SearchComponent({ searchRef }) {
   });
 
   useEffect(
-    () =>
+    () => {
       (async () => {
         if (!!window.location.search.split("?search=").pop()) {
           setShowInput(true);
@@ -66,7 +66,8 @@ export default function SearchComponent({ searchRef }) {
             searchRef.current.doNotCollapse = true;
           }, 50);
         }
-      })(),
+      })();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );

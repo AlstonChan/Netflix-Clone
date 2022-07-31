@@ -3,7 +3,6 @@ import CheckMarkSvg from "../../components/icons/CheckMarkSvg";
 
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";

@@ -3,7 +3,13 @@ import styles from "../../styles/browse/browse.module.css";
 import Head from "next/head";
 
 import React, { useState, useEffect, useRef } from "react";
-import { dehydrate, QueryClient, useQuery, useMutation } from "react-query";
+import { flushSync } from "react-dom";
+import {
+  dehydrate,
+  QueryClient,
+  useQuery,
+  useMutation,
+} from "@tanstack/react-query";
 import {
   withAuthUser,
   withAuthUserTokenSSR,
@@ -75,7 +81,10 @@ export const Browse = () => {
   // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
-      setOpenModal(false);
+      // remove react18 automatic batching
+      flushSync(() => {
+        setOpenModal(false);
+      });
       window.scrollTo({
         top: scrollPosition.current,
         left: 0,
@@ -172,7 +181,7 @@ export const Browse = () => {
         )}
         <div
           className={styles.container}
-          style={openModal ? browseStyle : { position: "static" }}
+          style={openModal ? browseStyle : { position: "relative" }}
         >
           <HeaderBrowse
             route={"hom"}

@@ -16,13 +16,13 @@ export default function SliderItem({
 
   function toggleModal(e) {
     if (!slideOnMoving) {
+      const position =
+        e.currentTarget.dataset.num == firstNum
+          ? "leftEdge"
+          : e.currentTarget.dataset.num == lastNum
+          ? "rightEdge"
+          : "middle";
       if (e.type === "mouseenter") {
-        const position =
-          e.currentTarget.dataset.num == firstNum
-            ? "leftEdge"
-            : e.currentTarget.dataset.num == lastNum
-            ? "rightEdge"
-            : "middle";
         setDelay(
           setTimeout(() => {
             modal({ state: e.type }, e, movieSet, position);

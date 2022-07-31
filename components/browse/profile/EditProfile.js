@@ -60,7 +60,7 @@ export default function EditProfile({ currentUserId, back }) {
   }
 
   function uploadFile(e) {
-    if (user.emailVerified) {
+    if (!user.emailVerified) {
       toggleModalWarn();
       return;
     }
