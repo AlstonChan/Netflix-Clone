@@ -38,3 +38,6 @@ yarn-error.log*
 firestore-debug.log
 firebase-debug.log
 ui-debug.log
+.env*
+!.env.project
+!.env.vault

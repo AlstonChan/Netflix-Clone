@@ -233,7 +233,7 @@ export const getServerSideProps = withAuthUserTokenSSR({
   const host = { ...context.req.headers }.host;
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["moviesDB", "tvs"], () =>
+  await queryClient.prefetchQuery(["moviesDBTv", "tvs"], () =>
     fetchMoviesDB("tvs", endpoint)
   );
 
