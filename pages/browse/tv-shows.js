@@ -3,6 +3,7 @@ import styles from "../../styles/browse/browse.module.css";
 import Head from "next/head";
 
 import React, { useEffect, useState, useRef } from "react";
+import { flushSync } from "react-dom";
 import {
   dehydrate,
   QueryClient,
@@ -74,7 +75,10 @@ export const TvShows = () => {
   // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
-      setOpenModal(false);
+      // remove react18 automatic batching
+      flushSync(() => {
+        setOpenModal(false);
+      });
       window.scrollTo({
         top: scrollPosition.current,
         left: 0,
