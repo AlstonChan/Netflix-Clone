@@ -19,15 +19,16 @@
     "storage": "firebase emulators:start --only storage"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^12.3.1",
     "@tanstack/react-query": "^4.0.10",
     "axios": "^0.27.2",
     "crypto-js": "4.1.1",
     "dompurify": "^2.4.0",
-    "firebase": "^9.9.4",
+    "firebase": "^9.10.0",
     "firebase-admin": "^11.0.1",
     "firebaseui": "^6.0.1",
-    "framer-motion": "^7.3.2",
-    "next": "^12.3.0",
+    "framer-motion": "^7.3.6",
+    "next": "^12.3.1",
     "next-firebase-auth": "^1.0.0-canary.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,9 +36,9 @@
     "sharp": "^0.31.0"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^4.3.1",
-    "eslint": "^8.23.0",
-    "eslint-config-next": "^12.3.0"
+    "@tanstack/react-query-devtools": "^4.6.0",
+    "eslint": "^8.24.0",
+    "eslint-config-next": "^12.3.1"
   },
   "repository": {
     "type": "git",
