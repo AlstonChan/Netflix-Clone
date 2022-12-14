@@ -162,11 +162,7 @@ export const Trending = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "static" }}
         >
-          <HeaderBrowse
-            route={"new"}
-            searchRef={searchRef}
-            openModal={openModal}
-          />
+          <HeaderBrowse route={"new"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>

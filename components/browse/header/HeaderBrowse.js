@@ -11,7 +11,7 @@ import SearchComponent from "./SearchComponent";
 import BellComponent from "./BellComponent";
 import UserComponent from "./UserComponent";
 
-export function HeaderBrowse({ route, searchRef, openModal }) {
+const HeaderBrowse = React.forwardRef(({ route, openModal }, ref) => {
   const navItemTxt = ["Home", "TV Shows", "New & Popular", "My List"];
   const [selectedOptionNav, setSelectedOptionNav] = useState({
     styles: ``,
@@ -146,7 +146,7 @@ export function HeaderBrowse({ route, searchRef, openModal }) {
             )}
           </nav>
           <div className={styles.secondaryNav}>
-            <SearchComponent searchRef={searchRef} />
+            <SearchComponent ref={ref} />
             <BellComponent />
             <UserComponent />
           </div>
@@ -154,7 +154,7 @@ export function HeaderBrowse({ route, searchRef, openModal }) {
       </header>
     </>
   );
-}
+});
 
 const MemoizedHeader = React.memo(HeaderBrowse);
 export default MemoizedHeader;

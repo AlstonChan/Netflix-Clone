@@ -192,7 +192,7 @@ export function MyList() {
         >
           <HeaderBrowse
             route={"my-list"}
-            searchRef={searchRef}
+            ref={searchRef}
             openModal={openModal}
           />
           <main className={styles.main}>

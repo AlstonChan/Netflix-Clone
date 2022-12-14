@@ -184,11 +184,7 @@ export const Browse = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "relative" }}
         >
-          <HeaderBrowse
-            route={"hom"}
-            searchRef={searchRef}
-            openModal={openModal}
-          />
+          <HeaderBrowse route={"hom"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
