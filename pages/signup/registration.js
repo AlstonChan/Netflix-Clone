@@ -1,5 +1,5 @@
-import styles from "../../styles/signup.module.css";
-import Devices from "../../public/images/Devices.png";
+import styles from "@/styles/signup.module.css";
+import Devices from "@/public/images/Devices.png";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -7,10 +7,11 @@ import Image from "next/image";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
+import { responsive } from "@/styles/cssStyle";
 
-import Footer from "../../components/footer/FooterStyle2";
-import Header from "../../components/signup/HeaderSignUp";
-import Loader from "../../components/Loader";
+import Footer from "@/components/footer/FooterStyle2";
+import Header from "@/components/signup/HeaderSignUp";
+import Loader from "@/components/Loader";
 import Layout from "../layout";
 
 const variants = {
@@ -24,6 +25,7 @@ export function Registration() {
       <Head>
         <title>Netflix Clone - Registration</title>
       </Head>
+
       <div className={styles.container}>
         <Header logoClickHome={true} />
         <motion.main
@@ -37,7 +39,7 @@ export function Registration() {
           <div className={styles.centerDiv}>
             <section className={styles.mainContentReg}>
               <div className={styles.imgDevicesContainer}>
-                <Image src={Devices} alt="" />
+                <Image src={Devices} alt="" style={responsive} />
               </div>
               <p className={styles.stepsCount}>STEP 2 OF 2</p>
               <h1 className={styles.stepsHeadings}>
@@ -51,8 +53,8 @@ export function Registration() {
                 any device at any time.
               </p>
             </section>
-            <Link href="/signup/regform">
-              <a className={styles.nextButton}>Next</a>
+            <Link href="/signup/regform" className={styles.nextButton}>
+              Next
             </Link>
           </div>
         </motion.main>
@@ -65,7 +67,7 @@ export function Registration() {
 Registration.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <AnimatePresence exitBeforeEnter>{page}</AnimatePresence>
+      <AnimatePresence mode="wait">{page}</AnimatePresence>
     </Layout>
   );
 };

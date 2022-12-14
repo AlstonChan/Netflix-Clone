@@ -1,7 +1,9 @@
-import styles from "../styles/loader.module.css";
-import Spinner from "../public/images/browse/spinner.png";
+import styles from "@/styles/loader.module.css";
+import Spinner from "@/public/images/browse/spinner.png";
 
 import Image from "next/image";
+
+import { responsive } from "@/styles/cssStyle";
 
 const Loader = () => {
   return (
@@ -9,7 +11,7 @@ const Loader = () => {
       <main className={styles.mainLoader}>
         <div className={styles.profilePicCenter}>
           <div className={styles.spinnerContain}>
-            <Image src={Spinner} alt="loading spinner" />
+            <Image src={Spinner} alt="loading spinner" style={responsive} />
           </div>
         </div>
       </main>

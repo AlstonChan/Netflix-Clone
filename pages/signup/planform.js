@@ -1,5 +1,5 @@
-import styles from "../../styles/signup.module.css";
-import CheckMarkSvg from "../../components/icons/CheckMarkSvg";
+import styles from "@/styles/signup.module.css";
+import CheckMarkSvg from "@/components/icons/CheckMarkSvg";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -9,10 +9,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import aes from "crypto-js/aes";
 
-import PricingTable from "../../components/signup/PricingTable";
-import Footer from "../../components/footer/FooterStyle2";
-import Header from "../../components/signup/HeaderSignUp";
-import Loader from "../../components/Loader";
+import PricingTable from "@/components/signup/PricingTable";
+import Footer from "@/components/footer/FooterStyle2";
+import Header from "@/components/signup/HeaderSignUp";
+import Loader from "@/components/Loader";
 import Layout from "../layout";
 
 const benefitTxt = [
@@ -42,6 +42,7 @@ export function PlanForm() {
       <Head>
         <title>Netflix Clone - Plan Form</title>
       </Head>
+
       <div className={styles.container}>
         <Header logoClickHome={true} />
         <motion.main
@@ -94,10 +95,12 @@ export function PlanForm() {
                 </small>
               </div>
               <div className={styles.btnContainerNext}>
-                <Link href="/signup/registration">
-                  <a className={styles.nextButton} onClick={updatePlan}>
-                    Next
-                  </a>
+                <Link
+                  href="/signup/registration"
+                  className={styles.nextButton}
+                  onClick={updatePlan}
+                >
+                  Next
                 </Link>
               </div>
             </div>
@@ -112,7 +115,7 @@ export function PlanForm() {
 PlanForm.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <AnimatePresence exitBeforeEnter>{page}</AnimatePresence>
+      <AnimatePresence mode="wait">{page}</AnimatePresence>
     </Layout>
   );
 };

@@ -1,8 +1,8 @@
-import styles from "../../../styles/browse/cards.module.css";
-import placeholder from "../../../public/images/browse/placeholderCard.png";
+import styles from "@/styles/browse/cards.module.css";
+import placeholder from "@/public/images/browse/placeholder-card.png";
 
 import { useState, useEffect } from "react";
-import ImageRender from "../../ImageRender";
+import ImageRender from "@chan_alston/image";
 
 export default function Cards() {
   const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
@@ -47,8 +47,8 @@ export default function Cards() {
         >
           <ImageRender
             src={placeholder}
-            width="341"
-            height="192"
+            w="341px"
+            h="192px"
             className={`${styles.pictureCardPlaceholder}`}
             alt="Movie thumbnails"
           />

@@ -1,9 +1,10 @@
-import styles from "../../../styles/browse/header.module.css";
-import NetflixLogo from "../../../public/images/NetflixLogo.png";
+import styles from "@/styles/browse/header.module.css";
+import NetflixLogo from "@/public/images/logo.png";
 
 import Image from "next/image";
 
 import React, { useEffect, useState } from "react";
+import { responsive } from "@/styles/cssStyle";
 
 import PrimaryNav from "./PrimaryNav";
 import SearchComponent from "./SearchComponent";
@@ -115,9 +116,10 @@ export function HeaderBrowse({ route, searchRef, openModal }) {
               src={NetflixLogo}
               className={styles.netflixLogo}
               alt="Netflix logo"
-              width="120px"
-              height="32.7px"
+              width="120"
+              height="32.7"
               priority
+              style={responsive}
             />
           </div>
           <nav className={styles.selection}>

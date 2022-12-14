@@ -1,5 +1,5 @@
-import styles from "../../../styles/browse/secondaryHeader.module.css";
-import search from "../../../public/images/icons/misc/search.svg";
+import styles from "@/styles/browse/secondaryHeader.module.css";
+import Search from "@/public/images/icons/misc/search.svg";
 import CancelSvg from "../../icons/CancelSvg";
 
 import Image from "next/image";
@@ -78,7 +78,7 @@ export default function SearchComponent({ searchRef }) {
     } else setShowSearch(true);
   };
 
-  function inputChanged(e) {
+  function inputChanged() {
     let val = searchRef.current.value;
     if (val) {
       router.push({ pathname: currentPage, query: `search=${val}` }, null, {
@@ -118,7 +118,7 @@ export default function SearchComponent({ searchRef }) {
         ""
       ) : (
         <Image
-          src={search}
+          src={Search}
           onClick={(e) => toggleSearchInput(e, "show")}
           alt="search icon"
           unoptimized
@@ -128,7 +128,7 @@ export default function SearchComponent({ searchRef }) {
         <div className={styles.inputContainer}>
           <div className={styles.inputContain}>
             <label className={styles.searchIconInput} htmlFor="q">
-              <Image src={search} alt="search icon" unoptimized />
+              <Image src={Search} alt="search icon" unoptimized />
             </label>
             <input
               type="search"

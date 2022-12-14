@@ -1,9 +1,9 @@
-import styles from "../../styles/yourAccount/changePlan.module.css";
-import passwordStyles from "../../styles/yourAccount/password.module.css";
+import styles from "@/styles/yourAccount/changePlan.module.css";
+import passwordStyles from "@/styles/yourAccount/password.module.css";
 import CancelSvg from "../icons/CancelSvg";
 
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../lib/firebase";
+import { db } from "@/lib/firebase";
 
 export default function PlanConfirmModal({
   planDetails,

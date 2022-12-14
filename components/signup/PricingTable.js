@@ -1,13 +1,13 @@
-import styles from "../../styles/signup.module.css";
+import styles from "@/styles/signup.module.css";
 import CheckMarkSvg from "../icons/CheckMarkSvg";
-import ArrRed from "../../public/images/icons/arrow/nav_arrow_bold red.svg";
+import ArrRed from "@/public/images/icons/arrow/nav_arrow_bold red.svg";
 
 import Image from "next/image";
 
 import { useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
 export default function PricingTable({ plan }) {
   const packagePlan = ["Basic", "Standard", "Premium"];

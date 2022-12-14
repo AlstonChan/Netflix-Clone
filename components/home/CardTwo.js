@@ -1,10 +1,12 @@
-import styles from "../../styles/Home/cardTwo.module.css";
-import baseStyles from "../../styles/Home/card.module.css";
-import PhoneImg from "../../public/images/home/netflix-mobile.jpg";
-import boxshotImg from "../../public/images/home/boxshot.png";
-import downloadImg from "../../public/images/home/download-icon.gif";
+import styles from "@/styles/Home/cardTwo.module.css";
+import baseStyles from "@/styles/Home/card.module.css";
+import PhoneImg from "@/public/images/home/netflix-mobile.jpg";
+import boxshotImg from "@/public/images/home/boxshot.png";
+import downloadImg from "@/public/images/home/download-icon.gif";
 
 import Image from "next/image";
+
+import { responsive } from "@/styles/cssStyle";
 
 export default function CardTwo() {
   return (
@@ -12,7 +14,11 @@ export default function CardTwo() {
       <div className={styles.containerCard}>
         <div className={styles.imgContainer}>
           <div className={styles.imgPresentContainer}>
-            <Image src={PhoneImg} alt="a phone displaying netflix" />
+            <Image
+              src={PhoneImg}
+              alt="a phone displaying netflix"
+              style={responsive}
+            />
             <div className={styles.smallCard}>
               <div className={styles.smallCardImg}>
                 <Image
@@ -20,6 +26,7 @@ export default function CardTwo() {
                   alt="a small netflix film poster"
                   src={boxshotImg}
                   unoptimized={true}
+                  style={responsive}
                 />
               </div>
               <div className={styles.smallCardTextGrp}>
@@ -27,7 +34,11 @@ export default function CardTwo() {
                 <p>Downloading...</p>
               </div>
               <div className={styles.smallCardDownloading}>
-                <Image src={downloadImg} alt="a downloading icon" />
+                <Image
+                  src={downloadImg}
+                  alt="a downloading icon"
+                  style={responsive}
+                />
               </div>
             </div>
           </div>

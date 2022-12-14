@@ -1,8 +1,10 @@
-import styles from "../../styles/Home/cardOne.module.css";
-import baseStyles from "../../styles/Home/card.module.css";
-import tvImg from "../../public/images/home/tv.png";
+import styles from "@/styles/Home/cardOne.module.css";
+import baseStyles from "@/styles/Home/card.module.css";
+import Tv from "@/public/images/home/tv.png";
 
 import Image from "next/image";
+
+import { responsive } from "@/styles/cssStyle";
 
 export default function CardOne() {
   return (
@@ -27,10 +29,11 @@ export default function CardOne() {
             ></video>
             <div className={styles.imgPresentContainer}>
               <Image
-                src={tvImg}
+                src={Tv}
                 alt="a tv displaying netflix user interface"
                 className={styles.tvImg}
-                unoptimized={true}
+                unoptimized
+                style={responsive}
               />
             </div>
           </div>

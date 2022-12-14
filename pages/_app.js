@@ -1,10 +1,10 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
 import Head from "next/head";
 
 import { createContext, useEffect, useRef, useState } from "react";
-import { auth, db } from "../lib/firebase";
-import initAuth from "../lib/initAuth";
+import { auth, db } from "@/lib/firebase";
+import initAuth from "@/lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import {
@@ -71,6 +71,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <UserContext.Provider

@@ -1,14 +1,15 @@
-import baseStyles from "../../../styles/browse/profile/profile.module.css";
-import styles from "../../../styles/browse/profile/editProfile.module.css";
-import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
+import baseStyles from "@/styles/browse/profile/profile.module.css";
+import styles from "@/styles/browse/profile/editProfile.module.css";
+import editPencil from "@/public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import ImageRender from "../../ImageRender";
-import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
-import { UserContext } from "../../../pages/_app";
+import ImageRender from "@chan_alston/image";
+import useUpdateUserAcc from "@/lib/useUpdateUserAcc";
+import { UserContext } from "@/pages/_app";
+import { fill } from "@/styles/cssStyle";
 
 import ModalWarn from "../ModalWarn";
 
@@ -86,7 +87,7 @@ export default function EditProfile({ currentUserId, back }) {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         {modalWarn ? <ModalWarn type="profile" /> : ""}
       </AnimatePresence>
       <h1
@@ -106,15 +107,16 @@ export default function EditProfile({ currentUserId, back }) {
                 ? userData[currentUserId].pic
                 : `/images/profile pic/${userData[currentUserId].pic}.png`
             }
-            width="320"
-            height="320"
-            objectFit="cover"
+            w="320px"
+            h="320px"
+            objFit="cover"
             className={
               showWarnPic
                 ? `${baseStyles.profilePic} ${styles.profilePicWarn}`
                 : baseStyles.profilePic
             }
             alt={uploadedProfilePic ? uploadedProfilePic.alt : "User profile"}
+            style={fill}
           />
           <form className={styles.editContainer}>
             <label htmlFor="profileAvatar" className={styles.editPosition}>

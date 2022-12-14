@@ -1,7 +1,8 @@
-import styles from "../../../styles/browse/secondaryHeader.module.css";
-import EditPencil from "../../../public/images/icons/misc/edit-pencil.svg";
-import Help from "../../../public/images/icons/misc/question-mark-circle.svg";
-import UserProfile from "../../../public/images/icons/misc/user.svg";
+import styles from "@/styles/browse/secondaryHeader.module.css";
+import EditPencil from "@/public/images/icons/misc/edit-pencil.svg";
+import Help from "@/public/images/icons/misc/question-mark-circle.svg";
+import UserProfile from "@/public/images/icons/misc/user.svg";
+import NavArrowBold from "@/public/images/icons/arrow/nav_arrow_bold.svg";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +12,11 @@ import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { signOut } from "firebase/auth";
 import { useContext, useState, useEffect } from "react";
-import { auth } from "../../../lib/firebase";
-import { UserContext } from "../../../pages/_app";
-import ImageRender from "../../ImageRender";
-import useIsomorphicLayoutEffect from "../../../lib/useIsomorphicLayout";
+import ImageRender from "@chan_alston/image";
+import { auth } from "@/lib/firebase";
+import { UserContext } from "@/pages/_app";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
+import { fill } from "@/styles/cssStyle";
 
 export default function UserComponent() {
   const { userData } = useContext(UserContext);
@@ -78,20 +80,21 @@ export default function UserComponent() {
                   ? userData[currentUser].pic
                   : `/images/profile pic/${userData[currentUser].pic}.png`
               }
-              width="35"
-              height="35"
-              objectFit="cover"
+              w="35px"
+              h="35px"
+              objFit="cover"
               className={styles.profilePic}
               alt="user profile"
+              style={fill}
             />
           ) : (
             ""
           )}
         </div>
         <Image
-          src="/images/icons/arrow/nav_arrow_bold.svg"
-          width="20px"
-          height="20px"
+          src={NavArrowBold}
+          width="20"
+          height="20"
           className={styles.profilePicIcon}
           alt=""
           unoptimized
@@ -107,9 +110,9 @@ export default function UserComponent() {
           <div>
             <div className={styles.dropDownUserNavListArrContain}>
               <Image
-                src="/images/icons/arrow/nav_arrow_bold.svg"
-                width="20px"
-                height="20px"
+                src={NavArrowBold}
+                width="20"
+                height="20"
                 className={styles.dropDownUseruNavListArr}
                 alt=""
                 unoptimized
@@ -178,11 +181,12 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                   ? userData["user-main"].pic
                   : `/images/profile pic/${userData["user-main"].pic}.png`
               }
-              width="35"
-              height="35"
-              objectFit="cover"
+              w="35px"
+              h="35px"
+              objFit="cover"
               className={styles.profilePic}
               alt="profile icon"
+              style={fill}
             />
           </div>
           <p
@@ -214,11 +218,12 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                               userData[secProfile[prof]].pic
                             }.png`
                       }
-                      width="35"
-                      height="35"
-                      objectFit="cover"
+                      w="35px"
+                      h="35px"
+                      objFit="cover"
                       className={styles.profilePic}
                       alt="profile icon"
+                      style={fill}
                     />
                   ) : (
                     ""
@@ -247,8 +252,11 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                     {listItem.text}
                   </a>
                 ) : (
-                  <Link href={listItem.link}>
-                    <a className={styles.listItemParagraph}>{listItem.text}</a>
+                  <Link
+                    href={listItem.link}
+                    className={styles.listItemParagraph}
+                  >
+                    {listItem.text}
                   </Link>
                 )}
               </span>

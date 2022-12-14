@@ -1,11 +1,11 @@
-import signUpStyles from "../../styles/signup.module.css";
+import signUpStyles from "@/styles/signup.module.css";
 
 import { useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import { db, auth } from "../../lib/firebase";
+import { db, auth } from "@/lib/firebase";
 
 import InputEmail from "../login/InputEmail";
 import InputPassword from "../login/InputPassword";

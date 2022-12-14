@@ -1,4 +1,6 @@
-import styles from "../styles/login.module.css";
+import styles from "@/styles/login.module.css";
+import NetflixLogo from "@/public/images/logo.png";
+import GoogleLogo from "@/public/images/google.png";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -8,30 +10,35 @@ import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import { auth, db, provider } from "../lib/firebase";
+import { auth, db, provider } from "@/lib/firebase";
+import { responsive } from "@/styles/cssStyle";
 
-import Footer from "../components/footer/FooterStyle2";
-import LoginForm from "../components/login/LoginForm";
-import Loader from "../components/Loader";
+import Footer from "@/components/footer/FooterStyle2";
+import LoginForm from "@/components/login/LoginForm";
+import Loader from "@/components/Loader";
 
 export function Login() {
   async function loginGoogleEvent(e) {
     e.preventDefault();
-    const credentials = await signInWithPopup(auth, provider);
-    const { uid, displayName, email, photoURL } = credentials.user;
+    try {
+      const credentials = await signInWithPopup(auth, provider);
+      const { uid, displayName, email, photoURL } = credentials.user;
 
-    const docRef = await getDoc(doc(db, "Acc", uid));
+      const docRef = await getDoc(doc(db, "Acc", uid));
 
-    if (docRef.exists() === false) {
-      setDoc(doc(db, "Acc", uid), {
-        uid,
-        createdAt: Date(),
-        plan: "Standard",
-        "user-main": {
-          name: displayName ? displayName : email.split("@").shift(),
-          pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),
-        },
-      });
+      if (docRef.exists() === false) {
+        setDoc(doc(db, "Acc", uid), {
+          uid,
+          createdAt: Date(),
+          plan: "Standard",
+          "user-main": {
+            name: displayName ? displayName : email.split("@").shift(),
+            pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),
+          },
+        });
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -40,21 +47,21 @@ export function Login() {
       <Head>
         <title>Netflix Clone - Login</title>
       </Head>
+
       <div className={styles.container}>
         <div className={styles.shade}>
           <header className={styles.head}>
             <div className={styles.netflixLogoContainer}>
               <Link href="/">
-                <a>
-                  <Image
-                    src="/images/NetflixLogo.png"
-                    className={styles.netflixLogo}
-                    alt="Netflix logo"
-                    width="166px"
-                    height="49.6px"
-                    priority
-                  />
-                </a>
+                <Image
+                  src={NetflixLogo}
+                  className={styles.NetflixLogo}
+                  alt="Netflix logo"
+                  width={166}
+                  height={49.6}
+                  priority
+                  style={responsive}
+                />
               </Link>
             </div>
           </header>
@@ -66,21 +73,21 @@ export function Login() {
                 className={styles.loginGoogle}
                 onClick={(e) => loginGoogleEvent(e)}
               >
-                <Image
-                  src="/images/Google Logo.png"
-                  className={styles.googleIcon}
-                  alt="Netflix logo"
-                  width="25"
-                  height="20"
-                  unoptimized
-                />
+                <div className={styles.googleIconContainer}>
+                  <Image
+                    src={GoogleLogo}
+                    alt="Google Logo"
+                    width={25}
+                    height={20}
+                    style={responsive}
+                    unoptimized
+                  />
+                </div>
                 <span className={styles.loginTxt}>Login with Google</span>
               </div>
               <div className={styles.singUpContainer}>
                 <p>New to Netflix?</p>
-                <Link href="/">
-                  <a>Sign up now</a>
-                </Link>
+                <Link href="/">Sign up now</Link>
               </div>
               <GoogleCaptcha />
             </div>

@@ -1,18 +1,19 @@
-import styles from "../../../styles/browse/modals.module.css";
-import browseStyles from "../../../styles/browse/browse.module.css";
-import ThumbsDownSvg from "../../icons/ThumbsDownSvg";
-import ThumbsUpSvg from "../../icons/ThumbsUpSvg";
-import PlusSvg from "../../icons/PlusSvg";
-import CancelSvg from "../../icons/CancelSvg";
-import arrow from "../../../public/images/icons/arrow/nav_arrow.svg";
-import play from "../../../public/images/icons/misc/play-btn.svg";
-import playBtn from "../../../public/images/browse/featured/play-button.png";
+import styles from "@/styles/browse/modals.module.css";
+import browseStyles from "@/styles/browse/browse.module.css";
+import ThumbsDownSvg from "@/icons/ThumbsDownSvg";
+import ThumbsUpSvg from "@/icons/ThumbsUpSvg";
+import PlusSvg from "@/icons/PlusSvg";
+import CancelSvg from "@/icons/CancelSvg";
+import arrow from "@/public/images/icons/arrow/nav_arrow.svg";
+import play from "@/public/images/icons/misc/play-btn.svg";
+import playBtn from "@/public/images/browse/featured/play-button.png";
 
 import Image from "next/image";
 
 import { useContext } from "react";
-import useFetchMyMovie from "../../../lib/useFetchMyMovie";
-import { UserContext } from "../../../pages/_app";
+import useFetchMyMovie from "@/lib/useFetchMyMovie";
+import { UserContext } from "@/pages/_app";
+import { responsive } from "@/styles/cssStyle";
 
 export default function IconGroup({
   mov,
@@ -58,7 +59,7 @@ export default function IconGroup({
             className={`${browseStyles.playBtn} ${styles.playBtn}`}
           >
             <div className={browseStyles.btnImage}>
-              <Image src={playBtn} alt="" unoptimized />
+              <Image src={playBtn} alt="" unoptimized style={responsive} />
             </div>
             <span className={browseStyles.playBtnTxt}>Play</span>
           </button>

@@ -1,5 +1,5 @@
-import styles from "../../../styles/browse/cards.module.css";
-import navArrow from "../../../public/images/icons/arrow/nav_arrow.svg";
+import styles from "@/styles/browse/cards.module.css";
+import navArrow from "@/public/images/icons/arrow/nav_arrow.svg";
 
 import Image from "next/image";
 
@@ -14,11 +14,12 @@ export default function SliderHandler({ onClick, direction }) {
     >
       <div className={styles.navArrowContainer}>
         <Image
-          layout="fill"
           src={navArrow}
           alt=""
           unoptimized
           className={styles.handlerSvg}
+          sizes="100vw"
+          fill
         />
       </div>
     </span>

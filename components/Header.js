@@ -1,4 +1,5 @@
-import styles from "../styles/header.module.css";
+import styles from "@/styles/header.module.css";
+import NetflixLogo from "@/public/images/logo.png";
 
 import Image from "next/image";
 import router from "next/router";
@@ -8,6 +9,7 @@ import { signOut } from "firebase/auth";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayout";
 import { UserContext } from "../pages/_app";
 import { auth } from "../lib/firebase";
+import { responsive } from "@/styles/cssStyle";
 
 export default function Header({ logoClickHome }) {
   const { user, loading } = useContext(UserContext);
@@ -59,12 +61,13 @@ export default function Header({ logoClickHome }) {
         <div className={styles.mainContain}>
           <div className={logoPointerActive} onClick={(e) => backToHome(e)}>
             <Image
-              src="/images/NetflixLogo.png"
+              src={NetflixLogo}
               className={styles.netflixLogo}
               alt="Netflix logo"
-              width="160px"
-              height="43.6px"
+              width="160"
+              height="43.6"
               priority
+              style={responsive}
             />
           </div>
           <button

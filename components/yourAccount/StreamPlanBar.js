@@ -1,4 +1,4 @@
-import styles from "../../styles/yourAccount/changePlan.module.css";
+import styles from "@/styles/yourAccount/changePlan.module.css";
 import CheckMarkSvg from "../icons/CheckMarkSvg";
 
 export default function StreamPlanBar({

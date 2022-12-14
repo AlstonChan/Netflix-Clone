@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/browse.module.css";
+import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
@@ -17,21 +17,21 @@ import {
 } from "next-firebase-auth";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
+import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
+import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
-import Loading from "../../components/browse/Loading";
-import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
-import Profile from "../../components/browse/profile/Profile";
-import Cards from "../../components/browse/cards/Cards";
-import ConstantList from "../../components/browse/cards/ConstantList";
-import FeaturedBrowse from "../../components/browse/FeaturedBrowse";
-import FooterBrowse from "../../components/footer/FooterBrowse";
-import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
-import Modals from "../../components/browse/modals/Modals";
-import Main from "../../components/browse/Main";
-import Loader from "../../components/Loader";
+import Loading from "@/components/browse/Loading";
+import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
+import Profile from "@/components/browse/profile/Profile";
+import Cards from "@/components/browse/cards/Cards";
+import ConstantList from "@/components/browse/cards/ConstantList";
+import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
+import FooterBrowse from "@/components/footer/FooterBrowse";
+import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
+import Modals from "@/components/browse/modals/Modals";
+import Main from "@/components/browse/Main";
+import Loader from "@/components/Loader";
 
 export const Browse = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
@@ -162,6 +162,7 @@ export const Browse = () => {
         <Head>
           <title>Netflix Clone - Home</title>
         </Head>
+
         <Modals
           modalStyle={modal}
           openModal={openModal}

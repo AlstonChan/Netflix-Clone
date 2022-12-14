@@ -1,6 +1,6 @@
-import styles from "../../styles/signup.module.css";
-import CheckMark from "../../public/images/icons/misc/rounded-checkmark.png";
-import CheckMarkSvg from "../../components/icons/CheckMarkSvg";
+import styles from "@/styles/signup.module.css";
+import CheckMark from "@/public/images/icons/misc/rounded-checkmark.png";
+import CheckMarkSvg from "@/components/icons/CheckMarkSvg";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -8,10 +8,11 @@ import Image from "next/image";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
+import { responsive } from "@/styles/cssStyle";
 
-import Footer from "../../components/footer/FooterStyle2";
-import Header from "../../components/signup/HeaderSignUp";
-import Loader from "../../components/Loader";
+import Footer from "@/components/footer/FooterStyle2";
+import Header from "@/components/signup/HeaderSignUp";
+import Loader from "@/components/Loader";
 import Layout from "../layout";
 
 const benefitTxt = [
@@ -31,6 +32,7 @@ export function SignUp() {
       <Head>
         <title>Netflix Clone - SignUp</title>
       </Head>
+
       <div className={styles.container}>
         <Header logoClickHome={true} />
         <motion.main
@@ -44,7 +46,7 @@ export function SignUp() {
           <div className={styles.centerDiv}>
             <section className={styles.mainContent}>
               <div className={styles.imgContainer}>
-                <Image src={CheckMark} alt="a check Mark" />
+                <Image src={CheckMark} alt="check Mark" style={responsive} />
               </div>
               <p className={styles.stepsCount}>STEP 1 OF 2</p>
               <h1 className={styles.stepsHeadings}>Choose your plan.</h1>
@@ -59,8 +61,8 @@ export function SignUp() {
                 })}
               </div>
             </section>
-            <Link href="/signup/planform">
-              <a className={styles.nextButton}>Next</a>
+            <Link href="/signup/planform" className={styles.nextButton}>
+              Next
             </Link>
           </div>
         </motion.main>
@@ -73,7 +75,7 @@ export function SignUp() {
 SignUp.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <AnimatePresence exitBeforeEnter>{page}</AnimatePresence>
+      <AnimatePresence mode="wait">{page}</AnimatePresence>
     </Layout>
   );
 };

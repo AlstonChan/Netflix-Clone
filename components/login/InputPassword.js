@@ -1,4 +1,4 @@
-import styles from "../../styles/emailPassInput.module.css";
+import styles from "@/styles/emailPassInput.module.css";
 
 import Link from "next/link";
 
@@ -198,9 +198,7 @@ export default function InputPassword({
       >
         {passInputWarn.warnings}{" "}
         <span className={styles.caption}>
-          <Link href="/yourAccount/loginHelp">
-            <a>{caption}</a>
-          </Link>
+          <Link href="/yourAccount/loginHelp">{caption}</Link>
         </span>
       </p>
     </div>

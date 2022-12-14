@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/browse.module.css";
+import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
@@ -8,18 +8,18 @@ import { useMutation } from "@tanstack/react-query";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { UserContext } from "../_app";
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
-import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
+import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
-import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
-import Profile from "../../components/browse/profile/Profile";
-import ConstantList from "../../components/browse/cards/ConstantList";
-import FooterBrowse from "../../components/footer/FooterBrowse";
-import Modals from "../../components/browse/modals/Modals";
-import Main from "../../components/browse/Main";
-import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
-import Loader from "../../components/Loader";
+import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
+import Profile from "@/components/browse/profile/Profile";
+import ConstantList from "@/components/browse/cards/ConstantList";
+import FooterBrowse from "@/components/footer/FooterBrowse";
+import Modals from "@/components/browse/modals/Modals";
+import Main from "@/components/browse/Main";
+import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
+import Loader from "@/components/Loader";
 
 export function MyList() {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
@@ -168,6 +168,7 @@ export function MyList() {
         <Head>
           <title>Netflix Clone - My List</title>
         </Head>
+
         <Modals
           modalStyle={modal}
           openModal={openModal}

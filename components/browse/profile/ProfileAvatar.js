@@ -1,9 +1,10 @@
-import baseStyles from "../../../styles/browse/profile/profile.module.css";
-import editPencil from "../../../public/images/icons/misc/edit-pencil.svg";
+import baseStyles from "@/styles/browse/profile/profile.module.css";
+import editPencil from "@/public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
 
-import ImageRender from "../../ImageRender";
+import ImageRender from "@chan_alston/image";
+import { fill } from "@/styles/cssStyle";
 
 export default function ProfileAvatar({
   user,
@@ -32,11 +33,12 @@ export default function ProfileAvatar({
                   ? user.pic
                   : `/images/profile pic/${user.pic}.png`
               }
-              objectFit="cover"
-              width="320"
-              height="320"
+              objFit="cover"
+              w="320px"
+              h="320px"
               className={baseStyles.profilePic}
               alt="User profile"
+              style={fill}
             />
             {currentUserId ? (
               <div className={baseStyles.editCover}>

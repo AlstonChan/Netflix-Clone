@@ -1,13 +1,14 @@
-import styles from "../../styles/yourAccount/yourAccount.module.css";
-import stylesProfile from "../../styles/browse/secondaryHeader.module.css";
-import navArrow from "../../public/images/icons/arrow/nav_arrow black.svg";
+import styles from "@/styles/yourAccount/yourAccount.module.css";
+import stylesProfile from "@/styles/browse/secondaryHeader.module.css";
+import navArrow from "@/public/images/icons/arrow/nav_arrow black.svg";
 
 import Image from "next/image";
 import Link from "next/link";
 
 import aes from "crypto-js/aes";
-import ImageRender from "../ImageRender";
+import ImageRender from "@chan_alston/image";
 import { useEffect, useState } from "react";
+import { fill } from "@/styles/cssStyle";
 
 export default function UserBar({ userData, currentUser }) {
   const [open, setOpen] = useState(false);
@@ -36,10 +37,11 @@ export default function UserBar({ userData, currentUser }) {
                 ? userData.pic
                 : `/images/profile pic/${userData.pic}.png`
             }
-            width="160"
-            height="160"
-            objectFit="cover"
+            w="160"
+            h="160"
+            objFit="cover"
             className={stylesProfile.profilePic}
+            style={fill}
           />
         </div>
         <h4 className={styles.userName}>{userData.name}</h4>
@@ -69,7 +71,7 @@ export default function UserBar({ userData, currentUser }) {
               </div>
               <div className={styles.infoLinks}>
                 <Link href={routeId ? `/yourAccount/ratings/${routeId}` : ""}>
-                  <a>View</a>
+                  View
                 </Link>
               </div>
             </div>

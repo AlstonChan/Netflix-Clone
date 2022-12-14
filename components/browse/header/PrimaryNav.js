@@ -1,4 +1,5 @@
-import styles from "../../../styles/browse/header.module.css";
+import styles from "@/styles/browse/header.module.css";
+import NavArrowBold from "@/public/images/icons/arrow/nav_arrow_bold.svg";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -43,9 +44,9 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
       >
         <span className={styles.navItemMenuTxt}>Browse</span>
         <Image
-          src="/images/icons/arrow/nav_arrow_bold.svg"
-          width="20px"
-          height="20px"
+          src={NavArrowBold}
+          width="20"
+          height="20"
           className={styles.navItemMenuImg}
           alt=""
           unoptimized
@@ -61,9 +62,9 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
           <div>
             <div className={styles.dropDownMenuNavListArrContain}>
               <Image
-                src="/images/icons/arrow/nav_arrow_bold.svg"
-                width="20px"
-                height="20px"
+                src={NavArrowBold}
+                width="20"
+                height="20"
                 className={styles.dropDownMenuNavListArr}
                 alt=""
                 unoptimized
@@ -84,20 +85,19 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
                       : ""
                   }
                   key={index}
+                  className={styles.dropDownMenuitem}
                 >
-                  <a className={styles.dropDownMenuitem}>
-                    <li
-                      data-num={data}
-                      onClick={(e) => handler(e)}
-                      className={
-                        classNm.active && classNm.index == data
-                          ? `${styles.selectionOpt} ${styles.selectedOpt}`
-                          : styles.selectionOpt
-                      }
-                    >
-                      {txt}
-                    </li>
-                  </a>
+                  <li
+                    data-num={data}
+                    onClick={(e) => handler(e)}
+                    className={
+                      classNm.active && classNm.index == data
+                        ? `${styles.selectionOpt} ${styles.selectedOpt}`
+                        : styles.selectionOpt
+                    }
+                  >
+                    {txt}
+                  </li>
                 </Link>
               );
             })}
@@ -122,20 +122,17 @@ export default function PrimaryNav({ text, handler, classNm, data, menu }) {
             ? "/browse/my-list"
             : ""
         }
+        onClick={(e) => handler(e)}
+        className={
+          classNm.active && classNm.index == data
+            ? `${styles.selectionOpt} ${styles.selectedOpt}`
+            : styles.selectionOpt
+        }
+        data-num={data}
       >
-        <a
-          onClick={(e) => handler(e)}
-          className={
-            classNm.active && classNm.index == data
-              ? `${styles.selectionOpt} ${styles.selectedOpt}`
-              : styles.selectionOpt
-          }
-          data-num={data}
-        >
-          <span data-num={data} style={{ margin: "0 10px" }}>
-            {text}
-          </span>
-        </a>
+        <span data-num={data} style={{ margin: "0 10px" }}>
+          {text}
+        </span>
       </Link>
     </>
   );

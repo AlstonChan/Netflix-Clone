@@ -1,14 +1,14 @@
-import styles from "../../styles/signup.module.css";
+import styles from "@/styles/signup.module.css";
 
 import Head from "next/head";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-import Footer from "../../components/footer/FooterStyle2";
-import Header from "../../components/signup/HeaderSignUp";
-import RegFormInput from "../../components/signup/RegFormInput";
-import Loader from "../../components/Loader";
+import Footer from "@/components/footer/FooterStyle2";
+import Header from "@/components/signup/HeaderSignUp";
+import RegFormInput from "@/components/signup/RegFormInput";
+import Loader from "@/components/Loader";
 import Layout from "../layout";
 
 const variants = {
@@ -22,6 +22,7 @@ export function RegForm() {
       <Head>
         <title>Netflix Clone - Reg Form</title>
       </Head>
+
       <div className={styles.container}>
         <Header logoClickHome={true} />
         <motion.main
@@ -63,7 +64,7 @@ export function RegForm() {
 RegForm.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <AnimatePresence exitBeforeEnter>{page}</AnimatePresence>
+      <AnimatePresence mode="wait">{page}</AnimatePresence>
     </Layout>
   );
 };

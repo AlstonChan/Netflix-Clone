@@ -1,12 +1,12 @@
-import styles from "../styles/logout.module.css";
+import styles from "@/styles/logout.module.css";
 
 import Head from "next/head";
 import router from "next/router";
 
 import { useEffect } from "react";
 
-import Header from "../components/Header";
-import Footer from "../components/footer/FooterStyle2";
+import Header from "@/components/Header";
+import Footer from "@/components/footer/FooterStyle2";
 
 export default function LogOut() {
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function LogOut() {
       <Head>
         <title>Netflix Clone - Logout</title>
       </Head>
+
       <div className="container">
         <div className={styles.mainComp}>
           <Header logoClickHome={true} />
