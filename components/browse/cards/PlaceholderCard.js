@@ -1,5 +1,5 @@
 import styles from "@/styles/browse/cards.module.css";
-import placeholder from "@/public/images/browse/placeholder-card.png";
+import Placeholder from "@/public/images/browse/placeholder-card.png";
 
 import { useState, useEffect } from "react";
 import ImageRender from "@chan_alston/image";
@@ -46,7 +46,7 @@ export default function Cards() {
           key={i}
         >
           <ImageRender
-            src={placeholder}
+            src={Placeholder.src}
             w="341px"
             h="192px"
             className={`${styles.pictureCardPlaceholder}`}

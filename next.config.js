@@ -48,12 +48,19 @@ const securityHeaders = [
     value: "strict-origin-when-cross-origin",
   },
 ];
+let complierOption = {};
 
-// if (process.env.NODE_ENV === "production")
-//   securityHeaders.push({
-//     key: "Content-Security-Policy",
-//     value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-//   });
+if (process.env.NODE_ENV === "production") {
+  // securityHeaders.push({
+  //   key: "Content-Security-Policy",
+  //   value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
+  // });
+  complierOption = {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  };
+}
 
 const domains = [
   "image.tmdb.org",
@@ -61,18 +68,16 @@ const domains = [
   "firebasestorage.googleapis.com",
 ];
 
-if (process.env.NODE_ENV === "development") domains.push("localhost");
+if (process.env.NODE_ENV === "development") {
+  domains.push("localhost");
+}
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     domains: domains,
   },
-  compiler: {
-    removeConsole: {
-      exclude: ["error"],
-    },
-  },
+  compiler: complierOption,
   swcMinify: true,
   async headers() {
     return [

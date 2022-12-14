@@ -39,9 +39,9 @@ export function Password() {
 
   const handleForm = async (e) => {
     e.preventDefault();
-    const cuPass = currentPassword.current.value;
-    const newPass = newPassword.current.value;
-    const conPass = confirmPassword.current.value;
+    let cuPass = currentPassword.current.value;
+    let newPass = newPassword.current.value;
+    let conPass = confirmPassword.current.value;
     const providers = [];
     user.providerData.forEach((provider) => {
       providers.push(provider.providerId);

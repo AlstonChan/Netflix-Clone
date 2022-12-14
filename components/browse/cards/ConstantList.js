@@ -1,5 +1,5 @@
 import styles from "@/styles/browse/cards.module.css";
-import imageNotFound from "@/public/images/image-not-found.png";
+import ImageNotFound from "@/public/images/image-not-found.png";
 
 import { useState, useEffect } from "react";
 import ImageRender from "@chan_alston/image";
@@ -88,7 +88,7 @@ export default function ConstantList({ modal, movieList }) {
                 />
               ) : (
                 <ImageRender
-                  src={imageNotFound}
+                  src={ImageNotFound.src}
                   w="341px"
                   h="192px"
                   className={styles.pictureCard}

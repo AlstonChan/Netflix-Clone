@@ -42,12 +42,13 @@ export default function SearchComponent({ searchRef }) {
 
   useEffect(
     () => {
-      (async () => {
+      (() => {
         if (!!window.location.search.split("?search=").pop()) {
           setShowInput(true);
         } else return;
+        console.log(searchRef);
+        console.log(searchRef.current);
         if (typeof window !== undefined) {
-          await searchRef.current;
           searchRef.current.focus();
           searchRef.current.value = window.location.search
             .split("?search=")

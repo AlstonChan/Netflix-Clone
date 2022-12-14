@@ -56,7 +56,7 @@ export default function SliderItem({
             />
           ) : (
             <ImageRender
-              src={ImageNotFound}
+              src={ImageNotFound.src}
               w="341px"
               h="192px"
               className={styles.pictureCard}
