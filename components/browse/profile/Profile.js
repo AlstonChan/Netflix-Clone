@@ -11,6 +11,7 @@ import AddProfile from "./AddProfile";
 
 export default function Profile({ switchPage }) {
   const [profileModal, setProfileModal] = useState(false);
+
   function addProfile() {
     setProfileModal(true);
   }

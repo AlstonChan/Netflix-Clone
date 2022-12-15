@@ -35,8 +35,7 @@ import Loader from "@/components/Loader";
 
 export const Browse = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
-  const [profile, setProfile] = useState(null); // set the current active profile (user)
-
+  const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   // To assist profile state hook, show profile loading when loading
   // for the first time. SO when changing to page "TV Shows or Trending",
   // the loading component will be hid away
@@ -153,6 +152,12 @@ export const Browse = () => {
     top: `-${scrollPosition.current}px`,
     paddingRight: "20px",
   };
+
+  // On profile switching, even though window.sessionStorage.getItem("profile")
+  // did get data from session storage, decrypting it require some time. In the
+  // meanwhile, profile remain null and Profile component will flash before
+  // browse main page is shown. The following code prevents the flash from happening
+  if (profile === "loading") return <Loader />;
 
   if (!profile) {
     return <Profile switchPage={switchPage} />;

@@ -136,10 +136,10 @@ export default function Modals({
   const modalImage = !openModal
     ? modalStyle.movieSet?.backdrop_path
       ? `https://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
-      : imageNotFound
+      : imageNotFound.src
     : modalStyle.movieSet?.backdrop_path
     ? `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
-    : imageNotFound;
+    : imageNotFound.src;
 
   return (
     <>

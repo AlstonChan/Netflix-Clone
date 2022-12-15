@@ -23,7 +23,7 @@ import Loader from "@/components/Loader";
 
 export function MyList() {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
-  const [profile, setProfile] = useState(null); // set the current active profile (user)
+  const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   const { listMovieData } = useContext(UserContext); // get own movie list to query movie data
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
   const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
@@ -159,6 +159,12 @@ export function MyList() {
     top: `-${scrollPosition.current}px`,
     paddingRight: "20px",
   };
+
+  // On profile switching, even though window.sessionStorage.getItem("profile")
+  // did get data from session storage, decrypting it require some time. In the
+  // meanwhile, profile remain null and Profile component will flash before
+  // browse main page is shown. The following code prevents the flash from happening
+  if (profile === "loading") return <Loader />;
 
   if (!profile) {
     return <Profile switchPage={switchPage} />;

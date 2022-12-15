@@ -175,4 +175,5 @@ const SearchComponent = React.forwardRef((props, ref) => {
   ) : null;
 });
 
+SearchComponent.displayName = "SearchComponent";
 export default SearchComponent;

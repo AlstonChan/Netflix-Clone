@@ -29,7 +29,7 @@
     "firebase": "^9.15.0",
     "firebase-admin": "^11.3.0",
     "firebaseui": "^6.0.2",
-    "framer-motion": "^7.8.1",
+    "framer-motion": "^7.9.1",
     "next": "^13.0.6",
     "next-firebase-auth": "^1.0.0-canary.18",
     "react": "^18.2.0",
@@ -38,7 +38,7 @@
     "sharp": "^0.31.2"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^4.20.2",
+    "@tanstack/react-query-devtools": "^4.20.4",
     "eslint": "^8.29.0",
     "eslint-config-next": "^13.0.6"
   },

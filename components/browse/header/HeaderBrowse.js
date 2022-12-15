@@ -156,5 +156,6 @@ const HeaderBrowse = React.forwardRef(({ route, openModal }, ref) => {
   );
 });
 
+HeaderBrowse.displayName = "HeaderBrowse";
 const MemoizedHeader = React.memo(HeaderBrowse);
 export default MemoizedHeader;

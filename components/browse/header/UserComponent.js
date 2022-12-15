@@ -201,6 +201,8 @@ export function UserDropDownList({ currentUser, switchProfile }) {
       )}
       {userData && showProfile
         ? showProfile.map((prof, index) => {
+            // Dont't show profile picture again if the current
+            // active user is equal to the looped user as in secProfile[prof]
             if (secProfile[prof] === currentUser) return;
             return (
               <div

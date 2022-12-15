@@ -33,6 +33,7 @@ export default function LoadingBrowse({ profile }) {
               objFit="cover"
               className={styles.profilePic}
               alt="User profile"
+              style={fill}
             />
           ) : (
             ""
