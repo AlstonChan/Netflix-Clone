@@ -1,23 +1,21 @@
-import styles from "../../styles/yourAccount/changePlan.module.css";
-import passwordStyles from "../../styles/yourAccount/password.module.css";
-import baseStyles from "../../styles/yourAccount/yourAccount.module.css";
-import loginStyles from "../../styles/login.module.css";
-import stylesSpin from "../../styles/loader.module.css";
-import Spinner from "../../public/images/browse/spinner.png";
+import styles from "@/styles/yourAccount/changePlan.module.css";
+import passwordStyles from "@/styles/yourAccount/password.module.css";
+import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
+import loginStyles from "@/styles/login.module.css";
 
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../_app";
+import { UserContext } from "@/pages/_app";
 
-import Loader from "../../components/Loader";
-import FooterStyle2 from "../../components/footer/FooterStyle2";
-import StreamPlanBar from "../../components/yourAccount/StreamPlanBar";
-import PlanConfirmModal from "../../components/yourAccount/PlanConfirmModal";
-import AccountHeader from "../../components/yourAccount/AccountHeader";
+import Loader from "@/components/Loader";
+import FooterStyle2 from "@/components/footer/FooterStyle2";
+import StreamPlanBar from "@/components/yourAccount/StreamPlanBar";
+import PlanConfirmModal from "@/components/yourAccount/PlanConfirmModal";
+import AccountHeader from "@/components/yourAccount/AccountHeader";
+import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export function ChangePlan() {
   const { user, userData } = useContext(UserContext);
@@ -65,6 +63,7 @@ export function ChangePlan() {
       <Head>
         <title>Netflix Clone - Account Setting</title>
       </Head>
+
       {confirmationModal ? (
         <PlanConfirmModal
           planDetails={planDetails}
@@ -137,20 +136,17 @@ export function ChangePlan() {
                   >
                     <span className={passwordStyles.btnContent}>Continue</span>
                   </button>
-                  <Link href="/yourAccount">
-                    <a className={passwordStyles.cancelBtn}>Go Back</a>
+                  <Link
+                    href="/yourAccount"
+                    className={passwordStyles.cancelBtn}
+                  >
+                    Go Back
                   </Link>
                 </div>
               </div>
             </>
           ) : (
-            <main className={stylesSpin.mainLoader}>
-              <div className={stylesSpin.profilePicCenter}>
-                <div className={stylesSpin.spinnerContain}>
-                  <Image src={Spinner} alt="loading spinner" />
-                </div>
-              </div>
-            </main>
+            <AccountLoader />
           )}
         </article>
         <FooterStyle2 />

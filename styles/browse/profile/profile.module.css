@@ -27,10 +27,6 @@ pages/manageProfile.js;
   min-height: 77px;
 }
 
-.imgLogo {
-  height: fit-content;
-}
-
 /* main section */
 .main {
   height: 100%;
@@ -87,6 +83,8 @@ pages/manageProfile.js;
 .profilePic {
   border-radius: 7px;
   transition: outline 150ms ease-in-out;
+  width: 100%;
+  height: 100%;
 }
 
 .avatarContainer {

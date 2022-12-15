@@ -1,10 +1,7 @@
-import styles from "../../styles/yourAccount/password.module.css";
-import accountStyles from "../../styles/yourAccount/yourAccount.module.css";
-import stylesSpin from "../../styles/loader.module.css";
-import Spinner from "../../public/images/browse/spinner.png";
+import styles from "@/styles/yourAccount/password.module.css";
+import accountStyles from "@/styles/yourAccount/yourAccount.module.css";
 
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
@@ -14,13 +11,14 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { useContext, useRef, useState } from "react";
-import { UserContext } from "../_app";
+import { UserContext } from "@/pages/_app";
 
-import Loader from "../../components/Loader";
-import InputPassword from "../../components/login/InputPassword";
-import FooterStyle2 from "../../components/footer/FooterStyle2";
-import AccountHeader from "../../components/yourAccount/AccountHeader";
-import PasswordModal from "../../components/yourAccount/PasswordModal";
+import Loader from "@/components/Loader";
+import InputPassword from "@/components/login/InputPassword";
+import FooterStyle2 from "@/components/footer/FooterStyle2";
+import AccountHeader from "@/components/yourAccount/AccountHeader";
+import PasswordModal from "@/components/yourAccount/PasswordModal";
+import AccountLoader from "@/components/yourAccount/AccountLoader";
 import { AnimatePresence } from "framer-motion";
 
 export function Password() {
@@ -41,9 +39,9 @@ export function Password() {
 
   const handleForm = async (e) => {
     e.preventDefault();
-    const cuPass = currentPassword.current.value;
-    const newPass = newPassword.current.value;
-    const conPass = confirmPassword.current.value;
+    let cuPass = currentPassword.current.value;
+    let newPass = newPassword.current.value;
+    let conPass = confirmPassword.current.value;
     const providers = [];
     user.providerData.forEach((provider) => {
       providers.push(provider.providerId);
@@ -121,6 +119,7 @@ export function Password() {
       <Head>
         <title>Netflix Clone - Account Setting</title>
       </Head>
+
       <main className={accountStyles.main}>
         <div style={{ backgroundColor: "#000" }}>
           <AccountHeader />
@@ -166,20 +165,14 @@ export function Password() {
                     <button className={styles.saveBtn} type="submit">
                       <span className={styles.btnContent}>Save</span>
                     </button>
-                    <Link href="/yourAccount">
-                      <a className={styles.cancelBtn}>Cancel</a>
+                    <Link className={styles.cancelBtn} href="/yourAccount">
+                      Cancel
                     </Link>
                   </div>
                 </form>
               </>
             ) : (
-              <main className={stylesSpin.mainLoader}>
-                <div className={stylesSpin.profilePicCenter}>
-                  <div className={stylesSpin.spinnerContain}>
-                    <Image src={Spinner} alt="loading spinner" />
-                  </div>
-                </div>
-              </main>
+              <AccountLoader />
             )}
           </div>
           <AnimatePresence>

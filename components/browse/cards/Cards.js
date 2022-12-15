@@ -1,4 +1,4 @@
-import styles from "../../../styles/browse/cards.module.css";
+import styles from "@/styles/browse/cards.module.css";
 
 import { useState, useEffect } from "react";
 

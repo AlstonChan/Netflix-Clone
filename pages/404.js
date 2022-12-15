@@ -1,4 +1,5 @@
-import styles from "../styles/404.module.css";
+import styles from "@/styles/404.module.css";
+import NetflixLogo from "@/public/images/logo.png";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -10,13 +11,14 @@ export default function NotFound() {
       <Head>
         <title>Netflix Clone - Not Found</title>
       </Head>
+
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.imgLogo}>
             <Image
-              src="/images/NetflixLogo.png"
-              width="100px"
-              height="27.25px"
+              src={NetflixLogo}
+              width="100"
+              height="27.25"
               alt="netflix logo"
             />
           </div>
@@ -30,8 +32,8 @@ export default function NotFound() {
                 explore on the home page.{" "}
               </p>
               <button className={styles.homeBtn}>
-                <Link href="/">
-                  <a className={styles.homeBtnTxt}>Netflix Home</a>
+                <Link className={styles.homeBtnTxt} href="/">
+                  Netflix Home
                 </Link>
               </button>
             </div>

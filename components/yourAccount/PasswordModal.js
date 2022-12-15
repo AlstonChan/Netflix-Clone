@@ -1,4 +1,4 @@
-import styles from "../../styles/yourAccount/password.module.css";
+import styles from "@/styles/yourAccount/password.module.css";
 import CheckMarkSvg from "../icons/CheckMarkSvg";
 
 import { motion } from "framer-motion";

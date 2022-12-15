@@ -1,4 +1,4 @@
-import styles from "../../styles/emailPassInput.module.css";
+import styles from "@/styles/emailPassInput.module.css";
 
 import { useState, useEffect } from "react";
 import aes from "crypto-js/aes";

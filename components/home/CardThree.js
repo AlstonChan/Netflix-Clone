@@ -1,8 +1,10 @@
-import styles from "../../styles/Home/cardThree.module.css";
-import baseStyles from "../../styles/Home/card.module.css";
-import devicePile from "../../public/images/home/device-pile.png";
+import styles from "@/styles/Home/cardThree.module.css";
+import baseStyles from "@/styles/Home/card.module.css";
+import devicePile from "@/public/images/home/device-pile.png";
 
 import Image from "next/image";
+
+import { responsive } from "@/styles/cssStyle";
 
 export default function CardThree() {
   return (
@@ -29,7 +31,8 @@ export default function CardThree() {
               <Image
                 src={devicePile}
                 alt="a pile of device using netflix"
-                unoptimized={true}
+                unoptimized
+                style={responsive}
               />
             </div>
           </div>

@@ -1,7 +1,8 @@
-import styles from "../../../styles/browse/cards.module.css";
+import styles from "@/styles/browse/cards.module.css";
+import ImageNotFound from "@/public/images/image-not-found.png";
 
 import { useState } from "react";
-import ImageRender from "../../ImageRender";
+import ImageRender from "@chan_alston/image";
 
 export default function SliderItem({
   width,
@@ -48,20 +49,18 @@ export default function SliderItem({
           {movieSet.backdrop_path ? (
             <ImageRender
               src={`https://image.tmdb.org/t/p/w500${movieSet.backdrop_path}`}
-              width="341"
-              height="192"
+              w="341px"
+              h="192px"
               className={styles.pictureCard}
               alt="Movie thumbnails"
-              unoptimized={true}
             />
           ) : (
             <ImageRender
-              src="/images/image-not-found.png"
-              width="341"
-              height="192"
+              src={ImageNotFound.src}
+              w="341px"
+              h="192px"
               className={styles.pictureCard}
               alt="Movie thumbnails"
-              unoptimized={true}
             />
           )}
         </div>

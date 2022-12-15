@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/browse.module.css";
+import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
@@ -16,23 +16,23 @@ import {
 } from "next-firebase-auth";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
+import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
+import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
-import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
-import Profile from "../../components/browse/profile/Profile";
-import Cards from "../../components/browse/cards/Cards";
-import ConstantList from "../../components/browse/cards/ConstantList";
-import FooterBrowse from "../../components/footer/FooterBrowse";
-import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
-import Modals from "../../components/browse/modals/Modals";
-import Main from "../../components/browse/Main";
-import Loader from "../../components/Loader";
+import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
+import Profile from "@/components/browse/profile/Profile";
+import Cards from "@/components/browse/cards/Cards";
+import ConstantList from "@/components/browse/cards/ConstantList";
+import FooterBrowse from "@/components/footer/FooterBrowse";
+import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
+import Modals from "@/components/browse/modals/Modals";
+import Main from "@/components/browse/Main";
+import Loader from "@/components/Loader";
 
 export const Trending = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
-  const [profile, setProfile] = useState(null); // set the current active profile (user)
+  const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
   const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
   const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
@@ -132,6 +132,12 @@ export const Trending = () => {
     paddingRight: "20px",
   };
 
+  // On profile switching, even though window.sessionStorage.getItem("profile")
+  // did get data from session storage, decrypting it require some time. In the
+  // meanwhile, profile remain null and Profile component will flash before
+  // browse main page is shown. The following code prevents the flash from happening
+  if (profile === "loading") return <Loader />;
+
   if (!profile) {
     return <Profile switchPage={switchPage} />;
   } else {
@@ -140,6 +146,7 @@ export const Trending = () => {
         <Head>
           <title>Netflix Clone - Trending</title>
         </Head>
+
         <Modals
           modalStyle={modal}
           openModal={openModal}
@@ -161,11 +168,7 @@ export const Trending = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "static" }}
         >
-          <HeaderBrowse
-            route={"new"}
-            searchRef={searchRef}
-            openModal={openModal}
-          />
+          <HeaderBrowse route={"new"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>

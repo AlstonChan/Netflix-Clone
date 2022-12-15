@@ -1,13 +1,14 @@
-import styles from "../../styles/header.module.css";
-import NetflixLogo from "../../public/images/NetflixLogo.png";
+import styles from "@/styles/header.module.css";
+import NetflixLogo from "@/public/images/logo.png";
 
 import Image from "next/image";
 import router from "next/router";
 
 import { useState, useContext, useEffect } from "react";
 import { signOut } from "firebase/auth";
-import { UserContext } from "../../pages/_app";
-import { auth } from "../../lib/firebase";
+import { UserContext } from "@/pages/_app";
+import { auth } from "@/lib/firebase";
+import { responsive } from "@/styles/cssStyle";
 
 export default function HeaderSignUp({ logoClickHome }) {
   const { user, loading } = useContext(UserContext);
@@ -62,6 +63,7 @@ export default function HeaderSignUp({ logoClickHome }) {
               src={NetflixLogo}
               className={styles.netflixLogo}
               alt="Netflix logo"
+              style={responsive}
               priority
             />
           </div>

@@ -1,14 +1,14 @@
-import baseStyles from "../../../styles/yourAccount/yourAccount.module.css";
-import modalStyles from "../../../styles/browse/modals.module.css";
-import styles from "../../../styles/yourAccount/ratings.module.css";
+import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
+import modalStyles from "@/styles/browse/modals.module.css";
+import styles from "@/styles/yourAccount/ratings.module.css";
 import ThumbsUpSvg from "../../icons/ThumbsUpSvg";
 import ThumbsDownSvg from "../../icons/ThumbsDownSvg";
 import PlusSvg from "../../icons/PlusSvg";
 import CancelSvg from "../../icons/CancelSvg";
 
-import useFetchMyMovie from "../../../lib/useFetchMyMovie";
+import useFetchMyMovie from "@/lib/useFetchMyMovie";
 import { useContext } from "react";
-import { UserContext } from "../../../pages/_app";
+import { UserContext } from "@/pages/_app";
 
 export default function MovieInfoBar({ movDetails, currentUser }) {
   const { user, loading } = useContext(UserContext);

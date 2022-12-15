@@ -1,11 +1,9 @@
-import baseStyles from "../../../styles/browse/profile/profile.module.css";
-import styles from "../../../styles/browse/profile/addProfile.module.css";
-
-import Image from "next/image";
+import baseStyles from "@/styles/browse/profile/profile.module.css";
+import styles from "@/styles/browse/profile/addProfile.module.css";
 
 import { useRef, useState } from "react";
-import useUpdateUserAcc from "../../../lib/useUpdateUserAcc";
-import ImageRender from "../../ImageRender";
+import useUpdateUserAcc from "@/lib/useUpdateUserAcc";
+import ImageRender from "@chan_alston/image";
 
 export default function AddProfile({ back }) {
   const picNumRef = useRef(Math.ceil(Math.random() * 4));
@@ -52,9 +50,9 @@ export default function AddProfile({ back }) {
         <div className={baseStyles.avatarContainer}>
           <ImageRender
             src={`/images/profile pic/${picNumRef.current}.png`}
-            width="320"
-            height="320"
-            objectFit="cover"
+            w="320px"
+            h="320px"
+            objFit="cover"
             alt="User profile Picture"
             className={baseStyles.profilePic}
           />

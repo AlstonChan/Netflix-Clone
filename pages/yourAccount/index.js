@@ -1,20 +1,18 @@
-import styles from "../../styles/yourAccount/yourAccount.module.css";
-import stylesSpin from "../../styles/loader.module.css";
-import Spinner from "../../public/images/browse/spinner.png";
+import styles from "@/styles/yourAccount/yourAccount.module.css";
 
 import Head from "next/head";
-import Image from "next/image";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../_app";
+import { UserContext } from "@/pages/_app";
 
-import Loader from "../../components/Loader";
-import FooterStyle2 from "../../components/footer/FooterStyle2";
-import Membership from "../../components/yourAccount/Membership";
-import PlanDetails from "../../components/yourAccount/PlanDetails";
-import ProfileSetting from "../../components/yourAccount/ProfileSetting";
-import AccountHeader from "../../components/yourAccount/AccountHeader";
+import Loader from "@/components/Loader";
+import FooterStyle2 from "@/components/footer/FooterStyle2";
+import Membership from "@/components/yourAccount/Membership";
+import PlanDetails from "@/components/yourAccount/PlanDetails";
+import ProfileSetting from "@/components/yourAccount/ProfileSetting";
+import AccountHeader from "@/components/yourAccount/AccountHeader";
+import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export function YourAccount() {
   const { user, userData } = useContext(UserContext);
@@ -45,6 +43,7 @@ export function YourAccount() {
       <Head>
         <title>Netflix Clone - Account Setting</title>
       </Head>
+
       <main className={styles.main}>
         <div style={{ backgroundColor: "#000" }}>
           <AccountHeader />
@@ -74,13 +73,7 @@ export function YourAccount() {
               </div>
             </>
           ) : (
-            <main className={stylesSpin.mainLoader}>
-              <div className={stylesSpin.profilePicCenter}>
-                <div className={stylesSpin.spinnerContain}>
-                  <Image src={Spinner} alt="loading spinner" />
-                </div>
-              </div>
-            </main>
+            <AccountLoader />
           )}
         </article>
         <FooterStyle2 />

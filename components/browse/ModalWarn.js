@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/modals.module.css";
+import styles from "@/styles/browse/modals.module.css";
 
 import { motion } from "framer-motion";
 

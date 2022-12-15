@@ -1,4 +1,4 @@
-import styles from "../../styles/browse/browse.module.css";
+import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
@@ -17,26 +17,25 @@ import {
 } from "next-firebase-auth";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import fetchMoviesDB from "../../lib/fetchMoviesDBFunc";
-import getAbsoluteURL from "../../lib/getAbsoluteURL";
-import useIsomorphicLayoutEffect from "../../lib/useIsomorphicLayout";
+import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
+import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
-import Loading from "../../components/browse/Loading";
-import HeaderBrowse from "../../components/browse/header/HeaderBrowse";
-import Profile from "../../components/browse/profile/Profile";
-import Cards from "../../components/browse/cards/Cards";
-import ConstantList from "../../components/browse/cards/ConstantList";
-import FeaturedBrowse from "../../components/browse/FeaturedBrowse";
-import FooterBrowse from "../../components/footer/FooterBrowse";
-import PlaceholderCard from "../../components/browse/cards/PlaceholderCard";
-import Modals from "../../components/browse/modals/Modals";
-import Main from "../../components/browse/Main";
-import Loader from "../../components/Loader";
+import Loading from "@/components/browse/Loading";
+import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
+import Profile from "@/components/browse/profile/Profile";
+import Cards from "@/components/browse/cards/Cards";
+import ConstantList from "@/components/browse/cards/ConstantList";
+import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
+import FooterBrowse from "@/components/footer/FooterBrowse";
+import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
+import Modals from "@/components/browse/modals/Modals";
+import Main from "@/components/browse/Main";
+import Loader from "@/components/Loader";
 
 export const Browse = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
-  const [profile, setProfile] = useState(null); // set the current active profile (user)
-
+  const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   // To assist profile state hook, show profile loading when loading
   // for the first time. SO when changing to page "TV Shows or Trending",
   // the loading component will be hid away
@@ -154,6 +153,12 @@ export const Browse = () => {
     paddingRight: "20px",
   };
 
+  // On profile switching, even though window.sessionStorage.getItem("profile")
+  // did get data from session storage, decrypting it require some time. In the
+  // meanwhile, profile remain null and Profile component will flash before
+  // browse main page is shown. The following code prevents the flash from happening
+  if (profile === "loading") return <Loader />;
+
   if (!profile) {
     return <Profile switchPage={switchPage} />;
   } else {
@@ -162,6 +167,7 @@ export const Browse = () => {
         <Head>
           <title>Netflix Clone - Home</title>
         </Head>
+
         <Modals
           modalStyle={modal}
           openModal={openModal}
@@ -183,11 +189,7 @@ export const Browse = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "relative" }}
         >
-          <HeaderBrowse
-            route={"hom"}
-            searchRef={searchRef}
-            openModal={openModal}
-          />
+          <HeaderBrowse route={"hom"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>

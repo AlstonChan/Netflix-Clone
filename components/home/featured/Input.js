@@ -1,4 +1,4 @@
-import styles from "../../../styles/Home/featured.module.css";
+import styles from "@/styles/Home/featured.module.css";
 
 import { useState } from "react";
 

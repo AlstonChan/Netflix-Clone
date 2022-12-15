@@ -1,9 +1,9 @@
-import styles from "../../../styles/browse/modals.module.css";
-import adult from "../../../public/images/icons/misc/adultOnly.png";
+import styles from "@/styles/browse/modals.module.css";
+import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
 
-import { genres } from "../../../lib/movieGenres";
+import { genres } from "@/lib/movieGenres";
 
 export default function MovieDetails({ modalStyle }) {
   const mov = modalStyle.movieSet;

@@ -7,7 +7,7 @@ component/home/featured/input.js;
 /* Homepage Feature Component */
 /* Index.js section*/
 .headFea {
-  background-image: url("/images/netflix banner.jpg");
+  background-image: url("/images/banner.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 710px;
@@ -94,6 +94,7 @@ component/home/featured/input.js;
   left: 16px;
   font-size: 1.1rem;
   transition: all 100ms ease-in-out;
+  cursor: text;
 }
 
 .emailInputLabelMove {

@@ -1,8 +1,8 @@
-import styles from "../../../styles/browse/modals.module.css";
-import imageNotFound from "../../../public/images/image-not-found.png";
+import styles from "@/styles/browse/modals.module.css";
+import imageNotFound from "@/public/images/image-not-found.png";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import ImageRender from "../../ImageRender";
+import ImageRender from "@chan_alston/image";
 import { AnimatePresence } from "framer-motion";
 
 import MovieDetails from "./MovieDetails";
@@ -136,14 +136,14 @@ export default function Modals({
   const modalImage = !openModal
     ? modalStyle.movieSet?.backdrop_path
       ? `https://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
-      : imageNotFound
+      : imageNotFound.src
     : modalStyle.movieSet?.backdrop_path
     ? `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
-    : imageNotFound;
+    : imageNotFound.src;
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         {modalWarn ? <ModalWarn type="movie" /> : ""}
       </AnimatePresence>
       {modalVisibility ? (
@@ -165,8 +165,8 @@ export default function Modals({
               <div className={styles.mainImageContainer}>
                 <ImageRender
                   src={modalImage}
-                  width="1364"
-                  height="768"
+                  w="1364px"
+                  h="768px"
                   className={styles.backdrop_pathStyle}
                   alt="movie thumbnails"
                 />

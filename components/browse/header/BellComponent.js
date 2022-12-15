@@ -1,5 +1,6 @@
-import styles from "../../../styles/browse/secondaryHeader.module.css";
-import bell from "../../../public/images/icons/misc/bell.svg";
+import styles from "@/styles/browse/secondaryHeader.module.css";
+import Bell from "@/public/images/icons/misc/bell.svg";
+import NavArrowBold from "@/public/images/icons/arrow/nav_arrow_bold.svg";
 
 import Image from "next/image";
 
@@ -41,7 +42,7 @@ export default function BellComponent() {
         onMouseEnter={(e) => toggleNavMenu(e)}
         onMouseLeave={(e) => toggleNavMenu(e)}
       >
-        <Image src={bell} alt="notification icon" unoptimized />
+        <Image src={Bell} alt="notification icon" unoptimized />
         <div
           className={styles.notification}
           style={
@@ -62,9 +63,9 @@ export default function BellComponent() {
         >
           <div className={styles.notificationArrContain}>
             <Image
-              src="/images/icons/arrow/nav_arrow_bold.svg"
-              width="20px"
-              height="20px"
+              src={NavArrowBold}
+              width="20"
+              height="20"
               className={styles.notificationArr}
               alt=""
               unoptimized

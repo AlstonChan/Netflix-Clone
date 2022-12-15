@@ -1,8 +1,10 @@
-import styles from "../../styles/Home/cardFour.module.css";
-import baseStyles from "../../styles/Home/card.module.css";
-import netflixKid from "../../public/images/home/netflix-kids.png";
+import styles from "@/styles/Home/cardFour.module.css";
+import baseStyles from "@/styles/Home/card.module.css";
+import netflixKid from "@/public/images/home/netflix-kids.png";
 
 import Image from "next/image";
+
+import { responsive } from "@/styles/cssStyle";
 
 export default function CardFour() {
   return (
@@ -12,7 +14,8 @@ export default function CardFour() {
           <Image
             src={netflixKid}
             alt="netflix kid display image"
-            unoptimized={true}
+            unoptimized
+            style={responsive}
           />
         </div>
         <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>

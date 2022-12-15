@@ -1,11 +1,11 @@
-import styles from "../../styles/login.module.css";
+import styles from "@/styles/login.module.css";
 
 import router from "next/router";
 import Link from "next/link";
 
 import { useRef, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { auth } from "@/lib/firebase";
 
 import InputEmail from "./InputEmail";
 import InputPassword from "./InputPassword";
@@ -55,8 +55,8 @@ export default function LoginForm() {
         <p className={styles.logInErrorClassContent}>
           Sorry, we can&apos;t find an account with this email address. Please
           try again or{" "}
-          <Link href="/">
-            <a className={styles.createAccLink}>create a new account</a>
+          <Link href="/" className={styles.createAccLink}>
+            create a new account
           </Link>
           .
         </p>
@@ -100,8 +100,8 @@ export default function LoginForm() {
               Remember me
             </label>
           </div>
-          <Link href="/">
-            <a className={styles.helpLink}>Need Help?</a>
+          <Link href="/" className={styles.helpLink}>
+            Need Help?
           </Link>
         </div>
       </form>

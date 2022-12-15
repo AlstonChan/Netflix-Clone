@@ -1,24 +1,23 @@
-import baseStyles from "../../../styles/yourAccount/yourAccount.module.css";
-import styles from "../../../styles/yourAccount/ratings.module.css";
-import stylesSpin from "../../../styles/loader.module.css";
-import Spinner from "../../../public/images/browse/spinner.png";
+import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
+import styles from "@/styles/yourAccount/ratings.module.css";
 
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 import { useContext, useEffect, useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import ImageRender from "../../../components/ImageRender";
-import { UserContext } from "../../_app";
+import ImageRender from "@chan_alston/image";
+import { UserContext } from "@/pages/_app";
+import { fill } from "@/styles/cssStyle";
 
-import Loader from "../../../components/Loader";
-import MovieInfoBar from "../../../components/yourAccount/ratings/MovieInfoBar";
-import AccountHeader from "../../../components/yourAccount/AccountHeader";
-import FooterStyle2 from "../../../components/footer/FooterStyle2";
+import Loader from "@/components/Loader";
+import MovieInfoBar from "@/components/yourAccount/ratings/MovieInfoBar";
+import AccountHeader from "@/components/yourAccount/AccountHeader";
+import FooterStyle2 from "@/components/footer/FooterStyle2";
+import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export function UserRating() {
   const { userData, listMovieData } = useContext(UserContext);
@@ -45,6 +44,7 @@ export function UserRating() {
       <Head>
         <title>Netflix Clone - Movie Ratings</title>
       </Head>
+
       <main className={baseStyles.main}>
         <div style={{ backgroundColor: "#000" }}>
           <AccountHeader />
@@ -61,7 +61,8 @@ export function UserRating() {
                       : `/images/profile pic/${userData[currentUser].pic}.png`
                   }
                   className={styles.roundBorder}
-                  objectFit="cover"
+                  objFit="cover"
+                  style={fill}
                 />
               </div>
             </div>
@@ -76,20 +77,15 @@ export function UserRating() {
               );
             })}
 
-            <Link href="/yourAccount">
-              <a className={`${styles.backBtn} ${styles.backBtnTxt}`}>
-                Back to Your Account
-              </a>
+            <Link
+              href="/yourAccount"
+              className={`${styles.backBtn} ${styles.backBtnTxt}`}
+            >
+              Back to Your Account
             </Link>
           </article>
         ) : (
-          <main className={stylesSpin.mainLoader}>
-            <div className={stylesSpin.profilePicCenter}>
-              <div className={stylesSpin.spinnerContain}>
-                <Image src={Spinner} alt="loading spinner" />
-              </div>
-            </div>
-          </main>
+          <AccountLoader />
         )}
 
         <FooterStyle2 />

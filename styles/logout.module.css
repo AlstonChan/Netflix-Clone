@@ -7,7 +7,7 @@ pages/logout.js;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../public/images/netflix_logout.jpg");
+  background-image: url("../public/images/bg-queen.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;

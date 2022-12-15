@@ -1,4 +1,4 @@
-import styles from "../../../styles/Home/cardFaq.module.css";
+import styles from "@/styles/Home/cardFaq.module.css";
 
 import router from "next/router";
 

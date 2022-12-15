@@ -1,4 +1,4 @@
-import styles from "../../styles/yourAccount/yourAccount.module.css";
+import styles from "@/styles/yourAccount/yourAccount.module.css";
 
 import Link from "next/link";
 
@@ -81,9 +81,7 @@ export default function Membership({ user, divider }) {
             </p>
             {divider ? "" : <hr className={styles.divider} />}
             <p className={styles.linkUpdate}>
-              <Link href="/yourAccount/password">
-                <a>Change passowrd</a>
-              </Link>
+              <Link href="/yourAccount/password">Change passowrd</Link>
             </p>
             {divider ? "" : <hr className={styles.divider} />}
           </div>

@@ -1,13 +1,13 @@
-import baseStyles from "../../../styles/browse/profile/profile.module.css";
-import styles from "../../../styles/browse/profile/mainProfile.module.css";
-import ProfileAdd from "../../../public/images/netflix-profile-add.png";
+import baseStyles from "@/styles/browse/profile/profile.module.css";
+import styles from "@/styles/browse/profile/mainProfile.module.css";
+import ProfileAdd from "@/public/images/profile-add.png";
 
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../pages/_app";
+import { UserContext } from "@/pages/_app";
 
 import ProfileAvatar from "./ProfileAvatar";
 
@@ -102,11 +102,9 @@ export default function MainProfile({
           </button>
         ) : (
           <Link href="/manageProfile">
-            <a>
-              <button className={styles.manageProfilesBtn}>
-                Manage Profiles
-              </button>
-            </a>
+            <button className={styles.manageProfilesBtn}>
+              Manage Profiles
+            </button>
           </Link>
         )}
       </div>

@@ -1,11 +1,11 @@
-import styles from "../../../styles/browse/modals.module.css";
-import adult from "../../../public/images/icons/misc/adultOnly.png";
+import styles from "@/styles/browse/modals.module.css";
+import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
 
-import { genres } from "../../../lib/movieGenres";
+import { genres } from "@/lib/movieGenres";
 
-import ImageRender from "../../ImageRender";
+import ImageRender from "@chan_alston/image";
 
 export default function MovieDetailsOpen({ modalStyle }) {
   const mov = modalStyle.movieSet;
@@ -119,8 +119,8 @@ export default function MovieDetailsOpen({ modalStyle }) {
         <div className={styles.imageContainerPoster}>
           <ImageRender
             src={`https://image.tmdb.org/t/p/w500${mov.poster_path}`}
-            width="500"
-            height="750"
+            w="500px"
+            h="750px"
             alt="Movie Poster"
           />
         </div>

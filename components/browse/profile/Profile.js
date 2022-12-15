@@ -1,4 +1,5 @@
-import baseStyles from "../../../styles/browse/profile/profile.module.css";
+import baseStyles from "@/styles/browse/profile/profile.module.css";
+import NetflixLogo from "@/public/images/logo.png";
 
 import Image from "next/image";
 import Head from "next/head";
@@ -10,6 +11,7 @@ import AddProfile from "./AddProfile";
 
 export default function Profile({ switchPage }) {
   const [profileModal, setProfileModal] = useState(false);
+
   function addProfile() {
     setProfileModal(true);
   }
@@ -19,16 +21,15 @@ export default function Profile({ switchPage }) {
       <Head>
         <title>Netflix Clone - Profile</title>
       </Head>
+
       <div className={baseStyles.container}>
         <header className={baseStyles.header}>
-          <div className={baseStyles.imgLogo}>
-            <Image
-              src="/images/NetflixLogo.png"
-              width="150px"
-              height="40.875px"
-              alt="netflix logo"
-            />
-          </div>
+          <Image
+            src={NetflixLogo}
+            alt="netflix logo"
+            width="160"
+            height="43.6"
+          />
         </header>
         <main className={baseStyles.main}>
           <div className={baseStyles.divContainer}>

@@ -8,7 +8,7 @@ component/login/loginForm.js;
 .container {
   min-height: 865px;
   height: 100vh;
-  background-image: url("/images/netflix banner2.jpg");
+  background-image: url("/images/banner2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;
@@ -129,6 +129,9 @@ component/login/loginForm.js;
   margin-top: 12px;
   cursor: pointer;
   width: fit-content;
+}
+.googleIconContainer {
+  width: 25px;
 }
 .loginTxt {
   color: rgba(180, 180, 180, 0.705);
