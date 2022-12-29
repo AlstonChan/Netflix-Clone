@@ -14,6 +14,8 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+import Layout from "./layout";
+
 initAuth();
 
 export const UserContext = createContext({
@@ -84,10 +86,12 @@ function MyApp({ Component, pageProps }) {
               listMovieData,
             }}
           >
-            <Component {...pageProps} />
-            {process.env.NODE_ENV === "development" && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            <Layout>
+              <Component {...pageProps} />
+              {process.env.NODE_ENV === "development" && (
+                <ReactQueryDevtools initialIsOpen={false} />
+              )}
+            </Layout>
           </UserContext.Provider>
         </Hydrate>
       </QueryClientProvider>
