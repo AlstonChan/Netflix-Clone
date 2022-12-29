@@ -68,6 +68,10 @@ component/home/CardOne.js;
     width: 70%;
     align-self: center;
   }
+  .wordGroup {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
 @media screen and (max-width: 570px) {
