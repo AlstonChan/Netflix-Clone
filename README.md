@@ -1,10 +1,10 @@
-<div align="center" style='display: flex'> 
-   <img style='margin: 0 auto ; max-width:700px' src='./public/images/NetflixLogo.png' /> 
+<div align="center" style='display: flex'>
+   <img style='margin: 0 auto ; max-width:700px' src='./public/images/logo.png' />
 </div>
 <div align="center" style='display:flex; justify-content:center'>
-  <img style='margin: 0 3px' src='https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E' /> 
-  <img style='margin: 0 3px' src='https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB' /> 
-  <img style='margin: 0 3px' src='https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white' /> 
+  <img style='margin: 0 3px' src='https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E' />
+  <img style='margin: 0 3px' src='https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB' />
+  <img style='margin: 0 3px' src='https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white' />
   <img style='margin: 0 3px' src='https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase' />
   <img style='margin: 0 3px' src='https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white' />
 </div>
