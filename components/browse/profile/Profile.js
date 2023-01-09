@@ -3,11 +3,14 @@ import NetflixLogo from "@/public/images/logo.png";
 
 import Image from "next/image";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 import MainProfile from "./MainProfile";
-import AddProfile from "./AddProfile";
+import Loader from "@/components/Loader";
+
+const AddProfile = dynamic(() => import("./AddProfile"), { suspense: true });
 
 export default function Profile({ switchPage }) {
   const [profileModal, setProfileModal] = useState(false);
@@ -34,7 +37,9 @@ export default function Profile({ switchPage }) {
         <main className={baseStyles.main}>
           <div className={baseStyles.divContainer}>
             {profileModal ? (
-              <AddProfile back={setProfileModal} />
+              <Suspense fallback={<Loader />}>
+                <AddProfile back={setProfileModal} />
+              </Suspense>
             ) : (
               <MainProfile
                 title={"Who's watching?"}
