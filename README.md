@@ -7,14 +7,15 @@
   <img style='margin: 0 3px' src='https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white' />
   <img style='margin: 0 3px' src='https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase' />
   <img style='margin: 0 3px' src='https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white' />
+  <img src="https://img.shields.io/badge/dotenv-000000?style=for-the-badge&logo=dotenv" />
 </div>
 <h2 align="center" style="display: flex; justify-content:center;">A netflix clone created using Next.js and Firebase</h2>
 
-# Getting Started
+## Getting Started
 
 ### Step One. Clone or download the code
 
-```
+```bash
 git clone https://github.com/AlstonChan/Netflix-clone.git
 ```
 
@@ -22,13 +23,13 @@ Then type `cd Netflix-clone`.
 
 ### Step Two. Install all required dependencies using `npm install`
 
-```
+```bash
 npm install
 ```
 
 You may also install `firebase-tools` so you can use Firebase auth emulators later,
 
-```
+```bash
 npm install -g firebase-tools
 ```
 
@@ -100,13 +101,13 @@ npm install -g firebase-tools
 
 1. Go to your text editior, in my case, I am using [Visual Studio Code](https://code.visualstudio.com/). Login to the Firebase CLI using the following command, You will be redirected to your browser to login.
 
-   ```
+   ```bash
    firebase login
    ```
 
 2. After you have successfully login to the Firebase CLI, enter this command to initialize your firebase project to this application.
 
-   ```
+   ```bash
    firebase init
    ```
 
@@ -166,8 +167,10 @@ npm install -g firebase-tools
 
 You need movies data to populate your page, so go to [The Movie Database (TMDB)](https://www.themoviedb.org/) and copy your api key to `.env.local`. If you did not have an account, create one and fill in the form to request an api key, so you can use the api key to fetch data to your page.
 
+   ```
       MOVIE_DB_API_KEY=
       FETCH_KEY=CabtUaWSst3xez8FjgSbGyqmy
+   ```
 
 ### Step Six. Setup `next-firebase-auth`
 
@@ -250,12 +253,18 @@ npm run emulators
 
 Open [http://localhost:4060](http://localhost:4060) to view the emulator UI
 
-# Netflix Clone Sitemap
+## Netflix Clone Sitemap
 
 This sitemap roughly shows how the app should work, and all the route of the app.
 ![netflix clone sitemap ](./assets/netflix-clone-sitemap.jpg)
 **NOTE** that the link in the footer have no functions, because all link links to _help.netflix.com_, which isn't part of this project.
 
-# Deployment ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+## Additional Configuration File
+
+### .env.vault
+
+I have use a [Dotenv Vault](https://www.dotenv.org/) services to store the my `.env` file as `.env` file ***SHOULD NOT*** be commit and push to a respository, I figured that the dotenv vault is a great place to store such file. You could and should delete this file if you plan on using your own vault to store the `.env` file or you simply wanted a remove a needless file.
+
+## Deployment ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
 Deploy to [Vercel](https://vercel.com/dashboard) or [Netlify](https://www.netlify.com/). Remember to setup the environment variables for the app to function correctly.
