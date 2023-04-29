@@ -1,0 +1,16 @@
+/*Image section*/
+.imgPresentContainer {
+  max-width: 504.95px;
+  margin: -2% 0 -3% -4%;
+}
+
+@media screen and (max-width: 967px) {
+  .imgPresentContainer {
+    width: 100%;
+    margin: -2% 0 0 0;
+    max-width: none;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+}

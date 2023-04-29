@@ -1,3 +1,18 @@
 {
-  "cSpell.words": ["firestore", "remoteconfig", "tanstack"]
+  "cSpell.words": [
+    "Authed",
+    "Chromecast",
+    "dompurify",
+    "firebasestorage",
+    "firestore",
+    "googleusercontent",
+    "nosniff",
+    "remoteconfig",
+    "SAMEORIGIN",
+    "signup",
+    "tanstack",
+    "tmdb",
+    "Unauthed",
+    "unoptimized"
+  ]
 }

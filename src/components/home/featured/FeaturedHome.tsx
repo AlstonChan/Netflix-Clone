@@ -1,21 +1,27 @@
 import styles from "@/styles/Home/featured.module.css";
 
-import router from "next/router";
+import { useRouter } from "next/router";
 
 import { useRef, useState } from "react";
 import aes from "crypto-js/aes";
 
 import Header from "../../Header";
-import Input from "./Input";
+import HomeInput from "./HomeInput";
+
+import { CustomHTMLInputElement } from "./HomeInput";
+import type { FormEvent, MouseEvent } from "react";
 
 export default function FeaturedHome() {
+  const router = useRouter();
   const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
     `netflixBtn ${styles.getStartedBtn}`
   );
 
-  const emailInputRef = useRef();
+  const emailInputRef = useRef<CustomHTMLInputElement | null>(null);
 
-  function handleMouse(e) {
+  function handleMouse(
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) {
     if (e.type === "mousedown") {
       setEmailBtnMouseClass(
         `netflixBtn ${styles.getStartedBtn} ${styles.getStartedBtnMouse}`
@@ -25,15 +31,18 @@ export default function FeaturedHome() {
     }
   }
 
-  function handleFormSubmit(e) {
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (emailInputRef.current.isValid) {
-      const encrypted = aes
-        .encrypt(
-          emailInputRef.current.value,
-          process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE
-        )
-        .toString();
+    const inputElement = emailInputRef.current;
+
+    if (!inputElement) {
+      throw new Error("Email input Ref does not exists!");
+    }
+    if (inputElement.isValid) {
+      let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE;
+      if (!nonce) nonce = "";
+
+      const encrypted = aes.encrypt(inputElement.value, nonce).toString();
       sessionStorage.setItem("user", encrypted);
       router.push("/signup");
     }
@@ -60,10 +69,7 @@ export default function FeaturedHome() {
                 onSubmit={(e) => handleFormSubmit(e)}
                 className={styles.flexForm}
               >
-                <Input
-                  inputId={"_id_featuredInput"}
-                  emailInputRef={emailInputRef}
-                />
+                <HomeInput inputId="_id_featuredInput" ref={emailInputRef} />
                 <div className={styles.buttonContain}>
                   <button
                     type="submit"

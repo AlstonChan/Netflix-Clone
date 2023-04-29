@@ -1,21 +1,27 @@
-import styles from "@/styles/Home/cardFaq.module.css";
+import styles from "./SectionFaq.module.scss";
 
-import router from "next/router";
+import { useRouter } from "next/router";
 
 import { useRef, useState } from "react";
 import aes from "crypto-js/aes";
 
-import EmailInput from "../featured/Input";
+import EmailInput from "../featured/HomeInput";
 import Accordion from "./Accordion";
 
+import type { CustomHTMLInputElement } from "../featured/HomeInput";
+import type { FormEvent, MouseEvent } from "react";
+
 export default function CardFaq() {
-  const [emailBtnMouseClass, setEmailBtnMouseClass] = useState(
+  const router = useRouter();
+  const [emailBtnMouseClass, setEmailBtnMouseClass] = useState<string>(
     `netflixBtn ${styles.getStartedBtn}`
   );
 
-  const emailInputRef = useRef();
+  const emailInputRef = useRef<CustomHTMLInputElement | null>(null);
 
-  function handleMouse(e) {
+  function handleMouse(
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) {
     if (e.type === "mousedown") {
       setEmailBtnMouseClass(
         `netflixBtn ${styles.getStartedBtn} ${styles.getStartedBtnMouse}`
@@ -25,15 +31,18 @@ export default function CardFaq() {
     }
   }
 
-  function handleFormSubmit(e) {
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (emailInputRef.current.isValid) {
-      const encrypted = aes
-        .encrypt(
-          emailInputRef.current.value,
-          process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE
-        )
-        .toString();
+    const inputElement = emailInputRef.current;
+
+    if (!inputElement) {
+      throw new Error("Email input Ref does not exists!");
+    }
+    if (inputElement.isValid) {
+      let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE;
+      if (!nonce) nonce = "";
+
+      const encrypted = aes.encrypt(inputElement.value, nonce).toString();
       sessionStorage.setItem("user", encrypted);
       router.push("/signup");
     }
@@ -41,8 +50,8 @@ export default function CardFaq() {
 
   return (
     <section className={styles.container}>
-      <div className={styles.shell}>
-        <h1 className={styles.sectionHead}>Frequently Asked Questions</h1>
+      <div className={styles.box}>
+        <h1 className={styles.title}>Frequently Asked Questions</h1>
         <Accordion />
         <form
           autoComplete="on"
@@ -55,10 +64,7 @@ export default function CardFaq() {
             membership.
           </p>
           <div className={styles.faqForm}>
-            <EmailInput
-              inputId={"_id_faqInput"}
-              emailInputRef={emailInputRef}
-            />
+            <EmailInput inputId="_id_faqInput" ref={emailInputRef} />
             <div className={styles.buttonContain}>
               <button
                 type="submit"

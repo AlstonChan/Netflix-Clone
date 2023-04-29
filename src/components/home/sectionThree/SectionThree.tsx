@@ -1,5 +1,5 @@
-import styles from "@/styles/Home/cardThree.module.css";
-import baseStyles from "@/styles/Home/card.module.css";
+import styles from "./HomeSectionThree.module.scss";
+import baseStyles from "../HomeSection.module.scss";
 import devicePile from "@/public/images/home/device-pile.png";
 
 import Image from "next/image";
@@ -8,16 +8,14 @@ import { responsive } from "@/styles/cssStyle";
 
 export default function CardThree() {
   return (
-    <div className={baseStyles.container}>
-      <div className={styles.containerCard}>
-        <div className={`${baseStyles.wordGroup} ${styles.wordGroup}`}>
-          <div className={styles.wordGroupContain}>
-            <h1 className={styles.wordGroupBig}>Watch everywhere.</h1>
-            <p className={styles.wordGroupSml}>
-              Stream unlimited movies and TV shows on your phone, tablet,
-              laptop, and TV without paying more.
-            </p>
-          </div>
+    <section className={baseStyles.container}>
+      <div className={baseStyles.containerContent}>
+        <div className={`${baseStyles.wordGroup} ${baseStyles.left}`}>
+          <h1 className={baseStyles.title}>Watch everywhere.</h1>
+          <p className={baseStyles.subTitle}>
+            Stream unlimited movies and TV shows on your phone, tablet, laptop,
+            and TV without paying more.
+          </p>
         </div>
         <div className={styles.imgPresent}>
           <div className={styles.vidPresentContainer}>
@@ -38,6 +36,6 @@ export default function CardThree() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

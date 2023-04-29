@@ -1,0 +1,53 @@
+/*Image section*/
+.imgPresent {
+  width: 48%;
+
+  &Container {
+    position: relative;
+    margin: -5% -10% 0 0;
+    max-width: 555px;
+  }
+}
+
+.vidPresentContainer {
+  width: 100%;
+  position: relative;
+}
+
+.videoTv {
+  position: absolute;
+  transform: translate(10px);
+  object-fit: contain;
+  width: 67.3%;
+  height: 67.3%;
+  left: 18%;
+  top: -0.3%;
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .imgPresent {
+    width: 75%;
+    align-self: center;
+
+    &Container {
+      width: 100%;
+      margin: -5% -10% 0 0;
+      max-width: none;
+    }
+  }
+  .videoTv {
+    width: 62%;
+    height: 62%;
+    left: 17%;
+    top: 1%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .imgPresent {
+    width: 100%;
+  }
+}

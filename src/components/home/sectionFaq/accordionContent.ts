@@ -1,4 +1,6 @@
-export const faq = [
+import { AccordionDataType } from "./types";
+
+export const data: AccordionDataType[] = [
   {
     headers: "Is this the real Netflix?",
     content:

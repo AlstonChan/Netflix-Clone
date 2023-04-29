@@ -1,14 +1,8 @@
+/** @type {import('next').NextConfig} */
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-
-const ContentSecurityPolicy = `
-  default-src 'self' google.com firebasestorage.googleapis.com identitytoolkit.googleapis.com firestore.googleapis.com localhost;
-  img-src 'self' image.tmdb.org lh3.googleusercontent.com firebasestorage.googleapis.com;
-  font-src 'self' fonts.googleapis.com fonts.gstatic.com;
-  style-src 'self' fonts.googleapis.com fonts.gstatic.com;
-  connect-src 'self' wss: ws: ;
-`;
 
 const securityHeaders = [
   {
@@ -35,10 +29,6 @@ const securityHeaders = [
     key: "X-Content-Type-Options",
     value: "nosniff",
   },
-  // {
-  //   key: "Cross-Origin-Embedder-Policy",
-  //   value: "require-corp",
-  // },
   {
     key: "Cross-Origin-Opener-Policy",
     value: "same-origin-allow-popups",
@@ -51,14 +41,8 @@ const securityHeaders = [
 let complierOption = {};
 
 if (process.env.NODE_ENV === "production") {
-  // securityHeaders.push({
-  //   key: "Content-Security-Policy",
-  //   value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-  // });
   complierOption = {
-    removeConsole: {
-      exclude: ["error"],
-    },
+    removeConsole: true,
   };
 }
 
@@ -76,6 +60,7 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     domains: domains,
+    unoptimized: true,
   },
   compiler: complierOption,
   swcMinify: true,

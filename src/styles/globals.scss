@@ -17,9 +17,16 @@ body {
   box-sizing: border-box;
 }
 
+:root {
+  // Colors
+  --red-color: #e00e0e;
+  --grey-color: #303030;
+  --dark-grey-color: #222;
+}
+
 .netflixBtn {
   border: none;
-  background-color: rgb(224, 14, 14);
+  background-color: var(--red-color);
   color: #fff;
   border-radius: 5px;
   font-size: 1.1rem;
@@ -29,7 +36,7 @@ body {
 }
 
 .netflixBtn:hover {
-  color: rgb(224, 14, 14);
+  color: var(--red-color);
   background-color: #fff;
 }
 

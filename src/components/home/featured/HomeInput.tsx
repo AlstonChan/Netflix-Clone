@@ -1,8 +1,20 @@
 import styles from "@/styles/Home/featured.module.css";
 
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
-export default function Input({ inputId, emailInputRef }) {
+import type { FocusEvent, ChangeEvent } from "react";
+
+export interface CustomHTMLInputElement extends HTMLInputElement {
+  isValid: boolean;
+}
+
+interface HomeInputProps {
+  inputId: string;
+}
+
+// TODO: replace the any
+const HomeInput = forwardRef((props: HomeInputProps, ref: any) => {
+  const { inputId } = props;
   //Placeholder for input, move up when focus or a value is enter
   //move down when blur, but only if value is ''
   const [emailInputLabelClass, setEmailInputLabelClass] = useState(
@@ -15,9 +27,11 @@ export default function Input({ inputId, emailInputRef }) {
     warnings: "",
   });
 
-  // const emailInputRef = useRef();
+  function checkEmailInput(val: string) {
+    const inputElement = ref.current;
 
-  function checkEmailInput(val) {
+    if (!inputElement) throw new Error("input element does not exists!");
+
     const valLength = val?.length ?? 0;
     const regexValidateEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,24 +41,33 @@ export default function Input({ inputId, emailInputRef }) {
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
         warnings: "Email is required!",
       });
-      emailInputRef.current.isValid = false;
+      inputElement.isValid = false;
     } else if (!val.match(regexValidateEmail)) {
       setEmailInput({
         class: `${styles.emailInput} ${styles.emailWarnBorder}`,
         warnings: "Please enter a valid email address",
       });
-      emailInputRef.current.isValid = false;
+      inputElement.isValid = false;
     } else {
       setEmailInput({
         class: `${styles.emailInput}`,
         warnings: "",
       });
-      emailInputRef.current.isValid = true;
+      inputElement.isValid = true;
     }
   }
 
-  function handleInputClick(e) {
-    const val = emailInputRef.current._valueTracker.getValue();
+  type HandleInputType =
+    | FocusEvent<HTMLInputElement, Element>
+    | ChangeEvent<HTMLInputElement>;
+
+  function handleInput(e: HandleInputType) {
+    const inputElement = ref.current;
+
+    if (!inputElement) throw new Error("input element does not exists!");
+
+    const val = inputElement._valueTracker.getValue();
+
     if (e.type === "change") {
       checkEmailInput(val);
     } else if (e.type === "focus") {
@@ -64,13 +87,13 @@ export default function Input({ inputId, emailInputRef }) {
         <input
           type="email"
           name="emailInput"
-          maxLength="50"
+          maxLength={50}
           id={inputId}
           className={emailInput.class}
-          ref={emailInputRef}
-          onFocus={(e) => handleInputClick(e)}
-          onBlur={(e) => handleInputClick(e)}
-          onChange={(e) => handleInputClick(e)}
+          ref={ref}
+          onFocus={(e) => handleInput(e)}
+          onBlur={(e) => handleInput(e)}
+          onChange={(e) => handleInput(e)}
         />
         <label htmlFor={inputId} className={emailInputLabelClass}>
           Email address
@@ -79,4 +102,6 @@ export default function Input({ inputId, emailInputRef }) {
       <p className={styles.emailWarn}>{emailInput.warnings}</p>
     </div>
   );
-}
+});
+
+export default HomeInput;

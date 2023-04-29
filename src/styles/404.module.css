@@ -7,7 +7,7 @@ pages/404.js;
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap");
 .container {
   overflow-x: hidden;
-  background-image: url("../public/images/bg-lost-in-space.png");
+  background-image: url("../../public/images/bg-lost-in-space.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;

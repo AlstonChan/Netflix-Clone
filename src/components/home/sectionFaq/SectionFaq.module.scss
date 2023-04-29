@@ -1,111 +1,98 @@
-/* file using this stylesheet */
-/* 
-component/home/Faq/accordion.js;
-component/home/Faq/accordionCard.js;
-component/home/Faq/index.js;
-*/
-
 .container {
   background-color: #000000;
-  color: white;
-  display: flex;
-  justify-content: center;
-  border-bottom: 8px solid #222;
-}
+  color: #fff;
+  border-bottom: 8px solid var(--dark-grey-color);
 
-.shell {
-  max-width: 1100px;
-  width: 100%;
-  padding: 50px 100px 70px 100px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
+  .box {
+    max-width: 1100px;
+    width: 100%;
+    padding: 50px 100px 70px 100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
-.sectionHead {
-  width: fit-content;
-  margin: 0 auto 40px auto;
-  text-align: center;
-  font-size: 3rem;
-  padding: 10px;
-}
+    .title {
+      width: fit-content;
+      margin: 0 auto 40px auto;
+      text-align: center;
+      font-size: 3rem;
+      padding: 10px;
+    }
 
-.accordion {
-  max-width: 815px;
-  width: 100%;
-  margin: 0 auto;
-}
+    .accordion {
+      max-width: 815px;
+      width: 100%;
+      margin: 0 auto;
+      padding-left: 0;
 
-.accordionList {
-  width: 100%;
-  margin: 10px 20px;
-  list-style: none;
-}
+      & .item {
+        list-style-type: none;
+        font-size: 1.65rem;
+        width: 100%;
+        margin-bottom: 7px;
 
-.accordionItem {
-  list-style-type: none;
-  font-size: 1.65rem;
-  width: 100%;
-  margin-bottom: 7px;
-}
+        & .btn {
+          display: flex;
+          width: 100%;
+          border: solid 1px #000;
+          height: 5rem;
+          font-size: inherit;
+          color: inherit;
+          background-color: var(--grey-color);
+          text-align: left;
+          padding: 20px 30px;
+          cursor: pointer;
 
-.accordionItemBtn {
-  display: flex;
-  width: 100%;
-  border: solid 1px #000;
-  height: 5rem;
-  font-size: inherit;
-  color: inherit;
-  background-color: #303030;
-  text-align: left;
-  padding: 20px 30px;
-  cursor: pointer;
-}
+          & .text {
+            align-self: center;
+          }
 
-.btnText {
-  align-self: center;
-}
+          &Cross {
+            margin: 0 0 0 auto;
+            max-width: 27px;
+            align-self: center;
+            display: flex;
+            align-items: center;
 
-.btnCross {
-  margin: 0 0 0 auto;
-  max-width: 27px;
-  align-self: center;
-  display: flex;
-  align-items: center;
-}
+            .close {
+              transform: rotate(45deg);
+              transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
+            }
 
-.closeCross {
-  transform: rotate(45deg);
-  transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
-}
+            .open {
+              transform: rotate(0deg);
+              transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
+            }
+          }
+        }
+      }
 
-.openCross {
-  transform: rotate(0deg);
-  transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
-}
+      &Content {
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+        background-color: #303030;
+        border: solid 1px #000;
+        overflow: hidden;
+        transition: max-height 250ms cubic-bezier(0.5, 0, 0.1, 1);
 
-.accordionContent {
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-  background-color: #303030;
-  border: solid 1px #000;
-  overflow: hidden;
-  transition: max-height 250ms cubic-bezier(0.5, 0, 0.1, 1);
-}
+        & > span {
+          padding: 30px;
+        }
 
-.accordionContent > span {
-  padding: 30px;
-}
+        &.open {
+          max-height: 1000px;
+          overflow: hidden;
+        }
 
-.open {
-  max-height: 1000px;
-  overflow: hidden;
-}
-
-.hide {
-  max-height: 0;
-  overflow: hidden;
+        &.close {
+          max-height: 0;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 }
 
 /* *********************************** */
