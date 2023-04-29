@@ -41,3 +41,4 @@ ui-debug.log
 .env*
 !.env.project
 !.env.vault
+.flaskenv*
