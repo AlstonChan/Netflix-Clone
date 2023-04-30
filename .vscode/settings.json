@@ -9,6 +9,8 @@
     "googleusercontent",
     "msapplication",
     "mstile",
+    "nofollow",
+    "noreferrer",
     "nosniff",
     "remoteconfig",
     "SAMEORIGIN",

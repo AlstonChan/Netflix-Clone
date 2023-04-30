@@ -35,6 +35,11 @@ export default function useHandleHomeEmail() {
     if (!inputElement) {
       throw new Error("Email input Ref does not exists!");
     }
+
+    if (inputElement.value === "") {
+      inputElement.focus();
+    }
+
     if (inputElement.isValid) {
       let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE;
       if (!nonce) nonce = "";

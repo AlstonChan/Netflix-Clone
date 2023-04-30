@@ -1,0 +1,181 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+/* Login Page*/
+.container {
+  position: relative;
+
+  min-height: 865px;
+  height: 100vh;
+  background-image: url("/images/background/tiles2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 60%;
+
+  display: flex;
+  flex-direction: column;
+
+  @mixin AboveShader {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+      180deg,
+      rgba(2, 0, 36, 0.8953782196472339) 0%,
+      rgba(0, 0, 0, 0.5872549703475141) 12%,
+      rgba(0, 0, 0, 0.3519608527004552) 49%,
+      rgba(0, 0, 0, 0.6040616930365896) 93%,
+      rgba(0, 0, 0, 0.8981793400954132) 100%
+    );
+  }
+}
+
+@mixin AboveShader {
+  position: relative;
+  z-index: 1;
+}
+
+$headerHeight: 100px;
+
+/* ################################################## */
+/* Login Header Component */
+.header {
+  @include AboveShader;
+
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: $headerHeight;
+  align-items: center;
+
+  .logoContainer {
+    height: fit-content;
+    margin-left: 3%;
+  }
+}
+
+/* ################################################## */
+/* Login main Component */
+.loginContainer {
+  @include AboveShader;
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+
+  .content {
+    background-color: rgba(0, 0, 0, 0.712);
+    width: fit-content;
+    padding: 60px 70px;
+    margin: 30px auto 30px auto;
+    border-radius: 8px;
+    box-sizing: content-box;
+    width: 370px;
+
+    .title {
+      color: #fff;
+      margin: 0 0 20px 0;
+      font-size: 2rem;
+    }
+  }
+}
+
+/* ################################################## */
+/* Back to Login.js */
+/* Login Google part */
+.loginGoogle {
+  display: flex;
+  align-items: center;
+
+  margin-top: 12px;
+  cursor: pointer;
+  width: fit-content;
+
+  .loginTxt {
+    color: var(--light-grey-color);
+    font-size: 0.82rem;
+    padding-left: 10px;
+
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* (new to netflix? sign up now) part */
+.signUpContainer {
+  display: flex;
+
+  @mixin Text {
+    color: #fff;
+    margin: 16px 5px 16px 0;
+    text-decoration: none;
+  }
+
+  & > a {
+    @include Text;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & > p {
+    @include Text;
+    color: var(--light-grey-color);
+  }
+}
+
+.highComponent {
+  @include AboveShader();
+
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 750px) {
+  .container {
+    background: none;
+    background-color: #000;
+
+    &::after {
+      background: none;
+    }
+  }
+  .loginContainer {
+    .content {
+      padding: 40px 50px;
+      margin: 30px auto 0 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  $headerHeight: 80px;
+
+  .header {
+    height: $headerHeight;
+
+    .logoContainer {
+      height: fit-content;
+      margin-left: 3%;
+    }
+  }
+  .loginContainer {
+    .content {
+      padding: 20px 30px;
+      margin: 10px auto 0 auto;
+    }
+  }
+}

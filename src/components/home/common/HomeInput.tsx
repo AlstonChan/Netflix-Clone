@@ -114,5 +114,6 @@ const HomeInput = forwardRef<CustomHTMLInputElement, HomeInputProps>(
     );
   }
 );
+HomeInput.displayName = "HomeInput";
 
 export default HomeInput;

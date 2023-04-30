@@ -1,0 +1,127 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.inputContainer {
+  position: relative;
+
+  .input {
+    max-width: 900px;
+    width: 100%;
+    padding: 19px 5px 5px 15px;
+    font-size: 1.2rem;
+    border-radius: 7px;
+
+    &.dark {
+      border: none;
+      height: 55px;
+      color: #ffffff;
+      background-color: var(--grey-color-2);
+    }
+
+    &.light {
+      border: solid 1px var(--grey-color);
+      height: 60px;
+      color: rgb(0, 0, 0);
+      background-color: #fff;
+    }
+
+    &:focus {
+      outline: 2px solid var(--highlight-color);
+    }
+
+    // label section
+    &Label {
+      position: absolute;
+
+      top: 35%;
+      left: 18px;
+      font-size: 1rem;
+      transition: all 100ms ease-in-out;
+
+      &.dark {
+        color: var(--light-grey-color);
+      }
+      &.light {
+        color: var(--grey-color);
+      }
+
+      &Move {
+        top: 10%;
+        font-size: 0.75rem;
+        left: 15px;
+        font-weight: 600;
+      }
+    }
+
+    // warning message section
+    &Warn {
+      &Border {
+        &.dark {
+          border-bottom: solid var(--warning-color) 3px;
+        }
+
+        &.light {
+          border: solid var(--med-red-color) 1.5px;
+        }
+      }
+    }
+  }
+}
+
+.warn {
+  margin: 0 auto 10px 0;
+  width: fit-content;
+  font-size: 0.9rem;
+
+  &.dark {
+    padding: 5px 0 0 5px;
+    color: var(--warning-color);
+  }
+
+  &.light {
+    padding: 3px 0 0 0;
+    color: var(--med-red-color);
+  }
+}
+
+.togglePassword {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  height: calc(100% - 3px);
+  width: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 200ms ease-in, visibility 200ms ease-in;
+
+  .text {
+    color: var(--light-grey-color);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.caption {
+  color: var(--blue-color);
+
+  & > a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
