@@ -1,8 +1,3 @@
-/* file using this stylesheet */
-/* 
-pages/_app.js;
-*/
-
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 html,
 body {
@@ -20,8 +15,10 @@ body {
 :root {
   // Colors
   --red-color: #e00e0e;
+  --dark-red-color: #ad0a0a;
   --grey-color: #303030;
   --dark-grey-color: #222;
+  --warning-color: #ffa00a;
 }
 
 .netflixBtn {

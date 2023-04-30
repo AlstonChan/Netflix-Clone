@@ -1,0 +1,18 @@
+.flexForm {
+  display: flex;
+
+  .btnContainer {
+    flex: 3;
+  }
+}
+
+@media screen and (max-width: 967px) {
+  .flexForm {
+    display: block;
+    margin: 0 30px;
+
+    .btnContainer {
+      margin: 0 auto;
+    }
+  }
+}
