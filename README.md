@@ -9,17 +9,17 @@
   <img style='margin: 0 3px' src='https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white' />
   <img src="https://img.shields.io/badge/dotenv-000000?style=for-the-badge&logo=dotenv" />
 </div>
-<h2 align="center" style="display: flex; justify-content:center;">A netflix clone created using Next.js and Firebase</h2>
+<h2 align="center" style="display: flex; justify-content:center;">A Netflix-Clone site built with Next.js and Firebase</h2>
 
 ## Getting Started
 
 ### Step One. Clone or download the code
 
 ```bash
-git clone https://github.com/AlstonChan/Netflix-clone.git
+git clone https://github.com/AlstonChan/Netflix-Clone.git
 ```
 
-Then type `cd Netflix-clone`.
+Then type `cd Netflix-Clone`.
 
 ### Step Two. Install all required dependencies using `npm install`
 
@@ -45,7 +45,7 @@ npm install -g firebase-tools
 
 4. Create a **`.env.local`** file in the root directory (which is where your package.json file lies), and paste the following code into the file. Fill in your Firebase web app details accordingly, using `.env.local` file to save these Firebase details enable you not to copy and paste the details whenever you need to access it.
 
-   ```
+   ```env
    NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY=
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
    NEXT_PUBLIC_FIREBASE_PROJECT_ID=
@@ -60,7 +60,7 @@ npm install -g firebase-tools
 
    Copy the `"private_key"` value and `client_email` value. Paste it to `.env.local` file.
 
-   ```
+   ```env
    FIREBASE_PRIVATE_KEY=
    FIREBASE_CLIENT_EMAIL=
 
@@ -71,22 +71,22 @@ npm install -g firebase-tools
 
 5. Go to your **[Firebase console](https://console.firebase.google.com/u/0/)**, select the project and navigate to `Authentication` section. Click get started and enable **`Email/Password`** & **`Google`** auth, this app will use these two providers to authenticate user.
 
-6. This step is **optional** but is recommended, which is setting up a Firebase emulator. The emulators is built to accurately mimic the behavios of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
+6. This step is **optional** but is recommended, which is setting up a Firebase emulator. The emulators is built to accurately mimic the behaviors of Firebase services, so you can use Firebase auth locally and do not need to connect to Firebase cloud. To start the emulators, first copy the following code into `.env.local`.
 
-   ```
+   ```env
    # set to true when using Firebase auth emulator
    NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=false
    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
    NEXT_PUBLIC_USE_FIREBASE_STORAGE_EMULATOR=false
 
    # https://github.com/gladly-team/next-firebase-auth/issues/184
-   # FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,
+   # FIREBASE_AUTH_EMULATOR_HOST existence cause unexpected error to /api/login,
    # so it should be comment out when you want to disable Firebase emulators
 
    # FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
    ```
 
-   The `FIREBASE_AUTH_EMULATOR_HOST=localhost:9099` is being commented out, because it's existance can cause unexpected error when you decided to switch to Firebase cloud auth. You may temporary uncomment it when you want to use Firebase auth emulators, just remember to comment it back so it won't crashed the app. Besides that, head to `/lib/initAuth.js` and uncomment `firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST`, this also need to be commented back when using Firebase cloud auth.
+   The `FIREBASE_AUTH_EMULATOR_HOST=localhost:9099` is being commented out, because it's existence can cause unexpected error when you decided to switch to Firebase cloud auth. You may temporary uncomment it when you want to use Firebase auth emulators, just remember to comment it back so it won't crashed the app. Besides that, head to `/lib/initAuth.js` and uncomment `firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST`, this also need to be commented back when using Firebase cloud auth.
 
    The error below will be `console log` in your text editor if you forgot to comment it while using Firebase cloud auth, a 500 response error will also be logged in your browser.
 
@@ -167,7 +167,7 @@ npm install -g firebase-tools
 
 You need movies data to populate your page, so go to [The Movie Database (TMDB)](https://www.themoviedb.org/) and copy your api key to `.env.local`. If you did not have an account, create one and fill in the form to request an api key, so you can use the api key to fetch data to your page.
 
-   ```
+   ```env
       MOVIE_DB_API_KEY=
       FETCH_KEY=CabtUaWSst3xez8FjgSbGyqmy
    ```
@@ -176,7 +176,7 @@ You need movies data to populate your page, so go to [The Movie Database (TMDB)]
 
 Now to setup `next-firebase-auth` config, add the following code to `.env.local`.
 
-```
+```env
 # This have to set to true when hosting in vercel or any other platform
 NEXT_PUBLIC_COOKIE_SECURE=false
 
@@ -191,7 +191,7 @@ COOKIE_SECRET_CURRENT=qpweouterzmxncgfhshalksd
 
 Your `.env.local` file should look like this if you follow the previous step correctly, and it should have value filled in. Except if you have planned not to use Firebase auth emulators, you are safe to ignore **emulator related environment variable**. Lastly, add `NEXT_PUBLIC_CRYPTO_JS_NONCE=z3TWomYY` to the last line of your `.env.local` for **`crypto-js`** to encrypt the session data.
 
-```
+```env
 NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY=
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=
@@ -214,7 +214,7 @@ NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=false
 NEXT_PUBLIC_USE_FIREBASE_STORAGE_EMULATOR=false
 
 # https://github.com/gladly-team/next-firebase-auth/issues/184
-# FIREBASE_AUTH_EMULATOR_HOST existance cause unexpected error to /api/login,
+# FIREBASE_AUTH_EMULATOR_HOST existence cause unexpected error to /api/login,
 # so it should be comment out when you want to disable Firebase emulators
 
 # FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
@@ -263,7 +263,7 @@ This sitemap roughly shows how the app should work, and all the route of the app
 
 ### .env.vault
 
-I have use a [Dotenv Vault](https://www.dotenv.org/) services to store the my `.env` file as `.env` file ***SHOULD NOT*** be commit and push to a respository, I figured that the dotenv vault is a great place to store such file. You could and should delete this file if you plan on using your own vault to store the `.env` file or you simply wanted a remove a needless file.
+I have use a [Dotenv Vault](https://www.dotenv.org/) services to store the my `.env` file as `.env` file **_SHOULD NOT_** be commit and push to a repository, I figured that the dotenv vault is a great place to store such file. You could and should delete this file if you plan on using your own vault to store the `.env` file or you simply wanted a remove a needless file.
 
 ## Deployment ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 

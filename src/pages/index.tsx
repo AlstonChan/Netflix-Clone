@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import Head from "next/head";
 
 import { withAuthUser, AuthAction } from "next-firebase-auth";
@@ -15,8 +18,8 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Netflix Clone</title>
-        <meta name="title" content="Netflix Clone" key="title" />
+        <title>Netflix-Clone</title>
+        <meta name="title" content="Netflix-Clone" key="title" />
       </Head>
       <div className="container">
         <FeaturedHome />

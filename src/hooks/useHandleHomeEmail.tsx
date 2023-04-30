@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import btnStyles from "@/styles/button.module.scss";
 
 import { useRouter } from "next/router";

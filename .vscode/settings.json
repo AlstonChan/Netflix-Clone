@@ -1,11 +1,14 @@
 {
   "cSpell.words": [
     "Authed",
+    "browserconfig",
     "Chromecast",
     "dompurify",
     "firebasestorage",
     "firestore",
     "googleusercontent",
+    "msapplication",
+    "mstile",
     "nosniff",
     "remoteconfig",
     "SAMEORIGIN",
