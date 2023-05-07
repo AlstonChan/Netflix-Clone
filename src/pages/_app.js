@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Layout from "./layout";
+import Notice from "@/components/common/Notice/Notice";
 
 initAuth();
 
@@ -86,12 +86,11 @@ function MyApp({ Component, pageProps }) {
               listMovieData,
             }}
           >
-            <Layout>
-              <Component {...pageProps} />
-              {process.env.NODE_ENV === "development" && (
-                <ReactQueryDevtools initialIsOpen={false} />
-              )}
-            </Layout>
+            <Component {...pageProps} />
+            <Notice />
+            {process.env.NODE_ENV === "development" && (
+              <ReactQueryDevtools initialIsOpen={false} />
+            )}
           </UserContext.Provider>
         </Hydrate>
       </QueryClientProvider>
