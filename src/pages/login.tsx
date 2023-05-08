@@ -2,7 +2,6 @@
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
 import styles from "@/styles/login.module.scss";
-import NetflixLogo from "@/public/images/logo.png";
 import GoogleLogo from "@/public/images/google.png";
 
 import Link from "next/link";
@@ -20,6 +19,7 @@ import Loader from "@/components/Loader";
 
 import type { MouseEvent } from "react";
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
+import Header from "@/components/common/header/Header";
 
 export function Login() {
   async function loginGoogleEvent(e: MouseEvent) {
@@ -55,21 +55,7 @@ export function Login() {
 
       {/* header  */}
       <div className={styles.container}>
-        <header className={styles.header}>
-          <div className={styles.logoContainer}>
-            <Link href="/">
-              <Image
-                src={NetflixLogo}
-                className={styles.NetflixLogo}
-                alt="Netflix logo"
-                w={166}
-                h={49.6}
-                priority
-                responsive={false}
-              />
-            </Link>
-          </div>
-        </header>
+        <Header logoClickHome signInBox={false} />
 
         {/* content  */}
         <section className={styles.loginContainer}>

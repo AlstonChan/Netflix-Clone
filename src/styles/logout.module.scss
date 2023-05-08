@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+@use "../styles/button.module.scss";
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../public/images/background/bg-queen.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 60%;
+
+  .main {
+    background-color: #fff;
+    max-width: 430px;
+    padding: 30px 40px;
+    margin: 20px auto 100px auto;
+
+    @media screen and (max-width: 600px) {
+      padding: 20px 30px;
+    }
+
+    @media screen and (max-width: 400px) {
+      padding: 20px 20px;
+    }
+
+    .title {
+      margin: 0 0 20px 0;
+      font-weight: 100;
+    }
+
+    .desc {
+      line-height: 1.4rem;
+      color: rgb(59, 59, 59);
+    }
+  }
+}

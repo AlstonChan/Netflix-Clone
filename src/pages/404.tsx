@@ -13,7 +13,7 @@ export default function NotFound() {
     <>
       <Head>
         <title>Not Found | Netflix-Clone</title>
-        <meta name="title" content="Not Found | Netflix-Clone<" key="title" />
+        <meta name="title" content="Not Found | Netflix-Clone" key="title" />
       </Head>
 
       <div className={styles.container}>

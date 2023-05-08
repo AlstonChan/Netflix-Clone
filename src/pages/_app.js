@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Notice from "@/components/common/Notice/Notice";
+import Notice from "@/components/common/notice/Notice";
 
 initAuth();
 

@@ -3,7 +3,7 @@
 
 .container {
   overflow-x: hidden;
-  background-image: url("../../public/images/bg-lost-in-space.png");
+  background-image: url("../../public/images/background/bg-lost-in-space.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;
@@ -11,7 +11,20 @@
   display: flex;
   flex-direction: column;
 
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: #00000054;
+  }
+
   .header {
+    position: relative;
+    z-index: 1;
+
     background-color: #000;
     display: flex;
     align-content: center;
@@ -25,16 +38,6 @@
     width: 100vw;
     display: flex;
     height: calc(100vh - 91px);
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #00000054;
-    }
 
     .content {
       position: relative;

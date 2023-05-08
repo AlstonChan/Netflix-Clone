@@ -5,7 +5,7 @@ import styles from "./HomeFeatured.module.scss";
 
 import useHandleHomeEmail from "src/hooks/useHandleHomeEmail";
 
-import Header from "../../Header";
+import Header from "@/components/common/header/Header";
 import HomeForm from "../common/HomeForm";
 
 export default function FeaturedHome() {

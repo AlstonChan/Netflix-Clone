@@ -47,25 +47,6 @@
   z-index: 1;
 }
 
-$headerHeight: 100px;
-
-/* ################################################## */
-/* Login Header Component */
-.header {
-  @include AboveShader;
-
-  display: flex;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: $headerHeight;
-  align-items: center;
-
-  .logoContainer {
-    height: fit-content;
-    margin-left: 3%;
-  }
-}
-
 /* ################################################## */
 /* Login main Component */
 .loginContainer {
@@ -163,16 +144,6 @@ $headerHeight: 100px;
 }
 
 @media screen and (max-width: 500px) {
-  $headerHeight: 80px;
-
-  .header {
-    height: $headerHeight;
-
-    .logoContainer {
-      height: fit-content;
-      margin-left: 3%;
-    }
-  }
   .loginContainer {
     .content {
       padding: 20px 30px;
