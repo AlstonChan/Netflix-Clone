@@ -6,15 +6,17 @@ interface CancelSvgProps {
   bgColor?: string;
   className?: string;
   data?: number;
+  w?: string;
+  h?: string;
 }
 
 export default function CancelSvg(props: CancelSvgProps) {
-  const { stColor, bgColor, className, data } = props;
+  const { stColor, bgColor, className, data, w, h } = props;
 
   return (
     <svg
-      width={30}
-      height={30}
+      width={w || 30}
+      height={h || 30}
       strokeWidth={2}
       viewBox="0 0 24 24"
       fill={bgColor || "none"}

@@ -7,20 +7,32 @@ import GoogleLogo from "@/public/images/google.png";
 import Link from "next/link";
 import Head from "next/head";
 
+import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import Image from "@chan_alston/image";
 import { auth, db, provider } from "@/lib/firebase";
 
+import SnackBar from "@/components/common/snackbar/SnackBar";
 import Footer from "@/components/footer/FooterStyle2";
 import LoginForm from "@/components/login/loginForm/LoginForm";
 import Loader from "@/components/Loader";
-
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
 import Header from "@/components/common/header/Header";
 
+import type { SnackBarStateType } from "@/components/common/snackbar/types";
+
 export function Login() {
+  const [snackBarState, setSnackBarState] = useState<SnackBarStateType>({
+    isOpen: false,
+    msg: "",
+  });
+
+  const onClose = () => {
+    setSnackBarState({ isOpen: false, msg: "" });
+  };
+
   async function loginGoogleEvent() {
     try {
       const credentials = await signInWithPopup(auth, provider);
@@ -40,7 +52,7 @@ export function Login() {
         });
       }
     } catch (error: any) {
-      throw new Error(error);
+      setSnackBarState({ isOpen: true, msg: error.message });
     }
   }
 
@@ -52,6 +64,7 @@ export function Login() {
       </Head>
 
       {/* header  */}
+
       <div className={styles.container}>
         <Header logoClickHome signInBox={false} />
 
@@ -77,6 +90,12 @@ export function Login() {
           <Footer />
         </div>
       </div>
+      <SnackBar
+        variant="error"
+        message={snackBarState.msg}
+        isOpen={snackBarState.isOpen}
+        onClose={onClose}
+      />
     </>
   );
 }

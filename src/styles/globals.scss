@@ -17,18 +17,24 @@ body {
 :root {
   // Colors
   --red-color: #e00e0e;
-  --blue-color: #2382ff;
-  --dark-blue-color: #275edf;
   --med-red-color: #b92d2b;
   --dark-red-color: #ad0a0a;
+
+  --blue-color: #2382ff;
+  --dark-blue-color: #275edf;
+
   --light-color: #e6e6e6;
   --light-grey-color: #b4b4b4;
   --light-grey-txt: #737373;
   --grey-color: #303030;
   --grey-color-2: #333333;
   --dark-grey-color: #222;
+
+  --error-color: #d74545;
   --warning-color: #ffa00a;
   --dark-warning-color: #423600;
+  --info-color: #1d95d6;
+  --success-color: #4d9a51;
   --highlight-color: #2eb9e4;
 }
 

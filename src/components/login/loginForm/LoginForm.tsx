@@ -36,22 +36,20 @@ export default function LoginForm() {
     const passwordRef = passInputRef.current;
     const rememberRef = rememberMeRef.current;
 
-    const loginHandler = (email: string, password: string) => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Logged in");
-          router.replace("./browse");
-        })
-        .catch((error) => {
-          const { code, message } = error;
-          const userNotFound = code === "auth/user-not-found";
-          const wrongPassword = code === "auth/wrong-password";
-
-          if (userNotFound || wrongPassword) {
-            setShowErrorBox(true);
-          }
-          console.log(message);
-        });
+    const loginHandler = async (email: string, password: string) => {
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        console.log("Logged in!\n", userCredential);
+        router.replace("./browse");
+        setShowErrorBox(false);
+      } catch (error: any) {
+        setShowErrorBox(true);
+        console.error(error);
+      }
     };
 
     if (emailRef !== null && passwordRef !== null && rememberRef !== null) {
