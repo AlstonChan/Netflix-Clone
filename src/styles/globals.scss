@@ -1,18 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 *,
 *::after,
 *::before {
   box-sizing: border-box;
+  font-family: var(--Ubuntu), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 :root {
@@ -22,7 +21,9 @@ body {
   --dark-blue-color: #275edf;
   --med-red-color: #b92d2b;
   --dark-red-color: #ad0a0a;
+  --light-color: #e6e6e6;
   --light-grey-color: #b4b4b4;
+  --light-grey-txt: #737373;
   --grey-color: #303030;
   --grey-color-2: #333333;
   --dark-grey-color: #222;

@@ -1,4 +1,15 @@
-export default function CheckMarkSvg({ stColor, bgColor, stWidth }) {
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+interface CheckMarkSvg {
+  stColor?: string;
+  bgColor?: string;
+  stWidth?: string;
+}
+
+export default function CheckMarkSvg(props: CheckMarkSvg) {
+  const { stColor, bgColor, stWidth } = props;
+
   return (
     <svg
       width={24}

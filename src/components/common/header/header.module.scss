@@ -18,6 +18,10 @@
     max-width: 180px;
     margin-bottom: -0.4%;
   }
+
+  &.light {
+    border-bottom: 1px solid var(--light-color);
+  }
 }
 
 @media screen and (max-width: 570px) {

@@ -1,4 +1,16 @@
-export default function CancelSvg({ stColor, bgColor, className, data }) {
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+interface CancelSvgProps {
+  stColor?: string;
+  bgColor?: string;
+  className?: string;
+  data?: number;
+}
+
+export default function CancelSvg(props: CancelSvgProps) {
+  const { stColor, bgColor, className, data } = props;
+
   return (
     <svg
       width={30}

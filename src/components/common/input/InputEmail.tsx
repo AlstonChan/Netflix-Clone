@@ -50,8 +50,7 @@ const EmailInput = forwardRef<HTMLInputElement, EmailInputProps>(
       if (useLocalStorageData && typeof ref !== undefined) {
         const val = sessionStorage.getItem("user");
         if (val) {
-          let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE;
-          if (!nonce) nonce = "";
+          let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE || "";
 
           const decrypted = aes.decrypt(val, nonce).toString(CryptoJS.enc.Utf8);
           inputElement.value = decrypted;

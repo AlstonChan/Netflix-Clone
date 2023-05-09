@@ -1,6 +1,13 @@
 import "@/styles/globals.scss";
 
 import Head from "next/head";
+import { Ubuntu } from "next/font/google";
+
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--Ubuntu",
+});
 
 import { createContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "@/lib/firebase";
@@ -68,7 +75,7 @@ function MyApp({ Component, pageProps }) {
     }
   }, [user]);
 
-  return getLayout(
+  return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -86,11 +93,13 @@ function MyApp({ Component, pageProps }) {
               listMovieData,
             }}
           >
-            <Component {...pageProps} />
-            <Notice />
-            {process.env.NODE_ENV === "development" && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            <div className={ubuntu.className}>
+              {getLayout(<Component {...pageProps} />)}
+              <Notice />
+              {process.env.NODE_ENV === "development" && (
+                <ReactQueryDevtools initialIsOpen={false} />
+              )}
+            </div>
           </UserContext.Provider>
         </Hydrate>
       </QueryClientProvider>

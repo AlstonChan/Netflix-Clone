@@ -3,11 +3,16 @@
 
 .btn {
   border: none;
+  border-radius: 5px;
+  padding: 8.5px 21px;
+
   background-color: var(--red-color);
   color: #fff;
-  border-radius: 5px;
+  text-decoration: none;
   font-size: 1.1rem;
-  padding: 8.5px 21px;
+
+  text-align: center;
+  vertical-align: middle;
   cursor: pointer;
   transition: color 120ms ease-in-out, background-color 130ms ease-in;
 
@@ -36,6 +41,24 @@
     &.smaller {
       height: 3.25rem;
       font-size: 1.3rem;
+    }
+
+    &Red {
+      &Link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        max-width: 440px;
+
+        &:hover {
+          background-color: var(--med-red-color);
+        }
+        &:active,
+        &:focus {
+          background-color: var(--dark-red-color);
+        }
+      }
     }
   }
 
@@ -69,6 +92,17 @@
 
   &.right {
     margin: 0 0 0 auto;
+  }
+
+  &.empty {
+    background-color: transparent;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

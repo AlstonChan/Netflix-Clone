@@ -41,8 +41,7 @@ export default function useHandleHomeEmail() {
     }
 
     if (inputElement.isValid) {
-      let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE;
-      if (!nonce) nonce = "";
+      let nonce = process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE || "";
 
       const encrypted = aes.encrypt(inputElement.value, nonce).toString();
       sessionStorage.setItem("user", encrypted);

@@ -18,11 +18,13 @@ import { responsive } from "@/styles/cssStyle";
 interface HeaderProps {
   logoClickHome?: boolean;
   signInBox?: boolean;
+  mode?: "light" | "dark";
 }
 
 export default function Header({
   logoClickHome = false,
   signInBox = true,
+  mode = "dark",
 }: HeaderProps) {
   const router = useRouter();
   const { user, loading } = useContext(UserContext);
@@ -53,8 +55,15 @@ export default function Header({
     ...responsive,
   };
 
+  const headerContainerStyle = `${styles.container} ${
+    mode === "light" ? styles.light : ""
+  }`;
+  const buttonStyle = `${styles.btn} ${styles.right} ${
+    mode === "light" ? styles.empty : ""
+  }`;
+
   return (
-    <header className={styles.container}>
+    <header className={headerContainerStyle}>
       {logoClickHome ? (
         <Link href="/" className={styles.logoContainer}>
           <Image
@@ -80,11 +89,7 @@ export default function Header({
       )}
 
       {signInBox && (
-        <button
-          onClick={checkIfSignIn}
-          type="submit"
-          className={`${styles.btn} ${styles.right}`}
-        >
+        <button onClick={checkIfSignIn} type="submit" className={buttonStyle}>
           {isSignIn ? "Sign Out" : "Sign In"}
         </button>
       )}
