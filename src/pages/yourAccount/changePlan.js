@@ -1,7 +1,7 @@
 import styles from "@/styles/yourAccount/changePlan.module.css";
 import passwordStyles from "@/styles/yourAccount/password.module.css";
 import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
-import loginStyles from "@/styles/login.module.css";
+import loginStyles from "@/styles/login.module.scss";
 
 import Head from "next/head";
 import Link from "next/link";

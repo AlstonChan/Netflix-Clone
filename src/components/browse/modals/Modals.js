@@ -1,5 +1,5 @@
 import styles from "@/styles/browse/modals.module.css";
-import imageNotFound from "@/public/images/image-not-found.png";
+import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import ImageRender from "@chan_alston/image";

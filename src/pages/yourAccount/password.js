@@ -14,7 +14,7 @@ import { useContext, useRef, useState } from "react";
 import { UserContext } from "@/pages/_app";
 
 import Loader from "@/components/Loader";
-import InputPassword from "@/components/login/InputPassword";
+import InputPassword from "@/components/common/input/InputPassword";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import AccountHeader from "@/components/yourAccount/AccountHeader";
 import PasswordModal from "@/components/yourAccount/PasswordModal";

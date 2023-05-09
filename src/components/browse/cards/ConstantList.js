@@ -1,5 +1,5 @@
 import styles from "@/styles/browse/cards.module.css";
-import ImageNotFound from "@/public/images/image-not-found.png";
+import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
 import { useState, useEffect } from "react";
 import ImageRender from "@chan_alston/image";

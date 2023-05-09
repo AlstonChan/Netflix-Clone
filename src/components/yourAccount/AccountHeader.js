@@ -1,4 +1,4 @@
-import styles from "@/styles/header.module.css";
+import styles from "@/components/common/header/header.module.scss";
 import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
 import NetflixLogo from "@/public/images/logo.png";
 
