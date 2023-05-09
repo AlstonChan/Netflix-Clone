@@ -17,13 +17,11 @@ import Footer from "@/components/footer/FooterStyle2";
 import LoginForm from "@/components/login/loginForm/LoginForm";
 import Loader from "@/components/Loader";
 
-import type { MouseEvent } from "react";
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
 import Header from "@/components/common/header/Header";
 
 export function Login() {
-  async function loginGoogleEvent(e: MouseEvent) {
-    e.preventDefault();
+  async function loginGoogleEvent() {
     try {
       const credentials = await signInWithPopup(auth, provider);
       const { uid, displayName, email, photoURL } = credentials.user;
@@ -62,10 +60,7 @@ export function Login() {
           <div className={styles.content}>
             <h1 className={styles.title}>Sign In</h1>
             <LoginForm />
-            <div
-              className={styles.loginGoogle}
-              onClick={(e) => loginGoogleEvent(e)}
-            >
+            <div className={styles.loginGoogle} onClick={loginGoogleEvent}>
               <Image src={GoogleLogo} alt="Google Logo" w={25} h={20} />
               <span className={styles.loginTxt}>Login with Google</span>
             </div>

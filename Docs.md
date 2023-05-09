@@ -46,7 +46,6 @@ export default function Browse() {
 Create a api route at pages/api and request movieDB data there. Then, use getServerSideProps to fetch data from the api, viola, done. This solve the problem because **next. js** api routes have _same-origin only_ by default, no other website/app/user can connect to the api. This solution have some drawbacks though, it might decrease the performance of application, stated by **[next. js documentation](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props "next. js documentation")**
 
 > It can be tempting to reach for an API Route when you want to fetch data from the server, then call that API route from getServerSideProps. This is an unnecessary and inefficient approach, as it will cause an extra request to be made due to both getServerSideProps and API Routes running on the server.
-
 > Take the following example. An API route is used to fetch some data from a CMS. That API route is then called directly from getServerSideProps. This produces an additional call, reducing performance. Instead, directly import the logic used inside your API Route into getServerSideProps. This could mean calling a CMS, database, or other API directly from inside getServerSideProps.
 
 ```javascript
@@ -85,11 +84,11 @@ export async function getStaticProps(context) {
 **Note:**
 There's some issues with serverless function deployed on _Vercel_ before **`commit f0379b51e5a09b26b982cdc0fdaf294e8f38df91`**, due to one missing `else statement` when user is in `browse` profile page (profile page did not send any `requestedData`). That one missing `else statement` will cause approximately **_`60% - 80%`_** of serverless execution time to be spent on nothing and timeout after 10s.
 
-[***UPDATE***] This can also be fixed simply by adding a `if (!requestedData) return;` inside fetchMovieDB function.
+[**_UPDATE_**] This can also be fixed simply by adding a `if (!requestedData) return;` inside fetchMovieDB function.
 
-[***UPDATE2***] Since the `/browse` page has been split into 4 page, `getServerSideProps` no longer need conditional fetching. Switching page doesn't affect react query caching as pagnitation is enable with `keepPreviousData`.
+[**_UPDATE2_**] Since the `/browse` page has been split into 4 page, `getServerSideProps` no longer need conditional fetching. Switching page doesn't affect react query caching as pagination is enable with `keepPreviousData`.
 
-### 2. Another way to cache fetched data is using the HTTP headers in _getServerSideProps_,
+### 2. Another way to cache fetched data is using the HTTP headers in _getServerSideProps_
 
 ```javascript
 export async function getServerSideProps({ res }) {
@@ -107,7 +106,7 @@ export async function getServerSideProps({ res }) {
 
 this caching somehow does not work in development mode, so I deployed it to **Vercel**.Although **Vercel** automatically did the caching for me (I cannot find any cache control headers I have defined), the transition using navbar is still very very slow, taking over 500ms to 3 seconds!
 
-### 3. **Redis**, not yet tested.
+### 3. **Redis**, not yet tested
 
 ## **Firebase Emulators**
 
@@ -118,26 +117,26 @@ To run both emulator, open a new terminal and run `firebase emulators:start` or 
 In order to run firebase auth emulators, follow these 3 steps:
 
 1. Uncomment _line 15_ in `initAuth.js`
-   
-   ```
+
+   ```text
    firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
    ```
 
 2. Uncomment the following code in `.env.local`
-   
-   ```
+
+   ```text
    FIREBASE_AUTH_EMULATOR_HOST=localhost:9099
    ```
-   
+
    and set use firebase auth emulator from false to true
-   
-   ```
+
+   ```text
    NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR=true
    ```
 
-3. Open a new terminal and run `firebase emulators:start --only auth` or `npm run fire-auth` to spin up the emulator.
+3. Open a new terminal and run `firebase emulators:start --only auth` or `npm run emulators:auth` to spin up the emulator.
 
-**_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote respository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occured:
+**_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote repository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occurred:
 
 ```javascript
 code: 'auth/argument-error',
@@ -153,13 +152,13 @@ This error comes from a dependency named `next-firebase-auth`, as of this writin
 In order to run firebase auth emulators, follow these 3 steps:
 
 1. Set use firebase firestore emulator from false to true
-   
-   ```
+
+   ```text
    NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR=true
    ```
 
 2. Check your `node.js` version using `node -v`, if your `node.js` version is 17, your firestore emulator will get **Timeout** and stop. To fix this issue, you have to either downgrade your `node.js` version to 16 **_OR_** edit the `firebase.json` file as below:
-   
+
    ```json
    {
      "firestore": {
@@ -190,11 +189,11 @@ In order to run firebase auth emulators, follow these 3 steps:
      }
    }
    ```
-   
+
    Adding `"host": "127.0.0.1"` instead of `localhost` fixed the issues if you do not want to downgrade your `node.js` to version 16.
-   
+
    **NOTE:** Having `"host": "127.0.0.1"` in auth emulators can cause error....
 
-3. Open a new terminal and run `firebase emulators:start --only firestore` or `npm run firestore` to spin up the emulator.
+3. Open a new terminal and run `firebase emulators:start --only firestore` or `npm run emulators:db` to spin up the emulator.
 
 **_[GitHub Issues](https://github.com/firebase/firebase-tools/issues/2379)_**

@@ -12,7 +12,7 @@ const initAuth = () => {
     onLogoutRequestError: (err) => {
       console.error(err);
     },
-    // firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
+    firebaseAuthEmulatorHost: process.env.FIREBASE_AUTH_EMULATOR_HOST,
     firebaseAdminInitConfig: {
       credential: {
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,

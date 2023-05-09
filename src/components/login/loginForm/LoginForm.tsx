@@ -75,6 +75,10 @@ export default function LoginForm() {
           }
         } else passwordRef.focus();
       } else emailRef.focus();
+    } else {
+      const err =
+        "email input, password input or remember me checkbox can't be found!";
+      throw new Error(err);
     }
   }
 

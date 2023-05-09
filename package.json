@@ -11,13 +11,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build-analyze": "set ANALYZE=true&& next build",
+    "build:local": "set ANALYZE=true&& next build",
     "start": "next start",
     "lint": "next lint",
     "emulators": "firebase emulators:start",
-    "fire-auth": "firebase emulators:start --only auth",
-    "firestore": "firebase emulators:start --only firestore",
-    "storage": "firebase emulators:start --only storage"
+    "emulators:auth": "firebase emulators:start --only auth",
+    "emulators:db": "firebase emulators:start --only firestore",
+    "emulators:storage": "firebase emulators:start --only storage"
   },
   "dependencies": {
     "@chan_alston/image": "^1.0.2",

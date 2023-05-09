@@ -27,17 +27,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const firebasepp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 
 // Initialize Firebase Auth
-export const auth = getAuth(firebasepp);
+export const auth = getAuth(firebaseApp);
 export const provider = new GoogleAuthProvider();
 
 // Initialize Firebase Firestore
-export const db = getFirestore(firebasepp);
+export const db = getFirestore(firebaseApp);
 
 // Initialize Firebase Storage
-export const storage = getStorage(firebasepp);
+export const storage = getStorage(firebaseApp);
 
 // Use Firebase Emulators
 if (process.env.NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR === "true") {
@@ -47,7 +47,7 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_AUTH_EMULATOR === "true") {
 
 if (process.env.NEXT_PUBLIC_USE_FIREBASE_FIRESTORE_EMULATOR === "true") {
   connectFirestoreEmulator(db, "localhost", 8080);
-  console.info("\x1b[36m", "Firesotre Emulator Connected!");
+  console.info("\x1b[36m", "Firestore Emulator Connected!");
 }
 
 if (process.env.NEXT_PUBLIC_USE_FIREBASE_STORAGE_EMULATOR === "true") {
