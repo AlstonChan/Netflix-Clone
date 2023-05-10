@@ -6,6 +6,7 @@ import GoogleLogo from "@/public/images/google.png";
 
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
@@ -24,6 +25,7 @@ import Header from "@/components/common/header/Header";
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
 
 export function Login() {
+  const router = useRouter();
   const [snackBarState, setSnackBarState] = useState<SnackBarStateType>({
     isOpen: false,
     msg: "",
@@ -50,6 +52,7 @@ export function Login() {
             pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),
           },
         });
+        router.replace("./browse");
       }
     } catch (error: any) {
       setSnackBarState({ isOpen: true, msg: error.message });

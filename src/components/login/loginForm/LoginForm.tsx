@@ -44,7 +44,7 @@ export default function LoginForm() {
           password
         );
         console.log("Logged in!\n", userCredential);
-        router.replace("./browse");
+        router.replace("/browse");
         setShowErrorBox(false);
       } catch (error: any) {
         setShowErrorBox(true);
