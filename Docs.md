@@ -136,7 +136,9 @@ In order to run firebase auth emulators, follow these 3 steps:
 
 3. Open a new terminal and run `firebase emulators:start --only auth` or `npm run emulators:auth` to spin up the emulator.
 
-**_IMPORTANT_** - Before pushing your code to _GitHub_, _GitLab_ or any remote repository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occurred:
+**_`next-firebase-auth`_** has been removed from the project for newer version of Netflix-Clone, the following practice only applies to **commit #7acb567** and before.
+
+**_DEPRECATED_** - Before pushing your code to _GitHub_, _GitLab_ or any remote repository, always remember to **_comment_** back the code you have uncommented in order to run firebase auth emulator and set **`firebase auth emulator from true to false`**. If you forgot to do so, the following error would occurred:
 
 ```javascript
 code: 'auth/argument-error',

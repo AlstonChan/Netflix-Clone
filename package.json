@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:local": "set ANALYZE=true&& next build",
+    "build:local": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "emulators": "firebase emulators:start --import ./emulators",
@@ -26,11 +26,8 @@
     "axios": "^0.27.2",
     "crypto-js": "4.1.1",
     "firebase": "^9.21.0",
-    "firebase-admin": "^11.8.0",
-    "firebaseui": "^6.0.2",
     "framer-motion": "^10.12.9",
     "next": "^13.4.1",
-    "next-firebase-auth": "1.0.0-canary.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
@@ -39,7 +36,6 @@
   "devDependencies": {
     "@tanstack/react-query-devtools": "^4.29.6",
     "@types/crypto-js": "^4.1.1",
-    "@types/dompurify": "^3.0.2",
     "@types/node": "^20.1.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",

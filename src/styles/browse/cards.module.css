@@ -115,6 +115,8 @@ component/browse/cards/sliderHandler.js;
 
 .pictureCard {
   border-radius: 5px;
+  width: 100%;
+  height: auto;
 }
 
 .imgLoadingPlaceholder {

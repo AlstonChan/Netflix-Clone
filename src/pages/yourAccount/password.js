@@ -4,7 +4,6 @@ import accountStyles from "@/styles/yourAccount/yourAccount.module.css";
 import Head from "next/head";
 import Link from "next/link";
 
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import {
   reauthenticateWithCredential,
   EmailAuthProvider,
@@ -13,7 +12,6 @@ import {
 import { useContext, useRef, useState } from "react";
 import { UserContext } from "@/pages/_app";
 
-import Loader from "@/components/Loader";
 import InputPassword from "@/components/common/input/InputPassword";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import AccountHeader from "@/components/yourAccount/AccountHeader";
@@ -21,7 +19,7 @@ import PasswordModal from "@/components/yourAccount/PasswordModal";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 import { AnimatePresence } from "framer-motion";
 
-export function Password() {
+export default function Password() {
   const { user, userData } = useContext(UserContext);
   const [inputWarn, setInputWarn] = useState({
     name: "current",
@@ -186,11 +184,3 @@ export function Password() {
     </>
   );
 }
-
-export default withAuthUser({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(Password);

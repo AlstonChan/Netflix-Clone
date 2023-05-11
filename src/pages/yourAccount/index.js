@@ -2,11 +2,9 @@ import styles from "@/styles/yourAccount/yourAccount.module.css";
 
 import Head from "next/head";
 
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/pages/_app";
 
-import Loader from "@/components/Loader";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import Membership from "@/components/yourAccount/Membership";
 import PlanDetails from "@/components/yourAccount/PlanDetails";
@@ -14,7 +12,7 @@ import ProfileSetting from "@/components/yourAccount/ProfileSetting";
 import AccountHeader from "@/components/yourAccount/AccountHeader";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
-export function YourAccount() {
+export default function YourAccount() {
   const { user, userData } = useContext(UserContext);
   const [divider, setDivider] = useState(true);
 
@@ -81,11 +79,3 @@ export function YourAccount() {
     </>
   );
 }
-
-export default withAuthUser({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(YourAccount);

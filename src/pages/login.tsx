@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import Image from "@chan_alston/image";
 import { auth, db, provider } from "@/lib/firebase";
@@ -18,13 +17,12 @@ import { auth, db, provider } from "@/lib/firebase";
 import SnackBar from "@/components/common/snackbar/SnackBar";
 import Footer from "@/components/footer/FooterStyle2";
 import LoginForm from "@/components/login/loginForm/LoginForm";
-import Loader from "@/components/Loader";
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
 import Header from "@/components/common/header/Header";
 
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
 
-export function Login() {
+export default function Login() {
   const router = useRouter();
   const [snackBarState, setSnackBarState] = useState<SnackBarStateType>({
     isOpen: false,
@@ -102,11 +100,3 @@ export function Login() {
     </>
   );
 }
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(Login);

@@ -6,18 +6,16 @@ import loginStyles from "@/styles/login.module.scss";
 import Head from "next/head";
 import Link from "next/link";
 
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/pages/_app";
 
-import Loader from "@/components/Loader";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import StreamPlanBar from "@/components/yourAccount/StreamPlanBar";
 import PlanConfirmModal from "@/components/yourAccount/PlanConfirmModal";
 import AccountHeader from "@/components/yourAccount/AccountHeader";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
-export function ChangePlan() {
+export default function ChangePlan() {
   const { user, userData } = useContext(UserContext);
   const [chosenBar, setChosenBar] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(false);
@@ -154,11 +152,3 @@ export function ChangePlan() {
     </>
   );
 }
-
-export default withAuthUser({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(ChangePlan);

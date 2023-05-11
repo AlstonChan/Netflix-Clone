@@ -11,7 +11,6 @@ const ubuntu = Ubuntu({
 
 import { createContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "@/lib/firebase";
-import initAuth from "@/lib/initAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import {
@@ -22,8 +21,6 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Notice from "@/components/common/notice/Notice";
-
-initAuth();
 
 export const UserContext = createContext({
   user: null,

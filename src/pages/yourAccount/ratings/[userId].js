@@ -8,18 +8,16 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import ImageRender from "@chan_alston/image";
 import { UserContext } from "@/pages/_app";
 import { fill } from "@/styles/cssStyle";
 
-import Loader from "@/components/Loader";
 import MovieInfoBar from "@/components/yourAccount/ratings/MovieInfoBar";
 import AccountHeader from "@/components/yourAccount/AccountHeader";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
-export function UserRating() {
+export default function UserRating() {
   const { userData, listMovieData } = useContext(UserContext);
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
@@ -93,11 +91,3 @@ export function UserRating() {
     </>
   );
 }
-
-export default withAuthUser({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(UserRating);

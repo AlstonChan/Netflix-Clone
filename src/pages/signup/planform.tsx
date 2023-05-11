@@ -9,11 +9,9 @@ import Link from "next/link";
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import aes from "crypto-js/aes";
 
 import PricingTable from "@/components/signup/pricingTable/PricingTable";
-import Loader from "@/components/Loader";
 import SignUpLayout, { variants } from "@/components/signup/SignUpLayout";
 
 import type { ReactNode } from "react";
@@ -25,7 +23,7 @@ const benefits = [
   "Change or cancel your plan anytime.",
 ];
 
-export function PlanForm() {
+export default function PlanForm() {
   const selectedPlan = useRef<null | PackagePlanType>(null);
 
   const updatePlan = () => {
@@ -108,10 +106,3 @@ export function PlanForm() {
 PlanForm.getLayout = function getLayout(children: ReactNode) {
   return <SignUpLayout>{children}</SignUpLayout>;
 };
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(PlanForm);

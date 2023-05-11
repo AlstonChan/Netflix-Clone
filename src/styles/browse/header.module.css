@@ -19,7 +19,7 @@ component/browse/header/primaryNav.js;
 }
 
 .netflixLogoContainer {
-  width: fit-content;
+  width: 120px;
   display: flex;
   align-items: center;
 }

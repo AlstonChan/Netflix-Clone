@@ -3,7 +3,6 @@ import styles from "@/styles/browse/browse.module.css";
 import Head from "next/head";
 
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { useMutation } from "@tanstack/react-query";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
@@ -21,7 +20,7 @@ import Main from "@/components/browse/Main";
 import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
 import Loader from "@/components/Loader";
 
-export function MyList() {
+export default function MyList() {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   const { listMovieData } = useContext(UserContext); // get own movie list to query movie data
@@ -245,13 +244,3 @@ export function MyList() {
     );
   }
 }
-
-// auth
-export default withAuthUser({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(MyList);

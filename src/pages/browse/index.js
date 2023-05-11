@@ -10,11 +10,6 @@ import {
   useQuery,
   useMutation,
 } from "@tanstack/react-query";
-import {
-  withAuthUser,
-  withAuthUserTokenSSR,
-  AuthAction,
-} from "next-firebase-auth";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
@@ -33,7 +28,7 @@ import Modals from "@/components/browse/modals/Modals";
 import Main from "@/components/browse/Main";
 import Loader from "@/components/Loader";
 
-export const Browse = () => {
+const Browse = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   // To assist profile state hook, show profile loading when loading
@@ -240,19 +235,7 @@ export const Browse = () => {
   }
 };
 
-// auth
-export default withAuthUser({
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(Browse);
-
-// getServerSideProps and auth
-export const getServerSideProps = withAuthUserTokenSSR({
-  whenAuthed: AuthAction.RENDER,
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async (context) => {
+export async function getServerSideProps(context) {
   const host = { ...context.req.headers }.host;
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
@@ -264,4 +247,6 @@ export const getServerSideProps = withAuthUserTokenSSR({
   return {
     props: { dehydratedState: dehydrate(queryClient) },
   };
-});
+}
+
+export default Browse;
