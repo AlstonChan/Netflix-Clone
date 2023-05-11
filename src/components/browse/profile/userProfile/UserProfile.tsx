@@ -1,31 +1,41 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import baseStyles from "@/styles/browse/profile/profile.module.css";
-import styles from "@/styles/browse/profile/mainProfile.module.css";
+import styles from "./userProfile.module.scss";
 import ProfileAdd from "@/public/images/profile-add.png";
 
-import Router from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/pages/_app";
 
-import ProfileAvatar from "./ProfileAvatar";
+import ProfileAvatar from "../profileAvatar/ProfileAvatar";
 
-export default function MainProfile({
-  title,
-  switchPage,
-  addProfile,
-  currentUserId,
-  changeEdit,
-}) {
+import type { EditUserIdType } from "@/pages/manageProfile";
+
+interface MainProfileProps {
+  title: string;
+  addProfile: any;
+  editUserId: EditUserIdType;
+  switchPage: ((name: string) => void) | null;
+  editUser: ((name: EditUserIdType) => void) | null;
+}
+
+export default function MainProfile(props: MainProfileProps) {
+  const { title, addProfile, editUserId, switchPage, editUser } = props;
+  const router = useRouter();
+
   const { userData } = useContext(UserContext);
-  const [showProfile, setShowProfile] = useState(false);
+  const [showProfile, setShowProfile] = useState<number[]>([]);
   const [addNewProfile, setAddNewProfile] = useState(true);
   const secProfile = ["user-sec0", "user-sec1", "user-sec2", "user-sec3"];
 
   useEffect(() => {
     if (userData) {
-      const tempArr = [];
+      const tempArr: number[] = [];
       for (let x = 0; x < 4; x++) {
         if (userData[`user-sec${x}`]) {
           tempArr.push(x);
@@ -37,38 +47,38 @@ export default function MainProfile({
     }
   }, [userData]);
 
+  const isOtherProfileExists = showProfile.length >= 1;
+
   return (
     <>
-      <h1 className={baseStyles.headingMain}>{title}</h1>
+      <h1 className={styles.title}>{title}</h1>
       <div className={styles.profile}>
-        {userData ? (
+        {userData && (
           <ProfileAvatar
             user={userData["user-main"]}
-            switchPage={switchPage}
             currentUser={"user-main"}
-            currentUserId={currentUserId}
-            changeEdit={changeEdit}
+            editUserId={editUserId}
+            switchPage={switchPage}
+            editUser={editUser}
           />
-        ) : (
-          ""
         )}
-        {userData && showProfile
-          ? showProfile.map((prof, index) => {
-              return (
-                <ProfileAvatar
-                  key={index}
-                  user={userData[secProfile[prof]]}
-                  switchPage={switchPage}
-                  currentUser={secProfile[prof]}
-                  currentUserId={currentUserId}
-                  changeEdit={changeEdit}
-                />
-              );
-            })
-          : ""}
-        {addNewProfile && userData ? (
+        {userData &&
+          isOtherProfileExists &&
+          showProfile.map((prof, index) => {
+            return (
+              <ProfileAvatar
+                key={index}
+                user={userData[secProfile[prof]]}
+                currentUser={secProfile[prof]}
+                editUserId={editUserId}
+                switchPage={switchPage}
+                editUser={editUser}
+              />
+            );
+          })}
+        {addNewProfile && userData && (
           <li
-            tabIndex="0"
+            tabIndex={0}
             onClick={addProfile}
             className={baseStyles.listItemProfile}
             style={{ marginRight: "0" }}
@@ -85,17 +95,15 @@ export default function MainProfile({
               <p className={baseStyles.name}>Add Profile</p>
             </span>
           </li>
-        ) : (
-          ""
         )}
       </div>
       <div className={styles.manageContainer}>
-        {currentUserId ? (
+        {editUserId ? (
           <button
             className={styles.manageProfileDone}
             onClick={() => {
               window.sessionStorage.removeItem("profile");
-              Router.back();
+              router.back();
             }}
           >
             Done

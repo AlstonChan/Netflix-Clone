@@ -1,36 +1,51 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import baseStyles from "@/styles/browse/profile/profile.module.css";
-import styles from "@/styles/browse/profile/addProfile.module.css";
+import styles from "./addProfile.module.scss";
 
 import { useRef, useState } from "react";
 import useUpdateUserAcc from "@/lib/useUpdateUserAcc";
 import ImageRender from "@chan_alston/image";
 
-export default function AddProfile({ back }) {
+interface AddProfileProps {
+  setAddNewProfile: (addNewProfile: boolean) => void;
+}
+
+export default function AddProfile({ setAddNewProfile }: AddProfileProps) {
   const picNumRef = useRef(Math.ceil(Math.random() * 4));
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [showWarn, setShowWarn] = useState(false);
+  const [showWarn, setShowWarn] = useState<number | null>(null);
   const createUser = useUpdateUserAcc();
 
   function checkInputValidity() {
-    if (inputRef.current.value) {
+    const inputElement = inputRef.current;
+
+    if (inputElement === null) throw new Error("inputElement is null!");
+
+    if (inputElement.value) {
       setInputIsValid(true);
     } else {
       setInputIsValid(false);
     }
   }
 
-  function submitNewUser(type) {
-    if (!inputRef.current.value) {
+  function submitNewUser(type: "create") {
+    const inputElement = inputRef.current;
+
+    if (inputElement === null) throw new Error("inputElement is null!");
+
+    if (!inputElement.value) {
       setShowWarn(1);
-    } else if (inputRef.current.value.trim().length > 26) {
+    } else if (inputElement.value.trim().length > 26) {
       setShowWarn(2);
     } else {
       createUser(type, {
-        name: inputRef.current.value.trim(),
+        name: inputElement.value.trim(),
         pic: picNumRef.current,
       });
-      back(false);
+      setAddNewProfile(false);
     }
   }
 
@@ -52,7 +67,6 @@ export default function AddProfile({ back }) {
             src={`/images/profile pic/${picNumRef.current}.png`}
             w="320px"
             h="320px"
-            objFit="cover"
             alt="User profile Picture"
             className={baseStyles.profilePic}
           />
@@ -93,7 +107,10 @@ export default function AddProfile({ back }) {
       >
         Continue
       </button>
-      <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
+      <button
+        className={baseStyles.cancelBtn}
+        onClick={() => setAddNewProfile(false)}
+      >
         Cancel
       </button>
     </>

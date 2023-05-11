@@ -1,5 +1,8 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import baseStyles from "@/styles/browse/profile/profile.module.css";
-import styles from "@/styles/browse/profile/editProfile.module.css";
+import styles from "./editProfile.module.scss";
 import editPencil from "@/public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
@@ -11,20 +14,35 @@ import useUpdateUserAcc from "@/lib/useUpdateUserAcc";
 import { UserContext } from "@/pages/_app";
 import { fill } from "@/styles/cssStyle";
 
-import ModalWarn from "../ModalWarn";
+import ModalWarn from "../../ModalWarn";
 
-export default function EditProfile({ currentUserId, back }) {
+import type { EditUserIdType } from "@/pages/manageProfile";
+import type { ChangeEvent } from "react";
+
+interface EditProfileProps {
+  editUserId: EditUserIdType;
+  setEditUserId: (name: EditUserIdType) => void;
+}
+
+export default function EditProfile({
+  editUserId,
+  setEditUserId,
+}: EditProfileProps) {
   const { user, userData } = useContext(UserContext);
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [inputIsValid, setInputIsValid] = useState(false);
-  const [showWarnInput, setShowWarnInput] = useState(false);
+  const [showWarnInput, setShowWarnInput] = useState<number | null>(null);
   const [showWarnPic, setShowWarnPic] = useState(false);
   const [uploadedProfilePic, setUploadedProfilePic] = useState(null);
   const [modalWarn, setModalWarn] = useState(false);
   const createUser = useUpdateUserAcc();
 
   function checkInputValidity() {
-    if (inputRef.current.value) {
+    const inputElement = inputRef.current;
+
+    if (inputElement === null) throw new Error("inputElement is null!");
+
+    if (inputElement.value) {
       setInputIsValid(true);
     } else {
       setInputIsValid(false);
@@ -32,48 +50,56 @@ export default function EditProfile({ currentUserId, back }) {
   }
 
   useEffect(() => {
-    if (inputRef.current) inputRef.current.value = userData[currentUserId].name;
+    if (inputRef.current) inputRef.current.value = userData[editUserId].name;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function submitNewUser(type) {
-    if (!inputRef.current.value) {
+  async function submitNewUser(type: "upd" | "del") {
+    const inputElement = inputRef.current;
+
+    if (inputElement === null) throw new Error("inputElement is null!");
+
+    if (!inputElement.value) {
       setShowWarnInput(1);
     } else if (type === "upd") {
-      if (inputRef.current.value.trim().length > 26) {
+      if (inputElement.value.trim().length > 26) {
         setShowWarnInput(2);
       } else if (uploadedProfilePic?.size > 2000000) {
         setShowWarnPic(true);
       } else {
         createUser(type, {
-          id: currentUserId,
-          name: inputRef.current.value.trim(),
+          id: editUserId,
+          name: inputElement.value.trim(),
           pic: uploadedProfilePic
             ? uploadedProfilePic
-            : userData[currentUserId].pic,
+            : userData[editUserId].pic,
         });
-        back(false);
+        setEditUserId(null);
       }
     } else {
-      createUser(type, currentUserId);
-      back(false);
+      createUser(type, editUserId);
+      setEditUserId(null);
     }
   }
 
-  function uploadFile(e) {
-    if (!user.emailVerified) {
-      toggleModalWarn();
-      return;
-    }
-    if (e.target.files[0]) {
-      setShowWarnPic(false);
-      setUploadedProfilePic({
-        src: URL.createObjectURL(e.target.files[0]),
-        fire: e.target.files[0],
-        alt: e.target.files[0].name,
-        type: e.target.files[0].type,
-        size: e.target.files[0].size,
-      });
+  function uploadFile(e: ChangeEvent<HTMLInputElement>) {
+    const targetElement = e.target;
+
+    if (user !== null && targetElement.files) {
+      if (!user.emailVerified) {
+        toggleModalWarn();
+        return;
+      }
+      if (targetElement.files[0]) {
+        setShowWarnPic(false);
+        setUploadedProfilePic({
+          src: URL.createObjectURL(targetElement.files[0]),
+          fire: targetElement.files[0],
+          alt: targetElement.files[0].name,
+          type: targetElement.files[0].type,
+          size: targetElement.files[0].size,
+        });
+      }
     }
   }
 
@@ -91,32 +117,31 @@ export default function EditProfile({ currentUserId, back }) {
         {modalWarn ? <ModalWarn type="profile" /> : ""}
       </AnimatePresence>
       <h1
-        className={baseStyles.headingMain}
+        className={styles.title}
         style={{ margin: "0", width: "fit-content" }}
       >
         Edit Profile
       </h1>
-      <hr className={baseStyles.borderLine} />
-      <div className={styles.container}>
+      <hr className={styles.borderLine} />
+      <div className={styles.box}>
         <div className={baseStyles.avatarContainer}>
           <ImageRender
             src={
               uploadedProfilePic
                 ? uploadedProfilePic.src
-                : userData[currentUserId].pic.length > 3
-                ? userData[currentUserId].pic
-                : `/images/profile pic/${userData[currentUserId].pic}.png`
+                : userData[editUserId].pic.length > 3
+                ? userData[editUserId].pic
+                : `/images/profile pic/${userData[editUserId].pic}.png`
             }
             w="320px"
             h="320px"
-            objFit="cover"
             className={
               showWarnPic
                 ? `${baseStyles.profilePic} ${styles.profilePicWarn}`
                 : baseStyles.profilePic
             }
             alt={uploadedProfilePic ? uploadedProfilePic.alt : "User profile"}
-            style={fill}
+            style={{ ...fill, objectFit: "cover" }}
           />
           <form className={styles.editContainer}>
             <label htmlFor="profileAvatar" className={styles.editPosition}>
@@ -175,10 +200,13 @@ export default function EditProfile({ currentUserId, back }) {
         >
           Continue
         </button>
-        <button className={baseStyles.cancelBtn} onClick={() => back(false)}>
+        <button
+          className={baseStyles.cancelBtn}
+          onClick={() => setEditUserId(null)}
+        >
           Cancel
         </button>
-        {currentUserId !== "user-main" ? (
+        {editUserId !== "user-main" ? (
           <button
             className={baseStyles.cancelBtn}
             onClick={() => submitNewUser("del")}
