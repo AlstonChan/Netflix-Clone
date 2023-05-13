@@ -24,13 +24,12 @@ import type { SnackBarStateType } from "@/components/common/snackbar/types";
 
 export default function Login() {
   const router = useRouter();
-  const [snackBarState, setSnackBarState] = useState<SnackBarStateType>({
-    isOpen: false,
-    msg: "",
-  });
+  const closeSnackBar: SnackBarStateType = { isOpen: false, msg: "" };
+  const [snackBarState, setSnackBarState] =
+    useState<SnackBarStateType>(closeSnackBar);
 
   const onClose = () => {
-    setSnackBarState({ isOpen: false, msg: "" });
+    setSnackBarState(closeSnackBar);
   };
 
   async function loginGoogleEvent() {

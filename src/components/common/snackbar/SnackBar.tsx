@@ -16,6 +16,7 @@ import { useEffect } from "react";
 
 interface SnackBarProps {
   variant: Variant;
+  title?: string;
   message: string;
   isOpen: boolean;
   onClose: Function;
@@ -27,7 +28,7 @@ const framerVariants = {
   enter: { opacity: 1, x: 0 },
 };
 export default function SnackBar(props: SnackBarProps) {
-  const { message, variant, isOpen, onClose, timeout = 10000 } = props;
+  const { title, message, variant, isOpen, onClose, timeout = 10000 } = props;
 
   const icon = {
     success: <Image src={successIcon} alt="" className={styles.img} />,
@@ -37,10 +38,19 @@ export default function SnackBar(props: SnackBarProps) {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      onClose();
-    }, timeout);
+    if (timeout !== 0) {
+      const timeoutFunc = setTimeout(() => {
+        onClose();
+      }, timeout);
+
+      return () => {
+        clearTimeout(timeoutFunc);
+      };
+    }
   }, [isOpen]);
+
+  const containerClass = `${styles.container} ${styles[variant]}`;
+  const contentClass = `${styles.content} ${title && styles.hasTitle}`;
 
   return (
     <AnimatePresence mode="wait">
@@ -50,10 +60,20 @@ export default function SnackBar(props: SnackBarProps) {
           initial="hidden"
           animate="enter"
           exit="hidden"
-          className={`${styles.container} ${styles[variant]}`}
+          className={containerClass}
         >
-          <div className={styles.iconContainer}>{icon[variant]}</div>
-          <p className={styles.txt}>{message}</p>
+          <div className={contentClass}>
+            {title ? (
+              <div className={styles.titleBox}>
+                <div className={styles.iconContainer}>{icon[variant]}</div>
+                <p className={styles.title}>{title} </p>
+              </div>
+            ) : (
+              <div className={styles.iconContainer}>{icon[variant]}</div>
+            )}
+
+            <p className={styles.txt}>{message}</p>
+          </div>
           <button
             type="button"
             className={styles.iconContainer}

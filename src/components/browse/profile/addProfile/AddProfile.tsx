@@ -7,6 +7,10 @@ import { useRef, useState } from "react";
 import useUpdateUserAcc from "src/hooks/useUpdateUserAcc";
 import ImageRender from "@chan_alston/image";
 
+import SnackBar from "@/components/common/snackbar/SnackBar";
+
+import type { SnackBarStateType } from "@/components/common/snackbar/types";
+
 interface AddProfileProps {
   setAddNewProfile: (addNewProfile: boolean) => void;
 }
@@ -15,7 +19,16 @@ export default function AddProfile({ setAddNewProfile }: AddProfileProps) {
   const picNumRef = useRef<number>(Math.ceil(Math.random() * 4));
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showWarn, setShowWarn] = useState<number | null>(null);
+
+  const closeSnackBar: SnackBarStateType = { isOpen: false, msg: "" };
+  const [snackBarState, setSnackBarState] =
+    useState<SnackBarStateType>(closeSnackBar);
+
   const createUser = useUpdateUserAcc();
+
+  const onClose = () => {
+    setSnackBarState(closeSnackBar);
+  };
 
   async function submitNewUser(type: "create") {
     const inputElement = inputRef.current;
@@ -33,8 +46,9 @@ export default function AddProfile({ setAddNewProfile }: AddProfileProps) {
       });
       if (result.status === "success") {
         setAddNewProfile(false);
-        console.info(result.msg);
-      } else console.error(result.msg);
+      } else {
+        setSnackBarState({ isOpen: true, msg: result.msg });
+      }
     }
   }
 
@@ -43,6 +57,13 @@ export default function AddProfile({ setAddNewProfile }: AddProfileProps) {
 
   return (
     <>
+      <SnackBar
+        variant="error"
+        message={snackBarState.msg}
+        isOpen={snackBarState.isOpen}
+        onClose={onClose}
+        timeout={0}
+      />
       <h1 className={`${styles.title} ${styles.withDesc}`}>Add Profile</h1>
       <p className={styles.desc}>
         Add a profile for another person watching Netflix.

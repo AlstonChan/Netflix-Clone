@@ -7,19 +7,19 @@ import editPencil from "@/public/images/icons/misc/edit-pencil.svg";
 import Image from "next/image";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import ImageRender from "@chan_alston/image";
 import useUpdateUserAcc from "src/hooks/useUpdateUserAcc";
 
 import { UserContext } from "@/pages/_app";
 import { responsive } from "@/styles/cssStyle";
 
-import ModalWarn from "../../ModalWarn";
 import Loader from "@/components/Loader";
+import SnackBar from "@/components/common/snackbar/SnackBar";
 
 import type { EventType } from "src/hooks/useUpdateUserAcc";
 import type { EditUserIdType } from "@/pages/manageProfile";
 import type { ChangeEvent } from "react";
+import type { SnackBarStateType } from "@/components/common/snackbar/types";
 
 // type
 type WarningType = "picture" | "input";
@@ -51,7 +51,9 @@ export default function EditProfile(props: EditProfileProps) {
   const { editUserId, setEditUserId } = props;
 
   const { user, userData } = useContext(UserContext);
+  // input reference for updating username
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const noWarn: UserInputWarning = { element: "none", warningNum: 0 };
   const [editWarn, setEditWarn] = useState<UserInputWarning>(noWarn);
   const isInputWarn = editWarn.element === "input";
@@ -60,9 +62,17 @@ export default function EditProfile(props: EditProfileProps) {
   const [uploadedProfilePic, setUploadedProfilePic] =
     useState<UploadedProfilePicType>(null);
 
-  const [modalWarn, setModalWarn] = useState(false);
+  const closeSnackBar: SnackBarStateType = {
+    isOpen: false,
+    msg: "",
+    title: "",
+  };
+  const [snackBarState, setSnackBarState] =
+    useState<SnackBarStateType>(closeSnackBar);
+
   const createUser = useUpdateUserAcc();
 
+  // set username in input upon load
   useEffect(() => {
     if (inputRef.current && editUserId) {
       inputRef.current.value = userData[editUserId].name;
@@ -70,12 +80,10 @@ export default function EditProfile(props: EditProfileProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editUserId]);
 
-  useEffect(() => {
-    if (editUserId) {
-      const ifUserDoesNotExists = typeof userData[editUserId] === undefined;
-      if (ifUserDoesNotExists) setEditUserId(null);
-    }
-  }, [userData]);
+  // close function for snackbar
+  const onClose = () => {
+    setSnackBarState(closeSnackBar);
+  };
 
   async function submitNewUser(type: EventType) {
     const inputElement = inputRef.current;
@@ -104,15 +112,12 @@ export default function EditProfile(props: EditProfileProps) {
           });
 
           if (result.status === "success") {
-            console.info(result.msg);
             setEditWarn(noWarn);
             setEditUserId(null);
 
             // releases an existing object URL
             if (uploadedProfilePic) URL.revokeObjectURL(uploadedProfilePic.src);
-          } else {
-            console.error(result.msg);
-          }
+          } else setSnackBarState({ isOpen: true, msg: result.msg });
         }
         break;
 
@@ -121,9 +126,10 @@ export default function EditProfile(props: EditProfileProps) {
           userId: editUserId,
           file: null,
         });
-        console.log(result);
-        setEditUserId(null);
-        setEditWarn(noWarn);
+        if (result.status === "success") {
+          setEditUserId(null);
+          setEditWarn(noWarn);
+        } else setSnackBarState({ isOpen: true, msg: result.msg });
         break;
 
       default:
@@ -131,14 +137,22 @@ export default function EditProfile(props: EditProfileProps) {
     }
   }
 
+  // onChange function for input file
   function uploadFile(e: ChangeEvent<HTMLInputElement>) {
     const targetElement = e.target;
 
     if (user !== null && targetElement.files) {
       const userPic = targetElement.files[0];
 
+      // reject user input if user email is unverified
       if (!user.emailVerified) {
-        return toggleModalWarn();
+        const msg =
+          "You have to verified your account in order to change profile picture";
+        return setSnackBarState({
+          isOpen: true,
+          msg,
+          title: "Account Not Yet Verified",
+        });
       }
 
       if (userPic) {
@@ -149,14 +163,6 @@ export default function EditProfile(props: EditProfileProps) {
         setUploadedProfilePic({ src: file, file: userPic });
       }
     }
-  }
-
-  // Tell user to verify their email address when
-  // their account is not verified and attempt to
-  // change profile-picture
-  function toggleModalWarn() {
-    setModalWarn(true);
-    setTimeout(() => setModalWarn(false), 15000);
   }
 
   if (editUserId === null) return <Loader />;
@@ -176,9 +182,13 @@ export default function EditProfile(props: EditProfileProps) {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {modalWarn ? <ModalWarn type="profile" /> : ""}
-      </AnimatePresence>
+      <SnackBar
+        variant="error"
+        title={snackBarState.title}
+        message={snackBarState.msg}
+        isOpen={snackBarState.isOpen}
+        onClose={onClose}
+      />
       <h1 className={styles.title}>Edit Profile</h1>
       <div className={styles.box}>
         <div className={styles.avatarContainer}>
