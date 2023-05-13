@@ -5,52 +5,54 @@
 
 .box {
   display: flex;
-}
 
-.editContainer {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  align-items: flex-end;
-}
-
-.editPosition {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: auto;
-  max-width: 20%;
-  aspect-ratio: 1;
-  background-color: #333;
-  border-radius: 50% 50%;
-  justify-content: center;
-  margin: 8%;
-  box-shadow: 0px 12px 14px -1px rgba(0, 0, 0, 0.8);
-  cursor: pointer;
-}
-
-.detailsPanel {
-  display: flex;
-}
-
-.inputFile {
-  display: none;
-}
-
-.profilePicWarn {
-  outline: rgb(184, 5, 5) 3px solid;
-  outline-offset: -3px;
-}
-
-@media screen and (max-width: 450px) {
-  .container {
+  @media screen and (max-width: 450px) {
     flex-direction: column;
     gap: 15px;
     justify-content: center;
     align-items: center;
+  }
+
+  .profilePicWarn {
+    outline: var(--error-color) 3px solid;
+    outline-offset: -3px;
+  }
+
+  .editContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: flex-end;
+
+    width: 100%;
+    height: 100%;
+
+    .editPosition {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: auto;
+      max-width: 20%;
+      aspect-ratio: 1;
+
+      margin: 8%;
+      padding: 2px;
+
+      background-color: var(--grey-color-2);
+      border-radius: 9999px;
+      box-shadow: 0px 12px 14px -1px rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+
+      .inputFile {
+        display: none;
+      }
+    }
+  }
+
+  .detailsPanel {
+    display: flex;
   }
 }

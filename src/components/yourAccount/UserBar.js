@@ -35,7 +35,7 @@ export default function UserBar({ userData, currentUser }) {
             src={
               userData.pic.length > 3
                 ? userData.pic
-                : `/images/profile pic/${userData.pic}.png`
+                : `/images/profile-pic/${userData.pic}.png`
             }
             w="160"
             h="160"

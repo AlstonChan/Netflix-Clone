@@ -24,7 +24,7 @@ export default function ModalWarn({ type }) {
         <p className={styles.warnContentPara}>
           {type === "movie"
             ? "You have to verified your account in order to add movie or tv shows to our list"
-            : "You have to verified your account in order to change profile picture"}
+            : "You have to verified your account in order to change profile-picture"}
         </p>
       </div>
     </motion.div>

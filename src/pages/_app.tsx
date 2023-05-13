@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import "@/styles/globals.scss";
 
 import Head from "next/head";
@@ -10,8 +13,7 @@ const ubuntu = Ubuntu({
 });
 
 import { createContext, useEffect, useRef, useState } from "react";
-import { auth, db } from "@/lib/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { db } from "@/lib/firebase";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import {
   Hydrate,
@@ -19,19 +21,45 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import useAuthState from "src/hooks/useAuthState";
 
 import Notice from "@/components/common/notice/Notice";
 
-export const UserContext = createContext({
+import type { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
+import type { AppProps } from "next/app";
+import type { User } from "firebase/auth";
+import useUserData from "src/hooks/firestore/useUserData";
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+type UserContextProps = {
+  user: null | User;
+  error: null | User;
+  userData: any;
+  myMovieData: any;
+  listMovieData: any;
+};
+
+export const UserContext = createContext<UserContextProps>({
   user: null,
-  loading: null,
   error: null,
+  userData: null,
+  myMovieData: null,
+  listMovieData: null,
 });
 
-function MyApp({ Component, pageProps }) {
-  const [user, loading, error] = useAuthState(auth);
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const [user, error] = useAuthState();
+  const [userData, dbError] = useUserData();
   const [queryClient] = useState(() => new QueryClient());
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const myMovieData = useRef();
   const [listMovieData, setListMovieData] = useState();
 
@@ -42,12 +70,6 @@ function MyApp({ Component, pageProps }) {
       try {
         (async () => {
           if (user) {
-            const querySnapshot = onSnapshot(
-              doc(db, "Acc", user.uid),
-              (documents) => {
-                setUserData(documents.data());
-              }
-            );
             const eventSnapshot = onSnapshot(
               doc(db, "mymovie", user.uid),
               async (documents) => {
@@ -60,6 +82,7 @@ function MyApp({ Component, pageProps }) {
                     ],
                   });
                 }
+
                 myMovieData.current = documents;
                 setListMovieData(documents);
               }
@@ -83,7 +106,6 @@ function MyApp({ Component, pageProps }) {
           <UserContext.Provider
             value={{
               user,
-              loading,
               error,
               userData,
               myMovieData,
@@ -103,5 +125,3 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
-
-export default MyApp;

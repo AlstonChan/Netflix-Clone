@@ -56,7 +56,7 @@ export default function UserRating() {
                   src={
                     userData[currentUser].pic.length > 3
                       ? userData[currentUser].pic
-                      : `/images/profile pic/${userData[currentUser].pic}.png`
+                      : `/images/profile-pic/${userData[currentUser].pic}.png`
                   }
                   className={styles.roundBorder}
                   objFit="cover"

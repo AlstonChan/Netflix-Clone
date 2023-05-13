@@ -3,14 +3,23 @@
 
 import baseStyles from "@/components/browse/profile/profile.module.scss";
 
+import dynamic from "next/dynamic";
 import Head from "next/head";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import Header from "@/components/common/header/Header";
-import AddProfile from "@/components/browse/profile/addProfile/AddProfile";
 import UserProfile from "@/components/browse/profile/userProfile/UserProfile";
-import EditProfile from "@/components/browse/profile/editProfile/EditProfile";
+import Loader from "@/components/Loader";
+
+const EditProfile = dynamic(
+  () => import("@/components/browse/profile/editProfile/EditProfile"),
+  { suspense: true }
+);
+const AddProfile = dynamic(
+  () => import("@/components/browse/profile/addProfile/AddProfile"),
+  { suspense: true }
+);
 
 export type EditUserIdType = string | null;
 
@@ -25,23 +34,31 @@ export default function ManageProfile() {
   return (
     <>
       <Head>
-        <title>Netflix Clone - Manage Profile</title>
+        <title>Manage Profile | Netflix-Clone</title>
+        <meta
+          name="title"
+          content="Manage Profile | Netflix-Clone"
+          key="title"
+        />
       </Head>
 
       <div className={baseStyles.container}>
         <Header signInBox={false} />
         <main className={baseStyles.main}>
           {editUserId ? (
-            <EditProfile
-              editUserId={editUserId}
-              setEditUserId={setEditUserId}
-            />
+            <Suspense fallback={<Loader />}>
+              <EditProfile
+                editUserId={editUserId}
+                setEditUserId={setEditUserId}
+              />
+            </Suspense>
           ) : addNewProfile ? (
-            <AddProfile setAddNewProfile={setAddNewProfile} />
+            <Suspense fallback={<Loader />}>
+              <AddProfile setAddNewProfile={setAddNewProfile} />
+            </Suspense>
           ) : (
             <UserProfile
               title="Manage Profiles:"
-              editUserId={editUserId}
               addProfile={addProfile}
               switchPage={null}
               editUser={setEditUserId}

@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
 @use "../profile.module.scss";
+@use "../../../../styles/button.module.scss";
 
 .profile {
   display: flex;
@@ -9,37 +10,24 @@
   flex-wrap: wrap;
 }
 
-.manageProfileDone {
-  background-color: #fff;
-  border: 2px solid #fff;
-  border-radius: 3px;
-  font-size: 1.1rem;
-  padding: 6px 25px;
-  font-weight: 100;
-  cursor: pointer;
-  transition: background-color 110ms ease, border 110ms ease, color 110ms ease;
-}
-.manageProfileDone:hover {
-  background-color: rgb(184, 5, 5);
-  border: 2px solid rgb(184, 5, 5);
-  color: #fff;
-}
-
 .manageContainer {
   margin: 40px;
   text-align: center;
-}
 
-.manageProfilesBtn {
-  background-color: #000;
-  border: solid 1.5px #ffffff9a;
-  padding: 6px 27px;
-  color: #ffffff9a;
-  font-size: 1.1rem;
-  font-family: "Courier New", Courier, monospace;
-  cursor: pointer;
-}
-.manageProfilesBtn:hover {
-  color: #fff;
-  border: solid 1.5px #fff;
+  .link {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.1rem;
+
+    border: solid 1.5px #ffffff9a;
+    text-decoration: none;
+    padding: 6px 27px;
+    color: #ffffff9a;
+    background-color: #000;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      border: solid 1.5px #fff;
+    }
+  }
 }

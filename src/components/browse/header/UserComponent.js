@@ -78,7 +78,7 @@ export default function UserComponent() {
               src={
                 userData[currentUser].pic.length > 3
                   ? userData[currentUser].pic
-                  : `/images/profile pic/${userData[currentUser].pic}.png`
+                  : `/images/profile-pic/${userData[currentUser].pic}.png`
               }
               w="35px"
               h="35px"
@@ -179,7 +179,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
               src={
                 userData["user-main"].pic.length > 3
                   ? userData["user-main"].pic
-                  : `/images/profile pic/${userData["user-main"].pic}.png`
+                  : `/images/profile-pic/${userData["user-main"].pic}.png`
               }
               w="35px"
               h="35px"
@@ -201,7 +201,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
       )}
       {userData && showProfile
         ? showProfile.map((prof, index) => {
-            // Dont't show profile picture again if the current
+            // Dont't show profile-picture again if the current
             // active user is equal to the looped user as in secProfile[prof]
             if (secProfile[prof] === currentUser) return;
             return (
@@ -216,7 +216,7 @@ export function UserDropDownList({ currentUser, switchProfile }) {
                       src={
                         userData[secProfile[prof]].pic.length > 3
                           ? userData[secProfile[prof]].pic
-                          : `/images/profile pic/${
+                          : `/images/profile-pic/${
                               userData[secProfile[prof]].pic
                             }.png`
                       }

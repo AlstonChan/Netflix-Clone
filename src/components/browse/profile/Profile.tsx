@@ -12,9 +12,10 @@ import Header from "@/components/common/header/Header";
 import UserProfile from "./userProfile/UserProfile";
 import Loader from "@/components/Loader";
 
-const AddProfile = dynamic(() => import("./addProfile/AddProfile"), {
-  suspense: true,
-});
+const AddProfile = dynamic(
+  () => import("@/components/browse/profile/addProfile/AddProfile"),
+  { suspense: true }
+);
 
 interface ProfileProps {
   switchPage: (name: string) => void;
@@ -45,7 +46,6 @@ export default function Profile({ switchPage }: ProfileProps) {
             <UserProfile
               title="Who's watching?"
               addProfile={addProfile}
-              editUserId={null}
               switchPage={switchPage}
               editUser={null}
             />

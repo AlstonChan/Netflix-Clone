@@ -26,7 +26,7 @@ export default function LoadingBrowse({ profile }) {
               src={
                 userData[profile].pic.length > 3
                   ? userData[profile].pic
-                  : `/images/profile pic/${userData[profile].pic}.png`
+                  : `/images/profile-pic/${userData[profile].pic}.png`
               }
               w="320px"
               h="320px"
