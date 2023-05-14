@@ -2,7 +2,8 @@ import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { flushSync } from "react-dom";
 import {
   dehydrate,
   QueryClient,
@@ -19,13 +20,14 @@ import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
 import Profile from "@/components/browse/profile/Profile";
 import Cards from "@/components/browse/cards/Cards";
 import ConstantList from "@/components/browse/cards/ConstantList";
+import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
 import FooterBrowse from "@/components/footer/FooterBrowse";
 import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
 import Modals from "@/components/browse/modals/Modals";
-import Main from "@/components/browse/Main";
+import Main from "@/components/browse/Memo";
 import Loader from "@/components/Loader";
 
-const Trending = () => {
+const TvShows = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState("loading"); // set the current active profile (user)
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
@@ -68,7 +70,10 @@ const Trending = () => {
   // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
-      setOpenModal(false);
+      // remove react18 automatic batching
+      flushSync(() => {
+        setOpenModal(false);
+      });
       window.scrollTo({
         top: scrollPosition.current,
         left: 0,
@@ -83,7 +88,7 @@ const Trending = () => {
   // function that collects the data for modals,
   // determine the width and position of modal
   function toggleModal(state, e, movieSet, position) {
-    if (state.state === "mouseenter") {
+    if (state === "mouseenter") {
       const { width, top, bottom, left, right } =
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
@@ -99,8 +104,8 @@ const Trending = () => {
 
   // To query data for Cards, page main data
   const { data } = useQuery(
-    ["moviesDBTv", "new"],
-    () => fetchMoviesDB("new", getAbsoluteURL("/api/fetchmovie")),
+    ["moviesDBTv", "tvs"],
+    () => fetchMoviesDB("tvs", getAbsoluteURL("/api/fetchmovie")),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
@@ -139,7 +144,7 @@ const Trending = () => {
     return (
       <>
         <Head>
-          <title>Netflix Clone - Trending</title>
+          <title>Netflix Clone - Tv Shows</title>
         </Head>
 
         <Modals
@@ -163,7 +168,7 @@ const Trending = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "static" }}
         >
-          <HeaderBrowse route={"new"} ref={searchRef} openModal={openModal} />
+          <HeaderBrowse route={"tvs"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
@@ -185,7 +190,7 @@ const Trending = () => {
             ) : (
               <Main data={data}>
                 <span className={styles.featuredMain}>
-                  <div className={styles.emptyFea}></div>
+                  <FeaturedBrowse url={"tvs"} />
                 </span>
                 {data ? (
                   data.map((movie, index) => {
@@ -219,8 +224,8 @@ export async function getServerSideProps(context) {
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["moviesDB", "new"], () =>
-    fetchMoviesDB("new", endpoint)
+  await queryClient.prefetchQuery(["moviesDB", "tvs"], () =>
+    fetchMoviesDB("tvs", endpoint)
   );
 
   return {
@@ -228,4 +233,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Trending;
+export default TvShows;

@@ -1,0 +1,40 @@
+import type { CSSProperties } from "react";
+
+export type DataType = {
+  readonly id: number;
+  readonly name?: string;
+  readonly title?: string;
+  readonly original_title: string;
+  readonly overview: string;
+  readonly release_date: string;
+  readonly genre_ids: number[];
+  readonly original_language: string;
+  readonly backdrop_path: string;
+  readonly poster_path: string;
+  readonly adult: boolean;
+  readonly vote_average: 6.5;
+  readonly vote_count: number;
+  readonly popularity: number;
+  readonly video: false;
+};
+
+export type DataListType = {
+  readonly data: {
+    readonly page: number;
+    readonly total_pages: number;
+    readonly total_results: number;
+    readonly results: DataType[];
+  };
+  readonly genre: "string";
+};
+
+export type SmallModalPositionType = "leftEdge" | "rightEdge" | "middle";
+
+export interface ModalType {
+  style: CSSProperties;
+  position: SmallModalPositionType;
+  width: number;
+  movieData: DataType;
+}
+
+export type BrowseRoute = "home" | "tvs" | "new" | "my-list";

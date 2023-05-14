@@ -38,8 +38,6 @@ export const tvGenres = [
   { id: 37, name: "Western" },
 ];
 
-export const trendingType = ["all", "movie", "tv"];
-
 export const genres = [
   { id: 28, name: "Action Heroes" },
   { id: 12, name: "Adventure" },
@@ -71,3 +69,5 @@ export const genres = [
   { id: 10768, name: "War & Politics" },
   { id: 37, name: "Western" },
 ];
+
+export const trendingType = ["all", "movie", "tv"];

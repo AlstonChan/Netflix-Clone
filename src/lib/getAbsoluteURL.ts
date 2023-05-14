@@ -1,4 +1,4 @@
-const getAbsoluteURL = (url, req = null) => {
+const getAbsoluteURL = (url: string, req: string | null = null) => {
   let host;
   if (req) {
     host = req;

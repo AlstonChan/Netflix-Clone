@@ -1,14 +1,19 @@
-import styles from "@/styles/browse/cards.module.css";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+import styles from "./cards.module.scss";
 import Placeholder from "@/public/images/browse/placeholder-card.png";
 
 import { useState, useEffect } from "react";
 import ImageRender from "@chan_alston/image";
 
+import type { ReactElement } from "react";
+
 export default function Cards() {
-  const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
+  const [itemsInRow, setItemsInRow] = useState<number>(5); // number of items in the slider content changed dynamically on window size
 
   useEffect(() => {
-    handleWindowResize(window);
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
@@ -32,7 +37,7 @@ export default function Cards() {
   };
 
   const renderSliderContent = () => {
-    let sliderContents = [];
+    let sliderContents: ReactElement[] = [];
     let animationTime = 0;
     // adds empty divs to take up appropriate spacing when slider at initial position
     for (let i = 0; i < itemsInRow; i++) {

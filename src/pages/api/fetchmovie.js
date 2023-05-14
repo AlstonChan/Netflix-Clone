@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const { requiredKey, requestedData, additionData } = req.body;
   try {
     if (requiredKey === process.env.FETCH_KEY && req.method === "POST") {
-      if (requestedData === "hom") {
+      if (requestedData === "home") {
         // Browse Homepage
         const movies = [];
         let pageIndex = 1;

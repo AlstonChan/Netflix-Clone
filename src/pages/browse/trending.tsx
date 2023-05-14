@@ -2,8 +2,7 @@ import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
-import React, { useState, useEffect, useRef } from "react";
-import { flushSync } from "react-dom";
+import React, { useState, useRef, useEffect } from "react";
 import {
   dehydrate,
   QueryClient,
@@ -16,32 +15,26 @@ import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
 import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
-import Loading from "@/components/browse/Loading";
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
 import Profile from "@/components/browse/profile/Profile";
 import Cards from "@/components/browse/cards/Cards";
 import ConstantList from "@/components/browse/cards/ConstantList";
-import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
 import FooterBrowse from "@/components/footer/FooterBrowse";
 import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
 import Modals from "@/components/browse/modals/Modals";
-import Main from "@/components/browse/Main";
+import Main from "@/components/browse/Memo";
 import Loader from "@/components/Loader";
 
-const Browse = () => {
+const Trending = () => {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState("loading"); // set the current active profile (user)
-  // To assist profile state hook, show profile loading when loading
-  // for the first time. SO when changing to page "TV Shows or Trending",
-  // the loading component will be hid away
-  const [firstLoad, setFirstLoad] = useState(true);
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
   const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
   const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
   const scrollPosition = useRef(); // To determine the current scroll position of user, used by modal.js
   const [closeBigModal, setCloseBigModal] = useState(false);
-  const searchMutation = useMutation((query) =>
-    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query)
+  const searchMutation = useMutation((searc) =>
+    fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
   ); // To query search data using searchRef hook input
 
   // To get sessionstorage data - "profile" as soon as the possible, and
@@ -75,10 +68,7 @@ const Browse = () => {
   // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
-      // remove react18 automatic batching
-      flushSync(() => {
-        setOpenModal(false);
-      });
+      setOpenModal(false);
       window.scrollTo({
         top: scrollPosition.current,
         left: 0,
@@ -90,10 +80,10 @@ const Browse = () => {
     }
   }
 
-  // function that collects the data for small modals,
+  // function that collects the data for modals,
   // determine the width and position of modal
   function toggleModal(state, e, movieSet, position) {
-    if (state.state === "mouseenter" || openModal) {
+    if (state.state === "mouseenter") {
       const { width, top, bottom, left, right } =
         e.target.getBoundingClientRect();
       const adjustedY = top + window.scrollY;
@@ -108,10 +98,11 @@ const Browse = () => {
   }
 
   // To query data for Cards, page main data
-  const { data, isLoading } = useQuery(
-    ["moviesDB", "hom"],
-    () => fetchMoviesDB("hom", getAbsoluteURL("/api/fetchmovie")),
+  const { data } = useQuery(
+    ["moviesDBTv", "new"],
+    () => fetchMoviesDB("new", getAbsoluteURL("/api/fetchmovie")),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -120,24 +111,12 @@ const Browse = () => {
     }
   );
 
-  // make sure loading page only show up when moving
-  // from profile page to movies page on initial load
-  useEffect(() => {
-    if (!isLoading && profile === 1 && data) {
-      setFirstLoad(false);
-    }
-  }, [isLoading, profile, data]);
-
   // set the current profile (user)
   function switchPage(name) {
     const encrypted = aes
       .encrypt(name, process.env.NEXT_PUBLIC_CRYPTO_JS_NONCE)
       .toString();
     setProfile(sessionStorage.setItem("profile", encrypted));
-  }
-
-  if (firstLoad && profile && (!data || isLoading)) {
-    return <Loading profile={profile} />;
   }
 
   const browseStyle = {
@@ -160,7 +139,7 @@ const Browse = () => {
     return (
       <>
         <Head>
-          <title>Netflix Clone - Home</title>
+          <title>Netflix Clone - Trending</title>
         </Head>
 
         <Modals
@@ -182,9 +161,9 @@ const Browse = () => {
         )}
         <div
           className={styles.container}
-          style={openModal ? browseStyle : { position: "relative" }}
+          style={openModal ? browseStyle : { position: "static" }}
         >
-          <HeaderBrowse route={"hom"} ref={searchRef} openModal={openModal} />
+          <HeaderBrowse route={"new"} ref={searchRef} openModal={openModal} />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
@@ -206,7 +185,7 @@ const Browse = () => {
             ) : (
               <Main data={data}>
                 <span className={styles.featuredMain}>
-                  <FeaturedBrowse url={"hom"} />
+                  <div className={styles.emptyFea}></div>
                 </span>
                 {data ? (
                   data.map((movie, index) => {
@@ -240,8 +219,8 @@ export async function getServerSideProps(context) {
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["moviesDB", "hom"], () =>
-    fetchMoviesDB("hom", endpoint)
+  await queryClient.prefetchQuery(["moviesDB", "new"], () =>
+    fetchMoviesDB("new", endpoint)
   );
 
   return {
@@ -249,4 +228,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Browse;
+export default Trending;

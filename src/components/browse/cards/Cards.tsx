@@ -1,27 +1,42 @@
-import styles from "@/styles/browse/cards.module.css";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
-import { useState, useEffect } from "react";
+import styles from "./cards.module.scss";
+
+import { useState, useEffect, CSSProperties } from "react";
 
 import SliderHandler from "./SliderHandler";
 import SliderItem from "./SliderItem";
 
-// Disclamer, I didn't write the code below, just
+import type { ReactElement } from "react";
+import type { DataType } from "../types";
+import type { ToggleModalType } from "src/hooks/browse/useModal";
+
+// Disclaimer, I didn't write the code below, just
 // make a few changes so it can fit my app, all
 // credits goes to andrewthamcc.
 // Repo: github.com/andrewthamcc/netflix-slider
 
-export default function Cards({ movieSet, movieGenre, modal }) {
-  const [sliderHasMoved, setSliderHasMoved] = useState(false); // boolean to display prev arrow
-  const [sliderMoving, setSliderMoving] = useState(false); // boolean for slider animation
-  const [movePercentage, setMovePercentage] = useState(0); // move percentage to shift slider during animation
-  const [sliderMoveDirection, setSliderMoveDirection] = useState(null); // direction of movement of animation
-  const [lowestVisibleIndex, setLowestVisibleIndex] = useState(0); // lowest visible index of slider content
-  const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
+interface CardsProps {
+  movieSet: DataType[];
+  movieGenre: string;
+  modal: ToggleModalType;
+}
 
-  const totalItems = movieSet.length;
+export default function Cards({ movieSet, movieGenre, modal }: CardsProps) {
+  const [sliderHasMoved, setSliderHasMoved] = useState<boolean>(false); // boolean to display prev arrow
+  const [sliderMoving, setSliderMoving] = useState<boolean>(false); // boolean for slider animation
+  const [movePercentage, setMovePercentage] = useState<number>(0); // move percentage to shift slider during animation
+  const [sliderMoveDirection, setSliderMoveDirection] = useState<
+    "left" | "right" | null
+  >(null); // direction of movement of animation
+  const [lowestVisibleIndex, setLowestVisibleIndex] = useState<number>(0); // lowest visible index of slider content
+  const [itemsInRow, setItemsInRow] = useState<number>(5); // number of items in the slider content changed dynamically on window size
+
+  const totalItems: number = movieSet.length;
 
   useEffect(() => {
-    handleWindowResize(window);
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
@@ -48,9 +63,9 @@ export default function Cards({ movieSet, movieGenre, modal }) {
 
   const renderSliderContent = () => {
     // gets the indexes to be displayed
-    const left = [];
-    const mid = [];
-    const right = [];
+    const left: number[] = [];
+    const mid: number[] = [];
+    const right: number[] = [];
 
     for (let i = 0; i < itemsInRow; i++) {
       // left
@@ -78,7 +93,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
     }
 
     // combine indexes
-    const indexToDisplay = [...left, ...mid, ...right];
+    const indexToDisplay: number[] = [...left, ...mid, ...right];
 
     // add on leading and trailing indexes for peek image when sliding
     if (sliderHasMoved) {
@@ -93,7 +108,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
       indexToDisplay.push(trailingIndex);
     }
 
-    const sliderContents = [];
+    const sliderContents: ReactElement[] = [];
     if (movieSet) {
       for (let index of indexToDisplay) {
         sliderContents.push(
@@ -101,7 +116,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
             dataNum={index}
             firstNum={lowestVisibleIndex}
             lastNum={lowestVisibleIndex + itemsInRow - 1}
-            movieSet={movieSet[index]}
+            movieData={movieSet[index]}
             key={`${movieSet[index].id}${index}`}
             width={100 / itemsInRow}
             modal={modal}
@@ -129,7 +144,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
 
   const handlePrev = () => {
     // get the new lowest visible index
-    let newIndex;
+    let newIndex: number;
     if (lowestVisibleIndex < itemsInRow && lowestVisibleIndex !== 0) {
       newIndex = 0;
     } else if (lowestVisibleIndex - itemsInRow < 0) {
@@ -139,7 +154,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
     }
 
     // get the move percentage
-    let newMovePercentage;
+    let newMovePercentage: number;
     if (lowestVisibleIndex === 0) {
       newMovePercentage = 0;
     } else if (lowestVisibleIndex - newIndex < itemsInRow) {
@@ -161,7 +176,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
 
   const handleNext = () => {
     // get the new lowest visible index
-    let newIndex;
+    let newIndex: number;
     if (lowestVisibleIndex === totalItems - itemsInRow) {
       newIndex = 0;
     } else if (lowestVisibleIndex + itemsInRow > totalItems - itemsInRow) {
@@ -193,7 +208,7 @@ export default function Cards({ movieSet, movieGenre, modal }) {
     }
   };
 
-  let style = {};
+  let style: CSSProperties = {};
   if (sliderMoving) {
     let translate = "";
     if (sliderMoveDirection === "right") {
@@ -221,17 +236,15 @@ export default function Cards({ movieSet, movieGenre, modal }) {
       </div>
       <div className={styles.cardsRow}>
         <div className={styles.cards}>
-          {sliderHasMoved ? (
-            <SliderHandler onClick={handlePrev} direction="lft" />
-          ) : (
-            ""
+          {sliderHasMoved && (
+            <SliderHandler onClick={handlePrev} direction="left" />
           )}
           <div className={styles.sliderContainer}>
             <div className={styles.slider} style={style}>
               {renderSliderContent()}
             </div>
           </div>
-          <SliderHandler onClick={handleNext} direction="Rgt" />
+          <SliderHandler onClick={handleNext} direction="right" />
         </div>
       </div>
     </section>

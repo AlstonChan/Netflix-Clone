@@ -1,14 +1,22 @@
-import styles from "@/styles/browse/cards.module.css";
+import styles from "./cards.module.scss";
 import navArrow from "@/public/images/icons/arrow/nav_arrow.svg";
 
 import Image from "next/image";
 
-export default function SliderHandler({ onClick, direction }) {
+interface SliderHandlerProps {
+  onClick: () => void;
+  direction: "left" | "right";
+}
+
+export default function SliderHandler({
+  onClick,
+  direction,
+}: SliderHandlerProps) {
   return (
     <span
-      onClick={(e) => onClick(e)}
+      onClick={onClick}
       className={`${styles.handle} ${
-        direction == "lft" ? styles.handlelft : styles.handleRgt
+        direction === "left" ? styles.handlelft : styles.handleRgt
       }`}
       data-handle={direction}
     >

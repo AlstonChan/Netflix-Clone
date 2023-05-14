@@ -1,12 +1,13 @@
+import { BrowseRoute } from "@/components/browse/types";
 import axios from "axios";
 
 // function that run on both server and client side
 // to connect to the server to fetch movie data
 export default async function fetchMoviesDB(
-  requestedData,
-  endpoint,
-  myListData = null,
-  searchQuery = null
+  requestedData: BrowseRoute | "search",
+  endpoint: string,
+  myListData: any = null,
+  searchQuery: string | null = null
 ) {
   if (!requestedData) return;
   if (myListData === null && searchQuery === null) {

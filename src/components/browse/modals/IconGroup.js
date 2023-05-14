@@ -1,4 +1,4 @@
-import styles from "@/styles/browse/modals.module.css";
+import styles from "./modals.module.scss";
 import browseStyles from "@/styles/browse/browse.module.css";
 import ThumbsDownSvg from "@/icons/ThumbsDownSvg";
 import ThumbsUpSvg from "@/icons/ThumbsUpSvg";

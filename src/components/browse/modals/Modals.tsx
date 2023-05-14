@@ -1,8 +1,8 @@
-import styles from "@/styles/browse/modals.module.css";
+import styles from "./modals.module.scss";
 import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import ImageRender from "@chan_alston/image";
+import Image from "@chan_alston/image";
 import { AnimatePresence } from "framer-motion";
 
 import MovieDetails from "./MovieDetails";
@@ -10,47 +10,55 @@ import MovieDetailsOpen from "./MovieDetailsOpen";
 import IconGroup from "./IconGroup";
 import ModalWarn from "../ModalWarn";
 
-export default function Modals({
-  modalStyle,
-  openModal,
-  modalToggle,
-  close,
-  setClose,
-}) {
+import type { CSSProperties } from "react";
+import { ModalType } from "../types";
+
+interface ModalsProps {
+  modalProps: ModalType;
+  openModal: any;
+  modalToggle: any;
+}
+
+export default function Modals(props: ModalsProps) {
+  const { modalProps, openModal, modalToggle } = props;
+
+  const [close, setClose] = useState(false);
   const [modalTranslate, setModalTranslate] = useState({});
-  const [modalVisibility, setModalVisiblity] = useState();
-  const [modalWidth, setModalWidth] = useState();
+  const [modalVisibility, setModalVisiblity] = useState<string | null>(null);
+  const [modalWidth, setModalWidth] = useState<number | null>(null);
   const [modalWarn, setModalWarn] = useState(false);
   const delayRef = useRef();
   const openModalRef = useRef({ firstTime: false });
 
   useEffect(() => {
     let modalTranslateVal = "";
-    if (modalStyle.position === "leftEdge")
+    if (modalProps.position === "leftEdge")
       modalTranslateVal = "translate(0, -25%)";
-    if (modalStyle.position === "rightEdge")
+    if (modalProps.position === "rightEdge")
       modalTranslateVal = "translate(-28.5%, -25%)";
-    if (modalStyle.position === "middle")
+    if (modalProps.position === "middle")
       modalTranslateVal = "translate(-13%, -25%)";
 
     if (!openModal) {
-      setModalWidth(modalStyle.width);
+      setModalWidth(modalProps.width);
       setModalTranslate("translate(0)");
       setModalVisiblity(styles.modalShow);
       setTimeout(() => {
-        setModalWidth(parseInt(modalStyle.width, 10) * 1.4);
+        setModalWidth(modalProps.width * 1.4);
         setModalTranslate(modalTranslateVal);
       }, 150);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalStyle]);
+  }, [modalProps]);
+
+  console.log(modalProps.width);
 
   useEffect(() => {
     setModalVisiblity("");
   }, []);
 
   useEffect(() => {
-    handleWindowResize(window);
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
@@ -88,7 +96,7 @@ export default function Modals({
     if (e.type === "mouseleave" && !openModal) {
       if (!openModal && !openModalRef.current.firstTime) {
         setTimeout(() => {
-          setModalWidth(modalStyle.width);
+          setModalWidth(modalProps.width);
           setModalTranslate("translate(0)");
           setTimeout(() => {
             setModalVisiblity("");
@@ -120,9 +128,9 @@ export default function Modals({
     ? `${styles.mainModals} ${modalVisibility}`
     : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
 
-  const modalContainerStyles = {
+  const modalContainerStyles: CSSProperties = {
     // position: !openModal && "relative",
-    width: modalWidth,
+    width: modalWidth && modalWidth.toString(),
     transform: !openModal && modalTranslate,
     opacity:
       modalVisibility === "closing"
@@ -134,24 +142,28 @@ export default function Modals({
   };
 
   const modalImage = !openModal
-    ? modalStyle.movieSet?.backdrop_path
-      ? `https://image.tmdb.org/t/p/w500${modalStyle.movieSet.backdrop_path}`
+    ? modalProps.movieData?.backdrop_path
+      ? `https://image.tmdb.org/t/p/w500${modalProps.movieData.backdrop_path}`
       : ImageNotFound
-    : modalStyle.movieSet?.backdrop_path
-    ? `https://image.tmdb.org/t/p/w1280${modalStyle.movieSet.backdrop_path}`
+    : modalProps.movieData?.backdrop_path
+    ? `https://image.tmdb.org/t/p/w1280${modalProps.movieData.backdrop_path}`
     : ImageNotFound;
 
+  if (modalWidth === null) return <div>loading...</div>;
   return (
     <>
       <AnimatePresence mode="wait">
         {modalWarn ? <ModalWarn type="movie" /> : ""}
       </AnimatePresence>
+      {openModal && (
+        <div className={styles.darkBgModal} onClick={() => setClose(true)} />
+      )}
       {modalVisibility ? (
         <div
           className={mainModalClass}
           style={
             !openModal
-              ? modalStyle.mainClass
+              ? modalProps.style
               : modalWidth < 500
               ? { padding: "1.5rem" }
               : { padding: `3rem` }
@@ -163,19 +175,20 @@ export default function Modals({
           <div style={modalContainerStyles} className={styles.modalsContainer}>
             <div className={!openModal ? "" : styles.upperPanel}>
               <div className={styles.mainImageContainer}>
-                <ImageRender
+                <Image
                   src={modalImage}
                   w="1364px"
                   h="768px"
                   className={styles.backdrop_pathStyle}
                   alt="movie thumbnails"
+                  responsive={true}
                 />
                 {openModal ? <div className={styles.blend}></div> : ""}
                 {/* <span className={styles.backdrop_placeholder}></span> */}
                 {/* This backdrop placeholder is the main cause of modal image flashing */}
                 {openModal ? (
                   <IconGroup
-                    mov={modalStyle.movieSet}
+                    mov={modalProps.movieData}
                     modalToggle={modalToggle}
                     openModal={openModal}
                     toggleModalWarn={toggleModalWarn}
@@ -192,17 +205,17 @@ export default function Modals({
                 ""
               ) : (
                 <IconGroup
-                  mov={modalStyle.movieSet}
+                  mov={modalProps.movieData}
                   modalToggle={modalToggle}
                   toggleModalWarn={toggleModalWarn}
                 />
               )}
 
-              {modalStyle.movieSet ? (
+              {modalProps.movieData ? (
                 !openModal ? (
-                  <MovieDetails modalStyle={modalStyle} />
+                  <MovieDetails modalProps={modalProps} />
                 ) : (
-                  <MovieDetailsOpen modalStyle={modalStyle} />
+                  <MovieDetailsOpen modalProps={modalProps} />
                 )
               ) : (
                 ""

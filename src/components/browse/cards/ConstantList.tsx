@@ -1,4 +1,7 @@
-import styles from "@/styles/browse/cards.module.css";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+import styles from "./cards.module.scss";
 import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
 import { useState, useEffect } from "react";
@@ -6,37 +9,55 @@ import ImageRender from "@chan_alston/image";
 
 import PlaceholderCard from "./PlaceholderCard";
 
-export default function ConstantList({ modal, movieList }) {
-  const [itemsInRow, setItemsInRow] = useState(5); // number of items in the slider content changed dynamically on window size
+import type { DataType } from "../types";
+import type { MouseEvent, ReactElement } from "react";
+import type { ToggleModalType } from "src/hooks/browse/useModal";
 
-  const [delay, setDelay] = useState(null);
+type MovieListType = {
+  data: DataType;
+};
+interface ConstantListProps {
+  movieList: MovieListType[];
+  modal: ToggleModalType;
+}
 
-  function toggleModal(e) {
-    if (e.type === "mouseenter") {
+export default function ConstantList({ modal, movieList }: ConstantListProps) {
+  const [itemsInRow, setItemsInRow] = useState<number>(5); // number of items in the slider content changed dynamically on window size
+
+  const [delay, setDelay] = useState<NodeJS.Timeout | null>(null);
+
+  function toggleModal(e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) {
+    const element = e.currentTarget;
+
+    if (!element) throw new Error("The Card Ref does not exists!");
+
+    const eventType = e.type;
+
+    if (eventType === "mouseenter") {
       const position =
-        e.currentTarget.dataset.num == 0
+        element.dataset.num === "0"
           ? "leftEdge"
-          : e.currentTarget.dataset.num == itemsInRow
+          : element.dataset.num === itemsInRow.toString()
           ? "rightEdge"
           : "middle";
       let currentData = movieList.filter((mov) => {
-        if (e.currentTarget.dataset.key == mov.data.id) {
+        if (element.dataset.key == mov.data.id.toString()) {
           return mov.data;
         }
       });
       setDelay(
         setTimeout(() => {
-          modal({ state: e.type }, e, currentData[0].data, position);
+          modal(eventType, e, currentData[0].data, position);
         }, 700)
       );
-    } else if (e.type === "mouseleave") {
-      clearTimeout(delay);
-      modal({ state: e.type });
+    } else if (eventType === "mouseleave") {
+      if (delay) clearTimeout(delay);
+      modal(eventType);
     }
   }
 
   useEffect(() => {
-    handleWindowResize(window);
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
@@ -60,12 +81,13 @@ export default function ConstantList({ modal, movieList }) {
   };
 
   const renderContent = () => {
-    const dataArr = [...movieList];
-    const contentRow = [];
+    const dataArr: MovieListType[] = [...movieList];
+    const contentRow: ReactElement[][] = [];
 
     for (let i = 0; i < Math.ceil(movieList.length / itemsInRow); i++) {
-      const contentColumn = [];
+      const contentColumn: ReactElement[] = [];
       let j = 0;
+
       while (dataArr.length !== 0 && j < itemsInRow) {
         contentColumn.push(
           <div
@@ -111,31 +133,33 @@ export default function ConstantList({ modal, movieList }) {
   };
 
   return movieList ? (
-    renderContent().length === 1 ? (
-      <section className={styles.rowOfCards}>
-        <div className={styles.cardsRow}>
-          <div className={styles.cards}>
-            <div className={styles.sliderContainer}>
-              <div className={styles.slider}>{renderContent()}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    ) : (
-      renderContent().map((row, index) => {
-        return (
-          <section className={styles.rowOfCards} key={index}>
-            <div className={styles.cardsRow}>
-              <div className={styles.cards}>
-                <div className={styles.sliderContainer}>
-                  <div className={styles.slider}>{row}</div>
-                </div>
+    <>
+      {renderContent().length === 1 ? (
+        <section className={styles.rowOfCards}>
+          <div className={styles.cardsRow}>
+            <div className={styles.cards}>
+              <div className={styles.sliderContainer}>
+                <div className={styles.slider}>{renderContent()}</div>
               </div>
             </div>
-          </section>
-        );
-      })
-    )
+          </div>
+        </section>
+      ) : (
+        renderContent().map((row, index) => {
+          return (
+            <section className={styles.rowOfCards} key={index}>
+              <div className={styles.cardsRow}>
+                <div className={styles.cards}>
+                  <div className={styles.sliderContainer}>
+                    <div className={styles.slider}>{row}</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })
+      )}
+    </>
   ) : (
     <>
       <PlaceholderCard />

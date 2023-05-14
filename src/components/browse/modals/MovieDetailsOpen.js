@@ -1,4 +1,4 @@
-import styles from "@/styles/browse/modals.module.css";
+import styles from "./modals.module.scss";
 import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
@@ -7,8 +7,8 @@ import { genres } from "@/lib/movieGenres";
 
 import ImageRender from "@chan_alston/image";
 
-export default function MovieDetailsOpen({ modalStyle }) {
-  const mov = modalStyle.movieSet;
+export default function MovieDetailsOpen({ modalProps }) {
+  const mov = modalProps.movieData;
   return (
     <div className={styles.movieDetailsOpen}>
       <div className={styles.movieDetailsOpenLeft}>

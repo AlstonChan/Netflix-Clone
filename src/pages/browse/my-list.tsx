@@ -2,34 +2,28 @@ import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
-import React, { useEffect, useState, useRef } from "react";
-import { flushSync } from "react-dom";
-import {
-  dehydrate,
-  QueryClient,
-  useQuery,
-  useMutation,
-} from "@tanstack/react-query";
+import React, { useContext, useState, useRef, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
+import { UserContext } from "../_app";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
 import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
 
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
 import Profile from "@/components/browse/profile/Profile";
-import Cards from "@/components/browse/cards/Cards";
 import ConstantList from "@/components/browse/cards/ConstantList";
-import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
 import FooterBrowse from "@/components/footer/FooterBrowse";
-import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
 import Modals from "@/components/browse/modals/Modals";
-import Main from "@/components/browse/Main";
+import Main from "@/components/browse/Memo";
+import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
 import Loader from "@/components/Loader";
 
-const TvShows = () => {
+export default function MyList() {
   const [modal, setModal] = useState({}); // set small modals position, width, movie details and translate
   const [profile, setProfile] = useState("loading"); // set the current active profile (user)
+  const { listMovieData } = useContext(UserContext); // get own movie list to query movie data
   const searchRef = useRef(); // To assist searchMutation hook to query user search using this input
   const delayRef = useRef(); // To assist searchMutation hook avoid overfetching query data
   const [openModal, setOpenModal] = useState(false); // To enlarge small modals to a big modals, and close big modals
@@ -38,6 +32,7 @@ const TvShows = () => {
   const searchMutation = useMutation((searc) =>
     fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, searc)
   ); // To query search data using searchRef hook input
+  const [latestData, setLatestData] = useState(null);
 
   // To get sessionstorage data - "profile" as soon as the possible, and
   // decrypt the data to determine the current user for profile state hook
@@ -70,10 +65,7 @@ const TvShows = () => {
   // To toggle BIG modals
   function modalToggle(state) {
     if (openModal && state === "close") {
-      // remove react18 automatic batching
-      flushSync(() => {
-        setOpenModal(false);
-      });
+      setOpenModal(false);
       window.scrollTo({
         top: scrollPosition.current,
         left: 0,
@@ -102,19 +94,54 @@ const TvShows = () => {
     }
   }
 
+  useEffect(() => {
+    if (listMovieData && profile) {
+      if (listMovieData.data()[profile]) {
+        myListData.mutate({
+          new: listMovieData.data()[profile],
+          last: latestData,
+        });
+      } else {
+        myListData.mutate({
+          new: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+          last: [
+            {
+              addList: false,
+              like: "none",
+              movieID: null,
+            },
+          ],
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listMovieData, profile]);
+
   // To query data for Cards, page main data
-  const { data } = useQuery(
-    ["moviesDBTv", "tvs"],
-    () => fetchMoviesDB("tvs", getAbsoluteURL("/api/fetchmovie")),
+  const myListData = useMutation(
+    ["moviesDBList", "my-list"],
+    (listData) =>
+      fetchMoviesDB("my-list", getAbsoluteURL("/api/fetchmovie"), listData),
     {
       keepPreviousData: true,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
       refetchOnReconnect: false,
-      cacheTime: 1000 * 60 * 20,
-      staleTime: 1000 * 60 * 15,
+      cacheTime: 1000 * 60 * 10,
     }
   );
+
+  useEffect(() => {
+    if (myListData.data) {
+      setLatestData(myListData.data);
+    }
+  }, [myListData.data]);
 
   // set the current profile (user)
   function switchPage(name) {
@@ -144,7 +171,7 @@ const TvShows = () => {
     return (
       <>
         <Head>
-          <title>Netflix Clone - Tv Shows</title>
+          <title>Netflix Clone - My List</title>
         </Head>
 
         <Modals
@@ -168,14 +195,18 @@ const TvShows = () => {
           className={styles.container}
           style={openModal ? browseStyle : { position: "static" }}
         >
-          <HeaderBrowse route={"tvs"} ref={searchRef} openModal={openModal} />
+          <HeaderBrowse
+            route={"my-list"}
+            ref={searchRef}
+            openModal={openModal}
+          />
           <main className={styles.main}>
             {searchRef.current?.value ? (
               <Main data={searchMutation.data}>
                 <span className={styles.featuredMain}>
                   <div className={styles.emptyFea}></div>
                 </span>
-                {data ? (
+                {myListData.data ? (
                   <ConstantList
                     modal={toggleModal}
                     movieList={searchMutation.data}
@@ -188,21 +219,16 @@ const TvShows = () => {
                 )}
               </Main>
             ) : (
-              <Main data={data}>
+              <Main data={latestData}>
                 <span className={styles.featuredMain}>
-                  <FeaturedBrowse url={"tvs"} />
+                  <div className={styles.emptyFea}></div>
                 </span>
-                {data ? (
-                  data.map((movie, index) => {
-                    return (
-                      <Cards
-                        movieSet={movie.data.results}
-                        movieGenre={movie.genre}
-                        key={index}
-                        modal={toggleModal}
-                      />
-                    );
-                  })
+                <h1 className={styles.listHeader}>My List</h1>
+                {latestData ? (
+                  <ConstantList
+                    modal={toggleModal}
+                    movieList={myListData.data}
+                  />
                 ) : (
                   <>
                     <PlaceholderCard />
@@ -217,20 +243,4 @@ const TvShows = () => {
       </>
     );
   }
-};
-
-export async function getServerSideProps(context) {
-  const host = { ...context.req.headers }.host;
-  const endpoint = getAbsoluteURL("/api/fetchmovie", host);
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(["moviesDB", "tvs"], () =>
-    fetchMoviesDB("tvs", endpoint)
-  );
-
-  return {
-    props: { dehydratedState: dehydrate(queryClient) },
-  };
 }
-
-export default TvShows;

@@ -1,12 +1,12 @@
-import styles from "@/styles/browse/modals.module.css";
+import styles from "./modals.module.scss";
 import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
 
 import { genres } from "@/lib/movieGenres";
 
-export default function MovieDetails({ modalStyle }) {
-  const mov = modalStyle.movieSet;
+export default function MovieDetails({ modalProps }) {
+  const mov = modalProps.movieData;
   return (
     <div>
       {/* Movie Title */}
