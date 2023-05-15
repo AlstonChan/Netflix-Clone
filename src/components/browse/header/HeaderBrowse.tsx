@@ -20,8 +20,8 @@ import type { BrowseRoute, BrowseRouteTxt } from "../types";
 export type NavItemType = { route: BrowseRoute; txt: BrowseRouteTxt };
 const navItem: NavItemType[] = [
   { route: "home", txt: "Home" },
-  { route: "tvs", txt: "TV Shows" },
-  { route: "new", txt: "New & Popular" },
+  { route: "tv-shows", txt: "TV Shows" },
+  { route: "trending", txt: "New & Popular" },
   { route: "my-list", txt: "My List" },
 ];
 

@@ -17,7 +17,8 @@ interface PrimaryNavProps {
 export default function PrimaryNav(props: PrimaryNavProps) {
   const { navDetails, handler, activeNav } = props;
 
-  const currentRoute = navDetails.route;
+  const currentRoute =
+    navDetails.route === "home" ? `/browse` : `/browse/${navDetails.route}`;
 
   const linkClass = `${styles.option} ${
     currentRoute === activeNav && styles.active

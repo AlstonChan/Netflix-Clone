@@ -129,7 +129,8 @@ export default function Modals() {
     ? `${styles.mainModals} ${modalVisibility}`
     : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
 
-  if (!modalProps || !modalWidth) return <Loader />;
+  if (!modalProps || !modalWidth) return null;
+
   const modalContainerStyles: CSSProperties = {
     // position: !openModal && "relative",
     width: modalWidth ? `${modalWidth.toString()}px` : "",
@@ -142,7 +143,6 @@ export default function Modals() {
         : 1,
     transition: modalVisibility === "closing" ? "opacity 500ms ease-out" : "",
   };
-  console.log(modalContainerStyles);
 
   const modalImage = !openModal
     ? modalProps.movieData?.backdrop_path

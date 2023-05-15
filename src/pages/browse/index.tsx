@@ -6,7 +6,6 @@ import styles from "@/styles/browse/browse.module.css";
 import Head from "next/head";
 
 import React, { useState, useEffect } from "react";
-
 import {
   dehydrate,
   QueryClient,
@@ -33,7 +32,7 @@ import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
 import type { DataListType } from "@/components/browse/types";
 
-const Browse = () => {
+export default function Browse() {
   // To assist profile state hook, show profile loading when loading
   // for the first time. SO when changing to page "TV Shows or Trending",
   // the loading component will be hid away
@@ -50,7 +49,7 @@ const Browse = () => {
 
   // To query data for Cards, page main data
   const { data, isLoading }: UseQueryResult<DataListType[]> = useQuery(
-    ["moviesDB", "hom"],
+    ["moviesDB", "home"],
     () => fetchMoviesDB("home", getAbsoluteURL("/api/fetchmovie")),
     {
       refetchOnWindowFocus: false,
@@ -108,7 +107,7 @@ const Browse = () => {
       <>
         <Head>
           <title>Home | Netflix-Clone</title>
-          <meta name="title" content="Not Found | Netflix-Clone" key="title" />
+          <meta name="title" content="Home | Netflix-Clone" key="title" />
         </Head>
 
         <BrowseContext.Provider value={contextValue}>
@@ -120,7 +119,7 @@ const Browse = () => {
                 {searchMutation.data || searchMutation.isLoading ? (
                   <Search />
                 ) : (
-                  <MainBrowse />
+                  <MainBrowse route="home" />
                 )}
               </main>
               <FooterBrowse />
@@ -130,7 +129,7 @@ const Browse = () => {
       </>
     );
   }
-};
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = context.req.headers.host;
@@ -148,5 +147,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: { dehydratedState: dehydrate(queryClient) },
   };
 };
-
-export default Browse;

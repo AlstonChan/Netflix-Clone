@@ -40,5 +40,5 @@ export interface ModalType {
   movieData: DataType;
 }
 
-export type BrowseRoute = "home" | "tvs" | "new" | "my-list";
+export type BrowseRoute = "home" | "tv-shows" | "trending" | "my-list";
 export type BrowseRouteTxt = "Home" | "TV Shows" | "New & Popular" | "My List";

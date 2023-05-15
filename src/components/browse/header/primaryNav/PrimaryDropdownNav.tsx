@@ -43,6 +43,13 @@ export default function PrimaryNav(props: PrimaryDropdownNavProps) {
     showDropdown && styles.active
   }`;
 
+  const pageRoute = (item: NavItemType): string => {
+    const currentRoute =
+      item.route === "home" ? `/browse` : `/browse/${item.route}`;
+
+    return currentRoute;
+  };
+
   return (
     <>
       <div
@@ -78,7 +85,7 @@ export default function PrimaryNav(props: PrimaryDropdownNavProps) {
           {navItem.map((item) => {
             return (
               <Link
-                href={item.route}
+                href={pageRoute(item)}
                 key={item.route}
                 className={styles.dropDownMenuitem}
               >
