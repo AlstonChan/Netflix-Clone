@@ -5,7 +5,7 @@ import styles from "@/styles/browse/browse.module.css";
 
 import Head from "next/head";
 
-import React, { useState, useEffect, useRef, createContext } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   dehydrate,
@@ -17,6 +17,7 @@ import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
 import useModal from "src/hooks/browse/useModal";
 import useProfile from "src/hooks/browse/useProfile";
+import { BrowseContext } from "@/components/browse/common/BrowseContext";
 
 import Loading from "@/components/browse/Loading";
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
@@ -24,49 +25,20 @@ import Profile from "@/components/browse/profile/Profile";
 import FooterBrowse from "@/components/footer/FooterBrowse";
 import Modals from "@/components/browse/modals/Modals";
 import Loader from "@/components/Loader";
-import Search from "@/components/browse/common/searchComponent/Search";
-import MainBrowse from "@/components/browse/common/mainComponent/MainBrowse";
+import Search from "@/components/browse/common/Search";
+import MainBrowse from "@/components/browse/common/MainBrowse";
 
 import type { UseQueryResult } from "@tanstack/react-query";
-import type { CSSProperties, MutableRefObject } from "react";
+import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
-import type { DataListType, ModalType } from "@/components/browse/types";
-import type { UseMutationResult } from "@tanstack/react-query";
-import type { ToggleModalType } from "src/hooks/browse/useModal";
-
-type BrowseContextProps = {
-  data: null | (DataListType[] | undefined);
-  searchMutation: UseMutationResult<
-    any,
-    unknown,
-    string | null,
-    unknown
-  > | null;
-  modal: ModalType | null;
-  openModal: boolean;
-  scrollPosition: MutableRefObject<number | null> | null;
-  modalToggle: ((state: "open" | "close") => void) | null;
-  toggleModal: ToggleModalType | null;
-};
-export const BrowseContext = createContext<BrowseContextProps>({
-  data: null,
-  searchMutation: null,
-  modal: null,
-  openModal: false,
-  scrollPosition: null,
-  modalToggle: null,
-  toggleModal: null,
-});
+import type { DataListType } from "@/components/browse/types";
 
 const Browse = () => {
   // To assist profile state hook, show profile loading when loading
   // for the first time. SO when changing to page "TV Shows or Trending",
   // the loading component will be hid away
   const [firstLoad, setFirstLoad] = useState(true);
-  // To assist searchMutation hook to query user search using this input
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  // To assist searchMutation hook avoid over-fetching query data
-  const delayRef = useRef<NodeJS.Timeout | null>(null);
+
   const searchMutation = useMutation({
     mutationFn: (query: string | null) =>
       fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query),
@@ -75,18 +47,6 @@ const Browse = () => {
   const { modal, openModal, scrollPosition, modalToggle, toggleModal } =
     useModal();
   const { profile, switchPage } = useProfile();
-
-  // To query search data using searchMutation hook with delay
-  useEffect(() => {
-    const searchInput = searchRef.current;
-
-    if (searchInput) {
-      if (delayRef.current) clearTimeout(delayRef.current);
-      delayRef.current = setTimeout(() => {
-        searchMutation.mutate(searchInput.value);
-      }, 400);
-    }
-  }, [searchRef.current?.value]);
 
   // To query data for Cards, page main data
   const { data, isLoading }: UseQueryResult<DataListType[]> = useQuery(
@@ -153,22 +113,15 @@ const Browse = () => {
 
         <BrowseContext.Provider value={contextValue}>
           <>
-            {modal && (
-              <Modals
-                modalProps={modal}
-                openModal={openModal}
-                modalToggle={modalToggle}
-              />
-            )}
-
+            {modal && <Modals />}
             <div className={styles.container} style={browseContainerStyle}>
-              <HeaderBrowse
-                route="home"
-                ref={searchRef}
-                openModal={openModal}
-              />
+              <HeaderBrowse route="home" openModal={openModal} />
               <main className={styles.main}>
-                {searchRef.current?.value ? <Search /> : <MainBrowse />}
+                {searchMutation.data || searchMutation.isLoading ? (
+                  <Search />
+                ) : (
+                  <MainBrowse />
+                )}
               </main>
               <FooterBrowse />
             </div>

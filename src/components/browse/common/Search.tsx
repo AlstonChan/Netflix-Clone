@@ -1,10 +1,9 @@
-import styles from "@/styles/browse/browse.module.css";
+import { useContext } from "react";
+import { BrowseContext } from "./BrowseContext";
 
 import Memo from "@/components/browse/Memo";
 import ConstantList from "@/components/browse/cards/ConstantList";
 import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
-import { useContext } from "react";
-import { BrowseContext } from "@/pages/browse";
 import Loader from "@/components/Loader";
 
 export default function Search() {
@@ -15,9 +14,7 @@ export default function Search() {
   return (
     <Memo data={searchMutation.data}>
       <>
-        <span className={styles.featuredMain}>
-          <div className={styles.emptyFea}></div>
-        </span>
+        <div style={{ paddingTop: "74px" }}></div>
         {data ? (
           <ConstantList modal={toggleModal} movieList={searchMutation.data} />
         ) : (

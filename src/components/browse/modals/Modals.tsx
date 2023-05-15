@@ -1,60 +1,61 @@
 import styles from "./modals.module.scss";
 import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
+
 import Image from "@chan_alston/image";
 import { AnimatePresence } from "framer-motion";
+import { BrowseContext } from "../common/BrowseContext";
 
 import MovieDetails from "./MovieDetails";
 import MovieDetailsOpen from "./MovieDetailsOpen";
 import IconGroup from "./IconGroup";
 import ModalWarn from "../ModalWarn";
+import Loader from "@/components/Loader";
 
 import type { CSSProperties } from "react";
-import { ModalType } from "../types";
+import type { MouseEvent } from "react";
 
-interface ModalsProps {
-  modalProps: ModalType;
-  openModal: any;
-  modalToggle: any;
-}
-
-export default function Modals(props: ModalsProps) {
-  const { modalProps, openModal, modalToggle } = props;
+export default function Modals() {
+  const {
+    modal: modalProps,
+    openModal,
+    modalToggle,
+  } = useContext(BrowseContext);
 
   const [close, setClose] = useState(false);
-  const [modalTranslate, setModalTranslate] = useState({});
-  const [modalVisibility, setModalVisiblity] = useState<string | null>(null);
+  const [modalTranslate, setModalTranslate] = useState<string | null>(null);
+  const [modalVisibility, setModalVisibility] = useState<string | null>(null);
   const [modalWidth, setModalWidth] = useState<number | null>(null);
   const [modalWarn, setModalWarn] = useState(false);
-  const delayRef = useRef();
+  const delayRef = useRef<NodeJS.Timeout | null>(null);
   const openModalRef = useRef({ firstTime: false });
 
   useEffect(() => {
     let modalTranslateVal = "";
-    if (modalProps.position === "leftEdge")
-      modalTranslateVal = "translate(0, -25%)";
-    if (modalProps.position === "rightEdge")
-      modalTranslateVal = "translate(-28.5%, -25%)";
-    if (modalProps.position === "middle")
-      modalTranslateVal = "translate(-13%, -25%)";
+    if (modalProps) {
+      if (modalProps.position === "leftEdge")
+        modalTranslateVal = "translate(0, -25%)";
+      if (modalProps.position === "rightEdge")
+        modalTranslateVal = "translate(-28.5%, -25%)";
+      if (modalProps.position === "middle")
+        modalTranslateVal = "translate(-13%, -25%)";
 
-    if (!openModal) {
-      setModalWidth(modalProps.width);
-      setModalTranslate("translate(0)");
-      setModalVisiblity(styles.modalShow);
-      setTimeout(() => {
-        setModalWidth(modalProps.width * 1.4);
-        setModalTranslate(modalTranslateVal);
-      }, 150);
+      if (!openModal) {
+        setModalWidth(modalProps.width);
+        setModalTranslate("translate(0)");
+        setModalVisibility(styles.modalShow);
+        setTimeout(() => {
+          setModalWidth(modalProps.width * 1.4);
+          setModalTranslate(modalTranslateVal);
+        }, 150);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalProps]);
 
-  console.log(modalProps.width);
-
   useEffect(() => {
-    setModalVisiblity("");
+    setModalVisibility("");
   }, []);
 
   useEffect(() => {
@@ -67,14 +68,14 @@ export default function Modals(props: ModalsProps) {
   });
 
   useMemo(() => {
-    if (close) {
-      setModalVisiblity("closing");
+    if (close && modalToggle) {
+      setModalVisibility("closing");
       setTimeout(() => {
         setClose(false);
         modalToggle("close");
         openModalRef.current = { firstTime: false };
         setTimeout(() => {
-          setModalVisiblity("");
+          setModalVisibility("");
         }, 190);
       }, 100);
     } // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,21 +86,21 @@ export default function Modals(props: ModalsProps) {
       setModalWidth(window.innerWidth);
       openModalRef.current = { firstTime: true };
     } else if (openModal && openModalRef.current.firstTime) {
-      clearTimeout(delayRef.current);
+      if (delayRef.current) clearTimeout(delayRef.current);
       delayRef.current = setTimeout(() => {
         setModalWidth(window.innerWidth);
       }, 500);
     } else openModalRef.current = { firstTime: false };
   };
 
-  function toggleModalFunc(e) {
-    if (e.type === "mouseleave" && !openModal) {
+  function toggleModalFunc(e: MouseEvent) {
+    if (e.type === "mouseleave" && !openModal && modalProps) {
       if (!openModal && !openModalRef.current.firstTime) {
         setTimeout(() => {
           setModalWidth(modalProps.width);
           setModalTranslate("translate(0)");
           setTimeout(() => {
-            setModalVisiblity("");
+            setModalVisibility("");
           }, 300);
         }, 200);
       }
@@ -107,7 +108,7 @@ export default function Modals(props: ModalsProps) {
     // return;
   }
 
-  function localCloseModal(e) {
+  function localCloseModal(e: MouseEvent) {
     e.stopPropagation();
     e.preventDefault();
     e.nativeEvent.stopImmediatePropagation();
@@ -128,10 +129,11 @@ export default function Modals(props: ModalsProps) {
     ? `${styles.mainModals} ${modalVisibility}`
     : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
 
+  if (!modalProps || !modalWidth) return <Loader />;
   const modalContainerStyles: CSSProperties = {
     // position: !openModal && "relative",
-    width: modalWidth && modalWidth.toString(),
-    transform: !openModal && modalTranslate,
+    width: modalWidth ? `${modalWidth.toString()}px` : "",
+    transform: !openModal && modalTranslate ? modalTranslate : "",
     opacity:
       modalVisibility === "closing"
         ? 0
@@ -140,6 +142,7 @@ export default function Modals(props: ModalsProps) {
         : 1,
     transition: modalVisibility === "closing" ? "opacity 500ms ease-out" : "",
   };
+  console.log(modalContainerStyles);
 
   const modalImage = !openModal
     ? modalProps.movieData?.backdrop_path
@@ -149,7 +152,6 @@ export default function Modals(props: ModalsProps) {
     ? `https://image.tmdb.org/t/p/w1280${modalProps.movieData.backdrop_path}`
     : ImageNotFound;
 
-  if (modalWidth === null) return <div>loading...</div>;
   return (
     <>
       <AnimatePresence mode="wait">
@@ -177,8 +179,8 @@ export default function Modals(props: ModalsProps) {
               <div className={styles.mainImageContainer}>
                 <Image
                   src={modalImage}
-                  w="1364px"
-                  h="768px"
+                  w="500"
+                  h="281"
                   className={styles.backdrop_pathStyle}
                   alt="movie thumbnails"
                   responsive={true}

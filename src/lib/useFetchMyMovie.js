@@ -31,22 +31,30 @@ const useFetchMyMovie = (id, type, thisUser) => {
   }, [userData]);
 
   useEffect(() => {
-    if (myMovieData.current.data()) {
-      if (!myMovieData.current.data()[currentUser] && currentUser) {
-        setDoc(
-          doc(db, "mymovie", user.uid),
-          {
-            [currentUser]: [{ movieID: null, addList: false, like: "none" }],
-          },
-          { merge: true }
-        );
+    if (currentUser && myMovieData.current) {
+      console.log(myMovieData);
+      if (myMovieData.current.data()) {
+        if (!myMovieData.current.data()[currentUser] && currentUser) {
+          setDoc(
+            doc(db, "mymovie", user.uid),
+            {
+              [currentUser]: [{ movieID: null, addList: false, like: "none" }],
+            },
+            { merge: true }
+          );
+        }
       }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const searchAndUpdate = async (id, title, action) => {
-    if (myMovieData.current.exists() === true && currentUser) {
+    if (
+      myMovieData.current &&
+      myMovieData.current.exists() === true &&
+      currentUser
+    ) {
       if (!myMovieData.current.data()[currentUser])
         return [currentMovieData.current, updatedData, searchAndUpdate];
 

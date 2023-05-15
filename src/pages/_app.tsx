@@ -4,12 +4,12 @@
 import "@/styles/globals.scss";
 
 import Head from "next/head";
-import { Ubuntu } from "next/font/google";
+import { Roboto } from "next/font/google";
 
-const ubuntu = Ubuntu({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
-  variable: "--Ubuntu",
+  variable: "--Roboto",
 });
 
 import { createContext, useEffect, useRef, useState } from "react";
@@ -112,7 +112,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               listMovieData,
             }}
           >
-            <div className={ubuntu.className}>
+            <div className={roboto.className}>
               {getLayout(<Component {...pageProps} />)}
               <Notice />
               {process.env.NODE_ENV === "development" && (

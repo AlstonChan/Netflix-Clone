@@ -21,7 +21,7 @@ export default function IconGroup({
   openModal,
   toggleModalWarn,
 }) {
-  const { user, loading } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
     mov.id,
     mov
@@ -34,7 +34,7 @@ export default function IconGroup({
       return;
     }
 
-    if (user && !loading) {
+    if (user) {
       const action = e.currentTarget.dataset.action;
       setMovieData(mov.id, mov.title || mov.name, action);
     }

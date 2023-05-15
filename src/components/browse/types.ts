@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import type { CSSProperties } from "react";
 
 export type DataType = {
@@ -38,3 +41,4 @@ export interface ModalType {
 }
 
 export type BrowseRoute = "home" | "tvs" | "new" | "my-list";
+export type BrowseRouteTxt = "Home" | "TV Shows" | "New & Popular" | "My List";

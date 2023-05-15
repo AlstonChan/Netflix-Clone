@@ -3,7 +3,8 @@
 
 import styles from "./cards.module.scss";
 
-import { useState, useEffect, CSSProperties } from "react";
+import { useState, CSSProperties } from "react";
+import useCardWindowResize from "src/hooks/browse/useCardWindowResize";
 
 import SliderHandler from "./SliderHandler";
 import SliderItem from "./SliderItem";
@@ -31,33 +32,9 @@ export default function Cards({ movieSet, movieGenre, modal }: CardsProps) {
     "left" | "right" | null
   >(null); // direction of movement of animation
   const [lowestVisibleIndex, setLowestVisibleIndex] = useState<number>(0); // lowest visible index of slider content
-  const [itemsInRow, setItemsInRow] = useState<number>(5); // number of items in the slider content changed dynamically on window size
+  const itemsInRow = useCardWindowResize();
 
   const totalItems: number = movieSet.length;
-
-  useEffect(() => {
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
-
-  // handle window resize and sets items in row
-  const handleWindowResize = () => {
-    if (window.innerWidth > 1400) {
-      setItemsInRow(6);
-    } else if (window.innerWidth >= 1000) {
-      setItemsInRow(5);
-    } else if (window.innerWidth > 700) {
-      setItemsInRow(4);
-    } else if (window.innerWidth > 500) {
-      setItemsInRow(3);
-    } else if (window.innerWidth < 500) {
-      setItemsInRow(2);
-    }
-  };
 
   if (!movieSet.length) return null;
 

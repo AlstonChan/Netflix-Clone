@@ -4,8 +4,9 @@
 import styles from "./cards.module.scss";
 import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ImageRender from "@chan_alston/image";
+import useCardWindowResize from "src/hooks/browse/useCardWindowResize";
 
 import PlaceholderCard from "./PlaceholderCard";
 
@@ -22,9 +23,8 @@ interface ConstantListProps {
 }
 
 export default function ConstantList({ modal, movieList }: ConstantListProps) {
-  const [itemsInRow, setItemsInRow] = useState<number>(5); // number of items in the slider content changed dynamically on window size
-
   const [delay, setDelay] = useState<NodeJS.Timeout | null>(null);
+  const itemsInRow = useCardWindowResize();
 
   function toggleModal(e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) {
     const element = e.currentTarget;
@@ -55,30 +55,6 @@ export default function ConstantList({ modal, movieList }: ConstantListProps) {
       modal(eventType);
     }
   }
-
-  useEffect(() => {
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
-
-  // handle window resize and sets items in row
-  const handleWindowResize = () => {
-    if (window.innerWidth > 1400) {
-      setItemsInRow(6);
-    } else if (window.innerWidth >= 1000) {
-      setItemsInRow(5);
-    } else if (window.innerWidth > 700) {
-      setItemsInRow(4);
-    } else if (window.innerWidth > 500) {
-      setItemsInRow(3);
-    } else if (window.innerWidth < 500) {
-      setItemsInRow(2);
-    }
-  };
 
   const renderContent = () => {
     const dataArr: MovieListType[] = [...movieList];
