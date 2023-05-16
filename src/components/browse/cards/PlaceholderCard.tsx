@@ -19,7 +19,7 @@ export default function Cards() {
     for (let i = 0; i < itemsInRow; i++) {
       sliderContents.push(
         <div
-          className={styles.sliderItemPlaceholder}
+          className={styles.sliderPlaceholder}
           style={{
             width: `${100 / itemsInRow}%`,
             animationDelay: `${animationTime}s`,
@@ -30,7 +30,7 @@ export default function Cards() {
             src={Placeholder.src}
             w="341px"
             h="192px"
-            className={`${styles.pictureCardPlaceholder}`}
+            className={styles.pictureCardPlaceholder}
             alt="Movie thumbnails"
           />
         </div>
@@ -44,8 +44,8 @@ export default function Cards() {
   return (
     <section className={styles.rowOfCards}>
       <div className={styles.cardsHeadings}>
-        <h1 className={styles.cardH1} style={{ opacity: 0 }}>
-          a
+        <h1 className={styles.title} style={{ opacity: 0 }}>
+          Placeholder
         </h1>
       </div>
       <div className={styles.cardsRow}>

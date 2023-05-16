@@ -209,7 +209,7 @@ export default function Cards({ movieSet, movieGenre, modal }: CardsProps) {
   return (
     <section className={styles.rowOfCards}>
       <div className={styles.cardsHeadings}>
-        <h1 className={styles.cardH1}>{movieGenre}</h1>
+        <h1 className={styles.title}>{movieGenre}</h1>
       </div>
       <div className={styles.cardsRow}>
         <div className={styles.cards}>

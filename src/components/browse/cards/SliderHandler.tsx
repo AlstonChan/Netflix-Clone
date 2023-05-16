@@ -12,15 +12,14 @@ export default function SliderHandler({
   onClick,
   direction,
 }: SliderHandlerProps) {
+  console.log(styles[direction]);
   return (
     <span
       onClick={onClick}
-      className={`${styles.handle} ${
-        direction === "left" ? styles.handlelft : styles.handleRgt
-      }`}
+      className={`${styles.handle} ${styles[direction]}`}
       data-handle={direction}
     >
-      <div className={styles.navArrowContainer}>
+      <div className={styles.arrBox}>
         <Image
           src={navArrow}
           alt=""

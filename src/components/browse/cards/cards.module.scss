@@ -4,90 +4,91 @@
 /* main component of rows of cards */
 .rowOfCards {
   margin: 3vw 0;
-}
 
-/* headings part */
-.cardsHeadings {
-  margin: 0 0 10px 4%;
-}
-.cardH1 {
-  position: relative;
-  margin: 0;
-  color: #fff;
-  font-size: clamp(0.8rem, 1.8vw, 2rem);
-  padding-left: 8px;
+  /* headings part */
+  .cardsHeadings {
+    margin: 0 0 10px 4%;
+
+    .title {
+      position: relative;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(0.8rem, 1.8vw, 2rem);
+      padding-left: 8px;
+    }
+  }
 }
 
 /* main part */
 .cardsRow {
   display: flex;
-}
-.cardsRow:hover .handlerSvg {
-  visibility: visible;
-}
 
-.cards {
-  width: 100%;
-  padding: 0 4%;
-  position: relative;
-  overflow: hidden;
-}
+  &:hover .handlerSvg {
+    visibility: visible;
+  }
 
-/* left and right slider handler */
-.handle {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4%;
-  text-align: center;
-  cursor: pointer;
-  background-color: rgba(51, 51, 51, 0.733);
-  z-index: 2;
-}
+  .cards {
+    width: 100%;
+    padding: 0 4%;
+    position: relative;
+    overflow: hidden;
+  }
 
-.handlelft {
-  left: -2px;
-}
-.handleRgt {
-  transform: scaleX(-1);
-  right: 0;
-}
+  /* left and right slider handler */
+  .handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4%;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(51, 51, 51, 0.733);
+    z-index: 2;
 
-.handle:hover .handlerSvg {
-  transform: scale(1.25);
-}
-.handleRgt:hover .handlerSvg {
-  transform: scale(1.25, 1.25);
-}
+    &:hover .handlerSvg {
+      transform: scale(1.25);
+      visibility: visible;
+    }
 
-.handle:hover .handlerSvg {
-  visibility: visible;
-}
+    &.left {
+      left: -2px;
+    }
 
-.navArrowContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
-  width: 100%;
-  visibility: hidden;
-}
+    &.right {
+      transform: scaleX(-1);
+      right: 0;
 
-.handlerSvg {
-  transition: transform 180ms ease-in-out;
+      &:hover .handlerSvg {
+        transform: scale(1.25, 1.25);
+      }
+    }
+
+    .arrBox {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      width: 100%;
+      visibility: hidden;
+
+      .handlerSvg {
+        transition: transform 180ms ease-in-out;
+      }
+    }
+  }
 }
 
 /* Collection of cards start here*/
 .sliderContainer {
   overflow-x: visible;
+
+  .slider {
+    white-space: nowrap;
+  }
 }
 
-.slider {
-  white-space: nowrap;
-}
-
-.sliderItemPlaceholder,
+.sliderPlaceholder,
 .sliderItem {
   display: inline-block;
   padding: 0 0.2vw;
@@ -95,7 +96,22 @@
   height: auto;
 }
 
-.sliderItemPlaceholder {
+.sliderPlaceholder {
+  @keyframes pulsatingFrame {
+    0% {
+      background-color: rgb(26, 26, 26);
+    }
+    25% {
+      background-color: rgb(51, 51, 51);
+    }
+    50% {
+      background-color: rgb(26, 26, 26);
+    }
+    100% {
+      background-color: rgb(26, 26, 26);
+    }
+  }
+
   margin-right: 5px;
   animation-duration: 3.6s;
   animation-name: pulsatingFrame;
@@ -105,12 +121,12 @@
 
 .imgContainer {
   cursor: pointer;
-}
 
-.pictureCard {
-  border-radius: 5px;
-  width: 100%;
-  height: auto;
+  .pictureCard {
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .imgLoadingPlaceholder {
@@ -126,19 +142,4 @@
 
 .pictureCardPlaceholder {
   border-radius: 5px;
-}
-
-@keyframes pulsatingFrame {
-  0% {
-    background-color: rgb(26, 26, 26);
-  }
-  25% {
-    background-color: rgb(51, 51, 51);
-  }
-  50% {
-    background-color: rgb(26, 26, 26);
-  }
-  100% {
-    background-color: rgb(26, 26, 26);
-  }
 }

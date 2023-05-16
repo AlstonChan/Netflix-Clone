@@ -51,7 +51,7 @@ export default function IconGroup({
       <div className={styles.iconGroup}>
         {!openModal ? (
           <div className={styles.circleContainerPlay}>
-            <Image src={play} alt="play the movie" unoptimized />
+            <Image src={play} alt="play the movie" />
           </div>
         ) : (
           <button
@@ -59,7 +59,7 @@ export default function IconGroup({
             className={`${browseStyles.playBtn} ${styles.playBtn}`}
           >
             <div className={browseStyles.btnImage}>
-              <Image src={playBtn} alt="" unoptimized style={responsive} />
+              <Image src={playBtn} alt="" style={responsive} />
             </div>
             <span className={browseStyles.playBtnTxt}>Play</span>
           </button>
