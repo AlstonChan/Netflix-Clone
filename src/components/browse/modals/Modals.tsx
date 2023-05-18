@@ -1,233 +1,204 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import styles from "./modals.module.scss";
 import ImageNotFound from "@/public/images/browse/image-not-found.png";
 
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Image from "@chan_alston/image";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import { BrowseContext } from "../common/BrowseContext";
 
-import MovieDetails from "./MovieDetails";
-import MovieDetailsOpen from "./MovieDetailsOpen";
-import IconGroup from "./IconGroup";
-import ModalWarn from "../ModalWarn";
-import Loader from "@/components/Loader";
+import MovieDetailsFull from "./movieDetails/MovieDetailsFull";
+import MovieDetailsSmall from "./movieDetails/MovieDetailsSmall";
+import InteractionMenu from "./InteractionMenu/InteractionMenu";
+import SnackBar from "@/components/common/snackbar/SnackBar";
 
-import type { CSSProperties } from "react";
 import type { MouseEvent } from "react";
+import type { ModalType } from "../types";
+import type { SnackBarStateType } from "@/components/common/snackbar/types";
 
 export default function Modals() {
   const {
     modal: modalProps,
-    openModal,
+    modalFull,
     modalToggle,
   } = useContext(BrowseContext);
 
-  const [close, setClose] = useState(false);
-  const [modalTranslate, setModalTranslate] = useState<string | null>(null);
-  const [modalVisibility, setModalVisibility] = useState<string | null>(null);
-  const [modalWidth, setModalWidth] = useState<number | null>(null);
-  const [modalWarn, setModalWarn] = useState(false);
-  const delayRef = useRef<NodeJS.Timeout | null>(null);
-  const openModalRef = useRef({ firstTime: false });
+  // indicate the state of modal, open or close
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  const closeSnackBar: SnackBarStateType = {
+    isOpen: false,
+    msg: "",
+    title: "",
+  };
+  const [snackBarState, setSnackBarState] =
+    useState<SnackBarStateType>(closeSnackBar);
+
+  // close function for snackbar
+  const onClose = () => {
+    setSnackBarState(closeSnackBar);
+  };
 
   useEffect(() => {
-    let modalTranslateVal = "";
-    if (modalProps) {
-      if (modalProps.position === "leftEdge")
-        modalTranslateVal = "translate(0, -25%)";
-      if (modalProps.position === "rightEdge")
-        modalTranslateVal = "translate(-28.5%, -25%)";
-      if (modalProps.position === "middle")
-        modalTranslateVal = "translate(-13%, -25%)";
-
-      if (!openModal) {
-        setModalWidth(modalProps.width);
-        setModalTranslate("translate(0)");
-        setModalVisibility(styles.modalShow);
-        setTimeout(() => {
-          setModalWidth(modalProps.width * 1.4);
-          setModalTranslate(modalTranslateVal);
-        }, 150);
-      }
+    if (modalProps && !modalFull) {
+      setModalIsOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalProps]);
 
   useEffect(() => {
-    setModalVisibility("");
+    setModalIsOpen(false);
   }, []);
 
-  useEffect(() => {
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
+  function toggleBigModal(e: MouseEvent, state: "open" | "close") {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
 
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
+    if (!modalToggle) return;
 
-  useMemo(() => {
-    if (close && modalToggle) {
-      setModalVisibility("closing");
-      setTimeout(() => {
-        setClose(false);
-        modalToggle("close");
-        openModalRef.current = { firstTime: false };
-        setTimeout(() => {
-          setModalVisibility("");
-        }, 190);
-      }, 100);
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [close]);
+    if (state === "close" && e.currentTarget == e.target && modalToggle) {
+      setModalIsOpen(false);
+      modalToggle("close");
+    }
+  }
 
-  const handleWindowResize = () => {
-    if (openModal && !openModalRef.current.firstTime) {
-      setModalWidth(window.innerWidth);
-      openModalRef.current = { firstTime: true };
-    } else if (openModal && openModalRef.current.firstTime) {
-      if (delayRef.current) clearTimeout(delayRef.current);
-      delayRef.current = setTimeout(() => {
-        setModalWidth(window.innerWidth);
-      }, 500);
-    } else openModalRef.current = { firstTime: false };
-  };
-
+  // modal exits function
   function toggleModalFunc(e: MouseEvent) {
-    if (e.type === "mouseleave" && !openModal && modalProps) {
-      if (!openModal && !openModalRef.current.firstTime) {
+    if (e.type === "mouseleave" && !modalFull && modalProps) {
+      if (!modalFull) {
         setTimeout(() => {
-          setModalWidth(modalProps.width);
-          setModalTranslate("translate(0)");
-          setTimeout(() => {
-            setModalVisibility("");
-          }, 300);
-        }, 200);
+          setModalIsOpen(false);
+        }, 300);
       }
     }
-    // return;
   }
 
-  function localCloseModal(e: MouseEvent) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.nativeEvent.stopImmediatePropagation();
-    if (openModal && e.currentTarget == e.target) {
-      setClose(true);
-    }
-  }
+  if (!modalProps) return null;
 
-  // Tell user to verify their email address when
-  // their account is not verified and attempt to
-  // add movie or tv shows to their list
-  function toggleModalWarn() {
-    setModalWarn(true);
-    setTimeout(() => setModalWarn(false), 5000);
-  }
+  const mainModalClass = `${styles.mainModals} ${modalFull && styles.bigModal}`;
 
-  const mainModalClass = !openModal
-    ? `${styles.mainModals} ${modalVisibility}`
-    : `${styles.mainModals} ${modalVisibility} ${styles.bigModal}`;
+  const modalImage = (modalProps: ModalType) => {
+    const src = modalProps.movieData?.backdrop_path
+      ? `https://image.tmdb.org/t/p/${modalFull ? "w1280" : "w500"}${
+          modalProps.movieData.backdrop_path
+        }`
+      : ImageNotFound;
 
-  if (!modalProps || !modalWidth) return null;
-
-  const modalContainerStyles: CSSProperties = {
-    // position: !openModal && "relative",
-    width: modalWidth ? `${modalWidth.toString()}px` : "",
-    transform: !openModal && modalTranslate ? modalTranslate : "",
-    opacity:
-      modalVisibility === "closing"
-        ? 0
-        : modalTranslate === "translate(0)"
-        ? 0
-        : 1,
-    transition: modalVisibility === "closing" ? "opacity 500ms ease-out" : "",
+    return src;
   };
 
-  const modalImage = !openModal
-    ? modalProps.movieData?.backdrop_path
-      ? `https://image.tmdb.org/t/p/w500${modalProps.movieData.backdrop_path}`
-      : ImageNotFound
-    : modalProps.movieData?.backdrop_path
-    ? `https://image.tmdb.org/t/p/w1280${modalProps.movieData.backdrop_path}`
-    : ImageNotFound;
+  const getXCords = () => {
+    switch (modalProps.position) {
+      case "leftEdge":
+        return 0;
+      case "rightEdge":
+        return "-28.5%";
+      case "middle":
+        return "-13%";
+      default:
+        throw new Error("Unexpected modal position");
+    }
+  };
+
+  const modalVariants: Variants = modalFull
+    ? {
+        initial: { width: modalProps.width * 1.4, x: 0, y: 0 },
+        animate: { width: "auto", x: 0, y: 0 },
+        exit: { width: "auto", x: 0, y: 0 },
+      }
+    : {
+        initial: { width: modalProps.width, x: 0, y: 0 },
+        animate: { width: modalProps.width * 1.4, x: getXCords(), y: "-25%" },
+        exit: {
+          width: modalProps.width,
+          x: 0,
+          y: 0,
+          opacity: 0,
+          transition: { ease: "easeOut", duration: 0.3 },
+        },
+      };
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {modalWarn ? <ModalWarn type="movie" /> : ""}
-      </AnimatePresence>
-      {openModal && (
-        <div className={styles.darkBgModal} onClick={() => setClose(true)} />
-      )}
-      {modalVisibility ? (
+      <SnackBar
+        variant="error"
+        title={snackBarState.title}
+        message={snackBarState.msg}
+        isOpen={snackBarState.isOpen}
+        onClose={onClose}
+      />
+      {modalFull && (
         <div
-          className={mainModalClass}
-          style={
-            !openModal
-              ? modalProps.style
-              : modalWidth < 500
-              ? { padding: "1.5rem" }
-              : { padding: `3rem` }
-          }
-          onMouseEnter={(e) => toggleModalFunc(e)}
-          onMouseLeave={(e) => toggleModalFunc(e)}
-          onClick={(e) => localCloseModal(e)}
-        >
-          <div style={modalContainerStyles} className={styles.modalsContainer}>
-            <div className={!openModal ? "" : styles.upperPanel}>
-              <div className={styles.mainImageContainer}>
+          className={styles.darkBgModal}
+          onClick={(e) => toggleBigModal(e, "close")}
+        />
+      )}
+      <AnimatePresence>
+        {modalIsOpen && (
+          <div
+            key="modal"
+            className={mainModalClass}
+            style={!modalFull ? modalProps.style : {}}
+            onMouseEnter={(e) => toggleModalFunc(e)}
+            onMouseLeave={(e) => toggleModalFunc(e)}
+            onClick={(e) => toggleBigModal(e, "close")}
+          >
+            <motion.div
+              className={styles.modalsContainer}
+              variants={modalVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{
+                ease: "linear",
+                duration: 0.2,
+              }}
+            >
+              {/* upper panel */}
+              <div className={styles.upperPanel}>
                 <Image
-                  src={modalImage}
+                  src={modalImage(modalProps)}
                   w="500"
                   h="281"
                   className={styles.backdrop_pathStyle}
                   alt="movie thumbnails"
                   responsive={true}
                 />
-                {openModal ? <div className={styles.blend}></div> : ""}
+
+                {modalFull && <div className={styles.blend}></div>}
                 {/* <span className={styles.backdrop_placeholder}></span> */}
                 {/* This backdrop placeholder is the main cause of modal image flashing */}
-                {openModal ? (
-                  <IconGroup
+                {modalFull && (
+                  <InteractionMenu
                     mov={modalProps.movieData}
-                    modalToggle={modalToggle}
-                    openModal={openModal}
-                    toggleModalWarn={toggleModalWarn}
+                    setSnackBarState={setSnackBarState}
                   />
-                ) : (
-                  ""
                 )}
               </div>
-            </div>
-            <div
-              className={!openModal ? styles.lowerPanel : styles.lowerPanelOpen}
-            >
-              {openModal ? (
-                ""
-              ) : (
-                <IconGroup
-                  mov={modalProps.movieData}
-                  modalToggle={modalToggle}
-                  toggleModalWarn={toggleModalWarn}
-                />
-              )}
+              {/* lower panel  */}
+              <div
+                className={`${styles.lowerPanel} ${modalFull && styles.big}`}
+              >
+                {!modalFull && (
+                  <InteractionMenu
+                    mov={modalProps.movieData}
+                    setSnackBarState={setSnackBarState}
+                  />
+                )}
 
-              {modalProps.movieData ? (
-                !openModal ? (
-                  <MovieDetails modalProps={modalProps} />
+                {!modalFull ? (
+                  <MovieDetailsSmall modalProps={modalProps} />
                 ) : (
-                  <MovieDetailsOpen modalProps={modalProps} />
-                )
-              ) : (
-                ""
-              )}
-            </div>
+                  <MovieDetailsFull modalProps={modalProps} />
+                )}
+              </div>
+            </motion.div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
 }

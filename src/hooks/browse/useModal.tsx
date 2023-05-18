@@ -23,17 +23,17 @@ export default function useModal() {
   // set small modals position, width, movie details and translate
   const [modal, setModal] = useState<ModalType | null>(null);
   // To enlarge small modals to a big modals, and close big modals
-  const [openModal, setOpenModal] = useState(false);
+  const [modalFull, setModalFull] = useState<boolean>(false);
 
   // To determine the current scroll position of user, used by modal.js
   const scrollPosition = useRef<number | null>(null);
 
   // To toggle BIG modals
   function modalToggle(state: "open" | "close") {
-    if (openModal && state === "close") {
+    if (modalFull && state === "close") {
       // remove react18 automatic batching
       flushSync(() => {
-        setOpenModal(false);
+        setModalFull(false);
       });
       if (scrollPosition.current)
         window.scrollTo({
@@ -43,7 +43,7 @@ export default function useModal() {
         });
     } else {
       scrollPosition.current = window.scrollY;
-      setOpenModal(true);
+      setModalFull(true);
     }
   }
 
@@ -55,7 +55,7 @@ export default function useModal() {
     movieData: DataType,
     position: SmallModalPositionType
   ) {
-    if (type === "mouseenter" || openModal) {
+    if (type === "mouseenter" || modalFull) {
       const element = e.target as HTMLElement;
 
       const { width, top, bottom, left, right } =
@@ -71,5 +71,5 @@ export default function useModal() {
     }
   }
 
-  return { modal, openModal, scrollPosition, modalToggle, toggleModal };
+  return { modal, modalFull, scrollPosition, modalToggle, toggleModal };
 }

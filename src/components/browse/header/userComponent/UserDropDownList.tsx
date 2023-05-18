@@ -106,7 +106,7 @@ export default function UserDropDownList(props: UserDropDownListProps) {
         })}
       {dropDownPanel.map((listItem) => {
         return (
-          <span key={listItem.src}>
+          <span key={listItem.link}>
             <div className={styles.box}>
               <div className={styles.imgContainer}>
                 <Image src={listItem.src} alt={listItem.text} />

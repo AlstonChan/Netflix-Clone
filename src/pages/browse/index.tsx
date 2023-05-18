@@ -43,7 +43,7 @@ export default function Browse() {
       fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query),
   }); // To query search data using searchRef hook input
 
-  const { modal, openModal, scrollPosition, modalToggle, toggleModal } =
+  const { modal, modalFull, scrollPosition, modalToggle, toggleModal } =
     useModal();
   const { profile, switchPage } = useProfile();
 
@@ -80,7 +80,7 @@ export default function Browse() {
     top: `-${scrollPosition && scrollPosition.current}px`,
     paddingRight: "20px",
   };
-  const browseContainerStyle: CSSProperties = openModal
+  const browseContainerStyle: CSSProperties = modalFull
     ? bigModalIsOpen
     : { position: "relative" };
 
@@ -94,7 +94,7 @@ export default function Browse() {
     data,
     searchMutation,
     modal,
-    openModal,
+    modalFull,
     scrollPosition,
     modalToggle,
     toggleModal,
@@ -112,9 +112,9 @@ export default function Browse() {
 
         <BrowseContext.Provider value={contextValue}>
           <>
-            {modal && <Modals />}
+            <Modals />
             <div className={styles.container} style={browseContainerStyle}>
-              <HeaderBrowse route="home" openModal={openModal} />
+              <HeaderBrowse route="home" modalFull={modalFull} />
               <main className={styles.main}>
                 {searchMutation.data || searchMutation.isLoading ? (
                   <Search />

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import { createContext } from "react";
 
 import type { MutableRefObject } from "react";
@@ -14,7 +17,7 @@ type BrowseContextProps = {
     unknown
   > | null;
   modal: ModalType | null;
-  openModal: boolean;
+  modalFull: boolean;
   scrollPosition: MutableRefObject<number | null> | null;
   modalToggle: ((state: "open" | "close") => void) | null;
   toggleModal: ToggleModalType | null;
@@ -23,7 +26,7 @@ export const BrowseContext = createContext<BrowseContextProps>({
   data: null,
   searchMutation: null,
   modal: null,
-  openModal: false,
+  modalFull: false,
   scrollPosition: null,
   modalToggle: null,
   toggleModal: null,

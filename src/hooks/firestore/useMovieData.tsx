@@ -1,17 +1,20 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import useAuthState from "../useAuthState";
 import { useEffect, useState } from "react";
-import { auth, db } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 
 import type { DocumentData, DocumentSnapshot } from "firebase/firestore";
 
-export type UserDataType = DocumentData | null;
+export type MovieDataType = DocumentData | undefined;
 
 const collectionName = "mymovie";
 
-export default function useMovieData() {
-  const [user, error] = useAuthState(auth);
-  const [movieData, setMovieData] = useState<UserDataType>(null);
+export default function useMovieData(): [MovieDataType, string | null] {
+  const [user, error] = useAuthState();
+  const [movieData, setMovieData] = useState<MovieDataType>();
   const [dbError, setDbError] = useState<string | null>(null);
 
   const initMovieData = { movieID: null, addList: false, like: "none" };
@@ -19,7 +22,7 @@ export default function useMovieData() {
   useEffect(() => {
     if (error) {
       setDbError(error);
-    } else if (user !== null) {
+    } else if (user) {
       try {
         const callback = (documents: DocumentSnapshot<DocumentData>) => {
           const data = documents.data();
@@ -47,8 +50,6 @@ export default function useMovieData() {
         console.error(err);
         setDbError(err);
       }
-    } else {
-      setDbError("Unexpected Error had occurred");
     }
   }, [user]);
 

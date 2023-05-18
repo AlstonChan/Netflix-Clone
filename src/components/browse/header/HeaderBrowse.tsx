@@ -27,11 +27,11 @@ const navItem: NavItemType[] = [
 
 interface HeaderBrowseProps {
   route: BrowseRoute;
-  openModal: boolean;
+  modalFull: boolean;
 }
 
 function HeaderBrowse(props: HeaderBrowseProps) {
-  const { route, openModal } = props;
+  const { route, modalFull } = props;
   const [activeNav, setActiveNav] = useState<BrowseRoute>("home");
 
   //set the styling of navbar, if it is on the very top,
@@ -78,7 +78,7 @@ function HeaderBrowse(props: HeaderBrowseProps) {
 
   return (
     <>
-      <header className={`${styles.main} ${openModal && styles.fixed}`}>
+      <header className={`${styles.main} ${modalFull && styles.fixed}`}>
         <div className={styles.container} style={scrollStyle}>
           <div className={styles.logoContainer}>
             <Image
@@ -92,6 +92,7 @@ function HeaderBrowse(props: HeaderBrowseProps) {
             {navItem.map((item: NavItemType) => {
               return (
                 <PrimaryNav
+                  key={item.route}
                   navDetails={item}
                   activeNav={activeNav}
                   handler={setActiveNav}

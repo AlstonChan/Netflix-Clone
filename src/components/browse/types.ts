@@ -9,10 +9,11 @@ export type DataType = {
   readonly title?: string;
   readonly original_title: string;
   readonly overview: string;
-  readonly release_date: string;
+  readonly first_air_date?: string;
+  readonly release_date?: string;
   readonly genre_ids: number[];
   readonly original_language: string;
-  readonly backdrop_path: string;
+  readonly backdrop_path?: string;
   readonly poster_path: string;
   readonly adult: boolean;
   readonly vote_average: 6.5;

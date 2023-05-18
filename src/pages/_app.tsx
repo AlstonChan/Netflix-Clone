@@ -12,9 +12,7 @@ const roboto = Roboto({
   variable: "--Roboto",
 });
 
-import { createContext, useEffect, useRef, useState } from "react";
-import { db } from "@/lib/firebase";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { createContext, useState } from "react";
 import {
   Hydrate,
   QueryClient,
@@ -22,6 +20,8 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import useAuthState from "src/hooks/useAuthState";
+import useMovieData from "src/hooks/firestore/useMovieData";
+import useUserData from "src/hooks/firestore/useUserData";
 
 import Notice from "@/components/common/notice/Notice";
 
@@ -29,7 +29,8 @@ import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import type { User } from "firebase/auth";
-import useUserData from "src/hooks/firestore/useUserData";
+import type { UserDataType } from "src/hooks/firestore/useUserData";
+import type { MovieDataType } from "src/hooks/firestore/useMovieData";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -41,59 +42,25 @@ type AppPropsWithLayout = AppProps & {
 
 type UserContextProps = {
   user: null | User;
-  error: null | User;
-  userData: any;
-  myMovieData: any;
-  listMovieData: any;
+  error: null | string;
+  userData: null | UserDataType;
+  movieData: null | MovieDataType;
 };
 
 export const UserContext = createContext<UserContextProps>({
   user: null,
   error: null,
   userData: null,
-  myMovieData: null,
-  listMovieData: null,
+  movieData: null,
 });
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [user, error] = useAuthState();
-  const [userData, dbError] = useUserData();
+  const [userData, userDbError] = useUserData();
+  const [movieData, movieDbError] = useMovieData();
   const [queryClient] = useState(() => new QueryClient());
-  // const [userData, setUserData] = useState(null);
-  const myMovieData = useRef();
-  const [listMovieData, setListMovieData] = useState();
 
   const getLayout = Component.getLayout || ((page) => page);
-
-  useEffect(() => {
-    if (user) {
-      try {
-        (async () => {
-          if (user) {
-            const eventSnapshot = onSnapshot(
-              doc(db, "mymovie", user.uid),
-              async (documents) => {
-                // For user that just sign up
-                if (documents.exists() === false) {
-                  console.info("no doc found");
-                  setDoc(doc(db, "mymovie", user.uid), {
-                    "user-main": [
-                      { movieID: null, addList: false, like: "none" },
-                    ],
-                  });
-                }
-
-                myMovieData.current = documents;
-                setListMovieData(documents);
-              }
-            );
-          }
-        })();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, [user]);
 
   return (
     <>
@@ -108,8 +75,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               user,
               error,
               userData,
-              myMovieData,
-              listMovieData,
+              movieData,
             }}
           >
             <div className={roboto.className}>

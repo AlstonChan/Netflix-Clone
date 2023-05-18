@@ -12,7 +12,6 @@ export default function SliderHandler({
   onClick,
   direction,
 }: SliderHandlerProps) {
-  console.log(styles[direction]);
   return (
     <span
       onClick={onClick}

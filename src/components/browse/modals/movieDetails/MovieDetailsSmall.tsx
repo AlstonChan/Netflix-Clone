@@ -1,28 +1,35 @@
-import styles from "./modals.module.scss";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+import styles from "./movieDetails.module.scss";
 import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
 
 import { genres } from "@/lib/movieGenres";
 
-export default function MovieDetails({ modalProps }) {
+import type { ModalType } from "../../types";
+
+interface MovieDetailsSmallProps {
+  modalProps: ModalType;
+}
+
+export default function MovieDetailsSmall(props: MovieDetailsSmallProps) {
+  const { modalProps } = props;
   const mov = modalProps.movieData;
+
+  console.log(mov);
+
   return (
-    <div>
+    <>
       {/* Movie Title */}
-      <div className={styles.title}>
-        <span className={styles.titleName}>{mov.title || mov.name} </span>
-      </div>
+      <h4 className={styles.title}>{mov.title || mov.name}</h4>
 
       {/* Show if movie is adult only */}
-      {mov.adult ? (
-        <div className={styles.adultMovies}>
-          <div className={styles.isAdultIcon}>
-            <Image src={adult} alt="18+ sign" unoptimized />{" "}
-          </div>
+      {mov.adult && (
+        <div className={styles.isAdultIcon}>
+          <Image src={adult} alt="18+ sign" width="40" height="40" />
         </div>
-      ) : (
-        ""
       )}
 
       {/* Movie/Tv shows release date */}
@@ -68,6 +75,6 @@ export default function MovieDetails({ modalProps }) {
               }
             })}
       </div>
-    </div>
+    </>
   );
 }

@@ -1,4 +1,7 @@
-import styles from "./modals.module.scss";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+import styles from "./movieDetails.module.scss";
 import adult from "@/public/images/icons/misc/adultOnly.png";
 
 import Image from "next/image";
@@ -6,43 +9,45 @@ import Image from "next/image";
 import { genres } from "@/lib/movieGenres";
 
 import ImageRender from "@chan_alston/image";
+import { responsive } from "@/styles/cssStyle";
 
-export default function MovieDetailsOpen({ modalProps }) {
+import type { ModalType } from "../../types";
+
+interface MovieDetailsFullProps {
+  modalProps: ModalType;
+}
+
+export default function MovieDetailsFull(props: MovieDetailsFullProps) {
+  const { modalProps } = props;
   const mov = modalProps.movieData;
+
   return (
-    <div className={styles.movieDetailsOpen}>
-      <div className={styles.movieDetailsOpenLeft}>
+    <div className={styles.bigContainer}>
+      {/* left side  */}
+      <div className={styles.left}>
         {/* Movie Title */}
-        <div className={styles.title}>
-          <span className={styles.titleNameOpen}>{mov.title || mov.name} </span>
-        </div>
+        <h4 className={`${styles.title} ${styles.big}`}>
+          {mov.title || mov.name}
+        </h4>
 
         {/* Show if movie is adult only */}
-        <div className={styles.desc}>
-          <span className={styles.descContent}>{mov.overview} </span>
-        </div>
+        <div className={styles.desc}>{mov.overview}</div>
 
         {/* Show if movie is adult only */}
-        {mov.adult ? (
-          <div className={styles.adultMovies}>
-            <div className={styles.isAdultIcon}>
-              <Image src={adult} alt="18+ sign" unoptimized />{" "}
-            </div>
+        {mov.adult && (
+          <div className={styles.isAdultIcon}>
+            <Image src={adult} alt="18+ sign" width="40" height="40" />
           </div>
-        ) : (
-          ""
         )}
 
         {/* Movie/Tv shows release date */}
-        <div className={styles.headingsOpen}>
-          <span>
-            <span className={styles.subHead}>Release Date:</span>{" "}
-            {mov.release_date || mov.first_air_date}{" "}
-          </span>
+        <div className={styles.header}>
+          <span className={styles.subHead}>Release Date:</span>{" "}
+          {mov.release_date || mov.first_air_date}{" "}
         </div>
 
         {/* Movie/Tv shows genres */}
-        <div className={styles.headingsOpen}>
+        <div className={styles.header}>
           <span className={styles.subHead}>Genres:</span>{" "}
           {mov.genre_ids
             ? mov.genre_ids.map((ids, index) => {
@@ -82,7 +87,7 @@ export default function MovieDetailsOpen({ modalProps }) {
         </div>
 
         {/* Movie/Tv shows Original Language */}
-        <div className={styles.headingsOpen}>
+        <div className={styles.header}>
           <span>
             <span className={styles.subHead}>Original Language:</span>{" "}
             {mov.original_language.toUpperCase()}{" "}
@@ -90,37 +95,30 @@ export default function MovieDetailsOpen({ modalProps }) {
         </div>
 
         {/* Movie/Tv shows Average user rating Score */}
-        <div className={styles.headingsOpen}>
-          <span>
-            <span className={styles.subHead}>Average User Score:</span>{" "}
-            <span
-              style={
-                mov.vote_average >= 5
-                  ? { color: "green" }
-                  : { color: "#d61212" }
-              }
-            >
-              <strong>{mov.vote_average} </strong>
-            </span>
+        <div className={styles.header}>
+          <span className={styles.subHead}>Average User Score:</span>{" "}
+          <span className={mov.vote_average >= 5 ? styles.green : styles.red}>
+            <strong>{mov.vote_average} </strong>
           </span>
         </div>
 
         {/* Movie/Tv shows Total user vote */}
-        <div className={styles.headingsOpen}>
-          <span>
-            <span className={styles.subHead}>Total User Vote:</span>{" "}
-            <span style={mov.vote_count <= 2000 ? { color: "#de8519" } : {}}>
-              {mov.vote_count}{" "}
-            </span>
+        <div className={styles.header}>
+          <span className={styles.subHead}>Total User Vote:</span>{" "}
+          <span className={mov.vote_count <= 2000 ? styles.warn : ""}>
+            {mov.vote_count}{" "}
           </span>
         </div>
       </div>
-      <div className={styles.movieDetailsOpenRight}>
-        <div className={styles.imageContainerPoster}>
+
+      {/* right side  */}
+      <div className={styles.right}>
+        <div className={styles.imgContainer}>
           <ImageRender
             src={`https://image.tmdb.org/t/p/w500${mov.poster_path}`}
             w="500px"
             h="750px"
+            style={responsive}
             alt="Movie Poster"
           />
         </div>

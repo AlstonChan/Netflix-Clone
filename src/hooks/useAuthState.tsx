@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import type { User, Auth } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
-export default function useAuthState() {
+export default function useAuthState(): [User | null, string | null] {
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [error, setError] = useState<any | null>(null);
 
