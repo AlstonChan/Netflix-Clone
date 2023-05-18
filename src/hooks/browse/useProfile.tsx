@@ -4,7 +4,7 @@
 import { useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
+import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayout";
 
 export default function useProfile() {
   // set the current active profile (user)

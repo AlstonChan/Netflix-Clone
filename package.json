@@ -22,7 +22,6 @@
   "dependencies": {
     "@chan_alston/image": "^1.0.3",
     "@tanstack/react-query": "^4.29.5",
-    "axios": "^0.27.2",
     "crypto-js": "4.1.1",
     "firebase": "^9.22.0",
     "framer-motion": "^10.12.12",

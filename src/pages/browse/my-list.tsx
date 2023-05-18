@@ -22,9 +22,8 @@ import MainBrowse from "@/components/browse/common/MainBrowse";
 import Search from "@/components/browse/common/Search";
 import Loader from "@/components/Loader";
 
-import type { UseMutationResult } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
-import type { DataListType } from "@/components/browse/types";
+import type { DataListType, ListDataType } from "@/components/browse/types";
 
 export default function MyList() {
   const [movieData, dbError] = useMovieData();
@@ -41,36 +40,24 @@ export default function MyList() {
   const { profile, switchPage } = useProfile();
 
   // To query data for Cards, page main data
-  const { data, isLoading, mutate }: UseMutationResult<DataListType[]> =
-    useMutation({
-      mutationFn: (listData) =>
-        fetchMoviesDB("my-list", getAbsoluteURL("/api/fetchmovie"), listData),
-      mutationKey: ["moviesDB", "my-list"],
-    });
+  const { data, mutate } = useMutation({
+    mutationFn: (listData: ListDataType) =>
+      fetchMoviesDB("my-list", getAbsoluteURL("/api/fetchmovie"), listData),
+    mutationKey: ["moviesDB", "my-list"],
+    cacheTime: 600,
+  });
 
   useEffect(() => {
     if (movieData && profile) {
       if (movieData[profile]) {
         mutate({
           new: movieData[profile],
-          last: latestData,
+          prev: latestData,
         });
       } else {
         mutate({
-          new: [
-            {
-              addList: false,
-              like: "none",
-              movieID: null,
-            },
-          ],
-          last: [
-            {
-              addList: false,
-              like: "none",
-              movieID: null,
-            },
-          ],
+          new: [{ addList: false, like: "none", movieID: null }],
+          prev: null,
         });
       }
     }

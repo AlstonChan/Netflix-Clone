@@ -14,7 +14,7 @@ import type { DataType } from "../types";
 import type { MouseEvent, ReactElement } from "react";
 import type { ToggleModalType } from "src/hooks/browse/useModal";
 
-type MovieListType = {
+export type MovieListType = {
   data: DataType;
 };
 interface ConstantListProps {
@@ -33,18 +33,18 @@ export default function ConstantList({ modal, movieList }: ConstantListProps) {
 
     const eventType = e.type;
 
+    const position =
+      element.dataset.num === "0"
+        ? "leftEdge"
+        : element.dataset.num === itemsInRow.toString()
+        ? "rightEdge"
+        : "middle";
+    let currentData = movieList.filter((mov) => {
+      if (element.dataset.key == mov.data.id.toString()) {
+        return mov.data;
+      }
+    });
     if (eventType === "mouseenter") {
-      const position =
-        element.dataset.num === "0"
-          ? "leftEdge"
-          : element.dataset.num === itemsInRow.toString()
-          ? "rightEdge"
-          : "middle";
-      let currentData = movieList.filter((mov) => {
-        if (element.dataset.key == mov.data.id.toString()) {
-          return mov.data;
-        }
-      });
       setDelay(
         setTimeout(() => {
           modal(eventType, e, currentData[0].data, position);
@@ -52,7 +52,7 @@ export default function ConstantList({ modal, movieList }: ConstantListProps) {
       );
     } else if (eventType === "mouseleave") {
       if (delay) clearTimeout(delay);
-      modal(eventType);
+      modal(eventType, e, currentData[0].data, position);
     }
   }
 

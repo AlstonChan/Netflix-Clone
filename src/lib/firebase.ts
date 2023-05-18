@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 // the maximum number of user-sec account,
 // the default amount of add on account is 4.
 // This means that the total amount of account

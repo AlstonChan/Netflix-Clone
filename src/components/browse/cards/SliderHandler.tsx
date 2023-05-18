@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import styles from "./cards.module.scss";
 import navArrow from "@/public/images/icons/arrow/nav_arrow.svg";
 

@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
+import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayout";
 
 import type { MutableRefObject, MouseEvent } from "react";
 import type { PackagePlanType } from "./types";

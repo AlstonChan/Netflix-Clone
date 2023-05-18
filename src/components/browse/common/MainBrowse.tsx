@@ -11,6 +11,7 @@ import Cards from "@/components/browse/cards/Cards";
 
 import type { CSSProperties } from "react";
 import type { BrowseRoute } from "../types";
+import ConstantList, { MovieListType } from "../cards/ConstantList";
 
 interface MainBrowseProps {
   route: BrowseRoute;
@@ -39,16 +40,23 @@ export default function MainBrowse({ route }: MainBrowseProps) {
             )}
           </div>
           {data ? (
-            data.map((movie, index) => {
-              return (
-                <Cards
-                  movieSet={movie.data.results}
-                  movieGenre={movie.genre}
-                  modal={toggleModal}
-                  key={index}
-                />
-              );
-            })
+            route === "my-list" ? (
+              <ConstantList
+                modal={toggleModal}
+                movieList={data as unknown as MovieListType[]}
+              />
+            ) : (
+              data.map((movie, index) => {
+                return (
+                  <Cards
+                    movieSet={movie.data.results}
+                    movieGenre={movie.genre}
+                    modal={toggleModal}
+                    key={index}
+                  />
+                );
+              })
+            )
           ) : (
             <>
               <PlaceholderCard />

@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 import { useState, useContext } from "react";
 import { signOut } from "firebase/auth";
-import useIsomorphicLayoutEffect from "@/lib/useIsomorphicLayout";
+import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayout";
 import { UserContext } from "@/pages/_app";
 import { auth } from "@/lib/firebase";
 import { responsive } from "@/styles/cssStyle";

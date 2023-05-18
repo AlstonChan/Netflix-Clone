@@ -74,7 +74,7 @@ export default function EditProfile(props: EditProfileProps) {
 
   // set username in input upon load
   useEffect(() => {
-    if (inputRef.current && editUserId) {
+    if (inputRef.current && editUserId && userData) {
       inputRef.current.value = userData[editUserId].name;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,7 +165,7 @@ export default function EditProfile(props: EditProfileProps) {
     }
   }
 
-  if (editUserId === null) return <Loader />;
+  if (editUserId === null || !userData) return <Loader />;
 
   const filledBtn = `${styles.btn} ${styles.fit}`;
   const outlineBtn = `${styles.btn} ${styles.outline}`;

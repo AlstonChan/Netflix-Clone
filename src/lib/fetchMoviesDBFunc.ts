@@ -1,34 +1,59 @@
-import { BrowseRoute } from "@/components/browse/types";
-import axios from "axios";
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+import type { BrowseRoute, ListDataType } from "@/components/browse/types";
 
 // function that run on both server and client side
 // to connect to the server to fetch movie data
 export default async function fetchMoviesDB(
   requestedData: BrowseRoute | "search",
   endpoint: string,
-  myListData: any = null,
+  myListData: ListDataType | null = null,
   searchQuery: string | null = null
 ) {
   if (!requestedData) return;
   if (myListData === null && searchQuery === null) {
-    const result = await axios.post(endpoint, {
+    const bodyData = {
       requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
       requestedData: requestedData,
+    };
+    const result = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(bodyData),
     });
-    return result.data.movies;
-  } else if (myListData === null && searchQuery !== null) {
-    const result = await axios.post(endpoint, {
+    const data = await result.json();
+
+    return data.movies;
+  }
+
+  if (myListData === null && searchQuery !== null) {
+    const bodyData = {
       requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
       requestedData: requestedData,
       additionData: searchQuery,
+    };
+    const result = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(bodyData),
     });
-    return result.data.movies;
-  } else if (myListData !== null && searchQuery === null) {
-    const result = await axios.post(endpoint, {
+    const data = await result.json();
+
+    return data.movies;
+  }
+
+  if (myListData !== null && searchQuery === null) {
+    const bodyData = {
       requiredKey: "CabtUaWSst3xez8FjgSbGyqmy",
       requestedData: requestedData,
       additionData: myListData,
+    };
+
+    const result = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(bodyData),
     });
-    return result.data.movies;
+    const data = await result.json();
+
+    return data.movies;
   }
 }
