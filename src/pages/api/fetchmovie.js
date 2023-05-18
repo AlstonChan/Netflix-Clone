@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         }
         res.status(200).json({ movies });
         res.end();
-      } else if (requestedData === "tvs") {
+      } else if (requestedData === "tv-shows") {
         // Browse TV Shows page
         const movies = [];
         let pageIndex = 1;
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         }
         res.status(200).json({ movies });
         res.end();
-      } else if (requestedData === "new") {
+      } else if (requestedData === "trending") {
         // Browse Trending page
         const movies = [];
         let pageIndex = 1;
@@ -64,6 +64,7 @@ export default async function handler(req, res) {
         // Browse My List Page
         const movies = [];
         const movieLists = [];
+        console.log(additionData);
 
         if (additionData.last === null) {
           for (let x = 0; x < additionData.new.length; x++) {

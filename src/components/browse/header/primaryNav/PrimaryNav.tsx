@@ -21,7 +21,7 @@ export default function PrimaryNav(props: PrimaryNavProps) {
     navDetails.route === "home" ? `/browse` : `/browse/${navDetails.route}`;
 
   const linkClass = `${styles.option} ${
-    currentRoute === activeNav && styles.active
+    navDetails.route === activeNav && styles.active
   }`;
 
   return (

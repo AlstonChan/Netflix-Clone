@@ -11,6 +11,7 @@
     "firebasestorage",
     "firebaseui",
     "firestore",
+    "Geralt",
     "googleusercontent",
     "msapplication",
     "mstile",
@@ -22,11 +23,13 @@
     "plannum",
     "regform",
     "remoteconfig",
+    "Rivia",
     "SAMEORIGIN",
     "signup",
     "tanstack",
     "tmdb",
     "Unauthed",
-    "unoptimized"
+    "unoptimized",
+    "Witcher"
   ]
 }

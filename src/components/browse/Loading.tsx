@@ -1,4 +1,4 @@
-import styles from "@/styles/browse/browse.module.css";
+import styles from "./browse.module.scss";
 import NetflixLogo from "@/public/images/logo.png";
 import Spinner from "@/public/images/browse/spinner.png";
 
@@ -30,7 +30,6 @@ export default function LoadingBrowse({ profile }) {
               }
               w="320px"
               h="320px"
-              objFit="cover"
               className={styles.profilePic}
               alt="User profile"
               style={fill}

@@ -18,8 +18,6 @@ export default function MovieDetailsSmall(props: MovieDetailsSmallProps) {
   const { modalProps } = props;
   const mov = modalProps.movieData;
 
-  console.log(mov);
-
   return (
     <>
       {/* Movie Title */}

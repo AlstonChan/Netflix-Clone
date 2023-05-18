@@ -6,7 +6,7 @@ import { BrowseContext } from "./BrowseContext";
 
 import Memo from "@/components/browse/Memo";
 import PlaceholderCard from "@/components/browse/cards/PlaceholderCard";
-import FeaturedBrowse from "@/components/browse/FeaturedBrowse";
+import FeaturedBrowse from "@/components/browse/hero/FeaturedBrowse";
 import Cards from "@/components/browse/cards/Cards";
 
 import type { CSSProperties } from "react";
@@ -25,12 +25,18 @@ export default function MainBrowse({ route }: MainBrowseProps) {
     width: "100%",
   };
 
+  const routeIsHomeOrTv = route === "home" || route === "tv-shows";
+
   return (
     toggleModal && (
       <Memo data={data}>
         <>
           <div style={featuredContainer}>
-            <FeaturedBrowse url={route} />
+            {routeIsHomeOrTv ? (
+              <FeaturedBrowse route={route} />
+            ) : (
+              <div style={{ paddingTop: "74px" }}></div>
+            )}
           </div>
           {data ? (
             data.map((movie, index) => {

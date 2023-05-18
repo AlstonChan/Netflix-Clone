@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
 import styles from "./interactionMenu.module.scss";
-import browseStyles from "@/styles/browse/browse.module.css";
+import featuredStyles from "../../hero/featuredBrowse.module.scss";
 import ThumbsDownSvg from "@/icons/ThumbsDownSvg";
 import ThumbsUpSvg from "@/icons/ThumbsUpSvg";
 import PlusSvg from "@/icons/PlusSvg";
@@ -76,15 +76,20 @@ export default function InteractionMenu(props: InteractionMenuProps) {
             />
           </div>
         ) : (
-          <button
-            type="button"
-            className={`${browseStyles.playBtn} ${styles.playBtn}`}
-          >
-            <div className={browseStyles.btnImage}>
-              <Image src={playBtn} alt="" style={responsive} />
-            </div>
-            <span className={browseStyles.playBtnTxt}>Play</span>
-          </button>
+          <div className={styles.btnGroup}>
+            <button type="button" className={featuredStyles.btn}>
+              <div className={featuredStyles.iconBox}>
+                <Image
+                  src={playBtn}
+                  alt=""
+                  width="20"
+                  height="20"
+                  className={`${styles.icon} ${styles.sml}`}
+                />
+              </div>
+              <span className={featuredStyles.txt}>Play</span>
+            </button>
+          </div>
         )}
         {latestData.addList ? (
           <button

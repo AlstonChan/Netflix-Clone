@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
-import styles from "@/styles/browse/browse.module.css";
+import styles from "@/components/browse/browse.module.scss";
 
 import Head from "next/head";
 
@@ -38,10 +38,11 @@ export default function Browse() {
   // the loading component will be hid away
   const [firstLoad, setFirstLoad] = useState(true);
 
+  // To query search data using searchComponent state
   const searchMutation = useMutation({
     mutationFn: (query: string | null) =>
       fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query),
-  }); // To query search data using searchRef hook input
+  });
 
   const { modal, modalFull, scrollPosition, modalToggle, toggleModal } =
     useModal();
@@ -139,7 +140,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["moviesDB", "hom"], () =>
+  await queryClient.prefetchQuery(["moviesDB", "home"], () =>
     fetchMoviesDB("home", endpoint)
   );
 
