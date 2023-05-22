@@ -55,7 +55,7 @@ export const UserContext = createContext<UserContextProps>({
 });
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const [user, error] = useAuthState();
+  const [user, isLoading, error] = useAuthState();
   const [userData, userDbError] = useUserData();
   const [movieData, movieDbError] = useMovieData();
   const [queryClient] = useState(() => new QueryClient());

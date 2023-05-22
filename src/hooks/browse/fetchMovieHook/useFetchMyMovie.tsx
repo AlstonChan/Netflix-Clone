@@ -15,7 +15,7 @@ import {
   updateDocument,
   DataConditionType,
 } from "./helper";
-import { redBgWhiteTxt, yellowBgCyanTxt } from "./helper";
+import { yellowBgCyanTxt } from "./helper";
 
 import type { DataType } from "@/components/browse/types";
 import type { ActionType, MovieType, UserDataType } from "./helper";
@@ -36,7 +36,7 @@ export default function useFetchMyMovie(
   movieDetails: DataType,
   userAccount?: string
 ): useFetchMyMovieReturns {
-  const [user, userError] = useAuthState();
+  const [user, isLoading, userError] = useAuthState();
   const [userData, userDbError] = useUserData();
   const [movieData, movieDbError] = useMovieData();
 

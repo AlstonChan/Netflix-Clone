@@ -69,7 +69,8 @@ export default function MovieDetailsFull(props: MovieDetailsFullProps) {
                   );
                 }
               })
-            : mov.genres.map((genre, index) => {
+            : mov.genres &&
+              mov.genres.map((genre, index) => {
                 if (index != 0) {
                   return (
                     <span className={styles.genre} key={index}>

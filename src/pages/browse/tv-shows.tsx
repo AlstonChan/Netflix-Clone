@@ -14,24 +14,22 @@ import {
 } from "@tanstack/react-query";
 import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
+import { BrowseContext } from "@/components/browse/common/BrowseContext";
 
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
 import Profile from "@/components/browse/profile/Profile";
 import FooterBrowse from "@/components/footer/FooterBrowse";
-
 import Modals from "@/components/browse/modals/Modals";
-
 import Loader from "@/components/Loader";
 import useProfile from "src/hooks/browse/useProfile";
 import useModal from "src/hooks/browse/useModal";
+import Search from "@/components/browse/common/Search";
+import MainBrowse from "@/components/browse/common/MainBrowse";
 
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
 import type { DataListType } from "@/components/browse/types";
-import { BrowseContext } from "@/components/browse/common/BrowseContext";
-import Search from "@/components/browse/common/Search";
-import MainBrowse from "@/components/browse/common/MainBrowse";
 
 export default function TvShows() {
   // To query search data using searchComponent state

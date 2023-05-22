@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import {
   browserSessionPersistence,
+  browserLocalPersistence,
   setPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -19,8 +20,9 @@ import InputEmail from "@/components/common/input/InputEmail";
 import InputPassword from "@/components/common/input/InputPassword";
 
 import type { FormEvent } from "react";
+import getAbsoluteURL from "@/lib/getAbsoluteURL";
 
-export default function LoginForm() {
+export default function LoginForm({ token }: { token: string }) {
   const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -36,22 +38,6 @@ export default function LoginForm() {
     const passwordRef = passInputRef.current;
     const rememberRef = rememberMeRef.current;
 
-    const loginHandler = async (email: string, password: string) => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        console.log("Logged in!\n", userCredential);
-        router.replace("/browse");
-        setShowErrorBox(false);
-      } catch (error: any) {
-        setShowErrorBox(true);
-        console.error(error);
-      }
-    };
-
     if (emailRef !== null && passwordRef !== null && rememberRef !== null) {
       const email = emailRef.value;
       const password = passwordRef.value;
@@ -64,12 +50,38 @@ export default function LoginForm() {
 
       if (email.match(regexValidateEmail)) {
         if (passwordLength) {
-          if (rememberMe) {
-            loginHandler(email, password);
-          } else {
-            setPersistence(auth, browserSessionPersistence).then(() => {
-              return loginHandler(email, password);
+          try {
+            await setPersistence(
+              auth,
+              rememberMe ? browserLocalPersistence : browserSessionPersistence
+            );
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            console.log("Logged in!\n", userCredential);
+
+            const body = {
+              idToken: await userCredential.user.getIdToken(),
+              csrfToken: token,
+              tokenIsRemembered: rememberMe,
+            };
+            const res = await fetch(getAbsoluteURL("/api/session_login"), {
+              method: "POST",
+              body: JSON.stringify(body),
             });
+            const data = await res.json();
+            if (res.status === 200 && data.status === "success") {
+              router.replace("/browse");
+              setShowErrorBox(false);
+            } else {
+              console.error(data.status);
+              setShowErrorBox(true);
+            }
+          } catch (error: any) {
+            setShowErrorBox(true);
+            console.error(error);
           }
         } else passwordRef.focus();
       } else emailRef.focus();

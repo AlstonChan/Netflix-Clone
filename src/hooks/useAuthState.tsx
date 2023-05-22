@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import type { User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
-export default function useAuthState(): [User | null, string | null] {
+export default function useAuthState(): [User | null, boolean, string | null] {
   const [authUser, setAuthUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any | null>(null);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function useAuthState(): [User | null, string | null] {
       const authListen = onAuthStateChanged(auth, (user) => {
         setAuthUser(user);
       });
+      setIsLoading(false);
 
       return () => authListen();
     } catch (error: any) {
@@ -24,5 +26,5 @@ export default function useAuthState(): [User | null, string | null] {
     }
   }, [auth]);
 
-  return [authUser, error];
+  return [authUser, isLoading, error];
 }

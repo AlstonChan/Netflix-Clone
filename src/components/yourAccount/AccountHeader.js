@@ -5,7 +5,7 @@ import NetflixLogo from "@/public/images/logo.png";
 import Image from "next/image";
 import router from "next/router";
 
-import UserComponent from "../browse/header/UserComponent";
+import UserComponent from "@/components/browse/header/userComponent/UserComponent";
 import { responsive } from "@/styles/cssStyle";
 
 export default function AccountHeader() {

@@ -9,7 +9,7 @@ import ImageRender from "@chan_alston/image";
 import { UserContext } from "@/pages/_app";
 import { fill } from "@/styles/cssStyle";
 
-export default function LoadingBrowse({ profile }) {
+export default function LoadingBrowse({ profile }: any) {
   const { userData } = useContext(UserContext);
 
   return (

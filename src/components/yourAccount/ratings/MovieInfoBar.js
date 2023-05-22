@@ -1,44 +1,43 @@
 import baseStyles from "@/styles/yourAccount/yourAccount.module.css";
-import modalStyles from "@/styles/browse/modals.module.css";
+import modalStyles from "@/components/browse/modals/modals.module.scss";
 import styles from "@/styles/yourAccount/ratings.module.css";
 import ThumbsUpSvg from "../../icons/ThumbsUpSvg";
 import ThumbsDownSvg from "../../icons/ThumbsDownSvg";
 import PlusSvg from "../../icons/PlusSvg";
 import CancelSvg from "../../icons/CancelSvg";
 
-import useFetchMyMovie from "@/lib/useFetchMyMovie";
 import { useContext } from "react";
 import { UserContext } from "@/pages/_app";
 
 export default function MovieInfoBar({ movDetails, currentUser }) {
-  const { user, loading } = useContext(UserContext);
-  const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
-    movDetails.movieID,
-    movDetails,
-    currentUser
-  );
+  // const { user, loading } = useContext(UserContext);
+  // const [currentMovieData, latestData, setMovieData] = useFetchMyMovie(
+  //   movDetails.movieID,
+  //   movDetails,
+  //   currentUser
+  // );
 
-  const actionToggle = async (e) => {
-    if (user && !loading) {
-      const action = e.currentTarget.dataset.action;
-      setMovieData(movDetails.movieID, movDetails.title, action);
-    }
-  };
+  // const actionToggle = async (e) => {
+  //   if (user && !loading) {
+  //     const action = e.currentTarget.dataset.action;
+  //     setMovieData(movDetails.movieID, movDetails.title, action);
+  //   }
+  // };
 
-  if (movDetails.movieID === null) {
-    return null;
-  } else if (movDetails.like === "Disliked" && movDetails.addList !== true) {
-    return null;
-  } else if (movDetails.like === "none" && movDetails.addList !== true) {
-    return null;
-  }
+  // if (movDetails.movieID === null) {
+  //   return null;
+  // } else if (movDetails.like === "Disliked" && movDetails.addList !== true) {
+  //   return null;
+  // } else if (movDetails.like === "none" && movDetails.addList !== true) {
+  //   return null;
+  // }
 
-  const date = new Date(movDetails.lastUpdate);
+  // const date = new Date(movDetails.lastUpdate);
 
   return (
     <>
       <section className={styles.bar}>
-        <p className={styles.movDate}>{date.toLocaleDateString("en-GB")}</p>
+        {/* <p className={styles.movDate}>{date.toLocaleDateString("en-GB")}</p>
         <h3 className={styles.movTitle}>{movDetails.title} </h3>
         <div className={styles.iconGroup}>
           <div
@@ -88,7 +87,7 @@ export default function MovieInfoBar({ movDetails, currentUser }) {
               <PlusSvg stColor="#000" />
             </div>
           )}
-        </div>
+        </div> */}
       </section>
       <hr className={baseStyles.divider} />
     </>

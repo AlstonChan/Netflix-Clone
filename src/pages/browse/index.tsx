@@ -17,6 +17,7 @@ import getAbsoluteURL from "@/lib/getAbsoluteURL";
 import useModal from "src/hooks/browse/useModal";
 import useProfile from "src/hooks/browse/useProfile";
 import { BrowseContext } from "@/components/browse/common/BrowseContext";
+import ValidateUserState from "@/components/common/ValidateUserState";
 
 import Loading from "@/components/browse/Loading";
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
@@ -32,7 +33,7 @@ import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
 import type { DataListType } from "@/components/browse/types";
 
-export default function Browse() {
+const Browse = () => {
   // To assist profile state hook, show profile loading when loading
   // for the first time. SO when changing to page "TV Shows or Trending",
   // the loading component will be hid away
@@ -130,12 +131,23 @@ export default function Browse() {
       </>
     );
   }
-}
+};
+
+export default Browse;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = context.req.headers.host;
 
   if (!host) throw new Error("host is not found");
+
+  const isAuth = await ValidateUserState(context, host);
+  if (!isAuth)
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
 
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();

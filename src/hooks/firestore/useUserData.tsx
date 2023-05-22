@@ -13,7 +13,7 @@ export type UserDataType = DocumentData | null;
 const collectionName = "Acc";
 
 export default function useUserData(): [UserDataType, string | null] {
-  const [user, error] = useAuthState();
+  const [user, isLoading, error] = useAuthState();
   const [userData, setUserData] = useState<UserDataType>(null);
   const [dbError, setDbError] = useState<string | null>(null);
 

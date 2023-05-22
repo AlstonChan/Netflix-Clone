@@ -25,7 +25,7 @@ import Loader from "@/components/Loader";
 import type { CSSProperties } from "react";
 import type { DataListType, ListDataType } from "@/components/browse/types";
 
-export default function MyList() {
+const MyList = () => {
   const [movieData, dbError] = useMovieData();
   const [latestData, setLatestData] = useState<null | DataListType[]>(null);
 
@@ -126,4 +126,6 @@ export default function MyList() {
       </>
     );
   }
-}
+};
+
+export default MyList;

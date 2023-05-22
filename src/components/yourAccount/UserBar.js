@@ -1,5 +1,4 @@
 import styles from "@/styles/yourAccount/yourAccount.module.css";
-import stylesProfile from "@/styles/browse/secondaryHeader.module.css";
 import navArrow from "@/public/images/icons/arrow/nav_arrow black.svg";
 
 import Image from "next/image";
@@ -40,7 +39,6 @@ export default function UserBar({ userData, currentUser }) {
             w="160"
             h="160"
             objFit="cover"
-            className={stylesProfile.profilePic}
             style={fill}
           />
         </div>

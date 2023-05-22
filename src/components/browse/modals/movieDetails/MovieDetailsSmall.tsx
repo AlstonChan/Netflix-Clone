@@ -57,7 +57,8 @@ export default function MovieDetailsSmall(props: MovieDetailsSmallProps) {
                 );
               }
             })
-          : mov.genres.map((genre, index) => {
+          : mov.genres &&
+            mov.genres.map((genre, index) => {
               if (index != 0) {
                 return (
                   <span className={styles.genre} key={index}>

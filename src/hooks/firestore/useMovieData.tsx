@@ -13,7 +13,7 @@ export type MovieDataType = DocumentData | undefined;
 const collectionName = "mymovie";
 
 export default function useMovieData(): [MovieDataType, string | null] {
-  const [user, error] = useAuthState();
+  const [user, isLoading, error] = useAuthState();
   const [movieData, setMovieData] = useState<MovieDataType>();
   const [dbError, setDbError] = useState<string | null>(null);
 

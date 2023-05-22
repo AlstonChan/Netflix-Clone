@@ -8,10 +8,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
+import useAuthState from "src/hooks/useAuthState";
 import { signOut } from "firebase/auth";
 import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayout";
-import { UserContext } from "@/pages/_app";
 import { auth } from "@/lib/firebase";
 import { responsive } from "@/styles/cssStyle";
 
@@ -27,7 +27,7 @@ export default function Header({
   mode = "dark",
 }: HeaderProps) {
   const router = useRouter();
-  const { user, loading } = useContext(UserContext);
+  const [user, loading] = useAuthState();
   //Set button text according to the auth state (Sign in/Sign out)
   const [isSignIn, setIsSignIn] = useState(false);
 
