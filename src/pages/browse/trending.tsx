@@ -4,8 +4,9 @@
 import styles from "@/components/browse/browse.module.scss";
 
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
-import React from "react";
+import React, { Suspense } from "react";
 import {
   dehydrate,
   QueryClient,
@@ -22,10 +23,13 @@ import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
 import Profile from "@/components/browse/profile/Profile";
 import FooterBrowse from "@/components/footer/FooterBrowse";
 import Modals from "@/components/browse/modals/Modals";
-import Loader from "@/components/Loader";
-import Search from "@/components/browse/common/Search";
+import Loader from "@/components/common/Loader/Loader";
 import MainBrowse from "@/components/browse/common/MainBrowse";
 import BrowseLayout from "@/components/browse/BrowseLayout";
+
+const Search = dynamic(() => import("@/components/browse/common/Search"), {
+  suspense: true,
+});
 
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
@@ -102,7 +106,9 @@ const Trending = () => {
               <HeaderBrowse route="trending" modalFull={modalFull} />
               <main className={styles.main}>
                 {searchMutation.data || searchMutation.isLoading ? (
-                  <Search />
+                  <Suspense fallback="">
+                    <Search />
+                  </Suspense>
                 ) : (
                   <MainBrowse route="trending" />
                 )}

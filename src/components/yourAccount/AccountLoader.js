@@ -1,4 +1,4 @@
-import stylesSpin from "@/styles/loader.module.css";
+import stylesSpin from "@/components/common/Loader/loader.module.scss";
 import Spinner from "@/public/images/browse/spinner.png";
 
 import Image from "next/image";

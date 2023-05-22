@@ -10,7 +10,7 @@ import { useState, Suspense } from "react";
 
 import Header from "@/components/common/header/Header";
 import UserProfile from "./userProfile/UserProfile";
-import Loader from "@/components/Loader";
+import Loader from "@/components/common/Loader/Loader";
 
 const AddProfile = dynamic(
   () => import("@/components/browse/profile/addProfile/AddProfile"),

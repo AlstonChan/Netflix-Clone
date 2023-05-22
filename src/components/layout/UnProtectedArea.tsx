@@ -1,8 +1,11 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import { useRouter } from "next/router";
 
 import useAuthState from "src/hooks/useAuthState";
 
-import Loader from "../Loader";
+import Loader from "../common/Loader/Loader";
 
 import type { ReactElement } from "react";
 

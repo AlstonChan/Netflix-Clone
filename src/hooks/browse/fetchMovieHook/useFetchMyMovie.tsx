@@ -1,6 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
 import { useRef, useEffect, useState } from "react";
 import { useIsomorphicLayoutEffect } from "framer-motion";
-import { doc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import { db } from "@/lib/firebase";

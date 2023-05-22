@@ -3,9 +3,10 @@
 
 import styles from "@/components/browse/browse.module.scss";
 
+import dynamic from "next/dynamic";
 import Head from "next/head";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { BrowseContext } from "@/components/browse/common/BrowseContext";
 import { useMutation } from "@tanstack/react-query";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
@@ -19,9 +20,12 @@ import Profile from "@/components/browse/profile/Profile";
 import FooterBrowse from "@/components/footer/FooterBrowse";
 import Modals from "@/components/browse/modals/Modals";
 import MainBrowse from "@/components/browse/common/MainBrowse";
-import Search from "@/components/browse/common/Search";
-import Loader from "@/components/Loader";
+import Loader from "@/components/common/Loader/Loader";
 import BrowseLayout from "@/components/browse/BrowseLayout";
+
+const Search = dynamic(() => import("@/components/browse/common/Search"), {
+  suspense: true,
+});
 
 import type { CSSProperties } from "react";
 import type { DataListType, ListDataType } from "@/components/browse/types";
@@ -116,7 +120,9 @@ const MyList = () => {
               <HeaderBrowse route="my-list" modalFull={modalFull} />
               <main className={styles.main}>
                 {searchMutation.data || searchMutation.isLoading ? (
-                  <Search />
+                  <Suspense fallback="">
+                    <Search />
+                  </Suspense>
                 ) : (
                   <MainBrowse route="my-list" />
                 )}

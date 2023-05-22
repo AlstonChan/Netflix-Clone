@@ -10,7 +10,7 @@ import { Suspense, useState } from "react";
 
 import Header from "@/components/common/header/Header";
 import UserProfile from "@/components/browse/profile/userProfile/UserProfile";
-import Loader from "@/components/Loader";
+import Loader from "@/components/common/Loader/Loader";
 import ProtectedArea from "@/components/layout/ProtectedArea";
 
 const EditProfile = dynamic(

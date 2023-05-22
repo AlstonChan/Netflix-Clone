@@ -14,7 +14,7 @@ import useAuthState from "src/hooks/useAuthState";
 
 import { responsive } from "@/styles/cssStyle";
 
-import Loader from "@/components/Loader";
+import Loader from "@/components/common/Loader/Loader";
 import SnackBar from "@/components/common/snackbar/SnackBar";
 
 import type { EventType } from "src/hooks/useUpdateUserAcc";
