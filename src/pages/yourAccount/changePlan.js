@@ -6,8 +6,9 @@ import loginStyles from "@/styles/login.module.scss";
 import Head from "next/head";
 import Link from "next/link";
 
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "@/pages/_app";
+import { useEffect, useState } from "react";
+import useUserData from "src/hooks/firestore/useUserData";
+import useAuthState from "src/hooks/useAuthState";
 
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import StreamPlanBar from "@/components/yourAccount/StreamPlanBar";
@@ -16,7 +17,8 @@ import AccountHeader from "@/components/yourAccount/AccountHeader";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export default function ChangePlan() {
-  const { user, userData } = useContext(UserContext);
+  const [user, isLoading, error] = useAuthState();
+  const [userData, dbError] = useUserData();
   const [chosenBar, setChosenBar] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(false);
 

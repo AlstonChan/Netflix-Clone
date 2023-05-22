@@ -11,6 +11,7 @@ import { Suspense, useState } from "react";
 import Header from "@/components/common/header/Header";
 import UserProfile from "@/components/browse/profile/userProfile/UserProfile";
 import Loader from "@/components/Loader";
+import ProtectedArea from "@/components/layout/ProtectedArea";
 
 const EditProfile = dynamic(
   () => import("@/components/browse/profile/editProfile/EditProfile"),
@@ -20,6 +21,8 @@ const AddProfile = dynamic(
   () => import("@/components/browse/profile/addProfile/AddProfile"),
   { suspense: true }
 );
+
+import type { ReactElement } from "react";
 
 export type EditUserIdType = string | null;
 
@@ -69,3 +72,7 @@ export default function ManageProfile() {
     </>
   );
 }
+
+ManageProfile.getLayout = (page: ReactElement) => {
+  return <ProtectedArea>{page}</ProtectedArea>;
+};

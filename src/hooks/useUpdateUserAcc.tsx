@@ -2,9 +2,9 @@
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
 import { deleteField, doc, setDoc, updateDoc } from "firebase/firestore";
-import { useContext } from "react";
 import { db, storage } from "@/lib/firebase";
-import { UserContext } from "../pages/_app";
+import useAuthState from "./useAuthState";
+import useUserData from "./firestore/useUserData";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { maxOtherUserPerAcc } from "@/lib/firebaseAppConfig";
 
@@ -20,7 +20,8 @@ const resultMsg = (status: "fail" | "success", msg: string) => {
 };
 
 export default function useUpdateUserAcc() {
-  const { user, userData } = useContext(UserContext);
+  const [user] = useAuthState();
+  const [userData, dbError] = useUserData();
 
   const update = async (type: EventType, userInfo: UserInfo) => {
     if (userData && user) {

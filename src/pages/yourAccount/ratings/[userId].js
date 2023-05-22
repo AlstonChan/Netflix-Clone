@@ -9,7 +9,8 @@ import { useContext, useEffect, useState } from "react";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import ImageRender from "@chan_alston/image";
-import { UserContext } from "@/pages/_app";
+import useUserData from "src/hooks/firestore/useUserData";
+
 import { fill } from "@/styles/cssStyle";
 
 import MovieInfoBar from "@/components/yourAccount/ratings/MovieInfoBar";
@@ -18,7 +19,7 @@ import FooterStyle2 from "@/components/footer/FooterStyle2";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export default function UserRating() {
-  const { userData, listMovieData } = useContext(UserContext);
+  const [userData, dbError] = useUserData();
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
   const { userId } = router.query;
@@ -44,7 +45,7 @@ export default function UserRating() {
       </Head>
 
       <main className={baseStyles.main}>
-        <div style={{ backgroundColor: "#000" }}>
+        {/* <div style={{ backgroundColor: "#000" }}>
           <AccountHeader />
         </div>
         {userData && currentUser && listMovieData ? (
@@ -86,7 +87,7 @@ export default function UserRating() {
           <AccountLoader />
         )}
 
-        <FooterStyle2 />
+        <FooterStyle2 /> */}
       </main>
     </>
   );

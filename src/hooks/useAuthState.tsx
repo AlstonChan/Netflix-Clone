@@ -7,8 +7,14 @@ import { useEffect, useState } from "react";
 import type { User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
-export default function useAuthState(): [User | null, boolean, string | null] {
-  const [authUser, setAuthUser] = useState<User | null>(null);
+export type UseAuthStateUser = User | null | undefined;
+
+export default function useAuthState(): [
+  UseAuthStateUser,
+  boolean,
+  string | null
+] {
+  const [authUser, setAuthUser] = useState<UseAuthStateUser>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any | null>(null);
 
@@ -17,7 +23,6 @@ export default function useAuthState(): [User | null, boolean, string | null] {
       const authListen = onAuthStateChanged(auth, (user) => {
         setAuthUser(user);
       });
-      setIsLoading(false);
 
       return () => authListen();
     } catch (error: any) {
@@ -25,6 +30,12 @@ export default function useAuthState(): [User | null, boolean, string | null] {
       console.error(error);
     }
   }, [auth]);
+
+  useEffect(() => {
+    if (authUser === null || authUser) {
+      setIsLoading(false);
+    }
+  }, [authUser]);
 
   return [authUser, isLoading, error];
 }

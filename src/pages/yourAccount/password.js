@@ -9,8 +9,9 @@ import {
   EmailAuthProvider,
   updatePassword,
 } from "firebase/auth";
-import { useContext, useRef, useState } from "react";
-import { UserContext } from "@/pages/_app";
+import { useRef, useState } from "react";
+import useUserData from "src/hooks/firestore/useUserData";
+import useAuthState from "src/hooks/useAuthState";
 
 import InputPassword from "@/components/common/input/InputPassword";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
@@ -20,7 +21,8 @@ import AccountLoader from "@/components/yourAccount/AccountLoader";
 import { AnimatePresence } from "framer-motion";
 
 export default function Password() {
-  const { user, userData } = useContext(UserContext);
+  const [user, isLoading, error] = useAuthState();
+  const [userData, dbError] = useUserData();
   const [inputWarn, setInputWarn] = useState({
     name: "current",
     state: false,

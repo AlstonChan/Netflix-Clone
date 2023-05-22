@@ -10,6 +10,9 @@ import SectionThree from "@/components/home/sectionThree/SectionThree";
 import SectionFour from "@/components/home/sectionFour/SectionFour";
 import CardFaq from "@/components/home/sectionFaq/CardFaq";
 import Footer from "@/components/footer/FooterStyle1";
+import UnProtectedArea from "@/components/layout/UnProtectedArea";
+
+import type { ReactElement } from "react";
 
 export default function Home() {
   return (
@@ -30,3 +33,7 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = (page: ReactElement) => {
+  return <UnProtectedArea>{page}</UnProtectedArea>;
+};

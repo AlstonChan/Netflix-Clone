@@ -25,11 +25,13 @@ import Modals from "@/components/browse/modals/Modals";
 import Loader from "@/components/Loader";
 import Search from "@/components/browse/common/Search";
 import MainBrowse from "@/components/browse/common/MainBrowse";
+import BrowseLayout from "@/components/browse/BrowseLayout";
 
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
 import type { DataListType } from "@/components/browse/types";
+import type { ReactElement } from "react";
 
 const Trending = () => {
   // To query search data using searchComponent state
@@ -129,3 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Trending;
+
+Trending.getLayout = (page: ReactElement) => {
+  return <BrowseLayout pageProps={page.props}>{page}</BrowseLayout>;
+};

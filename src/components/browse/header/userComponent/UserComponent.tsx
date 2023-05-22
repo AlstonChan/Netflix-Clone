@@ -8,19 +8,19 @@ import NavArrowBold from "@/public/images/icons/arrow/nav_arrow_bold.svg";
 import Image from "next/image";
 import router from "next/router";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ImageRender from "@chan_alston/image";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import { UserContext } from "@/pages/_app";
 import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayout";
+import useUserData from "src/hooks/firestore/useUserData";
 
 import UserDropDownList from "./UserDropDownList";
 
 import type { MouseEvent } from "react";
 
 export default function UserComponent() {
-  const { userData } = useContext(UserContext);
+  const [userData, dbError] = useUserData();
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [showUserDropdown, setShowUserDropdown] = useState<boolean>(false);
   const [delay, setDelay] = useState<NodeJS.Timeout | null>(null);

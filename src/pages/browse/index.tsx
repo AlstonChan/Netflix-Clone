@@ -17,7 +17,6 @@ import getAbsoluteURL from "@/lib/getAbsoluteURL";
 import useModal from "src/hooks/browse/useModal";
 import useProfile from "src/hooks/browse/useProfile";
 import { BrowseContext } from "@/components/browse/common/BrowseContext";
-import ValidateUserState from "@/components/common/ValidateUserState";
 
 import Loading from "@/components/browse/Loading";
 import HeaderBrowse from "@/components/browse/header/HeaderBrowse";
@@ -27,11 +26,13 @@ import Modals from "@/components/browse/modals/Modals";
 import Loader from "@/components/Loader";
 import Search from "@/components/browse/common/Search";
 import MainBrowse from "@/components/browse/common/MainBrowse";
+import BrowseLayout from "@/components/browse/BrowseLayout";
 
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { CSSProperties } from "react";
 import type { GetServerSideProps } from "next";
 import type { DataListType } from "@/components/browse/types";
+import type { ReactElement } from "react";
 
 const Browse = () => {
   // To assist profile state hook, show profile loading when loading
@@ -135,19 +136,14 @@ const Browse = () => {
 
 export default Browse;
 
+Browse.getLayout = (page: ReactElement) => {
+  return <BrowseLayout pageProps={page.props}>{page}</BrowseLayout>;
+};
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = context.req.headers.host;
 
   if (!host) throw new Error("host is not found");
-
-  const isAuth = await ValidateUserState(context, host);
-  if (!isAuth)
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
 
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();

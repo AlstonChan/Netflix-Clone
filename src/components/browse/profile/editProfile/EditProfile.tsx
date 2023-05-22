@@ -6,11 +6,12 @@ import editPencil from "@/public/images/icons/misc/edit-pencil.svg";
 
 import Image from "next/image";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageRender from "@chan_alston/image";
 import useUpdateUserAcc from "src/hooks/useUpdateUserAcc";
+import useUserData from "src/hooks/firestore/useUserData";
+import useAuthState from "src/hooks/useAuthState";
 
-import { UserContext } from "@/pages/_app";
 import { responsive } from "@/styles/cssStyle";
 
 import Loader from "@/components/Loader";
@@ -50,7 +51,8 @@ interface EditProfileProps {
 export default function EditProfile(props: EditProfileProps) {
   const { editUserId, setEditUserId } = props;
 
-  const { user, userData } = useContext(UserContext);
+  const [user, isLoading, error] = useAuthState();
+  const [userData, dbError] = useUserData();
   // input reference for updating username
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -141,7 +143,7 @@ export default function EditProfile(props: EditProfileProps) {
   function uploadFile(e: ChangeEvent<HTMLInputElement>) {
     const targetElement = e.target;
 
-    if (user !== null && targetElement.files) {
+    if (user && targetElement.files) {
       const userPic = targetElement.files[0];
 
       // reject user input if user email is unverified

@@ -2,8 +2,9 @@ import styles from "@/styles/yourAccount/yourAccount.module.css";
 
 import Head from "next/head";
 
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "@/pages/_app";
+import { useEffect, useState } from "react";
+import useUserData from "src/hooks/firestore/useUserData";
+import useAuthState from "src/hooks/useAuthState";
 
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import Membership from "@/components/yourAccount/Membership";
@@ -13,7 +14,8 @@ import AccountHeader from "@/components/yourAccount/AccountHeader";
 import AccountLoader from "@/components/yourAccount/AccountLoader";
 
 export default function YourAccount() {
-  const { user, userData } = useContext(UserContext);
+  const [user, isLoading, error] = useAuthState();
+  const [userData, dbError] = useUserData();
   const [divider, setDivider] = useState(true);
 
   useEffect(() => {

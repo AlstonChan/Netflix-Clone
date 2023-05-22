@@ -14,7 +14,7 @@ import aes from "crypto-js/aes";
 import PricingTable from "@/components/signup/pricingTable/PricingTable";
 import SignUpLayout, { variants } from "@/components/signup/SignUpLayout";
 
-import type { ReactNode } from "react";
+import type { ReactElement } from "react";
 import type { PackagePlanType } from "@/components/signup/pricingTable/types";
 
 const benefits = [
@@ -103,6 +103,6 @@ export default function PlanForm() {
   );
 }
 
-PlanForm.getLayout = function getLayout(children: ReactNode) {
+PlanForm.getLayout = function getLayout(children: ReactElement) {
   return <SignUpLayout>{children}</SignUpLayout>;
 };

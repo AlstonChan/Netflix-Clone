@@ -8,9 +8,9 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { maxOtherUserPerAcc } from "@/lib/firebaseAppConfig";
-import { UserContext } from "@/pages/_app";
+import useUserData from "src/hooks/firestore/useUserData";
 
 import ProfileAvatar from "../profileAvatar/ProfileAvatar";
 
@@ -27,7 +27,7 @@ export default function MainProfile(props: MainProfileProps) {
   const { title, addProfile, switchPage, editUser } = props;
   const router = useRouter();
 
-  const { userData } = useContext(UserContext);
+  const [userData, dbError] = useUserData();
   const [showProfile, setShowProfile] = useState<number[]>([]);
   const [addNewProfile, setAddNewProfile] = useState(true);
   const secProfile = ["user-sec0", "user-sec1", "user-sec2", "user-sec3"];

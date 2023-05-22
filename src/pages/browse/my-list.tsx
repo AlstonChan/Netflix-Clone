@@ -21,9 +21,11 @@ import Modals from "@/components/browse/modals/Modals";
 import MainBrowse from "@/components/browse/common/MainBrowse";
 import Search from "@/components/browse/common/Search";
 import Loader from "@/components/Loader";
+import BrowseLayout from "@/components/browse/BrowseLayout";
 
 import type { CSSProperties } from "react";
 import type { DataListType, ListDataType } from "@/components/browse/types";
+import type { ReactElement } from "react";
 
 const MyList = () => {
   const [movieData, dbError] = useMovieData();
@@ -129,3 +131,7 @@ const MyList = () => {
 };
 
 export default MyList;
+
+MyList.getLayout = (page: ReactElement) => {
+  return <BrowseLayout pageProps={page.props}>{page}</BrowseLayout>;
+};

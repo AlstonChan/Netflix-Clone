@@ -6,6 +6,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 import Header from "@/components/common/header/Header";
 import Footer from "@/components/footer/FooterStyle2";
+import UnProtectedArea from "../layout/UnProtectedArea";
 
 interface SignUpLayoutProps {
   children: ReactNode;
@@ -26,12 +27,14 @@ export default function SignUpLayout({ children }: SignUpLayoutProps) {
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <div style={containerStyle}>
-        <Header logoClickHome mode="light" />
-        {children}
-        <Footer />
-      </div>
-    </AnimatePresence>
+    <UnProtectedArea>
+      <AnimatePresence mode="wait">
+        <div style={containerStyle}>
+          <Header logoClickHome mode="light" />
+          {children}
+          <Footer />
+        </div>
+      </AnimatePresence>
+    </UnProtectedArea>
   );
 }

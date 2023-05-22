@@ -20,9 +20,8 @@ import InputEmail from "@/components/common/input/InputEmail";
 import InputPassword from "@/components/common/input/InputPassword";
 
 import type { FormEvent } from "react";
-import getAbsoluteURL from "@/lib/getAbsoluteURL";
 
-export default function LoginForm({ token }: { token: string }) {
+export default function LoginForm() {
   const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -61,24 +60,8 @@ export default function LoginForm({ token }: { token: string }) {
               password
             );
             console.log("Logged in!\n", userCredential);
-
-            const body = {
-              idToken: await userCredential.user.getIdToken(),
-              csrfToken: token,
-              tokenIsRemembered: rememberMe,
-            };
-            const res = await fetch(getAbsoluteURL("/api/session_login"), {
-              method: "POST",
-              body: JSON.stringify(body),
-            });
-            const data = await res.json();
-            if (res.status === 200 && data.status === "success") {
-              router.replace("/browse");
-              setShowErrorBox(false);
-            } else {
-              console.error(data.status);
-              setShowErrorBox(true);
-            }
+            router.replace("/browse");
+            setShowErrorBox(false);
           } catch (error: any) {
             setShowErrorBox(true);
             console.error(error);

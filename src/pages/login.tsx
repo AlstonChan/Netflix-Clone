@@ -13,18 +13,18 @@ import { signInWithPopup } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import Image from "@chan_alston/image";
 import { auth, db, provider } from "@/lib/firebase";
-import generateCsrfToken from "@/lib/csrf/generateCsrfToken";
 
 import SnackBar from "@/components/common/snackbar/SnackBar";
 import Footer from "@/components/footer/FooterStyle2";
 import LoginForm from "@/components/login/loginForm/LoginForm";
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
 import Header from "@/components/common/header/Header";
+import UnProtectedArea from "@/components/layout/UnProtectedArea";
 
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
-import type { GetServerSideProps } from "next";
+import type { ReactElement } from "react";
 
-export default function Login({ token }: { token: string }) {
+export default function Login() {
   const router = useRouter();
   const closeSnackBar: SnackBarStateType = { isOpen: false, msg: "" };
   const [snackBarState, setSnackBarState] =
@@ -74,7 +74,7 @@ export default function Login({ token }: { token: string }) {
         <section className={styles.loginContainer}>
           <div className={styles.content}>
             <h1 className={styles.title}>Sign In</h1>
-            <LoginForm token={token} />
+            <LoginForm />
             <div className={styles.loginGoogle} onClick={loginGoogleEvent}>
               <Image src={GoogleLogo} alt="Google Logo" w={25} h={20} />
               <span className={styles.loginTxt}>Login with Google</span>
@@ -102,10 +102,6 @@ export default function Login({ token }: { token: string }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const token = await generateCsrfToken(context.req, context.res);
-
-  return {
-    props: { token },
-  };
+Login.getLayout = (page: ReactElement) => {
+  return <UnProtectedArea>{page}</UnProtectedArea>;
 };

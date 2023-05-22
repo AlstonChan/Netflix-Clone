@@ -58,5 +58,3 @@ export type ListDataType = {
   new: UserDataType[];
   prev: DataListType[] | UserDataType[] | null;
 };
-
-export type Session_VerifyDataType = { user: null | UserRecord };

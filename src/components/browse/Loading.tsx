@@ -4,13 +4,12 @@ import Spinner from "@/public/images/browse/spinner.png";
 
 import Image from "next/image";
 
-import { useContext } from "react";
+import useUserData from "src/hooks/firestore/useUserData";
 import ImageRender from "@chan_alston/image";
-import { UserContext } from "@/pages/_app";
 import { fill } from "@/styles/cssStyle";
 
 export default function LoadingBrowse({ profile }: any) {
-  const { userData } = useContext(UserContext);
+  const [userData, dbError] = useUserData();
 
   return (
     <div className={styles.loadingBg}>

@@ -10,11 +10,11 @@ import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import useUserData from "src/hooks/firestore/useUserData";
 import ImageRender from "@chan_alston/image";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import { UserContext } from "@/pages/_app";
 import { fill } from "@/styles/cssStyle";
 
 interface UserDropDownListProps {
@@ -38,7 +38,7 @@ const secProfile = ["user-sec0", "user-sec1", "user-sec2", "user-sec3"];
 export default function UserDropDownList(props: UserDropDownListProps) {
   const { currentUser, switchProfile, profilePicSrc } = props;
 
-  const { userData } = useContext(UserContext);
+  const [userData, dbError] = useUserData();
   const [showProfile, setShowProfile] = useState<number[] | null>(null);
 
   useEffect(() => {

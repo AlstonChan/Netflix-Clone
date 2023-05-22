@@ -38,7 +38,7 @@ export default function Header({
   }, [user]);
 
   function checkIfSignIn() {
-    if (loading) return;
+    if (user === undefined && loading) return;
     if (user) {
       signOut(auth).then(() => {
         setIsSignIn(false);

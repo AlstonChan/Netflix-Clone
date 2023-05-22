@@ -16,8 +16,7 @@ import Image from "next/image";
 import { useContext, useEffect } from "react";
 import useFetchMyMovie from "src/hooks/browse/fetchMovieHook/useFetchMyMovie";
 import { BrowseContext } from "../../common/BrowseContext";
-import { UserContext } from "@/pages/_app";
-import { responsive } from "@/styles/cssStyle";
+import useAuthState from "src/hooks/useAuthState";
 
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
 import type { DataType } from "../../types";
@@ -31,7 +30,7 @@ interface InteractionMenuProps {
 export default function InteractionMenu(props: InteractionMenuProps) {
   const { mov, setSnackBarState } = props;
   const { modalFull, modalToggle } = useContext(BrowseContext);
-  const { user } = useContext(UserContext);
+  const [user] = useAuthState();
   const [latestData, searchAndUpdate, fetchError] = useFetchMyMovie(mov);
 
   const actionToggle = async (action: ActionType) => {
