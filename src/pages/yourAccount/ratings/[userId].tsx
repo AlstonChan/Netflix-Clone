@@ -21,10 +21,12 @@ import AccountHeader from "@/components/yourAccount/header/AccountHeader";
 import FooterStyle2 from "@/components/footer/FooterStyle2";
 import Loader from "@/components/common/Loader/Loader";
 import SnackBar from "@/components/common/snackbar/SnackBar";
+import ProtectedArea from "@/components/layout/ProtectedArea";
 
 import type { UserDataType } from "src/hooks/browse/fetchMovieHook/helper";
 import type { DocumentData } from "firebase/firestore";
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
+import type { ReactElement } from "react";
 
 export default function UserRating() {
   const [userData] = useUserData();
@@ -131,3 +133,7 @@ export default function UserRating() {
     </>
   );
 }
+
+UserRating.getLayout = (page: ReactElement) => {
+  return <ProtectedArea>{page}</ProtectedArea>;
+};

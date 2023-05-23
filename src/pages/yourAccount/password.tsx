@@ -21,9 +21,10 @@ import FooterStyle2 from "@/components/footer/FooterStyle2";
 import AccountHeader from "@/components/yourAccount/header/AccountHeader";
 import Loader from "@/components/common/Loader/Loader";
 import SnackBar from "@/components/common/snackbar/SnackBar";
+import ProtectedArea from "@/components/layout/ProtectedArea";
 
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactElement } from "react";
 import type { InputWarningRefType } from "@/components/common/input/InputPassword";
 
 export default function Password() {
@@ -232,3 +233,7 @@ export default function Password() {
     </>
   );
 }
+
+Password.getLayout = (page: ReactElement) => {
+  return <ProtectedArea>{page}</ProtectedArea>;
+};

@@ -16,8 +16,10 @@ import ProfileSetting from "@/components/yourAccount/accountSections/profileSett
 import AccountHeader from "@/components/yourAccount/header/AccountHeader";
 import Loader from "@/components/common/Loader/Loader";
 import SnackBar from "@/components/common/snackbar/SnackBar";
+import ProtectedArea from "@/components/layout/ProtectedArea";
 
 import type { SnackBarStateType } from "@/components/common/snackbar/types";
+import type { ReactElement } from "react";
 
 export default function YourAccount() {
   const [user, isLoading, error] = useAuthState();
@@ -85,3 +87,7 @@ export default function YourAccount() {
     </>
   );
 }
+
+YourAccount.getLayout = (page: ReactElement) => {
+  return <ProtectedArea>{page}</ProtectedArea>;
+};

@@ -14,6 +14,9 @@ import PlanConfirmModal from "@/components/yourAccount/changePlan/modal/PlanConf
 import AccountHeader from "@/components/yourAccount/header/AccountHeader";
 import Loader from "@/components/common/Loader/Loader";
 import MainChangePlan from "@/components/yourAccount/changePlan/MainChangePlan";
+import ProtectedArea from "@/components/layout/ProtectedArea";
+
+import type { ReactElement } from "react";
 
 interface ChangePlanContext {
   chosenBar: any | null;
@@ -89,3 +92,7 @@ export default function ChangePlan() {
     </>
   );
 }
+
+ChangePlan.getLayout = (page: ReactElement) => {
+  return <ProtectedArea>{page}</ProtectedArea>;
+};
