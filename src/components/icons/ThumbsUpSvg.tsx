@@ -3,7 +3,7 @@
 
 interface ThumbsUpSvgProps {
   selected: boolean;
-  modal: boolean;
+  modal?: boolean;
   stColor?: string;
   bgColor?: string;
   className?: string;

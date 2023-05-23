@@ -80,7 +80,7 @@ export default function EditProfile(props: EditProfileProps) {
       inputRef.current.value = userData[editUserId].name;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editUserId]);
+  }, [editUserId, userData]);
 
   // close function for snackbar
   const onClose = () => {

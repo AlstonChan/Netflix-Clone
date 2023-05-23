@@ -8,9 +8,21 @@ import Image from "next/image";
 
 import { responsive } from "@/styles/cssStyle";
 
-const Loader = () => {
+interface LoaderProps {
+  fit?: boolean;
+  mode?: "dark" | "light";
+  padding?: "top" | "bottom" | "left" | "right";
+}
+
+export default function Loader(props: LoaderProps) {
+  const { fit = false, mode = "dark", padding } = props;
+
+  const containerClass = `${styles.container} ${styles[mode]} ${
+    fit && styles.fit
+  } ${padding && styles[padding]}`;
+
   return (
-    <div className={styles.container}>
+    <div className={containerClass}>
       <div className={styles.spinnerBox}>
         <Image
           src={Spinner}
@@ -21,6 +33,4 @@ const Loader = () => {
       </div>
     </div>
   );
-};
-
-export default Loader;
+}

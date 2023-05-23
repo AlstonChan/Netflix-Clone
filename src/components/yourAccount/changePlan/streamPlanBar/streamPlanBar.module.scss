@@ -1,0 +1,159 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+$blue: #077af5;
+
+.bar {
+  position: relative;
+  display: flex;
+
+  list-style: none;
+
+  margin-left: 0;
+  margin-bottom: 10px;
+
+  background-color: #fff;
+  border: solid 4px #ccc;
+  height: 105px;
+
+  cursor: pointer;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+
+    border-width: 2px;
+    margin-bottom: 8px;
+    height: auto;
+
+    &:hover {
+      border-width: 2px;
+    }
+
+    &.selected {
+      border-width: 2px;
+    }
+  }
+
+  &:hover {
+    border: solid 4px $blue;
+  }
+
+  &.selected {
+    border: solid 4px $blue;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 100%;
+    padding: 10px;
+
+    background-color: #f3f3f3;
+
+    @media screen and (max-width: 1000px) {
+      justify-content: flex-start;
+      text-align: left;
+
+      height: auto;
+      padding: 12px 20px;
+
+      background-color: #fff;
+      border-bottom: solid 1px #ccc;
+    }
+
+    &.selected {
+      background-color: #ccc;
+    }
+
+    .txt {
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: 500;
+
+      @media screen and (max-width: 1000px) {
+        margin: 0;
+      }
+
+      &.selected {
+        color: $blue;
+      }
+
+      .showCurrentPlan {
+        font-weight: 500;
+        color: #000;
+        font-size: 0.9rem;
+        margin: 0 0 2px 0;
+      }
+
+      .plan {
+        margin: 0;
+        text-align: center;
+
+        @media screen and (max-width: 1000px) {
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .barDetails {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .txt {
+      margin: 0;
+      padding: 10px 15px;
+    }
+
+    .desc {
+      display: flex;
+      width: 100%;
+    }
+
+    .fee {
+      margin: 0 0 0 auto;
+      font-size: 1.2rem;
+      padding: 0 0 0 10px;
+      align-self: center;
+    }
+  }
+
+  .checkedContainer {
+    position: absolute;
+    left: -20px;
+    top: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $blue;
+    border-radius: 9999px;
+
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .desc {
+    margin: 0;
+    padding: 12px 0 12px 20px;
+    display: block;
+  }
+  .showCurrentPlan {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .packageFee {
+    margin: 0 auto 0 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0;
+    display: inline;
+  }
+}

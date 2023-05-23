@@ -9,15 +9,17 @@ import { useState, useEffect, forwardRef } from "react";
 
 import type { HandleInputClickEvent } from "../types";
 
+export type InputWarningRefType = {
+  name: "new" | "current" | "confirm";
+  state: boolean;
+  err: string;
+};
+
 interface PasswordInputProps {
   inputId: string;
   mode: "dark" | "light";
   showHidePassword: boolean;
-  warningsRef?: {
-    name: string;
-    state: boolean;
-    err: string;
-  };
+  warningsRef?: InputWarningRefType;
   label?: string;
   caption?: string;
   warnings?: string | "none";
@@ -81,18 +83,24 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       if (!inputElement) throw new Error("input element does not exists!");
 
       if (warningsRef.state) {
-        if (warningsRef.name === "current") {
-          if (warningsRef.err === "auth/wrong-password") {
-            setInputWarnMsg(
-              "Password should be between 6 and 60 characters long."
-            );
-          } else if (warningsRef.err === "auth/too-many-requests") {
-            setInputWarnMsg(
-              "Account temporary disabled due to too many failed login attempt, try again later."
-            );
-          }
-        } else if (warningsRef.name === "new") {
-          checkPasswordInput(inputElement.value);
+        switch (warningsRef.name) {
+          case "current":
+            if (warningsRef.err === "auth/wrong-password") {
+              setInputWarnMsg("Your password is incorrect");
+            } else if (warningsRef.err === "auth/too-many-requests") {
+              setInputWarnMsg(
+                "Account temporary disabled due to too many failed login attempt, try again later."
+              );
+            }
+            break;
+
+          case "new":
+            checkPasswordInput(inputElement.value);
+            break;
+
+          case "confirm":
+            setInputWarnMsg("Your password does not match.");
+            break;
         }
       } else {
         setInputWarnMsg("");

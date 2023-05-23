@@ -3,7 +3,6 @@
 
 import type { CSSProperties } from "react";
 import type { UserDataType } from "src/hooks/browse/fetchMovieHook/helper";
-import type { UserRecord } from "firebase-admin/lib/auth/user-record";
 
 export type GenresType = {
   id: number;
