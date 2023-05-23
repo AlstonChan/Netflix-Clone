@@ -1,0 +1,108 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+/*Image section*/
+.imgContainer {
+  width: 40%;
+}
+
+.imgPresent {
+  width: 48%;
+
+  &Container {
+    position: relative;
+    margin: -8% -1% -4% -15%;
+    max-width: 505px;
+  }
+}
+
+/*A small rectangle section, bottom of main img*/
+.smallCard {
+  display: flex;
+  width: 65%;
+  padding: 5px 10px;
+  min-width: 285px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 1%;
+
+  background-color: #000000;
+  border: var(--dark-grey-color) solid 4px;
+  border-radius: 15px;
+
+  transform: translateX(-50%);
+
+  &TextGrp {
+    width: fit-content;
+    height: fit-content;
+    align-self: center;
+    padding: 20px 0 20px 20px;
+
+    & > p:first-child {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin: 0;
+    }
+    & > p:last-child {
+      margin: 0;
+      color: #0071eb;
+      padding-top: 3px;
+    }
+  }
+
+  /*The small poster Image*/
+  &Img {
+    max-width: 57.15px;
+    align-self: center;
+  }
+
+  /*The Infinite loading Gif*/
+  &Downloading {
+    max-width: 48px;
+    align-self: center;
+    margin: 0 0 0 auto;
+  }
+}
+
+@media screen and (max-width: 967px) {
+  .imgContainer {
+    width: 100%;
+    align-self: center;
+  }
+
+  .imgPresent {
+    &Container {
+      margin: -8% 0 0 0;
+      max-width: none;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .smallCard {
+    max-width: 430px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .imgPresent {
+    width: 90%;
+    align-self: center;
+  }
+
+  .smallCard {
+    &TextGrp {
+      padding: 0 15px;
+
+      & > p:first-child {
+        font-size: 0.98rem;
+      }
+      & > p:last-child {
+        padding-top: 1px;
+      }
+    }
+    &Img {
+      max-width: 34.28px;
+    }
+  }
+}

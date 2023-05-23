@@ -1,0 +1,199 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.container {
+  background-color: #000000;
+  color: #fff;
+  border-bottom: 8px solid var(--dark-grey-color);
+
+  .box {
+    max-width: 1100px;
+    width: 100%;
+    padding: 50px 100px 70px 100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .title {
+      width: fit-content;
+      margin: 0 auto 40px auto;
+      text-align: center;
+      font-size: 3rem;
+      padding: 10px;
+    }
+
+    .accordion {
+      max-width: 815px;
+      width: 100%;
+      margin: 0 auto;
+      padding-left: 0;
+
+      & .item {
+        list-style-type: none;
+        font-size: 1.65rem;
+        width: 100%;
+        margin-bottom: 7px;
+
+        & .btn {
+          display: flex;
+          width: 100%;
+          padding: 20px 30px;
+          border: solid 1px #000;
+          height: 5rem;
+          font-size: inherit;
+          color: inherit;
+          background-color: var(--grey-color);
+          text-align: left;
+          cursor: pointer;
+
+          & .text {
+            align-self: center;
+          }
+
+          &Cross {
+            margin: 0 0 0 auto;
+            max-width: 27px;
+            align-self: center;
+            display: flex;
+            align-items: center;
+
+            .close {
+              transform: rotate(45deg);
+              transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
+            }
+
+            .open {
+              transform: rotate(0deg);
+              transition: transform 250ms cubic-bezier(0.5, 0, 0.1, 1);
+            }
+          }
+        }
+      }
+
+      &Content {
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+        background-color: var(--grey-color);
+        border: solid 1px #000;
+        overflow: hidden;
+        transition: max-height 250ms cubic-bezier(0.5, 0, 0.1, 1);
+
+        & > span {
+          padding: 30px;
+
+          & + span {
+            padding-top: 0;
+          }
+        }
+
+        &.open {
+          max-height: 1000px;
+          overflow: hidden;
+        }
+
+        &.close {
+          max-height: 0;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
+
+/* *********************************** */
+/* *********************************** */
+/* form section (still inside index.js) */
+.formContainer {
+  display: flex;
+  max-width: 742px;
+  width: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  flex-direction: column;
+
+  .desc {
+    margin: 60px auto 25px auto;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+/* *********************************** */
+/* *********************************** */
+/* media queries */
+@media screen and (max-width: 967px) {
+  .container {
+    .box {
+      padding: 50px 65px 70px 65px;
+      .title {
+        margin: 0 auto 30px auto;
+        font-size: 2.4rem;
+        padding: 0;
+      }
+
+      .accordion {
+        & .item {
+          font-size: 1.3rem;
+
+          & .btn {
+            height: 4.2rem;
+
+            &Cross {
+              max-width: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .container {
+    .box {
+      padding: 50px 5px 70px 5px;
+      .title {
+        margin: 0 auto 20px auto;
+        font-size: 1.7rem;
+      }
+
+      .accordion {
+        & .item {
+          font-size: 1.2rem;
+
+          & .btn {
+            height: 3.8rem;
+
+            &Cross {
+              max-width: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .formContainer {
+    .desc {
+      margin: 20px 10px 25px 10px;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    .box {
+      .accordion {
+        & .item {
+          & .btn {
+            height: 3.6rem;
+            padding: 10px 15px;
+          }
+        }
+      }
+    }
+  }
+}

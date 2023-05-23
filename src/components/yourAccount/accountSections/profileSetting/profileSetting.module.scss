@@ -1,0 +1,83 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+@use "../accountSections.module.scss";
+
+.userBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .imgContainer {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+  }
+
+  .username {
+    font-weight: 500;
+  }
+
+  .arrBox {
+    transform: rotate(-90deg);
+    margin: 0 0 0 auto;
+
+    transition: transform 300ms ease-in-out;
+
+    &.open {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.dropdown {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+
+  transition: grid-template-rows 300ms ease-in-out;
+
+  &.open {
+    grid-template-rows: 1fr;
+  }
+
+  & .content {
+    min-height: 0;
+
+    .infoContainer {
+      margin-left: 75px;
+      width: 100%;
+
+      .info {
+        display: flex;
+        height: 60px;
+        align-items: center;
+
+        .title {
+          display: flex;
+          flex-direction: column;
+          font-weight: bold;
+          color: #000;
+          font-size: 1.1rem;
+        }
+
+        .subTitle {
+          margin: 0;
+          padding-top: 5px;
+        }
+
+        .infoLinks {
+          margin: 0 0 0 auto;
+          display: flex;
+          align-items: center;
+
+          &.disabled {
+            color: var(--light-grey-txt);
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

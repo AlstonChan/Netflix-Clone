@@ -1,0 +1,135 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.bigContainer {
+  display: flex;
+
+  .left {
+    width: 65%;
+  }
+  .right {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+
+    .imgContainer {
+      width: 70%;
+    }
+  }
+}
+
+.headingsOpen,
+.headings {
+  color: #fff;
+  margin: 2px 0;
+  font-size: 1.15rem;
+}
+
+.title {
+  margin: 0;
+  padding: 7px 0 0 0;
+  color: #fff;
+  font-size: 1.2rem;
+
+  &.big {
+    font-size: 1.9rem;
+  }
+}
+.isAdultIcon {
+  margin: -5px 0 -8px 0;
+}
+
+.genreDetails {
+  margin: 5px 0 6px 0;
+
+  .genre {
+    color: #fff;
+  }
+}
+.header {
+  color: #fff;
+  margin: 2px 0;
+  font-size: 1.15rem;
+
+  .subHead {
+    color: var(--light-grey-txt);
+  }
+
+  .green {
+    color: var(--success-color);
+  }
+
+  .red {
+    color: var(--error-color);
+  }
+
+  .warn {
+    color: var(--warning-color);
+  }
+}
+
+.desc {
+  margin: 5px 0 10px 0;
+  color: rgb(238, 238, 238);
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+}
+
+@media screen and (max-width: 900px) {
+  .bigContainer {
+    .right {
+      align-items: center;
+      .imgContainer {
+        width: 85%;
+      }
+    }
+  }
+  .title {
+    font-size: 1.1rem;
+
+    &.big {
+      font-size: 1.7rem;
+    }
+  }
+  .header {
+    font-size: 1rem;
+  }
+  .desc {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  .bigContainer {
+    flex-direction: column;
+    .left {
+      width: 100%;
+    }
+    .right {
+      margin-top: 30px;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .bigContainer {
+    .right {
+      .imgContainer {
+        width: 93%;
+      }
+    }
+  }
+  .title {
+    font-size: 1rem;
+
+    &.big {
+      font-size: 1.4rem;
+    }
+  }
+  .header {
+    font-size: 0.9rem;
+  }
+  .desc {
+    font-size: 0.9rem;
+  }
+}

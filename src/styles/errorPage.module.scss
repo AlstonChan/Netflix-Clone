@@ -1,0 +1,201 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.container {
+  overflow-x: hidden;
+  background-image: url("../../public/images/background/bg-lost-in-space.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 60%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: #00000054;
+  }
+
+  .header {
+    position: relative;
+    z-index: 1;
+
+    background-color: #000;
+    display: flex;
+    align-content: center;
+    padding: 25px 40px;
+    min-height: 77px;
+  }
+
+  .main {
+    position: relative;
+
+    width: 100vw;
+    display: flex;
+    height: calc(100vh - 91px);
+
+    .content {
+      position: relative;
+      z-index: 1;
+
+      width: 100%;
+      height: 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+
+      .errorMsg {
+        padding: 0 12% 20px 12%;
+        text-align: center;
+        color: #fff;
+
+        .title {
+          margin: 0;
+          font-size: 3.7rem;
+        }
+
+        .subTitle {
+          margin: 20px auto;
+          font-size: 1.4rem;
+          width: 80%;
+        }
+
+        .btn {
+          background-color: #fff;
+          border-radius: 6px;
+          padding: 10px 25px;
+          font-size: 1.1rem;
+          text-decoration: none;
+          color: #000;
+
+          &:hover {
+            background-color: rgb(214, 214, 214);
+          }
+
+          &:active {
+            background-color: rgb(182, 182, 182);
+          }
+        }
+      }
+
+      /*display error msg at the bottom*/
+      .errorCode {
+        display: flex;
+        margin: auto 0 0 0;
+        padding-top: 15px;
+
+        &Msg {
+          font-size: 2rem;
+          color: #fff;
+          padding: 10px;
+          margin: 0;
+          font-weight: 100;
+          border-left: solid 3px var(--red-color);
+        }
+      }
+    }
+
+    /*Movie name of the background at the bottom right*/
+    .movieName {
+      position: absolute;
+      z-index: 1;
+      bottom: 1%;
+      right: 3%;
+
+      &Msg {
+        color: #fff;
+        font-weight: 100;
+        font-size: 1.2rem;
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    .header {
+      padding: 25px 35px;
+    }
+
+    .main {
+      .content {
+        .errorMsg {
+          .title {
+            font-size: 3rem;
+          }
+          .subTitle {
+            font-size: 1.2rem;
+          }
+
+          .btn {
+            font-size: 1rem;
+          }
+        }
+        /*display error msg at the bottom*/
+        .errorCode {
+          &Msg {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    .main {
+      .content {
+        .errorMsg {
+          .title {
+            font-size: 2.5rem;
+          }
+          .subTitle {
+            font-size: 1rem;
+          }
+
+          .btn {
+            font-size: 0.85rem;
+          }
+        }
+        /*display error msg at the bottom*/
+        .errorCode {
+          &Msg {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    .main {
+      .content {
+        .errorMsg {
+          padding: 0 5% 20px 5%;
+          .title {
+            font-size: 1.7rem;
+          }
+          .subTitle {
+            font-size: 0.9rem;
+          }
+        }
+        /*display error msg at the bottom*/
+        .errorCode {
+          &Msg {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+}

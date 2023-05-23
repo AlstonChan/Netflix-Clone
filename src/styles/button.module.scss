@@ -1,0 +1,149 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.btn {
+  border: none;
+  border-radius: 5px;
+  padding: 8.5px 21px;
+
+  background-color: var(--red-color);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: color 120ms ease-in-out, background-color 130ms ease-in;
+
+  &:hover {
+    color: var(--red-color);
+    background-color: #fff;
+  }
+  &:active {
+    color: var(--dark-red-color);
+    background-color: #dddddd;
+  }
+
+  &.fit {
+    height: 100%;
+  }
+
+  &.fill {
+    width: 100%;
+    border-radius: 0;
+    height: 3.75rem;
+    margin-left: 2px;
+    font-size: 1.6rem;
+
+    &Rounded {
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+    }
+
+    &.smaller {
+      height: 3.25rem;
+      font-size: 1.3rem;
+    }
+
+    &Red {
+      &Link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        max-width: 440px;
+
+        &:hover {
+          background-color: var(--med-red-color);
+        }
+        &:active,
+        &:focus {
+          background-color: var(--dark-red-color);
+        }
+      }
+    }
+  }
+
+  &.postfix {
+    &::after {
+      content: ">";
+    }
+  }
+
+  &.mouseEvent {
+    color: var(--dark-red-color) !important;
+    background-color: rgb(190, 190, 190) !important;
+  }
+
+  &.lg {
+    font-size: 1.2rem;
+    padding: 13px 25px;
+  }
+
+  &.blue {
+    background-color: var(--dark-blue-color);
+    color: #fff;
+
+    &:hover {
+      background-color: var(--med-red-color);
+    }
+    &:active {
+      background-color: var(--dark-red-color);
+    }
+  }
+
+  &.right {
+    margin: 0 0 0 auto;
+  }
+
+  &.empty {
+    background-color: transparent;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.outline {
+    background-color: #000;
+    border: 2px solid grey;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    padding: 6px 25px;
+    font-weight: 100;
+    color: grey;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: border 110ms ease, color 110ms ease;
+
+    &:hover {
+      color: #fff;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 967px) {
+  .btn {
+    &.fill {
+      border-radius: 3px;
+      font-size: 1.4rem;
+      padding: 1px 12px;
+      height: 3.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .btn {
+    &.fill {
+      font-size: 1.2rem;
+      height: 3.25rem;
+    }
+  }
+}

@@ -20,7 +20,7 @@ service cloud.firestore {
     match /mymovie/{mymovieID} {
       allow read, create: if isSignedIn() && request.auth.uid == mymovieID;
       allow update: if isSignedIn() && 
-      isEmailVerified() &&
+      // isEmailVerified() &&
       request.auth.uid == mymovieID;
     }
   }
