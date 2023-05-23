@@ -9,15 +9,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { responsive } from "@/styles/cssStyle";
 
-import Loader from "@/components/Loader";
 import SignUpLayout, { variants } from "@/components/signup/SignUpLayout";
 
 import type { ReactNode } from "react";
 
-export function Registration() {
+export default function Registration() {
   const btnClasses = `${styles.btn} ${styles.fill} ${styles.fillRedLink}`;
 
   return (
@@ -59,10 +57,3 @@ export function Registration() {
 Registration.getLayout = function getLayout(children: ReactNode) {
   return <SignUpLayout>{children}</SignUpLayout>;
 };
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(Registration);

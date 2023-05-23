@@ -82,6 +82,10 @@
 
         & > span {
           padding: 30px;
+
+          & + span {
+            padding-top: 0;
+          }
         }
 
         &.open {

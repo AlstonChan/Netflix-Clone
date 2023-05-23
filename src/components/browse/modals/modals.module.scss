@@ -1,0 +1,111 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+.darkBgModal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 90;
+}
+
+.mainModals {
+  position: absolute;
+  max-width: 1240px;
+  display: block;
+  cursor: pointer;
+  z-index: 120;
+
+  .modalsContainer {
+    aspect-ratio: 1364/768;
+    max-width: 1240px;
+  }
+
+  &.bigModal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+
+    max-width: none;
+    width: 100%;
+    height: 100%;
+
+    $px: clamp(1rem, 1rem + 3vw, 3rem);
+    $py: clamp(1.5rem, 1.5rem + 3vw, 5rem);
+
+    padding: $px $py;
+
+    margin: {
+      left: auto;
+      right: auto;
+    }
+
+    cursor: default;
+
+    @media screen and (max-width: 850px) {
+      $px: clamp(0.7rem, 0.7rem + 2vw, 3rem);
+      $py: clamp(1.2rem, 1rem + 1.8vw, 5rem);
+
+      padding: $px $py;
+    }
+
+    @media screen and (max-width: 550px) {
+      $px: clamp(0.5rem, 0.5rem + 1.6vw, 2.5rem);
+      $py: clamp(0.7rem, 0.7rem + 1.2vw, 4rem);
+
+      padding: $px $py;
+    }
+  }
+}
+
+.upperPanel {
+  position: relative;
+  margin-bottom: -2%;
+
+  .backdrop_pathStyle {
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .blend {
+    background: rgb(24, 24, 24);
+    background: linear-gradient(
+      180deg,
+      rgba(24, 24, 24, 0) 49%,
+      rgba(24, 24, 24, 0.22170875186011907) 69%,
+      rgba(24, 24, 24, 1) 100%
+    );
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+.lowerPanel {
+  background-color: #181818;
+  padding: 20px;
+  padding-top: min(5%, 3.5vh);
+  border-radius: 0 0 10px 10px;
+
+  &.big {
+    background-color: #181818;
+    padding: 20px 3rem 3rem 3rem;
+
+    @media screen and (max-width: 850px) {
+      padding: 15px 2rem 2rem 2rem;
+    }
+    @media screen and (max-width: 650px) {
+      padding: 15px 1.5rem 1.5rem 1.5rem;
+    }
+    @media screen and (max-width: 480px) {
+      padding: 10px 1rem 1rem 1rem;
+    }
+  }
+}

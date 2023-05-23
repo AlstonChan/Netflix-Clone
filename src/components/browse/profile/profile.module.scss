@@ -1,0 +1,183 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+@use "../../../styles/button.module.scss";
+
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+  min-width: 300px;
+
+  .main {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 600px;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+  font-size: max(4vw, 1.3rem);
+  font-weight: 100;
+  margin: 0 0 20px 0;
+
+  &.withDesc {
+    margin: 0 0 10px 0;
+  }
+}
+
+/* profileAvatar section */
+.listItemProfile {
+  list-style: none;
+  width: 10vw;
+  max-width: 200px;
+  min-width: 84px;
+  margin-right: 2vw;
+  cursor: pointer;
+
+  &:hover .name,
+  &:focus .name {
+    color: #fff;
+  }
+  &:hover .avatarContainer,
+  &:focus .avatarContainer {
+    outline: #fff 2px solid;
+  }
+  &:hover .profileAdd,
+  &:focus .profileAdd {
+    background-color: #fff;
+  }
+
+  .name {
+    text-decoration: underline #000;
+
+    .txt {
+      color: var(--light-grey-txt);
+      text-align: center;
+      margin: 8px 0;
+      font-size: max(1.3vw, 0.8rem);
+      font-weight: 600;
+      max-width: 100%;
+    }
+  }
+}
+
+.avatarContainer {
+  position: relative;
+  height: 10vw;
+  width: 10vw;
+  min: {
+    height: 84px;
+    width: 84px;
+  }
+  max: {
+    height: 200px;
+    width: 200px;
+  }
+  border-radius: 8px;
+
+  .profilePic {
+    border-radius: 7px;
+    transition: outline 150ms ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* for editProfile page */
+.editCover {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+}
+.editCover:hover {
+  outline: rgb(0, 0, 0, 0.5) 2px solid;
+}
+
+/* addProfile page & editProfile page */
+.borderLine {
+  height: 2px;
+  background-color: var(--grey-color-2);
+  border: none;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .input {
+    margin: 0 14px;
+    width: clamp(13rem, 20vw + 8rem, 22rem);
+    background-color: #666;
+    border: none;
+    height: 1.9rem;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+
+    &Warn {
+      border: solid 1px var(--error-color);
+    }
+  }
+
+  .warn {
+    color: var(--error-color);
+    margin: 8px 14px 0 14px;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 35px;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .name {
+    font-size: 0.77rem;
+  }
+  .headingMain {
+    font-size: 2.2rem;
+  }
+
+  .imgLogo {
+    height: fit-content;
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 15px 0 0 30px;
+    height: 6%;
+    min-height: 77px;
+  }
+
+  .imgLogo {
+    height: fit-content;
+    width: 100px;
+  }
+}

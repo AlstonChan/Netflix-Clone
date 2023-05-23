@@ -6,15 +6,13 @@ import styles from "@/styles/signup.module.scss";
 import Head from "next/head";
 
 import { motion } from "framer-motion";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 
 import RegFormInput from "@/components/signup/RegFormInput";
-import Loader from "@/components/Loader";
 import SignUpLayout, { variants } from "@/components/signup/SignUpLayout";
 
 import type { ReactNode } from "react";
 
-export function RegForm() {
+export default function RegForm() {
   return (
     <>
       <Head>
@@ -50,10 +48,3 @@ export function RegForm() {
 RegForm.getLayout = function getLayout(children: ReactNode) {
   return <SignUpLayout>{children}</SignUpLayout>;
 };
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(RegForm);

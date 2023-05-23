@@ -1,0 +1,107 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
+
+@use "./primaryNav.module.scss";
+
+.navMenu {
+  display: none;
+  cursor: pointer;
+  position: relative;
+
+  color: rgb(255, 255, 255);
+
+  @media screen and (max-width: 980px) {
+    display: flex;
+  }
+
+  .txt {
+    padding: 2px 0 0 0;
+    font-size: 0.85rem;
+    align-self: center;
+  }
+
+  .img {
+    align-self: center;
+    transform: rotate(-90deg);
+  }
+}
+
+.dropDownMenuNav {
+  position: absolute;
+  bottom: -190px;
+  left: 120px;
+
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+
+  color: #fff;
+  background-color: #141414e3;
+  border-top: #fff solid 2px;
+
+  transition: opacity 150ms ease-in, visibility 150ms ease-in;
+
+  @media screen and (max-width: 980px) {
+    display: block;
+  }
+  @media screen and (max-width: 900px) {
+    left: 110px;
+  }
+  @media screen and (max-width: 800px) {
+    left: 90px;
+  }
+  @media screen and (max-width: 700px) {
+    left: 80px;
+  }
+  @media screen and (max-width: 500px) {
+    bottom: -150px;
+  }
+  @media screen and (max-width: 400px) {
+    left: 70px;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .arrBox {
+    position: absolute;
+    top: -14px;
+    left: 95px;
+
+    @media screen and (max-width: 500px) {
+      left: 85px;
+    }
+
+    .img {
+      transform: rotate(-270deg);
+    }
+  }
+
+  .dropDownMenuitem {
+    list-style: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 50px;
+
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+
+    transition: background-color 150ms ease, opacity 150ms ease;
+
+    @media screen and (max-width: 500px) {
+      width: 180px;
+      height: 40px;
+    }
+
+    &:hover {
+      background-color: rgba(92, 92, 92, 0.514);
+    }
+  }
+}

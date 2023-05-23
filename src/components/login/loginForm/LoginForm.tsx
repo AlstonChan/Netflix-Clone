@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import {
   browserSessionPersistence,
+  browserLocalPersistence,
   setPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -36,24 +37,6 @@ export default function LoginForm() {
     const passwordRef = passInputRef.current;
     const rememberRef = rememberMeRef.current;
 
-    const loginHandler = (email: string, password: string) => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Logged in");
-          router.replace("./browse");
-        })
-        .catch((error) => {
-          const { code, message } = error;
-          const userNotFound = code === "auth/user-not-found";
-          const wrongPassword = code === "auth/wrong-password";
-
-          if (userNotFound || wrongPassword) {
-            setShowErrorBox(true);
-          }
-          console.log(message);
-        });
-    };
-
     if (emailRef !== null && passwordRef !== null && rememberRef !== null) {
       const email = emailRef.value;
       const password = passwordRef.value;
@@ -66,15 +49,29 @@ export default function LoginForm() {
 
       if (email.match(regexValidateEmail)) {
         if (passwordLength) {
-          if (rememberMe) {
-            loginHandler(email, password);
-          } else {
-            setPersistence(auth, browserSessionPersistence).then(() => {
-              return loginHandler(email, password);
-            });
+          try {
+            await setPersistence(
+              auth,
+              rememberMe ? browserLocalPersistence : browserSessionPersistence
+            );
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            console.log("Logged in!\n", userCredential);
+            router.replace("/browse");
+            setShowErrorBox(false);
+          } catch (error: any) {
+            setShowErrorBox(true);
+            console.error(error);
           }
         } else passwordRef.focus();
       } else emailRef.focus();
+    } else {
+      const err =
+        "email input, password input or remember me checkbox can't be found!";
+      throw new Error(err);
     }
   }
 

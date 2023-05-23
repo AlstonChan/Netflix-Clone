@@ -6,24 +6,35 @@ import GoogleLogo from "@/public/images/google.png";
 
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
+import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import Image from "@chan_alston/image";
 import { auth, db, provider } from "@/lib/firebase";
 
+import SnackBar from "@/components/common/snackbar/SnackBar";
 import Footer from "@/components/footer/FooterStyle2";
 import LoginForm from "@/components/login/loginForm/LoginForm";
-import Loader from "@/components/Loader";
-
-import type { MouseEvent } from "react";
 import GoogleCaptcha from "@/components/login/googleCaptcha/GoogleCaptcha";
 import Header from "@/components/common/header/Header";
+import UnProtectedArea from "@/components/layout/UnProtectedArea";
 
-export function Login() {
-  async function loginGoogleEvent(e: MouseEvent) {
-    e.preventDefault();
+import type { SnackBarStateType } from "@/components/common/snackbar/types";
+import type { ReactElement } from "react";
+
+export default function Login() {
+  const router = useRouter();
+  const closeSnackBar: SnackBarStateType = { isOpen: false, msg: "" };
+  const [snackBarState, setSnackBarState] =
+    useState<SnackBarStateType>(closeSnackBar);
+
+  const onClose = () => {
+    setSnackBarState(closeSnackBar);
+  };
+
+  async function loginGoogleEvent() {
     try {
       const credentials = await signInWithPopup(auth, provider);
       const { uid, displayName, email, photoURL } = credentials.user;
@@ -40,9 +51,10 @@ export function Login() {
             pic: photoURL ? photoURL : Math.ceil(Math.random() * 4),
           },
         });
+        router.replace("./browse");
       }
     } catch (error: any) {
-      throw new Error(error);
+      setSnackBarState({ isOpen: true, msg: error.message });
     }
   }
 
@@ -54,6 +66,7 @@ export function Login() {
       </Head>
 
       {/* header  */}
+
       <div className={styles.container}>
         <Header logoClickHome signInBox={false} />
 
@@ -62,10 +75,7 @@ export function Login() {
           <div className={styles.content}>
             <h1 className={styles.title}>Sign In</h1>
             <LoginForm />
-            <div
-              className={styles.loginGoogle}
-              onClick={(e) => loginGoogleEvent(e)}
-            >
+            <div className={styles.loginGoogle} onClick={loginGoogleEvent}>
               <Image src={GoogleLogo} alt="Google Logo" w={25} h={20} />
               <span className={styles.loginTxt}>Login with Google</span>
             </div>
@@ -82,14 +92,16 @@ export function Login() {
           <Footer />
         </div>
       </div>
+      <SnackBar
+        variant="error"
+        message={snackBarState.msg}
+        isOpen={snackBarState.isOpen}
+        onClose={onClose}
+      />
     </>
   );
 }
 
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(Login);
+Login.getLayout = (page: ReactElement) => {
+  return <UnProtectedArea>{page}</UnProtectedArea>;
+};

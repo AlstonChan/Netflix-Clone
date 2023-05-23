@@ -10,9 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 
-import Loader from "@/components/Loader";
 import SignUpLayout, { variants } from "@/components/signup/SignUpLayout";
 
 import type { ReactNode } from "react";
@@ -23,7 +21,7 @@ const benefits = [
   "Unlimited viewing on all your devices.",
 ];
 
-export function SignUp() {
+export default function SignUp() {
   const btnClasses = `${styles.btn} ${styles.fill} ${styles.fillRedLink}`;
 
   return (
@@ -69,10 +67,3 @@ export function SignUp() {
 SignUp.getLayout = function getLayout(children: ReactNode) {
   return <SignUpLayout>{children}</SignUpLayout>;
 };
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-  whenUnauthedAfterInit: AuthAction.RENDER,
-  whenAuthedBeforeRedirect: AuthAction.SHOW_LOADER,
-  LoaderComponent: Loader,
-})(SignUp);

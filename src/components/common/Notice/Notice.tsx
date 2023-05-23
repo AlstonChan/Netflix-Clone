@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: Copyright © 2023 Netflix-Clone Chan Alston
 
 import styles from "./notice.module.scss";
-import warning from "@/public/images/icons/misc/warning-triangle-outline.svg";
+import warning from "@/public/images/icons/triage/warning-triangle.svg";
 import transitionTop from "@/public/images/icons/misc/transition-top.svg";
 import transitionBot from "@/public/images/icons/misc/transition-bottom.svg";
 

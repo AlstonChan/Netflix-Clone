@@ -25,6 +25,10 @@
     background-color: #dddddd;
   }
 
+  &.fit {
+    height: 100%;
+  }
+
   &.fill {
     width: 100%;
     border-radius: 0;
@@ -102,6 +106,24 @@
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &.outline {
+    background-color: #000;
+    border: 2px solid grey;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    padding: 6px 25px;
+    font-weight: 100;
+    color: grey;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: border 110ms ease, color 110ms ease;
+
+    &:hover {
+      color: #fff;
+      border: 2px solid #fff;
     }
   }
 }

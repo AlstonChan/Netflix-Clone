@@ -4,9 +4,7 @@
 import styles from "./SectionFaq.module.scss";
 import CancelSvg from "@/icons/CancelSvg";
 
-import DOMPurify from "dompurify";
-
-import { AccordionDataType, SelectedOptionType } from "./types";
+import type { AccordionDataType, SelectedOptionType } from "./types";
 
 interface AccordionCardProps {
   data: AccordionDataType;
@@ -17,18 +15,6 @@ interface AccordionCardProps {
 
 export default function AccordionCard(props: AccordionCardProps) {
   const { data, index, toggleAccordionBar, accordionSelection } = props;
-
-  function createMarkup(): { __html: string } {
-    let txt;
-
-    if (Array.isArray(data.content)) {
-      txt = data.content[0] + "<br /><br />" + data.content[1];
-      return { __html: DOMPurify.sanitize(txt) };
-    }
-
-    txt = data.content;
-    return { __html: DOMPurify.sanitize(txt) };
-  }
 
   const accordionCardState =
     accordionSelection.active && accordionSelection.index == index
@@ -50,7 +36,15 @@ export default function AccordionCard(props: AccordionCardProps) {
         </div>
       </button>
       <div className={`${styles.accordionContent} ${accordionCardState}`}>
-        <span dangerouslySetInnerHTML={createMarkup()} />
+        {data.content && Array.isArray(data.content) ? (
+          <>
+            <span>{data.content[0]}</span>
+            <span>{data.content[1]}</span>
+          </>
+        ) : (
+          <span>{data.content} </span>
+        )}
+        {/* <span dangerouslySetInnerHTML={createMarkup()} /> */}
       </div>
     </>
   );
