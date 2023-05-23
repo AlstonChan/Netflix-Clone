@@ -47,6 +47,7 @@ export default function SnackBar(props: SnackBarProps) {
         clearTimeout(timeoutFunc);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const containerClass = `${styles.container} ${styles[variant]}`;

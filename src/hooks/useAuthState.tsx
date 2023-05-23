@@ -29,7 +29,7 @@ export default function useAuthState(): [
       setError(error);
       console.error(error);
     }
-  }, [auth]);
+  }, []);
 
   useEffect(() => {
     if (authUser === null || authUser) {

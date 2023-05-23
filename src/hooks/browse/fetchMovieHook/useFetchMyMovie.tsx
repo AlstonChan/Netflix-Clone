@@ -76,10 +76,11 @@ export default function useFetchMyMovie(
         }
       }
     }
-  }, [currentUser, movieData]);
+  }, [user, currentUser, movieData]);
 
   useEffect(() => {
     searchAndUpdate("show");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, movieData]);
 
   useEffect(() => {

@@ -64,6 +64,7 @@ export default function SearchComponent() {
         } else searchMutation.mutate(deferredSearchValue);
       }, 200);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deferredSearchValue]);
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {

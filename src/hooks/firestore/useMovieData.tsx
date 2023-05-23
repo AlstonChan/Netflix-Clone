@@ -51,7 +51,8 @@ export default function useMovieData(): [MovieDataType, string | null] {
         setDbError(err);
       }
     }
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, error]);
 
   return [movieData, dbError];
 }

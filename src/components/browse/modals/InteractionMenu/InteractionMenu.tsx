@@ -59,6 +59,7 @@ export default function InteractionMenu(props: InteractionMenuProps) {
         msg: fetchError,
         title: "Account Not Yet Verified",
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchError]);
 
   if (!latestData || !modalToggle) return null;

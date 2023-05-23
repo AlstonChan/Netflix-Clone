@@ -43,7 +43,7 @@ export default function useUserData(): [UserDataType, string | null] {
         setDbError(err);
       }
     }
-  }, [user]);
+  }, [user, error]);
 
   return [userData, dbError];
 }

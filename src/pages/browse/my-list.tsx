@@ -67,6 +67,7 @@ const MyList = () => {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieData, profile]);
 
   useEffect(() => {
