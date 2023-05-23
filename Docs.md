@@ -116,6 +116,8 @@ To run both emulator, open a new terminal and run `firebase emulators:start` or 
 
 In order to run firebase auth emulators, follow these 3 steps:
 
+**NOTE**: It is recommended that you run all 3 emulators together with `npm run emulators`, as dummy data will be loaded automatically for smoother development.
+
 1. Uncomment _line 15_ in `initAuth.js`
 
    ```text
