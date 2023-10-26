@@ -31,5 +31,6 @@
     "Unauthed",
     "unoptimized",
     "Witcher"
-  ]
+  ],
+  "workbench.editor.wrapTabs": true
 }
