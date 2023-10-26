@@ -8,15 +8,8 @@
     padding-bottom: 45%;
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 570px) {
     padding-bottom: 50%;
-  }
-
-  @media screen and (max-width: 500px) {
-    padding-bottom: 60%;
-  }
-  @media screen and (max-width: 400px) {
-    padding-bottom: 70%;
   }
 
   .absolute {
@@ -82,6 +75,9 @@
   .btnGroup {
     display: flex;
     flex-wrap: wrap;
+
+    position: relative;
+    z-index: 1;
 
     .iconBox {
       display: flex;
@@ -149,17 +145,6 @@
 
     @media screen and (max-width: 1000px) {
       bottom: -5%;
-    }
-
-    @media screen and (max-width: 700px) {
-      bottom: -10%;
-    }
-
-    @media screen and (max-width: 500px) {
-      bottom: -15%;
-    }
-    @media screen and (max-width: 400px) {
-      bottom: -28%;
     }
   }
 }
