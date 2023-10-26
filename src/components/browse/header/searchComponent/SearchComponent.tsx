@@ -57,6 +57,15 @@ export default function SearchComponent() {
   };
 
   useEffect(() => {
+    if (router.query.hasOwnProperty("search")) {
+      if (router.query.search && typeof router.query.search === "string") {
+        setShowInput(true);
+        handleInputChange(router.query.search);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (searchMutation) {
       setTimeout(() => {
         if (searchValue === "") {
@@ -67,9 +76,7 @@ export default function SearchComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deferredSearchValue]);
 
-  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-
+  function handleInputChange(value: string) {
     router.push({ pathname: currentPage, query: `search=${value}` });
     setSearchValue(value);
   }
@@ -99,7 +106,11 @@ export default function SearchComponent() {
       {showInput ? (
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor="search_bar">
-            <Image src={Search} alt="search icon" />
+            <Image
+              src={Search}
+              alt="search icon"
+              className={styles.searchIconImg}
+            />
           </label>
           <input
             type="search"
@@ -109,13 +120,14 @@ export default function SearchComponent() {
             value={searchValue}
             autoFocus
             onBlur={(e) => toggleSearchInput(e)}
-            onChange={(e) => handleInputChange(e)}
+            onChange={(e) => handleInputChange(e.target.value)}
             placeholder="Titles, people, genres"
           />
           <label
             className={styles.cancel}
             htmlFor="search_bar"
             onClick={clearQuery}
+            style={{ verticalAlign: "middle" }}
           >
             <CancelSvg />
           </label>

@@ -16,6 +16,11 @@
   height: 32px;
   border: #fff solid 1px;
 
+  .searchIconImg {
+    padding: 2px;
+    vertical-align: middle;
+  }
+
   .label {
     width: 24px;
     align-self: center;
@@ -35,7 +40,7 @@
     font-size: 1rem;
     background-color: #000;
     border: none;
-    padding-right: 8px;
+    padding: 0 8px;
     width: 200px;
 
     &:focus {
