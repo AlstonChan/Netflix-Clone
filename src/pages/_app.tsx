@@ -32,6 +32,8 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
+        <title>Netflix-Clone</title>
+        <meta name="title" content="Netflix-Clone" key="title" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
