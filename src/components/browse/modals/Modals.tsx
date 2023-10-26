@@ -142,8 +142,6 @@ export default function Modals() {
             key="modal"
             className={mainModalClass}
             style={!modalFull ? modalProps.style : {}}
-            onMouseEnter={(e) => toggleModalFunc(e)}
-            onMouseLeave={(e) => toggleModalFunc(e)}
             onClick={(e) => toggleBigModal(e, "close")}
           >
             <motion.div
@@ -156,6 +154,8 @@ export default function Modals() {
                 ease: "linear",
                 duration: 0.2,
               }}
+              onMouseEnter={(e) => toggleModalFunc(e)}
+              onMouseLeave={(e) => toggleModalFunc(e)}
             >
               {/* upper panel */}
               <div className={styles.upperPanel}>

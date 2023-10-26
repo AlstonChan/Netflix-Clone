@@ -49,18 +49,16 @@ export default function TvShows() {
   const { profile, switchPage } = useProfile();
 
   // To query data for Cards, page main data
-  const { data }: UseQueryResult<DataListType[]> = useQuery(
-    ["moviesDBTv", "tv-shows"],
-    () => fetchMoviesDB("tv-shows", getAbsoluteURL("/api/fetchmovie")),
-    {
-      keepPreviousData: true,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      cacheTime: 1000 * 60 * 20,
-      staleTime: 1000 * 60 * 15,
-    }
-  );
+  const { data }: UseQueryResult<DataListType[]> = useQuery({
+    queryKey: ["moviesDBTv", "tv-shows"],
+    queryFn: () => fetchMoviesDB("tv-shows", getAbsoluteURL("/api/fetchmovie")),
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    cacheTime: 1000 * 60 * 20,
+    staleTime: 1000 * 60 * 15,
+  });
 
   const bigModalIsOpen: CSSProperties = {
     position: "fixed",
@@ -126,9 +124,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["moviesDB", "tv-shows"], () =>
-    fetchMoviesDB("tv-shows", endpoint)
-  );
+  await queryClient.prefetchQuery({
+    queryKey: ["moviesDB", "tv-shows"],
+    queryFn: () => fetchMoviesDB("tv-shows", endpoint),
+  });
 
   return {
     props: { dehydratedState: dehydrate(queryClient) },

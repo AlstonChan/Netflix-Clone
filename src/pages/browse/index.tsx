@@ -55,17 +55,15 @@ const Browse = () => {
   const { profile, switchPage } = useProfile();
 
   // To query data for Cards, page main data
-  const { data, isLoading }: UseQueryResult<DataListType[]> = useQuery(
-    ["moviesDB", "home"],
-    () => fetchMoviesDB("home", getAbsoluteURL("/api/fetchmovie")),
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      cacheTime: 1000 * 60 * 20,
-      staleTime: 1000 * 60 * 15,
-    }
-  );
+  const { data, isLoading }: UseQueryResult<DataListType[]> = useQuery({
+    queryKey: ["moviesDB", "home"],
+    queryFn: () => fetchMoviesDB("home", getAbsoluteURL("/api/fetchmovie")),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    cacheTime: 1000 * 60 * 20,
+    staleTime: 1000 * 60 * 15,
+  });
 
   // make sure loading page only show up when moving
   // from profile page to movies page on initial load
@@ -154,9 +152,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const endpoint = getAbsoluteURL("/api/fetchmovie", host);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["moviesDB", "home"], () =>
-    fetchMoviesDB("home", endpoint)
-  );
+  await queryClient.prefetchQuery({
+    queryKey: ["moviesDB", "home"],
+    queryFn: () => fetchMoviesDB("home", endpoint),
+  });
 
   return {
     props: { dehydratedState: dehydrate(queryClient) },
