@@ -1,0 +1,24 @@
+@use "./logout.module.scss";
+
+.popUp {
+  margin-top: 15px;
+  padding: 15px 25px;
+  border-radius: 6px;
+
+  &.success {
+    background-color: var(--success-color);
+    color: #fff;
+  }
+  &.fail {
+    background-color: var(--error-color);
+  }
+
+  & > p {
+    margin: 0;
+    word-wrap: break-word;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
