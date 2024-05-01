@@ -26,21 +26,11 @@ export default function Document() {
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link
-          rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#922d22"
-        />
+        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#922d22" />
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
         <meta name="msapplication-TileColor" content="#2b5797" />
-        <meta
-          name="msapplication-TileImage"
-          content="/favicon/mstile-144x144.png"
-        />
-        <meta
-          name="msapplication-config"
-          content="/favicon/browserconfig.xml"
-        />
+        <meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png" />
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
         {/* <!-- Meta Tag --> */}
         <meta name="title" content="Netflix-Clone" key="title" />
@@ -54,10 +44,7 @@ export default function Document() {
 
         {/* <!-- Open Graph / Facebook --> */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://github.com/AlstonChan/Netflix-clone"
-        />
+        <meta property="og:url" content="https://github.com/AlstonChan/Netflix-clone" />
         <meta property="og:title" content="Netflix-Clone" />
         <meta
           property="og:description"

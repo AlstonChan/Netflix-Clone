@@ -41,8 +41,7 @@ export default function UserRating() {
     title: "",
     variant: "error",
   };
-  const [snackBarState, setSnackBarState] =
-    useState<SnackBarStateType>(closeSnackBar);
+  const [snackBarState, setSnackBarState] = useState<SnackBarStateType>(closeSnackBar);
 
   useEffect(() => {
     if (userId && typeof userId === "string") {
@@ -71,11 +70,7 @@ export default function UserRating() {
     <>
       <Head>
         <title>Movie Ratings | Netflix-Clone</title>
-        <meta
-          name="title"
-          content="Movie Ratings | Netflix-Clone"
-          key="title"
-        />
+        <meta name="title" content="Movie Ratings | Netflix-Clone" key="title" />
       </Head>
 
       <SnackBar
@@ -100,25 +95,25 @@ export default function UserRating() {
                   src={profilePicSrc(userData, currentUser)}
                   className={styles.roundBorder}
                   alt={userData[currentUser].name}
-                  style={fill}
+                  w="160"
+                  h="160"
+                  style={{ ...fill, objectFit: "cover" }}
                 />
               </div>
             </div>
 
             <hr className={`${styles.divider} ${styles.always}`} />
-            {movieData[currentUser].map(
-              (movDetails: UserDataType, index: number) => {
-                return (
-                  <MovieInfoBar
-                    key={index}
-                    movDetails={movDetails}
-                    currentUser={currentUser}
-                    setSnackBarState={setSnackBarState}
-                    userAllMovData={movieData[currentUser]}
-                  />
-                );
-              }
-            )}
+            {movieData[currentUser].map((movDetails: UserDataType, index: number) => {
+              return (
+                <MovieInfoBar
+                  key={index}
+                  movDetails={movDetails}
+                  currentUser={currentUser}
+                  setSnackBarState={setSnackBarState}
+                  userAllMovData={movieData[currentUser]}
+                />
+              );
+            })}
 
             <Link href="/yourAccount" className={styles.backBtn}>
               Back to Your Account

@@ -55,21 +55,12 @@ export default function ChangePlan() {
     <>
       <Head>
         <title>Account Setting | Netflix-Clone</title>
-        <meta
-          name="title"
-          content="Account Setting | Netflix-Clone"
-          key="title"
-        />
+        <meta name="title" content="Account Setting | Netflix-Clone" key="title" />
       </Head>
 
       <ChangePlanContext.Provider value={contextValue}>
-        {openModal && (
-          <PlanConfirmModal currentPlan={userData.plan} user={user} />
-        )}
-        <main
-          className={styles.main}
-          style={openModal ? { overflow: "hidden" } : {}}
-        >
+        {openModal && <PlanConfirmModal currentPlan={userData.plan} user={user} />}
+        <main className={styles.main} style={openModal ? { overflow: "hidden" } : {}}>
           <div style={{ backgroundColor: "#000" }}>
             <AccountHeader />
           </div>

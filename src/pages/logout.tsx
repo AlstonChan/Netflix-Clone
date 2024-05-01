@@ -39,9 +39,8 @@ export default function LogOut() {
         <main className={styles.main}>
           <h1 className={styles.title}>Leaving So Soon?</h1>
           <p className={styles.desc}>
-            Just so you know, you don&apos;t always need to sign out of Netflix.
-            It&apos;s only necessary if you&apos;re on a shared or public
-            computer
+            Just so you know, you don&apos;t always need to sign out of Netflix. It&apos;s
+            only necessary if you&apos;re on a shared or public computer
           </p>
           <p className={styles.desc}>
             You&apos;ll be redirected to Homepage in 30 seconds

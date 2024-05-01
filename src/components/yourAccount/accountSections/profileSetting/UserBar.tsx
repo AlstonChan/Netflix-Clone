@@ -37,9 +37,7 @@ export default function UserBar({ userData, currentUser }: UserBarProps) {
   }, [userData, currentUser]);
 
   const profilePicSrc =
-    userData.pic.length > 3
-      ? userData.pic
-      : `/images/profile-pic/${userData.pic}.png`;
+    userData.pic.length > 3 ? userData.pic : `/images/profile-pic/${userData.pic}.png`;
   const profilePicStyle = { ...fill, borderRadius: "8px" };
 
   return (
@@ -51,7 +49,7 @@ export default function UserBar({ userData, currentUser }: UserBarProps) {
             alt=""
             w="160"
             h="160"
-            style={profilePicStyle}
+            style={{ ...profilePicStyle, objectFit: "cover" }}
           />
         </div>
         <h4 className={styles.username}>{userData.name}</h4>

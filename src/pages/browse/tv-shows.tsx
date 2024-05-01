@@ -7,12 +7,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import React, { Suspense } from "react";
-import {
-  dehydrate,
-  QueryClient,
-  useQuery,
-  useMutation,
-} from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import fetchMoviesDB from "@/lib/fetchMoviesDBFunc";
 import getAbsoluteURL from "@/lib/getAbsoluteURL";
 import { BrowseContext } from "@/components/browse/common/BrowseContext";
@@ -44,8 +39,7 @@ export default function TvShows() {
       fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query),
   });
 
-  const { modal, modalFull, scrollPosition, modalToggle, toggleModal } =
-    useModal();
+  const { modal, modalFull, scrollPosition, modalToggle, toggleModal } = useModal();
   const { profile, switchPage } = useProfile();
 
   // To query data for Cards, page main data

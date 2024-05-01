@@ -27,8 +27,7 @@ import type { ReactElement } from "react";
 export default function Login() {
   const router = useRouter();
   const closeSnackBar: SnackBarStateType = { isOpen: false, msg: "" };
-  const [snackBarState, setSnackBarState] =
-    useState<SnackBarStateType>(closeSnackBar);
+  const [snackBarState, setSnackBarState] = useState<SnackBarStateType>(closeSnackBar);
 
   const onClose = () => {
     setSnackBarState(closeSnackBar);

@@ -41,8 +41,7 @@ const MyList = () => {
       fetchMoviesDB("search", getAbsoluteURL("/api/fetchmovie"), null, query),
   });
 
-  const { modal, modalFull, scrollPosition, modalToggle, toggleModal } =
-    useModal();
+  const { modal, modalFull, scrollPosition, modalToggle, toggleModal } = useModal();
   const { profile, switchPage } = useProfile();
 
   // To query data for Cards, page main data
